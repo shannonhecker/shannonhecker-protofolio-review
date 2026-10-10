@@ -138,3 +138,37 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - 捷元電腦 now shows 2012 on the map, the HUD and the end card.
 - Regenerated the map poster so the no-JS and pre-play state shows the new character.
 - Checked every pose in every world on a contact sheet. 57/57 Playwright tests pass.
+
+### PR 9 · Era looks, small enemies and missions
+
+- **Her look changes with each era** (`src/game/looks.ts`), matched to what was in style in that year:
+  - Kaohsiung: a ponytail with a scrunchie, a PE tee and shorts, plus a half-helmet on the scooter.
+  - Ling Tung (2008–10): side-swept bangs, a Breton top and skinny jeans.
+  - 2012: ombré tips, a mint top with a Peter Pan collar and coral skinnies.
+  - London (2015–16): a lob, a camel coat over a black tee and white trainers.
+  - J.P. Morgan: a sleek centre part, a navy blazer and a pale-blue shirt.
+  - Today: her reference look. In Next: AI she also carries the laptop from her reference, with a plain lid and no brand stickers.
+  - Bedtime: a claw-clip updo and pyjamas.
+- **Each era has its own hand-drawn grid.** I drew one head and torso per era rather than tinting one sprite, because hair is what dates a look. Legs vary by cut (shorts, skinny, straight, wide).
+- **Contact-sheet fix:** at first the white shirts under the chin read as a beard. I added a neck, and changed the London tee to black and the J.P. Morgan shirt to pale blue.
+- **One small enemy kind per world** (`src/game/enemies.ts`): mosquitoes, deadline clocks, bugs, pigeons, meeting invites, late-change sticky notes, hallucinations and glowing screens.
+  - Landing on one clears it and bounces her (higher if Jump is held). Touching one from the side is a hit.
+  - Pigeons fly off rather than flatten.
+  - None is an employer, a client or a person. All are original 12×10 sprites.
+- **One optional mission per world**, shown under the HUD strip, announced to screen readers and reported on the end card:
+  - Ride the scooter to the sea.
+  - Beat 3 deadlines.
+  - Squash 4 bugs.
+  - Find every book.
+  - Collect every flow arrow.
+  - Catch 3 late changes.
+  - Verify 3 hallucinations.
+  - Put 3 screens to sleep.
+- **Missions are a bonus only.** Finishing a world never depends on one, so nobody gets stuck. The map star turns gold when the mission is done.
+- **New tests:**
+  - A stomp clears an enemy and counts toward the mission.
+  - A side touch is a hit.
+  - Every world has a mission.
+  - The Kaohsiung bot completes its ride mission.
+  - Every end card reports its mission.
+- **Regenerated the map poster.**

@@ -6,6 +6,7 @@
 # Legend: # solid  = one-way platform  M rate-line platform  D drafted platform
 #         o pickup  u second pickup  ^ spikes  B scooter
 #         S falling hazard  N circling hazard  P spawn  C checkpoint  F finish
+#         E small enemy (the world's own kind; stomp it, missions count them)
 H = 17
 
 def new(w, h=H):
@@ -39,6 +40,7 @@ def lvl_kaohsiung():
     put(116, 13, '^')
     put(125, 13, 'C')
     for x in range(129, 141, 3): put(x, 13, 'o')
+    for x in (41, 88, 137): put(x, 13, 'E')   # mosquitoes
     put(146, 13, 'F')
     return g
 
@@ -55,6 +57,7 @@ def lvl_lingtung():
     plat(76, 80, 10); plat(82, 86, 12)
     ground(88, W); put(88, 13, 'C'); put(96, 13, '^'); put(102, 2, 'S')
     for x in range(105, 116, 3): put(x, 13, 'o')
+    for x in (26, 50, 92, 100): put(x, 13, 'E')   # deadlines
     put(120, 13, 'F')
     return g
 
@@ -71,6 +74,7 @@ def lvl_web():
     ground(79, W); put(79, 13, 'C'); put(88, 13, '^'); put(94, 2, 'S')
     plat(98, 103, 10); put(100, 9, 'o')
     for x in range(106, 117, 3): put(x, 13, 'o')
+    for x in (20, 39, 47, 84, 96): put(x, 13, 'E')   # bugs
     put(120, 13, 'F')
     return g
 
@@ -88,6 +92,7 @@ def lvl_london():
     put(72, 4, 'N')
     ground(86, W); put(86, 13, 'C'); put(98, 13, '^'); put(106, 9, 'N')
     for x in range(110, 124, 3): put(x, 13, 'o')
+    for x in (22, 48, 92, 104): put(x, 13, 'E')   # pigeons
     put(128, 13, 'F')
     return g
 
@@ -105,6 +110,7 @@ def lvl_tower():
         floor_y = h - 2 - f * FH          # the walking surface row of this floor
         labels.append({'x': 2, 'y': floor_y - 5, 'text': titles[f]})
         put(2 if f % 2 == 0 else W - 3, floor_y - 1, 'C' if f else 'P')
+        put(W // 2, floor_y - 1, 'E')   # a meeting invite on every floor
         pick = 'o' if f < 2 else 'u'     # UI and visual first, UX higher up
         # desks climb the floor as an overlapping staircase (each 3 rows up and
         # 5 columns across), left to right on even floors, right to left on odd
@@ -136,6 +142,7 @@ def lvl_ai():
         plat(72 + i * 5, 76 + i * 5, y, 'D'); put(74 + i * 5, y - 1, 'o')
     ground(93, W); put(93, 13, 'C'); put(104, 9, 'N')
     for x in range(98, 116, 3): put(x, 13, 'o')
+    for x in (18, 52, 96, 117): put(x, 13, 'E')   # hallucinations
     put(120, 13, 'F')
     return g
 
@@ -171,6 +178,7 @@ def lvl_desk():
     # conclude: a clear run to the terminal
     put(148, 13, 'C'); ground(148, W)
     for x in range(152, 168, 3): put(x, 13, 'o')
+    for x in (36, 44, 66, 138, 160): put(x, 13, 'E')   # late changes
     put(172, 13, 'F')
     return g
 
@@ -204,6 +212,7 @@ def lvl_bedtime():
     # conclude: a quiet walk home to the egg
     put(148, 13, 'C'); ground(148, W)
     for x in range(151, 165, 3): put(x, 13, 'o')
+    for x in (27, 44, 88, 134): put(x, 13, 'E')   # screens
     put(168, 13, 'F')
     return g
 

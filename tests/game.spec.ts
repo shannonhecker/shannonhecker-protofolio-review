@@ -128,8 +128,56 @@ for (const n of [0, 1, 2, 3, 4, 5, 6, 7]) {
     const card = page.locator(`.game-end[data-end="${n}"]`);
     await expect(card).toBeVisible({ timeout: 5000 });
     if (CASE_LINK[n]) await expect(card.getByRole('link', { name: 'Read the case →' })).toHaveAttribute('href', CASE_LINK[n]);
+    // every card reports that world's mission
+    await expect(card.locator('.game-mission')).toContainText('Mission');
+    // the bot picks up the scooter and rides it to the sea: Kaohsiung's mission
+    if (n === 0) { expect(s.missions).toContain(0); await expect(card.locator('.game-mission')).toContainText('Mission complete'); }
   });
 }
+
+async function startWorld(page: Page, n: number, invuln = false) {
+  if (invuln) await page.addInitScript(() => { (window as unknown as { __gameAssist: object }).__gameAssist = { invuln: true }; });
+  await page.goto(`/?level=${n + 1}#top`);
+  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+  await expect.poll(async () => (await state(page)).grounded).toBe(true);
+}
+
+test('small enemies: landing on one clears it and counts toward the mission', async ({ page }) => {
+  await startWorld(page, 2, true); // 捷元電腦: squash 4 bugs
+  const before = await state(page);
+  expect(before.foes).toBeGreaterThanOrEqual(before.mission.need);
+  expect(before.mission.text).toBe('Squash 4 bugs');
+  await page.keyboard.down('ArrowRight');
+  for (let i = 0; i < 40 && (await state(page)).stomped === 0; i++) {
+    await page.keyboard.down('Space'); await page.waitForTimeout(260); await page.keyboard.up('Space'); await page.waitForTimeout(140);
+  }
+  await page.keyboard.up('ArrowRight');
+  const s = await state(page);
+  expect(s.stomped).toBeGreaterThan(0);
+  expect(s.mission.have).toBe(s.stomped);
+});
+
+test('small enemies: walking into one from the side is a hit', async ({ page }) => {
+  await startWorld(page, 2);
+  await page.keyboard.down('ArrowRight');
+  let s = await state(page);
+  for (let i = 0; i < 300 && s.hits === 0; i++) { await page.waitForTimeout(20); s = await state(page); }
+  await page.keyboard.up('ArrowRight');
+  // the hit came first; the knockback may then drop her onto it, which is fine
+  expect(s.hits).toBeGreaterThan(0);
+  expect(s.stomped).toBe(0);
+});
+
+test('every world has a mission, shown in the HUD state', async ({ page }) => {
+  for (const n of [1, 3, 4, 5, 6, 7]) {
+    await startWorld(page, n);
+    const s = await state(page);
+    expect(s.mission.text.length).toBeGreaterThan(5);
+    expect(s.mission.need).toBeGreaterThan(0);
+    expect(s.mission.done).toBe(false);
+  }
+});
 
 test('Play opens the career map; arrows choose a world and Space starts it', async ({ page }) => {
   await page.goto('/');

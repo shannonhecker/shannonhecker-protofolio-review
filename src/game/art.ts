@@ -5,94 +5,8 @@
 // no mushrooms, no flagpole.
 import { sprite, canvas, flip, tint, text, type Palette } from './pixel';
 
-// ---------------------------------------------------------------- player
-// Shannon, from her own pixel-art references: long wavy dark-brown hair with
-// a fringe, a pearl earring, a cream turtleneck with a gold pendant, wide pink
-// trousers and cream trainers. That is her look today; earlier worlds swap the
-// top 'w' and trousers 'b' for that era (see each theme's outfit). Shades 'W'
-// and 'B' are derived, so an era only names two colours.
-const BASE: Palette = {
-  k: '#2a1a14', h: '#4a2c20', H: '#6e4432', s: '#f4c9a4', e: '#2a1a14', c: '#f08c8c', m: '#c8505a',
-  p: '#ffffff', w: '#f7e8cc', a: '#f3a414', b: '#f08ca4', n: '#f6efe2',
-};
-const HEAD_TORSO = [
-  '....kkkkkk......',
-  '...khhHhhhkk....',
-  '..khhhhHhhhhk...',
-  '.khhhhhhhhhhhk..',
-  '.khhhhhhhhhhhk..',
-  '.khhshshhshhhhk.',
-  '.khsssssssshhhk.',
-  '.khspesspeshHhk.',
-  '.khseesseesphhk.',
-  '.khhcssssschhhk.',
-  'kHhhhssmsshhhHk.',
-  'khhhkWWWWWkhhhk.',
-  'khhkwwWwwwwkhhk.',
-  'khkswwwawwwwkhk.',
-  '.kkswwwwwwwwskhk',
-  '..kswwwwwwWWskk.',
-  '...kwwwwwwwwkk..',
-];
-
-/** Darken a #rrggbb colour (shading for sweater folds and trouser creases). */
-function shade(hex: string, f = 0.85) {
-  const n = parseInt(hex.slice(1), 16);
-  const ch = (v: number) => Math.round(v * f).toString(16).padStart(2, '0');
-  return `#${ch(n >> 16)}${ch((n >> 8) & 255)}${ch(n & 255)}`;
-}
-
-type Pose = 'idle' | 'run' | 'jump' | 'fall' | 'hurt' | 'cheer';
-
-function body(pose: Pose, f: number, outfit: Partial<Palette> = {}) {
-  const P = { ...BASE, ...outfit } as Palette;
-  P.W = shade(P.w); P.B = shade(P.b);
-  const rows = HEAD_TORSO.map((r) => r.padEnd(16, '.'));
-  const { c, g, px } = canvas(16, 24);
-  g.drawImage(sprite(rows, P), 0, f === 1 && pose === 'idle' ? 1 : 0); // idle breathes
-  // wide-leg trousers: 5 px legs with a crease, cream trainers
-  const leg = (x: number, lift: number, len = 5) => {
-    px(x, 17, P.k, 1, len); px(x + 4, 17, P.k, 1, len);
-    px(x + 1, 17, P.b, 3, len); px(x + 2, 18, P.B, 1, len - 2);
-    const sy = 17 + len - lift;
-    px(x - 1, sy, P.k, 7, 2); px(x, sy, P.n, 5, 1); // trainer
-  };
-  px(3, 17, P.k, 10, 1); px(4, 17, P.b, 8, 1); // waistband
-  const sleeve = (x: number, y: number, h: number) => { px(x, y, P.w, 2, h); px(x, y + h, P.s, 2, 1); };
-  if (pose === 'idle') { leg(2, 0); leg(9, 0); }
-  else if (pose === 'run') {
-    const ph = (f / 6) * Math.PI * 2;
-    const d = Math.round(Math.sin(ph) * 2);
-    leg(3 + d, Math.max(0, Math.round(Math.cos(ph) * 2)));
-    leg(8 - d, Math.max(0, Math.round(-Math.cos(ph) * 2)));
-    // hands swing opposite the legs
-    px(2, 14 - Math.max(0, -d), P.s, 1, 2); px(13, 14 - Math.max(0, d), P.s, 1, 2);
-  } else if (pose === 'jump') { leg(1, 2, 4); leg(10, 0, 5); }
-  else if (pose === 'fall') { leg(1, 0, 5); leg(10, 0, 5); sleeve(0, 9, 3); sleeve(14, 9, 3); }
-  else if (pose === 'hurt') {
-    leg(2, 0); leg(9, 0);
-    // squeezed-shut eyes
-    px(4, 7, P.s, 2, 2); px(8, 7, P.s, 2, 2); px(4, 8, P.e, 2, 1); px(8, 8, P.e, 2, 1);
-  } else if (pose === 'cheer') {
-    leg(2, f ? 1 : 0); leg(9, f ? 0 : 1);
-    // both arms up, a little star in hand on the second frame (Winking Star nod)
-    sleeve(0, 8 - f, 4); sleeve(14, 8 - f, 4);
-    px(0, 7 - f, P.s, 2, 1); px(14, 7 - f, P.s, 2, 1);
-    if (f) { px(1, 4, P.a, 1, 1); px(0, 5, P.a, 3, 1); px(1, 6, P.a, 1, 1); }
-  }
-  return c;
-}
-
-/** The character's frames in one era's outfit (top 'w', trousers 'b'). */
-export function playerFrames(outfit: Partial<Palette> = {}) {
-  const make = (pose: Pose, n: number) => Array.from({ length: n }, (_, f) => body(pose, f, outfit));
-  const right = {
-    idle: make('idle', 2), run: make('run', 6), jump: make('jump', 1),
-    fall: make('fall', 1), hurt: make('hurt', 1), cheer: make('cheer', 2),
-  };
-  const left = Object.fromEntries(Object.entries(right).map(([k, v]) => [k, v.map(flip)])) as typeof right;
-  return { right, left, flash: tint(right.idle[0], '#ffffff') };
-}
+// The player lives in looks.ts: one look per era.
+export { playerFrames, helmet } from './looks';
 
 // ---------------------------------------------------------------- themes
 export type ThemeId = 'kaohsiung' | 'lingtung' | 'web' | 'london' | 'tower' | 'desk' | 'ai' | 'bedtime';
@@ -111,7 +25,6 @@ export type Theme = {
   near: HTMLCanvasElement; // parallax layer, 480 wide
   ink: string;
   hud: string;
-  outfit?: Partial<Palette>; // the character's clothes in this era
   pickup2?: HTMLCanvasElement; // a second pickup ('u'), used by the tower
   draft?: HTMLCanvasElement; // a platform still being drafted ('D'), used by AI
   weather?: 'rain';
@@ -324,7 +237,7 @@ function kaohsiung(): Theme {
   const near = canvas(480, 270);
   // park trees: round canopies on trunks
   for (const x of [20, 110, 230, 330, 430]) { near.px(x + 8, 196, '#6b4a2b', 4, 24); near.px(x, 172, '#4f9a5a', 20, 24); near.px(x - 4, 180, '#4f9a5a', 28, 12); near.px(x + 4, 168, '#6fbf73', 10, 6); }
-  return { id: 'kaohsiung', sky, ground, fill, platform, pickup: [tea, tea], hazard: cone, finish, check: post('#e5484d'), spike: cone, far: far.c, near: near.c, ink: '#3a2a22', hud: '#5a3a1e', outfit: { w: '#7cc4e8', b: '#3d5a80' } };
+  return { id: 'kaohsiung', sky, ground, fill, platform, pickup: [tea, tea], hazard: cone, finish, check: post('#e5484d'), spike: cone, far: far.c, near: near.c, ink: '#3a2a22', hud: '#5a3a1e' };
 }
 
 // World 2 · Ling Tung University: BA Digital Media Arts & Management.
@@ -360,7 +273,7 @@ function lingtung(): Theme {
   for (let x = 0, i = 0; x < 480; i++) { const w = 50 + ((i * 23) % 30), h = 40 + ((i * 31) % 30); far.px(x, 230 - h, '#c9e0ec', w, h + 40); for (let wy = 236 - h; wy < 226; wy += 9) for (let wx = x + 5; wx < x + w - 5; wx += 8) far.px(wx, wy, '#e9f4fa', 4, 4); x += w + 14; }
   const near = canvas(480, 270);
   for (const x of [40, 170, 300, 420]) { near.px(x + 6, 210, '#6b4a2b', 3, 22); near.px(x, 194, '#7fbf8f', 16, 18); }
-  return { id: 'lingtung', sky, ground, fill, platform, pickup: [swatch, swatch], hazard: paper, finish, check: post('#4a90d9'), spike: pencils, far: far.c, near: near.c, ink: '#3a2a22', hud: '#3a4a5a', outfit: { w: '#7fbf8f', b: '#2b3654' } };
+  return { id: 'lingtung', sky, ground, fill, platform, pickup: [swatch, swatch], hazard: paper, finish, check: post('#4a90d9'), spike: pencils, far: far.c, near: near.c, ink: '#3a2a22', hud: '#3a4a5a' };
 }
 
 // World 3 · 捷元電腦: web and visual designer, B2C.
@@ -384,7 +297,7 @@ function web(): Theme {
     else { far.px(x, 180, '#cdd3df', 40, 60); far.px(x + 4, 186, '#dfe4ec', 32, 10); x += 52; }
   }
   const near = canvas(480, 270);
-  return { id: 'web', sky, ground, fill, platform, pickup: [tag, tag], hazard: e404.c, finish: live.c, check: post('#2fbf71'), spike: spike('#9aa7c7', '#161616'), far: far.c, near: near.c, ink: '#161616', hud: '#3a4a5a', outfit: { w: '#f4f1ea', b: '#2b3654' } };
+  return { id: 'web', sky, ground, fill, platform, pickup: [tag, tag], hazard: e404.c, finish: live.c, check: post('#2fbf71'), spike: spike('#9aa7c7', '#161616'), far: far.c, near: near.c, ink: '#161616', hud: '#3a4a5a' };
 }
 
 // World 4 · London: MA Digital Media, London Metropolitan University. It rains.
@@ -425,7 +338,7 @@ function london(): Theme {
   for (let a = 0; a < Math.PI * 2; a += Math.PI / 6) for (let r = 0; r < 46; r += 2) far.px(340 + Math.round(Math.cos(a) * r), 150 + Math.round(Math.sin(a) * r), '#8f99a6', 1, 1);
   far.px(336, 196, '#7d8794', 8, 40);
   const near = canvas(480, 270);
-  return { id: 'london', sky, ground, fill, platform, pickup: [book, book], hazard: cloud, finish: cap, check: post('#e5484d'), spike: spike('#161616', '#161616'), far: far.c, near: near.c, ink: '#161616', hud: '#2b3654', weather: 'rain', outfit: { w: '#c08a54', b: '#2b3654' } };
+  return { id: 'london', sky, ground, fill, platform, pickup: [book, book], hazard: cloud, finish: cap, check: post('#e5484d'), spike: spike('#161616', '#161616'), far: far.c, near: near.c, ink: '#161616', hud: '#2b3654', weather: 'rain' };
 }
 
 // World 5 · The Tower: J.P. Morgan, London. Intern to VP, one floor at a time.
@@ -461,7 +374,7 @@ function tower(): Theme {
   for (let x = 8; x < 480; x += 60) { far.px(x, 0, '#d6e4f3', 52, 270); for (let y = 140; y < 270; y += 16) far.px(x + 4 + ((x / 60) % 3) * 8, y, '#bcd0e6', 14, 10); }
   const near = canvas(480, 270);
   for (let x = 0; x < 480; x += 60) near.px(x, 0, '#dde3ec', 8, 270);
-  return { id: 'tower', sky, ground, fill, platform, pickup: [swatch, swatch], pickup2: flow, hazard: sheet, finish, check: post('#4a90d9'), spike: spike('#9aa7c7', '#161616'), far: far.c, near: near.c, ink: '#161616', hud: '#2b3654', sign: { bg: '#161616', fg: '#ffffff' }, outfit: { w: '#2b3654', b: '#161616' } };
+  return { id: 'tower', sky, ground, fill, platform, pickup: [swatch, swatch], pickup2: flow, hazard: sheet, finish, check: post('#4a90d9'), spike: spike('#9aa7c7', '#161616'), far: far.c, near: near.c, ink: '#161616', hud: '#2b3654', sign: { bg: '#161616', fg: '#ffffff' } };
 }
 
 // World 7 · Next: AI. Platforms are drafted as you approach; you decide.
