@@ -1,61 +1,86 @@
 // The game chunk, loaded only when someone presses Play (see game-loader.ts).
 // Hand-written canvas engine. The world is 960×540 with 32px tiles; it renders
 // as pixel art on a 480×270 canvas, scaled up with nearest-neighbour in CSS.
+// Shannon's career is the world map: one short level per stage, Kaohsiung to AI.
 import { T, TILE, VIEW_W, VIEW_H } from './tuning';
 import { parse } from './level';
 import { LEVELS } from './levels';
-import { THEMES, playerFrames, pet, type Theme } from './art';
-import { text } from './pixel';
+import { THEMES, playerFrames, pet, scooter, type Theme } from './art';
+import { text, textWidth } from './pixel';
 import { sfx } from './sound';
 export { setSound } from './sound';
 
+/** What the map and HUD show for each world. Facts only: CV and Shannon's own words. */
+export const WORLDS = [
+  { short: 'KAOHSIUNG', when: 'GROWING UP' },
+  { short: 'LING TUNG', when: '2008-2010' },
+  { short: 'WEB DESIGN', when: 'B2C' },
+  { short: 'LONDON', when: '2015-2016' },
+  { short: 'J.P. MORGAN', when: '2016-2025' },
+  { short: 'BARCLAYS', when: '2025-NOW' },
+  { short: 'NEXT: AI', when: '2026-NOW' },
+  { short: 'BEDTIME', when: 'BONUS' },
+] as const;
+
 export type GameState = {
-  level: number; x: number; y: number; vx: number; vy: number; grounded: boolean;
+  mode: 'map' | 'level';
+  level: number; x: number; y: number; vx: number; vy: number; grounded: boolean; riding: boolean;
   hits: number; collected: number; total: number; finished: boolean; paused: boolean; jumps: number;
+  done: number[];
 };
 type Opts = {
   level?: number;
+  startOnMap?: boolean;
   reduceMotion: boolean;
   onLevelEnd: (s: GameState) => void;
   onStatus: (msg: string) => void;
+  onMapSelect?: (n: number) => void;
 };
 
 const STEP = 1 / 120; // fixed physics step; render at display rate
 const ART = 0.5; // art px per world px
 const snap = (v: number) => Math.round(v * ART) / ART;
+const RIDE = 1.45; // scooter speed multiplier
 
 export function start(canvas: HTMLCanvasElement, opts: Opts) {
   const ctx = canvas.getContext('2d')!;
   canvas.width = VIEW_W * ART;
   canvas.height = VIEW_H * ART;
   ctx.imageSmoothingEnabled = false;
-  const hero = playerFrames();
   const petSprite = pet();
+  const bike = scooter();
   const assist = () => (window as unknown as { __gameAssist?: { invuln?: boolean } }).__gameAssist ?? {};
 
   // Player hitbox is narrower than the 32×48 sprite cell.
   const PW = 20, PH = 44;
-  const p = { x: 0, y: 0, vx: 0, vy: 0, grounded: false, face: 1, heldFor: 0, coyote: 0, buffer: 0, jumpHeld: false, rising: false, invuln: 0, squash: 0, run: 0, hurtT: 0 };
-  const s: GameState = { level: 0, x: 0, y: 0, vx: 0, vy: 0, grounded: false, hits: 0, collected: 0, total: 0, finished: false, paused: false, jumps: 0 };
+  const p = { x: 0, y: 0, vx: 0, vy: 0, grounded: false, face: 1, heldFor: 0, coyote: 0, buffer: 0, jumpHeld: false, rising: false, invuln: 0, squash: 0, run: 0, hurtT: 0, ride: false };
+  const s: GameState = { mode: 'map', level: 0, x: 0, y: 0, vx: 0, vy: 0, grounded: false, riding: false, hits: 0, collected: 0, total: 0, finished: false, paused: false, jumps: 0, done: [] };
 
   // ---- per-level state
   let lvl = parse(LEVELS[0].rows);
-  let theme: Theme = THEMES.desk();
-  let items: { x: number; y: number; kind: 'o' | '^' | 'C' | 'F'; taken?: boolean }[] = [];
+  let theme: Theme = THEMES.kaohsiung();
+  let hero = playerFrames(theme.outfit);
+  let items: { x: number; y: number; kind: 'o' | 'u' | '^' | 'C' | 'F' | 'B'; taken?: boolean }[] = [];
   let checkpoint = { x: 0, y: 0 };
   let movers: { x: number; w: number; baseY: number; i: number; px: number; pw: number; y: number; prevY: number }[] = [];
   let hazards: { kind: 'S' | 'T' | 'N'; i: number; ox: number; oy: number; x: number; y: number; w: number; h: number; t: number }[] = [];
+  let revealed = new Set<string>(); // drafted platforms that have become real
   let riding: (typeof movers)[number] | null = null;
-  let clock = 0, cam = 0, shake = 0, endT = 0;
+  let clock = 0, cam = 0, camY = 0, shake = 0, endT = 0;
   const parts: { x: number; y: number; vx: number; vy: number; life: number; c: string }[] = [];
+  const rain: { x: number; y: number }[] = Array.from({ length: 70 }, (_, i) => ({ x: (i * 137) % 480, y: (i * 71) % 270 }));
+  let mapSel = Math.max(0, Math.min(LEVELS.length - 1, opts.level ?? 0));
 
   function loadLevel(n: number) {
+    s.mode = 'level';
     s.level = n;
     lvl = parse(LEVELS[n].rows);
     theme = THEMES[LEVELS[n].theme]();
+    hero = playerFrames(theme.outfit);
     items = lvl.items.map((i) => ({ ...i }));
-    s.total = items.filter((i) => i.kind === 'o').length;
-    s.collected = 0; s.hits = 0; s.finished = false; endT = 0; clock = 0;
+    s.total = items.filter((i) => i.kind === 'o' || i.kind === 'u').length;
+    s.collected = 0; s.hits = 0; s.finished = false; endT = 0; clock = 0; p.ride = false;
+    revealed = new Set();
     movers = lvl.movers.map((m) => ({ ...m, px: m.x * TILE, pw: m.w * TILE, y: m.baseY * TILE, prevY: m.baseY * TILE }));
     hazards = lvl.hazards.map((h) => {
       const size = h.kind === 'S' ? [24, 24] : h.kind === 'T' ? [32, 32] : [36, 22];
@@ -64,8 +89,17 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     checkpoint = { x: lvl.spawn.x * TILE + (TILE - PW) / 2, y: (lvl.spawn.y + 1) * TILE - PH };
     respawn(); p.invuln = 0;
     cam = 0;
-    opts.onStatus(`Level ${n + 1} of ${LEVELS.length}.`);
+    camY = Math.max(0, lvl.h * TILE - VIEW_H);
+    opts.onStatus(`World ${n + 1}: ${WORLDS[n].short.toLowerCase()}.`);
     resume();
+  }
+
+  function showMap(sel = mapSel) {
+    s.mode = 'map';
+    s.finished = false;
+    mapSel = sel;
+    opts.onStatus(`World map. ${WORLDS[sel].short.toLowerCase()} selected. Left and right to choose, Space to start.`);
+    draw();
   }
 
   // ---- juice (off under reduced motion)
@@ -85,12 +119,19 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   // its arrow keys and space bar, and Tab always leaves (no focus trap).
   const keys = new Set<string>();
   const touch = { left: false, right: false, jump: false };
-  const GAME_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'a', 'd', 'w', 'A', 'D', 'W']);
+  const GAME_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'Enter', 'a', 'd', 'w', 'A', 'D', 'W']);
   const isJumpKey = (k: string) => k === ' ' || k === 'ArrowUp' || k === 'w' || k === 'W';
   const onKey = (e: KeyboardEvent, down: boolean) => {
-    if (e.key === 'Escape' && down) { setPaused(!s.paused); e.preventDefault(); return; }
+    if (e.key === 'Escape' && down) { if (s.mode === 'level') setPaused(!s.paused); e.preventDefault(); return; }
     if (!GAME_KEYS.has(e.key)) return;
     e.preventDefault();
+    if (s.mode === 'map') {
+      if (!down) return;
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') { mapSel = (mapSel + LEVELS.length - 1) % LEVELS.length; opts.onMapSelect?.(mapSel); showMap(mapSel); }
+      else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { mapSel = (mapSel + 1) % LEVELS.length; opts.onMapSelect?.(mapSel); showMap(mapSel); }
+      else if (e.key === ' ' || e.key === 'Enter') loadLevel(mapSel);
+      return;
+    }
     if (down) { if (!keys.has(e.key) && isJumpKey(e.key)) p.buffer = T.buffer; keys.add(e.key); }
     else keys.delete(e.key);
   };
@@ -98,14 +139,26 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   const ku = (e: KeyboardEvent) => onKey(e, false);
   canvas.addEventListener('keydown', kd);
   canvas.addEventListener('keyup', ku);
-  const blur = () => { keys.clear(); setPaused(true); };
+  const blur = () => { keys.clear(); if (s.mode === 'level') setPaused(true); };
   canvas.addEventListener('blur', blur);
-  const vis = () => { if (document.hidden) setPaused(true); };
+  const vis = () => { if (document.hidden && s.mode === 'level') setPaused(true); };
   document.addEventListener('visibilitychange', vis);
-  const io = new IntersectionObserver(([e]) => { if (!e.isIntersecting) setPaused(true); }, { threshold: 0.25 });
+  const io = new IntersectionObserver(([e]) => { if (!e.isIntersecting && s.mode === 'level') setPaused(true); }, { threshold: 0.25 });
   io.observe(canvas);
-  const wake = () => { canvas.focus(); setPaused(false); };
-  const onFocus = () => setPaused(false);
+  const wake = (e: PointerEvent) => {
+    canvas.focus();
+    if (s.mode === 'map') {
+      // click a world on the map to start it
+      const r = canvas.getBoundingClientRect();
+      const mx = ((e.clientX - r.left) / r.width) * canvas.width, my = ((e.clientY - r.top) / r.height) * canvas.height;
+      let best = -1, bd = 26 * 26;
+      NODES.forEach(([nx, ny], i) => { const d = (nx - mx) ** 2 + (ny - my) ** 2; if (d < bd) { bd = d; best = i; } });
+      if (best >= 0) { mapSel = best; loadLevel(best); }
+      return;
+    }
+    setPaused(false);
+  };
+  const onFocus = () => { if (s.mode === 'level') setPaused(false); };
   canvas.addEventListener('pointerdown', wake);
   canvas.addEventListener('focus', onFocus);
 
@@ -132,7 +185,10 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
 
   // ---- collision helpers
   const solidAt = (tx: number, ty: number) => lvl.tiles[ty]?.[tx] === '#';
-  const oneWayAt = (tx: number, ty: number) => lvl.tiles[ty]?.[tx] === '=';
+  const oneWayAt = (tx: number, ty: number) => {
+    const t = lvl.tiles[ty]?.[tx];
+    return t === '=' || (t === 'D' && revealed.has(`${tx},${ty}`));
+  };
   function hitsSolid(x: number, y: number, w: number, h: number) {
     for (let ty = Math.floor(y / TILE); ty <= Math.floor((y + h - 0.01) / TILE); ty++)
       for (let tx = Math.floor(x / TILE); tx <= Math.floor((x + w - 0.01) / TILE); tx++)
@@ -151,7 +207,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     if (!opts.reduceMotion) shake = 6;
     if (s.hits >= T.maxHits) {
       // Brief: three hits restart the level. No lives, no game-over screen.
-      opts.onStatus('Three hits. This level starts again.');
+      opts.onStatus('Three hits. This world starts again.');
       loadLevel(s.level);
     }
   }
@@ -164,13 +220,23 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     if (riding && p.vy >= 0 && p.x + PW > riding.px && p.x < riding.px + riding.pw) p.y = riding.y - PH;
     else riding = null;
 
+    // drafted platforms become real as you come close: the model drafts, you decide
+    if (theme.draft) {
+      const cx = Math.floor((p.x + PW / 2) / TILE);
+      for (let ty = 0; ty < lvl.h; ty++) for (let tx = cx - 4; tx <= cx + 6; tx++) if (lvl.tiles[ty]?.[tx] === 'D' && !revealed.has(`${tx},${ty}`)) {
+        revealed.add(`${tx},${ty}`);
+        puff(tx * TILE + TILE / 2, ty * TILE + 4, 3, '#c4b5fd', 50);
+      }
+    }
+
     const { dir, jump } = input();
+    const k = p.ride ? RIDE : 1;
     p.heldFor = dir ? p.heldFor + dt : 0;
-    const max = p.heldFor > T.runAfter ? T.runSpeed : T.walkSpeed;
+    const max = (p.heldFor > T.runAfter ? T.runSpeed : T.walkSpeed) * k;
     const air = p.grounded ? 1 : T.airMult;
     if (dir) {
       const reversing = Math.sign(p.vx) === -dir && p.vx !== 0;
-      const a = (reversing ? T.turnAccel : T.accel) * air;
+      const a = (reversing ? T.turnAccel : T.accel) * air * k;
       if (dir * p.vx < max) p.vx = dir * Math.min(max, dir * p.vx + a * dt);
       else p.vx = dir * Math.max(max, dir * p.vx - T.friction * dt); // bleed off, never add
       p.face = dir;
@@ -183,8 +249,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     p.coyote = p.grounded ? T.coyote : Math.max(0, p.coyote - dt);
     p.buffer = Math.max(0, p.buffer - dt);
     if (p.buffer > 0 && p.coyote > 0) {
-      const bonus = 1 + T.speedJumpBonus * Math.min(1, Math.abs(p.vx) / T.runSpeed);
-      p.vy = -T.jumpSpeed * bonus;
+      const bonus = 1 + T.speedJumpBonus * Math.min(1, Math.abs(p.vx) / (T.runSpeed * k));
+      p.vy = -T.jumpSpeed * bonus * (p.ride ? 1.06 : 1);
       p.buffer = 0; p.coyote = 0; p.grounded = false; p.rising = true; s.jumps++; riding = null;
       p.squash = opts.reduceMotion ? 0 : -0.14;
       sfx.jump();
@@ -231,7 +297,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       if (p.grounded && !wasGrounded && !opts.reduceMotion) { p.squash = 0.12; puff(p.x + PW / 2, p.y + PH, 6, theme.ink, 70); }
     } else p.y = ny;
 
-    if (p.y > VIEW_H + 80) respawn(); // fell out: back to the last checkpoint
+    if (p.y > lvl.h * TILE + 80) respawn(); // fell out: back to the last checkpoint
 
     // items
     p.invuln = Math.max(0, p.invuln - dt);
@@ -239,16 +305,18 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     for (const it of items) {
       if (it.taken) continue;
       const ix = it.x * TILE, iy = it.y * TILE;
+      // Checkpoints trigger on passing them on the same storey, even mid-jump.
+      if (it.kind === 'C') { if (p.x >= ix && Math.abs(p.y + PH - (iy + TILE)) < TILE * 3 && (checkpoint.y !== iy + TILE - PH || checkpoint.x < ix)) checkpoint = { x: ix + (TILE - PW) / 2, y: iy + TILE - PH }; continue; }
       const pad = it.kind === '^' ? 6 : 0;
-      // Checkpoints trigger on passing them, even mid-jump, not only on touch.
-      if (it.kind === 'C') { if (p.x >= ix && checkpoint.x < ix) checkpoint = { x: ix + (TILE - PW) / 2, y: iy + TILE - PH }; continue; }
       if (!overlap(ix + pad, iy + pad * 2, TILE - pad * 2, TILE - pad * 2)) continue;
-      if (it.kind === 'o') { it.taken = true; s.collected++; sfx.collect(); puff(ix + TILE / 2, iy + TILE / 2, 8, '#f3a414', 140); }
+      if (it.kind === 'o' || it.kind === 'u') { it.taken = true; s.collected++; sfx.collect(); puff(ix + TILE / 2, iy + TILE / 2, 8, '#f3a414', 140); }
+      else if (it.kind === 'B') { it.taken = true; p.ride = true; sfx.collect(); opts.onStatus('On the scooter.'); }
       else if (it.kind === '^') hurt(ix + TILE / 2);
       else if (it.kind === 'F' && !s.finished) {
         s.finished = true; endT = 0; sfx.finish();
-        opts.onStatus(s.collected >= s.total ? `Level ${s.level + 1} done, with everything collected. Shipped.` : `Level ${s.level + 1} done, ${s.collected} of ${s.total} collected.`);
-        const done = { ...s };
+        if (!s.done.includes(s.level)) s.done.push(s.level);
+        opts.onStatus(s.collected >= s.total ? `World ${s.level + 1} done, with everything collected. Shipped.` : `World ${s.level + 1} done, ${s.collected} of ${s.total} collected.`);
+        const done = { ...s, done: [...s.done] };
         setTimeout(() => opts.onLevelEnd(done), opts.reduceMotion ? 200 : 1300);
       }
     }
@@ -257,9 +325,9 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     for (const h of hazards) {
       h.t += dt;
       if (h.kind === 'S') {
-        // a spreadsheet drops from the top on a 2.6 s rhythm
+        // drops from where it sits on a 2.6 s rhythm
         const cyc = h.t % 2.6;
-        h.x = h.ox + 4; h.y = cyc < 0.5 ? -60 : -40 + 0.5 * 900 * (cyc - 0.5) ** 2;
+        h.x = h.ox + 4; h.y = cyc < 0.5 ? -1e4 : h.oy - 40 + 0.5 * 900 * (cyc - 0.5) ** 2;
       } else if (h.kind === 'T') {
         h.x = h.ox + Math.sin(h.t * 1.4) * 70; h.y = h.oy;
       } else {
@@ -276,37 +344,95 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     p.squash *= Math.pow(0.0001, dt);
     shake = Math.max(0, shake - dt * 30);
 
-    // camera: follow with ~20% look-ahead, clamped to the level
+    // camera: follow with ~20% look-ahead; vertical levels follow up and down too
     const target = p.x + PW / 2 - VIEW_W * 0.4 + p.face * VIEW_W * 0.1;
     const clamped = Math.max(0, Math.min(lvl.w * TILE - VIEW_W, target));
-    cam = opts.reduceMotion ? clamped : cam + (clamped - cam) * Math.min(1, dt * 6);
+    const targetY = Math.max(0, Math.min(lvl.h * TILE - VIEW_H, p.y + PH / 2 - VIEW_H * 0.55));
+    const ease = opts.reduceMotion ? 1 : Math.min(1, dt * 6);
+    cam += (clamped - cam) * ease;
+    camY += (targetY - camY) * ease;
 
-    Object.assign(s, { x: p.x, y: p.y, vx: p.vx, vy: p.vy, grounded: p.grounded });
+    Object.assign(s, { x: p.x, y: p.y, vx: p.vx, vy: p.vy, grounded: p.grounded, riding: p.ride });
   }
 
   // ---- render
   const W = (im: HTMLCanvasElement, x: number, y: number) => ctx.drawImage(im, snap(x), snap(y), im.width / ART, im.height / ART);
+
+  // The map: a path through eight worlds, two rows, art-pixel coordinates.
+  const NODES: [number, number][] = [[52, 92], [158, 92], [264, 92], [370, 92], [430, 190], [324, 190], [218, 190], [112, 190]];
+  const mapIcons = LEVELS.map((l) => THEMES[l.theme]());
+  function drawMap() {
+    ctx.fillStyle = '#7fb7d9'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // land, water and a bit of texture
+    ctx.fillStyle = '#e9f1d8'; ctx.fillRect(16, 40, 448, 210);
+    ctx.fillStyle = '#d7e6c0'; for (let y = 48; y < 246; y += 12) for (let x = 24 + (y % 24); x < 460; x += 24) ctx.fillRect(x, y, 2, 2);
+    text(ctx, 'WORKING ORDER', 16, 14, '#ffffff', 2);
+    text(ctx, 'TAIWAN TO LONDON TO NEXT', 16, 28, '#e6f2fb', 1);
+    // path
+    ctx.fillStyle = '#c9b48a';
+    // L-shaped path: across, then down, so it never crosses a label
+    const dots = (x0: number, y0: number, x1: number, y1: number) => {
+      const n = Math.ceil(Math.hypot(x1 - x0, y1 - y0) / 6);
+      for (let k = 0; k <= n; k++) {
+        const x = Math.round(x0 + ((x1 - x0) * k) / n), y = Math.round(y0 + ((y1 - y0) * k) / n);
+        if (NODES.some(([nx, ny]) => Math.abs(nx - x) < 19 && Math.abs(ny - y) < 19)) continue;
+        ctx.fillRect(x - 1, y - 1, 3, 3);
+      }
+    };
+    for (let i = 0; i < NODES.length - 1; i++) {
+      const [ax, ay] = NODES[i], [bx, by] = NODES[i + 1];
+      dots(ax, ay, bx, ay);
+      if (by !== ay) dots(bx, ay, bx, by);
+    }
+    NODES.forEach(([x, y], i) => {
+      const sel = i === mapSel, done = s.done.includes(i);
+      ctx.fillStyle = sel ? '#161616' : '#ffffff'; ctx.fillRect(x - 16, y - 16, 32, 32);
+      ctx.fillStyle = mapIcons[i].sky; ctx.fillRect(x - 14, y - 14, 28, 28);
+      const ic = mapIcons[i].pickup[0];
+      ctx.drawImage(ic, Math.round(x - ic.width / 2), Math.round(y - ic.height / 2));
+      if (done) text(ctx, '★', x + 10, y - 20, '#f3a414');
+      const label = `${i + 1} ${WORLDS[i].short}`;
+      text(ctx, label, Math.round(x - textWidth(label) / 2), y + 20, sel ? '#161616' : '#4a4a48');
+      text(ctx, WORLDS[i].when, Math.round(x - textWidth(WORLDS[i].when) / 2), y + 28, '#6b6b6b');
+    });
+    // the character waits by the selected world, in that era's outfit
+    const [sx, sy] = NODES[mapSel];
+    const era = playerFrames(mapIcons[mapSel].outfit);
+    ctx.drawImage(era.right.idle[0], sx - 26, sy - 22);
+    text(ctx, 'ARROWS TO CHOOSE · SPACE TO PLAY', 16, 256, '#2b3654');
+  }
+
   function draw() {
+    if (s.mode === 'map') { drawMap(); return; }
     ctx.save();
     ctx.scale(ART, ART);
     ctx.fillStyle = theme.sky; ctx.fillRect(0, 0, VIEW_W, VIEW_H);
     // parallax (static under reduced motion)
-    const par = (im: HTMLCanvasElement, k: number) => {
-      const o = opts.reduceMotion ? 0 : -((cam * k) % VIEW_W);
+    const par = (im: HTMLCanvasElement, kx: number) => {
+      const o = opts.reduceMotion ? 0 : -((cam * kx) % VIEW_W);
       ctx.drawImage(im, snap(o), 0, VIEW_W, VIEW_H);
       ctx.drawImage(im, snap(o + VIEW_W), 0, VIEW_W, VIEW_H);
     };
     par(theme.far, 0.2); par(theme.near, 0.5);
 
     const sx = shake ? (Math.random() - 0.5) * shake : 0;
-    ctx.translate(snap(-cam + sx), 0);
+    ctx.translate(snap(-cam + sx), snap(-camY));
     const x0 = Math.floor(cam / TILE) - 1, x1 = x0 + VIEW_W / TILE + 3;
-    for (let ty = 0; ty < lvl.h; ty++)
+    const y0 = Math.floor(camY / TILE) - 1, y1 = y0 + VIEW_H / TILE + 3;
+    for (let ty = Math.max(0, y0); ty < Math.min(lvl.h, y1); ty++)
       for (let tx = x0; tx < x1; tx++) {
         const t = lvl.tiles[ty]?.[tx];
         if (t === '#') W(lvl.tiles[ty - 1]?.[tx] === '#' ? theme.fill : theme.ground, tx * TILE, ty * TILE);
         else if (t === '=') W(theme.platform, tx * TILE, ty * TILE);
+        else if (t === 'D' && theme.draft) W(revealed.has(`${tx},${ty}`) ? theme.platform : theme.draft, tx * TILE, ty * TILE);
       }
+    // floor signs (the tower's job titles)
+    if (theme.sign) for (const l of LEVELS[s.level].labels) {
+      const w = textWidth(l.text, 2) + 12;
+      ctx.fillStyle = theme.sign.bg; ctx.fillRect(snap(l.x * TILE), snap(l.y * TILE), w / ART, 22 / ART);
+      ctx.save(); ctx.translate(snap(l.x * TILE), snap(l.y * TILE)); ctx.scale(1 / ART, 1 / ART);
+      text(ctx, l.text, 6, 6, theme.sign.fg, 2); ctx.restore();
+    }
     if (movers.length) {
       // the FX rate, drawn as a dashed chart line through the platforms' real tops
       const pts = movers.map((m) => [m.px + m.pw / 2, m.y + 4]);
@@ -324,7 +450,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     for (const it of items) {
       if (it.taken) continue;
       const ix = it.x * TILE, iy = it.y * TILE;
-      if (it.kind === 'o') { const im = theme.pickup[0]; W(im, ix + TILE / 2 - im.width, iy + TILE / 2 - im.height + bob); }
+      if (it.kind === 'o' || it.kind === 'u') { const im = it.kind === 'u' && theme.pickup2 ? theme.pickup2 : theme.pickup[0]; W(im, ix + TILE / 2 - im.width, iy + TILE / 2 - im.height + bob); }
+      else if (it.kind === 'B') W(bike, ix + TILE / 2 - bike.width, iy + TILE - bike.height / ART + bob);
       else if (it.kind === '^') W(theme.spike, ix, iy + TILE - theme.spike.height / ART);
       else if (it.kind === 'C') W(theme.check, ix + TILE / 2 - theme.check.width, iy + TILE - theme.check.height / ART);
       else if (it.kind === 'F') {
@@ -334,36 +461,50 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
         if (theme.id === 'bedtime' && s.finished && endT > 0.4) W(petSprite, ix + TILE / 2 - petSprite.width, iy + TILE - im.height / ART - petSprite.height / ART - (opts.reduceMotion ? 0 : Math.min(16, endT * 30)));
       }
     }
-    for (const h of hazards) if (h.y > -60) W(theme.hazard, h.x, h.y);
-    // player
+    for (const h of hazards) if (h.y > -60 && h.y < lvl.h * TILE) W(theme.hazard, h.x, h.y);
+    // player (on the scooter in Kaohsiung)
     const fr = p.face >= 0 ? hero.right : hero.left;
     let im = fr.idle[Math.floor(clock * 2) % 2];
     if (s.finished) im = fr.cheer[Math.floor(endT * 4) % 2];
     else if (p.hurtT > 0) im = fr.hurt[0];
+    else if (p.ride) im = fr.idle[0];
     else if (!p.grounded) im = p.vy < 0 ? fr.jump[0] : fr.fall[0];
     else if (Math.abs(p.vx) > 20) im = fr.run[Math.floor(p.run) % 6];
     if (!(p.invuln > 0 && p.hurtT === 0 && Math.floor(p.invuln * 12) % 2)) {
       const sq = p.squash, w = 32 * (1 + sq), hh = 48 * (1 - sq);
-      ctx.drawImage(p.hurtT > 0.25 ? hero.flash : im, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh), snap(w), snap(hh));
+      const lift = p.ride ? 14 : 0;
+      ctx.drawImage(p.hurtT > 0.25 ? hero.flash : im, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift), snap(w), snap(hh));
+      if (p.ride) {
+        ctx.save(); ctx.translate(snap(p.x + PW / 2), snap(p.y + PH - bike.height / ART)); ctx.scale(p.face >= 0 ? 1 : -1, 1);
+        ctx.drawImage(bike, -bike.width / ART / 2, 0, bike.width / ART, bike.height / ART); ctx.restore();
+      }
     }
     for (const q of parts) { ctx.globalAlpha = Math.max(0, q.life / 0.35); ctx.fillStyle = q.c; ctx.fillRect(snap(q.x), snap(q.y), 4, 4); }
     ctx.globalAlpha = 1;
     ctx.restore();
 
-    // HUD in the pixel font, at art resolution
+    // weather, screen-space
+    if (theme.weather === 'rain' && !opts.reduceMotion) {
+      ctx.fillStyle = 'rgba(214,226,240,.7)';
+      for (const d of rain) { d.y = (d.y + 5) % 270; d.x = (d.x + 479) % 480; ctx.fillRect(d.x, d.y, 1, 4); }
+    }
+
+    // HUD in the pixel font, at art resolution, on a strip so it reads on any background
+    ctx.globalAlpha = 0.82; ctx.fillStyle = theme.sky; ctx.fillRect(0, 0, canvas.width, 22); ctx.globalAlpha = 1;
     text(ctx, `${s.collected}/${s.total}`, 8, 8, theme.hud, 2);
     for (let i = 0; i < T.maxHits; i++) { ctx.fillStyle = i < T.maxHits - s.hits ? theme.hud : 'rgba(127,127,127,.35)'; ctx.fillRect(canvas.width - 14 - i * 10, 8, 6, 6); }
-    text(ctx, `LV ${s.level + 1}/${LEVELS.length}`, canvas.width / 2 - 26, 8, theme.hud, 2);
+    const head = `${s.level + 1} ${WORLDS[s.level].short} · ${WORLDS[s.level].when}`;
+    text(ctx, head, Math.round(canvas.width / 2 - textWidth(head) / 2), 10, theme.hud);
     if (s.paused) {
       ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
       text(ctx, 'PAUSED', canvas.width / 2 - 36, canvas.height / 2 - 8, '#ffffff', 3);
     }
   }
 
-  // ---- loop: fixed timestep; stops entirely while paused, offscreen or between levels
+  // ---- loop: fixed timestep; stops entirely on the map, while paused, offscreen or between worlds
   let last = 0, acc = 0, raf = 0;
   function frame(now: number) {
-    if (s.paused) { draw(); raf = 0; return; }
+    if (s.paused || s.mode === 'map') { draw(); raf = 0; return; }
     acc += Math.min(0.1, (now - last) / 1000);
     last = now;
     while (acc >= STEP) { step(STEP); acc -= STEP; }
@@ -371,19 +512,21 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     raf = s.finished && endT > 2 ? 0 : requestAnimationFrame(frame);
   }
   function resume() {
-    if (raf || s.paused) return;
+    if (raf || s.paused || s.mode === 'map') return;
     last = performance.now(); acc = 0;
     raf = requestAnimationFrame(frame);
   }
 
-  loadLevel(Math.max(0, Math.min(LEVELS.length - 1, opts.level ?? 0)));
+  if (opts.startOnMap ?? true) showMap(mapSel);
+  else loadLevel(mapSel);
   canvas.focus();
 
   return {
-    state: () => ({ ...s }),
+    state: () => ({ ...s, done: [...s.done] }),
     touch,
     levels: LEVELS.length,
-    loadLevel: (n: number) => { canvas.focus(); loadLevel(n); },
+    loadLevel: (n: number) => { canvas.focus(); mapSel = n; loadLevel(n); },
+    showMap: (n?: number) => { canvas.focus(); cancelAnimationFrame(raf); raf = 0; showMap(n ?? mapSel); },
     pause: () => setPaused(true),
     resume: () => setPaused(false),
     destroy() {

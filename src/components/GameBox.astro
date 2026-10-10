@@ -1,17 +1,12 @@
 ---
 // The game lives in the hero, the way a playable Doodle sits on Google's home
 // page: optional, idle until pressed, and the headline stays the main thing.
-// One level per case; between levels a card hands the reader back to the case.
+// It tells Shannon's career as a world map, Kaohsiung to AI. Every card states
+// facts from her CV or her own words; nothing here is invented.
 // DECISION: Named "Working Order" (a live order still filling; also "things in
-// working order") instead of the brief's "Star Run", which sits close to
-// Nintendo's Super Mario Run. Mario-era pixel style, every noun from the cases.
+// working order"). Mario-era pixel style, every noun from her own story.
 import Pic from './Pic.astro';
-import { CASES } from '../lib/cases';
-const LEVELS = [
-  { name: 'The Desk', case: CASES[0] },
-  { name: 'The Board Room', case: CASES[1] },
-  { name: 'Bedtime', case: CASES[2] },
-];
+import { JOURNEY } from '../lib/journey';
 ---
 <div class="play">
   <div class="game" data-state="poster">
@@ -20,15 +15,18 @@ const LEVELS = [
       <Pic name="game-poster.png" alt="" sizes="(max-width: 1100px) 100vw, 480px" widths={[480, 960, 1440]} eager />
       <button type="button" class="game-play" id="game-play">Press to play</button>
     </div>
-    {LEVELS.map((l, i) => (
+    {JOURNEY.map((w, i) => (
       <div class="game-end" data-end={i} hidden>
         <p class="game-badge" hidden>Shipped</p>
-        <p class="game-kicker">Level {i + 1} · {l.name}</p>
-        <p class="game-case">{l.case.title}</p>
-        {i < LEVELS.length - 1 && <p class="game-meta">{l.case.meta}</p>}
-        <a class="game-read" href={l.case.href}>Read the case →</a>
-        {i < LEVELS.length - 1 ? (
-          <button type="button" class="game-play" data-next={i + 1}>Next level</button>
+        <p class="game-kicker">World {i + 1} · {w.when}</p>
+        <p class="game-case">{w.place}</p>
+        <p class="game-meta">{w.line}</p>
+        {w.href && <a class="game-read" href={w.href}>Read the case →</a>}
+        {i < JOURNEY.length - 1 ? (
+          <div class="game-actions">
+            <button type="button" class="game-play" data-next={i + 1}>Next world</button>
+            <button type="button" class="game-map" data-map>World map</button>
+          </div>
         ) : (
           <>
             <ul class="game-links">
@@ -36,7 +34,10 @@ const LEVELS = [
               <li><a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener">FX execution analytics, rebuild<span class="vh"> (opens in new tab)</span> →</a></li>
               <li><a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener">Fusion analytics, rebuild<span class="vh"> (opens in new tab)</span> →</a></li>
             </ul>
-            <button type="button" class="game-play" data-next="0">Play again</button>
+            <div class="game-actions">
+              <button type="button" class="game-play" data-next="0">Play again</button>
+              <button type="button" class="game-map" data-map>World map</button>
+            </div>
           </>
         )}
       </div>
@@ -48,14 +49,15 @@ const LEVELS = [
     <button type="button" tabindex="-1" data-k="jump">↑</button>
   </div>
   <div class="game-bar">
-    <div class="game-levels" role="group" aria-label="Choose a level">
-      {LEVELS.map((l, i) => (
-        <button type="button" class="game-level" data-level={i} aria-pressed={i === 0 ? 'true' : 'false'}><span class="n">{i + 1}</span>{l.name}</button>
-      ))}
-    </div>
+    <label class="game-world">
+      <span class="vh">Choose a world</span>
+      <select id="game-world">
+        {JOURNEY.map((w, i) => <option value={i}>{i + 1} · {w.place}</option>)}
+      </select>
+    </label>
     <button type="button" class="game-sound" id="game-sound" aria-pressed="false">Sound</button>
   </div>
-  <p class="game-caption">Working Order · the three cases as levels</p>
-  <p id="game-desc" class="vh">An optional pixel-art platformer in three short levels, one for each case: The Desk for FX execution analytics, The Board Room for the Fusion dashboard, and Bedtime for Winking Star. Arrow keys or WASD to move, Space or Up to jump, Escape to pause. Collect everything in a level to earn its Shipped badge.</p>
+  <p class="game-caption">Working Order · from Kaohsiung to London to what's next</p>
+  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in eight short worlds: Kaohsiung, Ling Tung University, web design at 捷元電腦, London, J.P. Morgan, Barclays, Next: AI, and a bonus world for Winking Star. Arrow keys or WASD to move, Space or Up to jump, Escape to pause. On the map, Left and Right choose a world and Space starts it.</p>
   <p id="game-status" class="vh" aria-live="polite"></p>
 </div>

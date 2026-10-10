@@ -194,3 +194,9 @@ html:not(.has-js) .game-sound{display:none}
 .hero h1 .ln>span{white-space:nowrap}
 .hero-grid:has(.hero-game){grid-template-columns:min-content minmax(0,480px);justify-content:space-between}
 @media (max-width:1100px){.hero-grid:has(.hero-game){grid-template-columns:minmax(0,1fr)}.hero h1 .ln>span{white-space:normal}}
+
+/* Career map controls under the hero game */
+.game-world select{font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--hair);border-radius:999px;padding:6px 12px;min-height:32px;max-width:100%}
+.game-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.game-map{font:inherit;font-size:15px;font-weight:500;padding:12px 20px;min-height:44px;border-radius:999px;border:1px solid var(--hair);background:var(--bg);color:var(--fg);cursor:pointer}
+html:not(.has-js) .game-world{display:none}

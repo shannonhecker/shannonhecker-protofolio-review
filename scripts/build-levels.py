@@ -1,14 +1,143 @@
-# Builds src/game/levels.ts: three levels, one per case, each in four beats
-# (introduce, develop, twist, conclude), sized for ~45 s for a first-time player.
-# Rows 0 (top) .. 16; ground surface is row 14; items sit on row 13.
-# Legend: # solid  = one-way platform  M rate-line platform  o pickup  ^ spikes
-#         S falling sheet (Desk)  T sliding template (Board)  N nag cloud (Bedtime)
-#         P spawn  C checkpoint  F finish
-import json
+# Builds src/game/levels.ts: Shannon's career as a world map, one level per stage,
+# each a short introduce, develop, twist, conclude. Facts on the cards come from
+# her CV and her own words; this file only shapes the play.
+# Horizontal levels are 17 rows (ground surface row 14, items on row 13).
+# The J.P. Morgan tower is a vertical level, 30 columns wide.
+# Legend: # solid  = one-way platform  M rate-line platform  D drafted platform
+#         o pickup  u second pickup  ^ spikes  B scooter
+#         S falling hazard  N circling hazard  P spawn  C checkpoint  F finish
 H = 17
 
-def new(w):
-    return [[' '] * w for _ in range(H)]
+def new(w, h=H):
+    return [[' '] * w for _ in range(h)]
+
+def tools(g, h=H):
+    def put(x, y, c): g[y][x] = c
+    def ground(a, b, top=14):
+        for x in range(a, b):
+            for y in range(top, h): put(x, y, '#')
+    def plat(a, b, y, c='='):
+        for x in range(a, b): put(x, y, c)
+    return put, ground, plat
+
+def lvl_kaohsiung():
+    # The park, then the scooter, then the city streets down to the sea.
+    W = 150; g = new(W); put, ground, plat = tools(g)
+    ground(0, 26); put(2, 13, 'P')
+    for x in (6, 9): put(x, 13, 'o')
+    plat(11, 15, 11); put(13, 10, 'o')
+    put(19, 13, 'B')   # hop on the scooter
+    ground(29, 60); ground(64, 92); ground(97, 120); ground(125, W)
+    for x in (32, 38, 44): put(x, 13, 'o')
+    put(50, 13, '^'); put(51, 13, '^')
+    plat(55, 60, 10); put(57, 9, 'o')
+    put(62, 11, 'o'); put(94, 11, 'o'); put(122, 10, 'o')
+    put(64, 13, 'C')
+    plat(70, 76, 10); put(72, 9, 'o'); put(74, 9, 'o')
+    put(82, 13, '^')
+    plat(100, 105, 11); plat(108, 113, 9); put(110, 8, 'o')
+    put(116, 13, '^')
+    put(125, 13, 'C')
+    for x in range(129, 141, 3): put(x, 13, 'o')
+    put(146, 13, 'F')
+    return g
+
+def lvl_lingtung():
+    W = 124; g = new(W); put, ground, plat = tools(g)
+    ground(0, 30); put(2, 13, 'P')
+    for x in (6, 9, 12): put(x, 13, 'o')
+    # sketchbooks end with five tiles of ground before the gap, room to land and jump
+    plat(13, 18, 11); put(15, 10, 'o'); plat(19, 24, 9); put(21, 8, 'o')
+    put(22, 2, 'S')
+    ground(33, 58); put(33, 13, 'C'); put(42, 13, '^'); put(48, 2, 'S')
+    for i, y in enumerate((12, 10, 8)):
+        plat(60 + i * 5, 64 + i * 5, y); put(62 + i * 5, y - 1, 'o')
+    plat(76, 80, 10); plat(82, 86, 12)
+    ground(88, W); put(88, 13, 'C'); put(96, 13, '^'); put(102, 2, 'S')
+    for x in range(105, 116, 3): put(x, 13, 'o')
+    put(120, 13, 'F')
+    return g
+
+def lvl_web():
+    W = 124; g = new(W); put, ground, plat = tools(g)
+    ground(0, 24); put(2, 13, 'P')
+    for x in (6, 9): put(x, 13, 'o')
+    plat(13, 18, 11); put(15, 10, 'o')
+    ground(27, 50); put(27, 13, 'C'); put(33, 2, 'S'); put(41, 2, 'S')
+    for x in (31, 36, 45): put(x, 13, 'o')
+    # a staircase of browser windows over a gap
+    for i, y in enumerate((12, 10, 8, 10, 12)):
+        plat(52 + i * 5, 57 + i * 5, y); put(54 + i * 5, y - 1, 'o')
+    ground(79, W); put(79, 13, 'C'); put(88, 13, '^'); put(94, 2, 'S')
+    plat(98, 103, 10); put(100, 9, 'o')
+    for x in range(106, 117, 3): put(x, 13, 'o')
+    put(120, 13, 'F')
+    return g
+
+def lvl_london():
+    W = 132; g = new(W); put, ground, plat = tools(g)
+    ground(0, 28); put(2, 13, 'P')
+    for x in (6, 9, 12): put(x, 13, 'o')
+    plat(16, 21, 11); put(18, 10, 'o')
+    put(24, 8, 'N')
+    ground(32, 60); put(32, 13, 'C')
+    for i, y in enumerate((12, 10, 8)):
+        plat(36 + i * 5, 41 + i * 5, y); put(38 + i * 5, y - 1, 'o')
+    put(52, 13, '^'); put(56, 9, 'N')
+    plat(62, 67, 11); plat(70, 75, 9); plat(78, 83, 11); put(64, 10, 'o'); put(72, 8, 'o'); put(80, 10, 'o')
+    put(72, 4, 'N')
+    ground(86, W); put(86, 13, 'C'); put(98, 13, '^'); put(106, 9, 'N')
+    for x in range(110, 124, 3): put(x, 13, 'o')
+    put(128, 13, 'F')
+    return g
+
+def lvl_tower():
+    # A vertical climb, one floor per title. Desks zig-zag up each floor; a gap
+    # in each ceiling leads to the next. Floor signs are drawn by the engine.
+    W, FLOORS, FH = 30, 4, 15   # top desk sits 3 rows under the ceiling gap
+    h = FLOORS * FH + 3
+    g = new(W, h); put, ground, plat = tools(g, h)
+    labels = []
+    titles = ['INTERN · JUNE 2016', 'ANALYST', 'SENIOR ANALYST', 'VICE PRESIDENT · FUSION']
+    for x in range(W): put(x, h - 1, '#'); put(x, h - 2, '#')
+    for x in range(h): put(0, x, '#'); put(W - 1, x, '#')
+    for f in range(FLOORS):
+        floor_y = h - 2 - f * FH          # the walking surface row of this floor
+        labels.append({'x': 2, 'y': floor_y - 5, 'text': titles[f]})
+        put(2 if f % 2 == 0 else W - 3, floor_y - 1, 'C' if f else 'P')
+        pick = 'o' if f < 2 else 'u'     # UI and visual first, UX higher up
+        # desks climb the floor as an overlapping staircase (each 3 rows up and
+        # 5 columns across), left to right on even floors, right to left on odd
+        xs = [3 + i * 5 for i in range(4)] if f % 2 == 0 else [W - 10 - i * 5 for i in range(4)]
+        for i, (a, dy) in enumerate(zip(xs, (3, 6, 9, 12))):
+            plat(a, a + 7, floor_y - dy); put(a + 3, floor_y - dy - 1, pick if i != 2 else ('u' if f == 1 else pick))
+        if f < FLOORS - 1:
+            ceil = floor_y - FH
+            # the way up: an open stairwell over the top two desks, wide enough
+            # that the last jumps never bump the ceiling
+            gap = range(min(xs[-2], xs[-1]) + 2, max(xs[-2], xs[-1]) + 6)
+            for x in range(1, W - 1):
+                if x in gap: continue
+                put(x, ceil, '#')
+            put(14, ceil + 2, 'S')
+        else:
+            put(W - 4, floor_y - 1, 'F')   # the Fusion dashboard, on the top floor
+    return g, labels
+
+def lvl_ai():
+    # Platforms over the gaps are drafts until you get close; then they're real.
+    W = 124; g = new(W); put, ground, plat = tools(g)
+    ground(0, 24); put(2, 13, 'P')
+    for x in (6, 9, 12): put(x, 13, 'o')
+    plat(26, 31, 12, 'D'); plat(33, 38, 10, 'D'); plat(40, 45, 12, 'D')
+    put(28, 11, 'o'); put(35, 9, 'o'); put(42, 11, 'o')
+    ground(47, 70); put(47, 13, 'C'); put(58, 9, 'N'); put(64, 13, '^')
+    for i, y in enumerate((12, 10, 8, 10)):
+        plat(72 + i * 5, 76 + i * 5, y, 'D'); put(74 + i * 5, y - 1, 'o')
+    ground(93, W); put(93, 13, 'C'); put(104, 9, 'N')
+    for x in range(98, 116, 3): put(x, 13, 'o')
+    put(120, 13, 'F')
+    return g
 
 def lvl_desk():
     W = 176; g = new(W)
@@ -45,38 +174,6 @@ def lvl_desk():
     put(172, 13, 'F')
     return g
 
-def lvl_board():
-    W = 170; g = new(W)
-    def put(x, y, c): g[y][x] = c
-    def ground(a, b, top=14):
-        for x in range(a, b):
-            for y in range(top, H): put(x, y, '#')
-    def plat(a, b, y):
-        for x in range(a, b): put(x, y, '=')
-    # introduce: table rows as steps, one template sliding on open floor
-    ground(0, 40); put(2, 13, 'P')
-    for x in (6, 10): put(x, 13, 'o')
-    plat(14, 19, 11); put(16, 10, 'o')
-    plat(21, 26, 9); put(23, 8, 'o')
-    put(32, 13, 'T')
-    # develop: a stack of rows over a gap, two templates
-    put(40, 13, 'C'); ground(40, 50); ground(56, 76); ground(80, 92)
-    for i, y in enumerate((12, 10, 8)):
-        plat(50 + i * 2, 54 + i * 2, y); put(51 + i * 2, y - 1, 'o')
-    put(62, 13, 'T'); put(70, 13, 'T'); put(66, 10, 'o')
-    put(77, 11, 'o'); put(78, 11, 'o')
-    # twist: tall report columns to climb, a template guarding each landing
-    put(86, 13, 'C'); ground(92, 98, top=11); ground(102, 108, top=9); ground(112, 118, top=7)
-    put(95, 10, 'o'); put(105, 8, 'o'); put(115, 6, 'o')
-    put(104, 8, 'T')
-    plat(120, 126, 9); plat(128, 134, 11); put(123, 8, 'o'); put(131, 10, 'o')
-    ground(136, 150); put(143, 13, 'T')
-    # conclude
-    put(150, 13, 'C'); ground(150, W)
-    for x in range(153, 164, 3): put(x, 13, 'o')
-    put(166, 13, 'F')
-    return g
-
 def lvl_bedtime():
     W = 172; g = new(W)
     def put(x, y, c): g[y][x] = c
@@ -110,14 +207,25 @@ def lvl_bedtime():
     put(168, 13, 'F')
     return g
 
-levels = [('desk', lvl_desk()), ('board', lvl_board()), ('bedtime', lvl_bedtime())]
+worlds = [
+    ('kaohsiung', lvl_kaohsiung(), []),
+    ('lingtung', lvl_lingtung(), []),
+    ('web', lvl_web(), []),
+    ('london', lvl_london(), []),
+    ('tower', *lvl_tower()),
+    ('desk', lvl_desk(), []),
+    ('ai', lvl_ai(), []),
+    ('bedtime', lvl_bedtime(), []),
+]
+import json
 out = ['// Generated by scripts/build-levels.py. Edit that, not this.', '',
-       "export const LEVELS: { theme: 'desk' | 'board' | 'bedtime'; rows: string[] }[] = ["]
-for theme, g in levels:
+       "export type ThemeKey = 'kaohsiung' | 'lingtung' | 'web' | 'london' | 'tower' | 'desk' | 'ai' | 'bedtime';",
+       "export const LEVELS: { theme: ThemeKey; rows: string[]; labels: { x: number; y: number; text: string }[] }[] = ["]
+for theme, g, labels in worlds:
     rows = [''.join(r) for r in g]
-    out.append(f"  {{ theme: '{theme}', rows: [")
+    out.append(f"  {{ theme: '{theme}', labels: {json.dumps(labels, ensure_ascii=False)}, rows: [")
     out += [f"    '{r}'," for r in rows]
     out.append('  ] },')
-    print(theme, len(rows[0]), 'cols,', sum(r.count('o') for r in rows), 'pickups')
+    print(theme.ljust(10), len(rows[0]), 'x', len(rows), '·', sum(r.count('o') + r.count('u') for r in rows), 'pickups')
 out.append('];')
 open('src/game/levels.ts', 'w').write('\n'.join(out) + '\n')

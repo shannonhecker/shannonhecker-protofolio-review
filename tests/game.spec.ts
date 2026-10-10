@@ -3,10 +3,14 @@ import { LEVELS } from '../src/game/levels';
 
 const state = (page: Page) => page.evaluate(() => (window as unknown as { __game: () => any }).__game());
 
+// Press Play (which opens the career map), then Space to start the first world.
 async function boot(page: Page) {
   await page.goto('/');
   await page.getByRole('button', { name: 'Press to play' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+  await page.keyboard.press('Space');
+  await expect.poll(async () => (await state(page)).mode).toBe('level');
+  await expect.poll(async () => (await state(page)).grounded).toBe(true);
 }
 
 test('nothing runs until Play is pressed', async ({ page }) => {
@@ -42,17 +46,19 @@ test('Escape pauses, and Tab still leaves the game (no keyboard trap)', async ({
 async function runLevel(page: Page, n: number) {
   const L = LEVELS[n].rows;
   const solid = (x: number, y: number) => L[y]?.[x] === '#';
-  const standable = (x: number, y: number) => solid(x, y) || L[y]?.[x] === '=' || L[y]?.[x] === 'M';
+  const standable = (x: number, y: number) => solid(x, y) || ['=', 'M', 'D'].includes(L[y]?.[x] ?? ' ');
   await page.keyboard.down('ArrowRight');
   let lastX = 0, stuck = 0;
-  // generous budget: like a person, the bot may need a retry or two on the moving rate line
+  // generous budget: like a person, the bot may need a retry or two on moving platforms
   for (let i = 0; i < 2000; i++) {
     const s = await state(page);
     if (s.finished) break;
     const tx = Math.floor((s.x + 10) / 32), row = Math.floor((s.y + 44) / 32);
-    const gap = !standable(tx + 1, row) && !standable(tx + 2, row);
+    // a pit is a column with no floor anywhere below; a raised platform's edge just drops you down
+    const pit = (x: number) => { for (let y = row; y < L.length; y++) if (standable(x, y)) return false; return true; };
+    const gap = pit(tx + 1) && pit(tx + 2);
     const wall = solid(tx + 1, row - 1) || solid(tx + 1, row - 2);
-    const step = [1, 2, 3].some((d) => L[row - d]?.[tx + 2] === '=');
+    const step = [1, 2, 3].some((d) => ['=', 'D'].includes(L[row - d]?.[tx + 2] ?? ' '));
     const hazard = L[row - 1]?.[tx + 1] === '^' || L[row - 1]?.[tx + 2] === '^';
     stuck = Math.abs(s.x - lastX) < 1 ? stuck + 1 : 0; lastX = s.x;
     if (s.grounded && (gap || wall || hazard || step || stuck > 3)) {
@@ -63,39 +69,114 @@ async function runLevel(page: Page, n: number) {
   return state(page);
 }
 
-for (const n of [0, 1, 2]) {
-  test(`level ${n + 1} can be finished`, async ({ page }) => {
+// The J.P. Morgan tower is vertical: climb each floor's staircase of desks,
+// then go up through the stairwell onto the next floor.
+async function climbTower(page: Page) {
+  const L = LEVELS[4].rows; const T = 32; const Wd = L[0].length;
+  const at = (x: number, y: number) => L[y]?.[x] ?? ' ';
+  let s = await state(page);
+  for (let i = 0; i < 700 && !s.finished; i++) {
+    s = await state(page);
+    const cx = (s.x + 10) / T, feet = Math.round((s.y + 44) / T);
+    // next desk: a '=' run 3 rows up; else the ceiling gap: '#' row 3 rows up with a hole
+    const up = feet - 3;
+    let target: number | null = null, slab = false;
+    const runs: [number, number][] = []; let a = -1;
+    for (let x = 0; x <= Wd; x++) { const c = at(x, up); if (c === '=' && a < 0) a = x; if (c !== '=' && a >= 0) { runs.push([a, x - 1]); a = -1; } }
+    if (runs.length) target = (runs[0][0] + runs[0][1]) / 2;
+    else if (at(1, up) === '#' || at(Wd - 2, up) === '#') {
+      // find the gap in the slab
+      let g0 = -1, g1 = -1; for (let x = 1; x < Wd - 1; x++) if (at(x, up) === ' ') { if (g0 < 0) g0 = x; g1 = x; }
+      if (g0 >= 0) { target = (g0 + g1) / 2; slab = true; }
+    }
+    if (!s.grounded) { await page.waitForTimeout(30); continue; }
+    if (target === null) { // top floor: walk to the finish
+      await page.keyboard.down('ArrowRight'); await page.waitForTimeout(400); await page.keyboard.up('ArrowRight'); continue;
+    }
+    const dx = target - cx;
+    if (slab) {
+      // land on the slab on the side the current desk sits under
+      let g0 = -1, g1 = -1; for (let x = 1; x < Wd - 1; x++) if (at(x, up) === ' ') { if (g0 < 0) g0 = x; g1 = x; }
+      let d0 = Math.floor(cx), d1 = Math.floor(cx); while (at(d0 - 1, feet) === '=') d0--; while (at(d1 + 1, feet) === '=') d1++;
+      const right = d1 > g1;
+      const launch = right ? g1 - 0.5 : g0 + 1.5;
+      const ddx = launch - cx;
+      if (Math.abs(ddx) > 0.5) { const k = ddx > 0 ? 'ArrowRight' : 'ArrowLeft'; await page.keyboard.down(k); await page.waitForTimeout(50); await page.keyboard.up(k); continue; }
+      await page.keyboard.down('Space'); await page.waitForTimeout(300);
+      const side = right ? 'ArrowRight' : 'ArrowLeft';
+      await page.keyboard.down(side); await page.waitForTimeout(350); await page.keyboard.up('Space'); await page.waitForTimeout(250); await page.keyboard.up(side);
+      continue;
+    }
+    const k = dx > 0 ? 'ArrowRight' : 'ArrowLeft';
+    await page.keyboard.down(k); await page.keyboard.down('Space'); await page.waitForTimeout(330); await page.keyboard.up('Space'); await page.waitForTimeout(150); await page.keyboard.up(k);
+  }
+  return state(page);
+}
+
+const CASE_LINK: Record<number, string> = { 4: '/fusion', 5: '/fx', 6: '/uoaui', 7: '/winking-star' };
+for (const n of [0, 1, 2, 3, 4, 5, 6, 7]) {
+  test(`world ${n + 1} (${LEVELS[n].theme}) can be finished`, async ({ page }) => {
     test.setTimeout(180000);
     await page.addInitScript(() => { (window as unknown as { __gameAssist: object }).__gameAssist = { invuln: true }; });
     await page.goto(`/?level=${n + 1}#top`);
     await page.getByRole('button', { name: 'Press to play' }).click();
     await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
-    const s = await runLevel(page, n);
+    const s = n === 4 ? await climbTower(page) : await runLevel(page, n);
     expect(s.finished, `stopped at tile ${Math.floor(s.x / 32)}, row ${Math.floor((s.y + 44) / 32)}`).toBe(true);
     expect(s.level).toBe(n);
-    // the case card hands the reader back to the work
+    // the card states the facts and, where there is one, links to the case
     const card = page.locator(`.game-end[data-end="${n}"]`);
     await expect(card).toBeVisible({ timeout: 5000 });
-    await expect(card.getByRole('link', { name: 'Read the case →' })).toHaveAttribute('href', ['/fx', '/fusion', '/winking-star'][n]);
+    if (CASE_LINK[n]) await expect(card.getByRole('link', { name: 'Read the case →' })).toHaveAttribute('href', CASE_LINK[n]);
   });
 }
 
-test('hazards hurt (three hits restart the level)', async ({ page }) => {
-  await page.goto('/?level=2#top');
+test('Play opens the career map; arrows choose a world and Space starts it', async ({ page }) => {
+  await page.goto('/');
   await page.getByRole('button', { name: 'Press to play' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
-  // walk into the Board Room's first sliding template
+  expect((await state(page)).mode).toBe('map');
+  await page.keyboard.press('ArrowRight');
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('#game-world')).toHaveValue('2');
+  await page.keyboard.press('Space');
+  await expect.poll(async () => (await state(page)).mode).toBe('level');
+  expect((await state(page)).level).toBe(2);
+});
+
+test('Kaohsiung: the scooter makes you faster', async ({ page }) => {
+  await page.goto('/?level=1#top');
+  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   await page.keyboard.down('ArrowRight');
-  await expect.poll(async () => (await state(page)).hits, { timeout: 8000 }).toBeGreaterThan(0);
+  await expect.poll(async () => (await state(page)).riding, { timeout: 6000 }).toBe(true);
+  await page.waitForTimeout(900);
+  expect(Math.abs((await state(page)).vx)).toBeGreaterThan(330);
   await page.keyboard.up('ArrowRight');
 });
 
-test('a case page links to its level without starting it', async ({ page }) => {
+test('hazards hurt (three hits restart the level)', async ({ page }) => {
+  await page.goto('/?level=5#top');
+  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+  // stand in the tower's falling-sheet lane on the ground floor and wait
+  // nudge into the lane (x 440 to 468) with short taps
+  for (let i = 0; i < 60; i++) {
+    const x = (await state(page)).x;
+    if (x >= 440 && x <= 468) break;
+    const k = x < 440 ? 'ArrowRight' : 'ArrowLeft';
+    await page.keyboard.down(k); await page.waitForTimeout(x < 380 || x > 520 ? 200 : 40); await page.keyboard.up(k);
+    await page.waitForTimeout(120);
+  }
+  await expect.poll(async () => (await state(page)).hits, { timeout: 8000 }).toBeGreaterThan(0);
+});
+
+test('a case page links to its chapter of the game without starting it', async ({ page }) => {
   await page.goto('/fusion');
-  const link = page.getByRole('link', { name: /Play this case as a level/ });
-  await expect(link).toHaveAttribute('href', '/?level=2#top');
+  const link = page.getByRole('link', { name: /Play this chapter in the game/ });
+  await expect(link).toHaveAttribute('href', '/?level=5#top');
   await link.click();
-  await expect(page.locator('.game-level[data-level="1"]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#game-world')).toHaveValue('4');
   await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
 });
 
