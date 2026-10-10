@@ -227,3 +227,31 @@ export const SCHOOL_ICONS: Record<number, () => HTMLCanvasElement> = {
     'kkkkkkkkkkkkkkkk',
   ], { k: '#2a1a14', r: '#a5523a', w: '#efe6d2', b: '#6aa9d8', d: '#5a3a22' }),
 };
+
+// Barclays: the eagle, from the logo file Shannon supplied, box-downsampled
+// to 15×16 (not redrawn, so the shape stays the brand's own). Cyan on white,
+// as the mark appears. Shannon chose to show it; remove this entry to go back
+// to the plain brand-colour tile.
+export const LOGO_ICONS: Record<number, { icon: () => HTMLCanvasElement; bg: string }> = {
+  5: {
+    bg: '#ffffff',
+    icon: () => sprite([
+      '.....bbb.......',
+      '......bbb......',
+      '.bbb..bbb..bbb.',
+      '.bbb..bbb..bbb.',
+      'bbbbbbbbbbbbbbb',
+      'bbbbbbbbbbbbbbb',
+      'bbbbbbbbbbbbbbb',
+      'bbbbbbbbbbbbbbb',
+      'bbbbbbbbbbbbbbb',
+      'bbbbbbbbbbbbbb.',
+      '.bbb.bbbbb.bbb.',
+      '...b.bbbbb.b...',
+      '....bbbbbbb....',
+      '....bbbbbbb....',
+      '....bbbbbbb....',
+      '......bbb......',
+    ], { b: '#00aeef' }),
+  },
+};

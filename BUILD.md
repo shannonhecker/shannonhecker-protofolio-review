@@ -205,3 +205,10 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
   - Ling Tung: a cream campus block with a red-tiled roof and a flag.
   - London Met: a brick building with a pediment, tall windows and steps.
 - **How:** both are hand-placed 16×14 sprites in `SCHOOL_ICONS` (`src/game/map.ts`).
+
+### PR 14 · The Barclays eagle (Shannon's request)
+
+- **Eagle icon:** Shannon sent the Barclays eagle and asked for it on the map. Her Barclays tile now shows it in cyan on white, as the mark appears.
+- **Not redrawn:** the eagle was box-downsampled from her file to 15×16 rather than redrawn, so the shape stays the brand's own.
+- **Easy to remove:** the icon lives in `LOGO_ICONS` in `src/game/map.ts`. Deleting that entry brings back the plain brand-colour tile.
+- **Flagged to Shannon:** Barclays is her current employer and the site is part of a job search, so she should check Barclays' brand and social-media policy before the link goes out.
