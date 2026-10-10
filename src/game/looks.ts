@@ -96,7 +96,7 @@ export const LOOKS: Record<LookId, Look> = {
     pal: { h: '#1f1410', H: '#3a2a22', w: '#ffffff', x: '#2b3654', b: '#3d5a80', n: '#161616' },
     legs: 'skinny', shoe: 'flat',
   },
-  // 捷元電腦, 2010: blunt fringe, ombré tips, mint top with a Peter Pan collar, coral skinnies.
+  // Genuine C&C Inc., 2010: blunt fringe, ombré tips, mint top with a Peter Pan collar, coral skinnies.
   web: {
     grid: [
       '....kkkkkk......',

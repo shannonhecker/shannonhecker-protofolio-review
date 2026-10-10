@@ -114,3 +114,34 @@ test('full screen on a phone: an overlay with the touch controls and an exit', a
   await expect(page.locator('.play')).not.toHaveClass(/is-full/);
   await ctx.close();
 });
+
+test('map hover previews a stage, keyboard changes selection and ambient motion pauses offscreen', async ({page})=>{
+  await page.goto('/');
+  await page.getByRole('button',{name:'Press to play'}).click();await ready(page);
+  const box=(await page.locator('#game').boundingBox())!;
+  await page.mouse.move(box.x+226/480*box.width,box.y+214/270*box.height);
+  await expect.poll(async()=>(await state(page)).mapHovered).toBe(4);
+  expect((await state(page)).mode).toBe('map');
+  await expect(page.locator('#game')).toHaveCSS('cursor','pointer');
+  await page.locator('#game').press('ArrowDown');
+  expect((await state(page)).mapSelected).toBe(1);
+  const time=(await state(page)).mapTime;
+  await expect.poll(async()=>(await state(page)).mapTime).toBeGreaterThan(time);
+  await page.screenshot({path:'/private/tmp/portfolio-review/interactive-map.png'});
+  await page.getByRole('button',{name:'Exit full screen'}).click();
+  await page.locator('footer').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(100);
+  const paused=(await state(page)).mapTime;
+  await page.waitForTimeout(150);
+  expect((await state(page)).mapTime).toBe(paused);
+});
+
+test('reduced motion keeps the interactive map still', async({page})=>{
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.goto('/');await page.getByRole('button',{name:'Press to play'}).click();await ready(page);
+  const time=(await state(page)).mapTime;
+  await page.locator('#game').press('ArrowDown');
+  expect((await state(page)).mapSelected).toBe(1);
+  await page.waitForTimeout(150);
+  expect((await state(page)).mapTime).toBe(time);
+});

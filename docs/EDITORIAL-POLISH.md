@@ -1,54 +1,39 @@
-# Editorial polish, 10 October
+# Portfolio layout and motion, 10 October
 
-The portfolio's purpose is to let a design panel inspect Shannon's real work.
-Her optional pixel game adds personality; product screens carry the cases.
+The panel must be able to inspect Shannon's work. The latest supplied Matthieu
+screenshots are the structural reference: two large, close-set project images
+on the index and a 40/60 summary/gallery split on case introductions.
 
-## Composition
+The home gallery uses 2.5vw outer margins, a 6px centre gutter and 1.3:1 image
+surfaces. Complete UI images sit within project-coloured surfaces. Numbers,
+titles and reading links share one centre line below; original context follows.
+The preserved method paragraph is smaller alongside the Selected work heading.
 
-I reviewed the supplied Boostle case in the browser: a persistent project
-summary beside a dominant, close-set image column. Eddy's portfolio uses a
-coherent retro interaction language. I am adapting the former's hierarchy and
-the latter's responsive playfulness without borrowing their artwork or words.
+Each case title spans the left summary. Below it, the date/context occupies the
+left subcolumn; role, status and product links occupy the right subcolumn, with
+the description beneath. Large product captures form the right gallery. All
+words and image proportions are preserved. Phones use a single reading column.
+The section index is one compact Sections disclosure, not a second sticky bar.
 
-Desktop project index: compact title and context at left, one large complete
-product image at right. Each project gets its own row. Case introduction:
-sticky summary at left and two complete product views at right. Reading
-chapters retain full-width diagrams and large screenshot moments. On phones
-the summary precedes the image; there is no pinned content or horizontal scroll.
+White #ffffff, ink #20262d, FX blue #dbeaf2, Fusion teal #e4efec, Winking peach
+#fff0de and uoaui lilac #ede8f6 provide the palette. Inter Tight carries titles,
+Inter carries reading, and Pixelify stays in the game and small pixel accents.
 
-```
-Index                            Case introduction
-title + context | product        summary | product screen
-                |                sticky  | second screen
-next project    | product                 | caption
-```
+Motion uses the existing GSAP ScrollTrigger runtime, loaded after desktop
+browsing starts. Paired gallery images enter at separate depths and settle
+before reaching the reading area. Complete case frames approach from either
+side. Intro titles and the image gallery enter at different distances. Hover
+lifts product images gently; Winking phones alternate depth. Native route view
+transitions connect project titles. No screenshot cropping or scroll capture.
+Touch and reduced-motion modes show content immediately.
 
-## Tokens and character
+Open-source options researched from primary sources: Motion is MIT licensed
+(https://github.com/motiondivision/motion); Lenis is MIT licensed
+(https://github.com/darkroomengineering/lenis). GSAP is already installed and
+uses its standard no-charge license, not MIT
+(https://gsap.com/community/standard-license/). Retaining one animation engine
+avoids overlapping runtimes. The design work stays local; no 12ui transfer.
 
-White #ffffff and ink #20262d carry the editorial frame. Product surfaces use
-FX blue #dbeaf2, Fusion teal #e4efec, Winking peach #fff0de, and uoaui lilac
-#ede8f6. Dark mode uses the existing high-contrast palette. Inter Tight carries
-large display text, Inter carries long reading, and Pixelify is confined to
-play and small original pixel details. Headings, metadata and images share
-explicit grid edges. Text stays left aligned.
-
-The old two-column thumbnail grid was too even and too small. Larger screens,
-an asymmetric 28/72 index, and a 34/66 case introduction make the actual work
-the visual event. Avoid another set of decorative illustration cards.
-
-## Motion
-
-Native scrolling, bounded horizontal entry and depth on whole product frames.
-Headings settle separately from images. Same-origin view transitions preserve
-project titles. No screenshot cropping, scroll hijacking or fake loaders.
-Touch and reduced-motion contexts show readable content immediately.
-
-## Verification
-
-Check actual phone and desktop rendering, uncropped images, all preserved
-words, theme contrast, keyboard navigation, game stages, console, and the
-95-point Lighthouse gate. Award standards are a craft target, not a claim of
-an award or independent certification.
-
-Shannon chose to keep the design work local. This plan uses the frontend-design
-skill and direct visual review; no portfolio content has been sent to 12ui.
+Verify desktop/mobile appearance, disclosure keyboard and jump behaviour,
+uncropped evidence, reduced motion, automated tests and production CI. Awards
+are a craft reference, not a certification that this site has won one.

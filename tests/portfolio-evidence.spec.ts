@@ -18,6 +18,7 @@ test('chapter jumps stay in place while deferred product screenshots load', asyn
       return !box.height || Math.abs(box.width / box.height - Number(img.getAttribute('width')) / Number(img.getAttribute('height'))) > .02;
     }).map(el => el.getAttribute('alt')));
     expect(unreserved).toEqual([]);
+    await page.locator('.section-picker summary').click();
     await page.getByRole('navigation', { name: 'Case study sections' }).getByRole('link', { name: 'Decision map', exact: true }).click();
     const heading = page.getByRole('heading', { name: 'Decision map', exact: true });
     await expect(heading).toBeInViewport();
@@ -46,7 +47,9 @@ for (const path of ['/fx', '/fusion', '/winking-star', '/uoaui']) {
       const href = (await link.getAttribute('href'))!;
       await expect(page.locator(href)).toHaveCount(1);
     }
+    await nav.locator('summary').click();
     await nav.getByRole('link', { name: 'Decision map', exact: true }).click();
+    await expect(nav.locator('details')).not.toHaveAttribute('open', '');
     await expect(page.getByRole('heading', { name: 'Decision map', exact: true })).toBeInViewport();
     for (const width of [320, 820, 1440]) {
       await page.setViewportSize({ width, height: 900 });

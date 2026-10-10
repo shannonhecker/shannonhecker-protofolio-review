@@ -1,11 +1,11 @@
 // Shannon's career, world by world. Sources: her CV (assets/CV_ShannonH.pdf on
 // shannonhecker.com) and her own words in the build conversation. Keep these
 // matching LinkedIn: the panel checks dates.
-// 捷元電腦: 2010, Taipei. Shannon confirmed both.
+// Genuine C&C Inc.: 2010, Taipei. Shannon confirmed both.
 export const JOURNEY = [
-  { place: 'Kaohsiung 高雄', when: 'Growing up', line: 'Grew up by the sea in Kaohsiung, in the city by the park, on a motorbike most days.', href: null },
+  { place: 'Kaohsiung', when: 'Growing up', line: 'Grew up by the sea in Kaohsiung, in the city by the park, on a motorbike most days.', href: null },
   { place: 'Ling Tung University', when: '2008 to 2010', line: 'BA in Digital Media Arts and Management, Taiwan.', href: null },
-  { place: '捷元電腦', when: '2010', line: 'Web and visual designer, B2C.', href: null },
+  { place: 'Genuine C&C Inc.', when: '2010', line: 'Web and visual designer, B2C.', href: null },
   { place: 'London Metropolitan University', when: '2015 to 2016', line: 'MA in Digital Media. The move to the UK.', href: null },
   { place: 'J.P. Morgan, London', when: 'June 2016 to 2025', line: 'Intern, Analyst, Senior Analyst, then Vice President, Product Design. UI and visual first, then UI and UX together. Fusion at the top.', href: '/fusion' },
   { place: 'Barclays, London', when: '2025 to now', line: 'Senior Product Designer, FX and MarketsOne.', href: '/fx' },

@@ -57,15 +57,15 @@ test('avatar follows the pointer gently without movement buttons or keyboard cap
   expect(await page.locator('.avatar-rig').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
 });
 
-test('project icons, numbers and reading links share one centre line',async({page})=>{
+test('project labels and reading links share one centre line without game icons',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.goto('/panel');
   for(const row of await page.locator('#work .row').all()){
     const number=(await row.locator('.n').boundingBox())!;
-    const icon=(await row.locator('.n .pixel-object').boundingBox())!;
+    await expect(row.locator('.pixel-object')).toHaveCount(0);
     const read=(await row.locator('.arrow').boundingBox())!;
     expect(Math.abs(number.y+number.height/2-read.y-read.height/2)).toBeLessThan(1);
-    expect(Math.abs(icon.y+icon.height/2-read.y-read.height/2)).toBeLessThan(1);
+
   }
 });
 

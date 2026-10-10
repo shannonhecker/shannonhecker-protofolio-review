@@ -3,7 +3,7 @@
 export const ACHIEVEMENTS = [
   [{ title:'From Kaohsiung', projects:['The story begins by the sea.'] }],
   [{ title:'BA · 2008–2010', projects:['Digital Media Arts and Management'] }],
-  [{ title:'Web & visual designer · 2010', projects:['捷元電腦 · B2C web design'] }],
+  [{ title:'Web & visual designer · 2010', projects:['Genuine C&C Inc. · B2C web design'] }],
   [{ title:'MA · 2015–2016', projects:['Digital Media · London Metropolitan University'] }],
   [
     {title:'Trading platforms · 2016–2019',projects:['JPMM Execute Trading Platform','JPMM FX, Raas, Algo Center','Bento Design Library']},

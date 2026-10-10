@@ -2,7 +2,6 @@
 // A left-to-right flow of steps (top-to-bottom on a phone), with optional
 // side branches under a step. Semantic: an ordered list in a figure.
 interface Step { t: string; d?: string; branch?: { t: string; d?: string } }
-import PixelObject from '../PixelObject.astro';
 interface Props { steps: Step[]; caption?: string; label: string }
 const { steps, caption, label } = Astro.props;
 ---
@@ -10,7 +9,6 @@ const { steps, caption, label } = Astro.props;
   <ol style={`--n:${steps.length}`}>
     {steps.map((s, i) => (
       <li>
-        <PixelObject name={i===0?'journal':i===steps.length-1?'finish':i===1?'gem':'arrow'} size={64} />
         <span class="dg-i">{String(i + 1).padStart(2, '0')}</span>
         <b>{s.t}</b>
         {s.d && <span class="dg-d">{s.d}</span>}

@@ -8,6 +8,10 @@ if(nav){
  measure();new ResizeObserver(measure).observe(nav);
 }
 if(index){
+ const picker=index.querySelector<HTMLDetailsElement>('details');
+ index.addEventListener('click',event=>{if((event.target as Element).closest('a')&&picker)picker.open=false;});
+ document.addEventListener('click',event=>{if(!index.contains(event.target as Node)&&picker)picker.open=false;});
+ index.addEventListener('keydown',event=>{if(event.key==='Escape'&&picker){picker.open=false;picker.querySelector('summary')?.focus();}});
  const links=Array.from(index.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'));
  const sections=links.map(a=>document.getElementById(a.hash.slice(1))).filter((e):e is HTMLElement=>!!e);
  let previous=scrollY,travel=0,frame=0;
@@ -20,7 +24,7 @@ if(index){
   else if(travel< -18)root.classList.remove('nav-away');
   let current=0;sections.forEach((el,i)=>{if(el.getBoundingClientRect().top<innerHeight*.4)current=i;});
   links.forEach((a,i)=>{if(i===current)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});
-  const count=index.querySelector('.chapter-count');if(count)count.textContent=`${current+1} / ${links.length}`;
+  const label=index.querySelector('.section-current');if(label)label.textContent=links[current]?.textContent??'';
   frame=0;
  };
  addEventListener('scroll',()=>{if(!frame)frame=requestAnimationFrame(update);},{passive:true});

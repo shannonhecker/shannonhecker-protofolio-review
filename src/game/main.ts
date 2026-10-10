@@ -23,7 +23,7 @@ export async function prepareArt() {
 export const WORLDS = [
   { short: 'KAOHSIUNG', when: 'GROWING UP' },
   { short: 'LING TUNG', when: '2008-2010' },
-  { short: 'WEB DESIGN', when: '2010' },
+  { short: 'GENUINE', when: '2010' },
   { short: 'LONDON MET', when: '2015-2016' },
   { short: 'J.P. MORGAN', when: '2016-2025' },
   { short: 'BARCLAYS', when: '2025-NOW' },
@@ -114,6 +114,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   const rain: { x: number; y: number }[] = Array.from({ length: 70 }, (_, i) => ({ x: (i * 137) % 480, y: (i * 71) % 270 }));
   let mapSel = Math.max(0, Math.min(LEVELS.length - 1, opts.level ?? 0));
 
+  let mapHover=-1, mapClock=0, mapVisible=true;
+  let mapAvatarX=NODES[mapSel][0],mapAvatarY=NODES[mapSel][1];
   let runSequence = 0;
   function loadLevel(n: number) {
     runSequence++;
@@ -150,12 +152,13 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   function showMap(sel = mapSel) {
     runSequence++;
     s.mode = 'map';
+    s.paused=false;mapHover=-1;canvas.style.cursor='default';
     setPowerMusic(false);setMusicPlaying(true);
     s.finished = false;
     mapSel = sel;
     const ch = CHAPTERS[chapterOf(sel)];
     opts.onStatus(`World map. ${ch.name}, ${ch.stages.length === 1 ? 'one stage' : `${ch.stages.length} stages`}, selected. Left and right to choose a world, Space to start.`);
-    draw();
+    draw();resume();
   }
 
   // ---- juice (off under reduced motion)
@@ -192,6 +195,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       };
       if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') step(-1);
       else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') step(1);
+      else if(e.key==='ArrowUp'||e.key==='ArrowDown'){mapSel=(mapSel+(e.key==='ArrowDown'?1:-1)+LEVELS.length)%LEVELS.length;opts.onMapSelect?.(mapSel);showMap(mapSel);}
       else if (e.key === ' ' || e.key === 'Enter') loadLevel(mapSel);
       return;
     }
@@ -212,7 +216,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     if (s.mode === 'level') setPaused(true);
   };
   canvas.addEventListener('blur', blur);
-  const vis = () => { if (document.hidden && s.mode === 'level') setPaused(true); };
+  const vis = () => { if (document.hidden && s.mode === 'level') setPaused(true);if(s.mode==='map'&&!document.hidden)resume(); };
   document.addEventListener('visibilitychange', vis);
   // Entering the browser's fullscreen layer can briefly report the focused
   // canvas as non-intersecting. Restore only a pause caused by this observer;
@@ -221,7 +225,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   const io = new IntersectionObserver((entries) => {
     // A fullscreen transition may batch both the old and new visibility.
     const e = entries[entries.length - 1];
-    if (!e || s.mode !== 'level') return;
+    if(!e)return;mapVisible=e.isIntersecting;
+    if(s.mode==='map'){if(mapVisible&&!document.hidden)resume();return;}
     if (!e.isIntersecting && !s.paused) {
       setPaused(true);
       pausedOffscreen = true;
@@ -231,19 +236,32 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     }
   }, { threshold: 0.25 });
   io.observe(canvas);
+  const hitMap=(e:PointerEvent)=>{
+    const r=canvas.getBoundingClientRect();
+    const mx=(e.clientX-r.left)/r.width*HUD_W,my=(e.clientY-r.top)/r.height*HUD_H;
+    let best=-1,distance=24*24;
+    NODES.forEach(([x,y],i)=>{const d=(mx-x)**2+(my-y)**2;if(d<distance){best=i;distance=d;}});
+    return best;
+  };
+  const hoverMap=(e:PointerEvent)=>{
+    if(s.mode!=='map')return;
+    const next=hitMap(e);if(next===mapHover)return;
+    mapHover=next;canvas.style.cursor=next<0?'default':'pointer';
+    if(next>=0)opts.onStatus(`${WORLDS[next].short}. ${WORLDS[next].when}. Click to play this stage.`);
+    draw();
+  };
+  const leaveMap=()=>{mapHover=-1;canvas.style.cursor='default';if(s.mode==='map')draw();};
   const wake = (e: PointerEvent) => {
     canvas.focus();
-    if (s.mode === 'map') {
-      // click a world on the map to start it
-      const r = canvas.getBoundingClientRect();
-      const mx = ((e.clientX - r.left) / r.width) * HUD_W, my = ((e.clientY - r.top) / r.height) * HUD_H;
-      let best = -1, bd = 26 * 26;
-      NODES.forEach(([nx, ny], i) => { const d = (nx - mx) ** 2 + (ny - my) ** 2; if (d < bd) { bd = d; best = i; } });
-      if (best >= 0) { mapSel = best; opts.onMapSelect?.(best); loadLevel(best); }
+    if(s.mode==='map'){
+      const best=hitMap(e);
+      if(best>=0){mapSel=best;opts.onMapSelect?.(best);canvas.style.cursor='default';loadLevel(best);}
       return;
     }
     setPaused(false);
   };
+  canvas.addEventListener('pointermove',hoverMap);
+  canvas.addEventListener('pointerleave',leaveMap);
   const onFocus = () => { if (s.mode === 'level') setPaused(false); };
   canvas.addEventListener('pointerdown', wake);
   canvas.addEventListener('focus', onFocus);
@@ -500,6 +518,15 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     const plate = illustrated('world-map');
     if (plate) ctx.drawImage(plate, 0, 0, HUD_W, HUD_H);
     else ctx.drawImage(base, 0, 0);
+    // Pixel water glints drift slowly through open sea, away from stage labels.
+    if(!opts.reduceMotion){
+      ctx.fillStyle='#bff4ee';
+      for(let i=0;i<9;i++){
+        const x=Math.round(150+(i*29+mapClock*3)%190),y=48+(i%3)*20;
+        ctx.globalAlpha=.3+.2*Math.sin(mapClock+i);ctx.fillRect(x,y,5,1);ctx.fillRect(x+4,y-1,2,1);
+      }
+      ctx.globalAlpha=1;
+    }
     const mapText = (label: string, x: number, y: number, colour: string, size = 8) => {
       text(ctx, label, Math.round(x), Math.round(y), colour, size >= 15 ? 2 : 1);
     };
@@ -514,6 +541,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       for (let k = 1; k < n; k++) {
         const x = Math.round(x0 + ((x1 - x0) * k) / n), y = Math.round(y0 + ((y1 - y0) * k) / n);
         if (NODES.some(([nx, ny]) => Math.abs(nx - x) < 12 && Math.abs(ny - y) < 12)) continue;
+        ctx.fillStyle=(!opts.reduceMotion&&(k+Math.floor(mapClock*3))%9===0)?'#ffe28c':col;
         ctx.fillRect(x - 1, y - 1, 2, 2);
       }
     };
@@ -523,9 +551,13 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     ctx.fillStyle = '#e5484d';
     if (!plate) for (const [x, y] of SELECT_RINGS[chapterOf(mapSel)]) ctx.fillRect(x, y, 1, 1);
     NODES.forEach(([x, y], i) => {
-      const sel = chapterOf(i) === chapterOf(mapSel), done = s.done.includes(i);
+      const sel=i===mapSel,hover=i===mapHover,done=s.done.includes(i);
+      if(sel||hover){
+        const size=sel?15:14;ctx.strokeStyle=hover?'#fff8dc':'#ffe28c';ctx.lineWidth=2;ctx.strokeRect(x-size,y-size,size*2,size*2);
+        if(sel){const lift=opts.reduceMotion?0:Math.round(Math.sin(mapClock*3)*2);ctx.fillStyle='#ffe28c';ctx.fillRect(x-3,y+19+lift,6,2);ctx.fillRect(x-1,y+21+lift,2,2);}
+      }
       const brand = BRAND[i];
-      ctx.fillStyle = sel ? '#e5484d' : brand ? brand.bg : '#2b3654'; ctx.fillRect(x - 11, y - 11, 22, 22);
+      ctx.fillStyle = hover ? '#fff8dc' : sel ? '#ef9e55' : brand ? brand.bg : '#2b3654'; ctx.fillRect(x - 11, y - 11, 22, 22);
       ctx.fillStyle = LOGO_ICONS[i]?.bg ?? mapIcons[i].sky; ctx.fillRect(x - 9, y - 9, 18, 18);
       const ic = logos[i] ?? schools[i] ?? mapIcons[i].pickup[0]; // schools show their buildings; Barclays its eagle
       if (logos[i] || !drawIllustration(ctx, i === 7 ? 'star' : i === 6 ? 'gem' : i === 0 ? 'heart' : 'journal', x, y + 8, 16, 16))
@@ -548,13 +580,13 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       });
     });
     // the character stands on the selected world, dressed for that era
-    const [sx, sy] = NODES[mapSel];
+    const sx=Math.round(mapAvatarX),sy=Math.round(mapAvatarY)+(opts.reduceMotion?0:Math.round(Math.sin(mapClock*2.5)));
     const era = playerFrames(mapIcons[mapSel].id);
     if (!drawIllustration(ctx, `hero-${mapIcons[mapSel].id}-1`, sx, sy - 13, 34, 34)) ctx.drawImage(era.right.idle[0], sx - 8, sy - 37);
     // footer: the selected world, then how to move
     const c = chapterOf(mapSel), ch = CHAPTERS[c];
     const name = 'bonus' in ch && ch.bonus ? `BONUS · ${ch.name}` : `WORLD ${c + 1} · ${ch.name}`;
-    const foot = `< ${name} · ${ch.stages.length === 1 ? '1 STAGE' : `${ch.stages.length} STAGES`} >   SPACE TO PLAY`;
+    const foot = mapHover>=0?`${WORLDS[mapHover].short} · CLICK TO PLAY`:`< ${name} >   UP/DOWN: STAGE   SPACE: PLAY`;
     ctx.globalAlpha = 0.85; ctx.fillStyle = '#fbf7ea'; ctx.fillRect(14, 254, textWidth(foot) + 4, 9); ctx.globalAlpha = 1;
     mapText(foot, 16, 255, '#2b3654', 7);
     mapText('NOT TO SCALE', 405, 256, '#2b3654', 6);
@@ -727,7 +759,14 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   // ---- loop: fixed timestep; stops entirely on the map, while paused, offscreen or between worlds
   let last = 0, acc = 0, raf = 0;
   function frame(now: number) {
-    if (s.paused || s.mode === 'map') { draw(); raf = 0; return; }
+    if(s.mode==='map'){
+      raf=0;if(s.paused||document.hidden||!mapVisible)return;
+      const dt=Math.min(.05,(now-last)/1000);last=now;
+      if(!opts.reduceMotion){mapClock+=dt;const ease=1-Math.exp(-dt*9);mapAvatarX+=(NODES[mapSel][0]-mapAvatarX)*ease;mapAvatarY+=(NODES[mapSel][1]-mapAvatarY)*ease;}
+      else{mapAvatarX=NODES[mapSel][0];mapAvatarY=NODES[mapSel][1];}
+      draw();if(!opts.reduceMotion)raf=requestAnimationFrame(frame);return;
+    }
+    if (s.paused) { draw(); raf = 0; return; }
     acc += Math.min(0.1, (now - last) / 1000);
     last = now;
     while (acc >= STEP) { step(STEP); acc -= STEP; }
@@ -736,7 +775,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   }
   function resume() {
     setMusicPlaying(!s.paused);
-    if (raf || s.paused || s.mode === 'map') return;
+    if(raf||s.paused||document.hidden)return;
+    if(s.mode==='map'&&(opts.reduceMotion||!mapVisible)){mapAvatarX=NODES[mapSel][0];mapAvatarY=NODES[mapSel][1];draw();return;}
     last = performance.now(); acc = 0;
     raf = requestAnimationFrame(frame);
   }
@@ -746,7 +786,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   canvas.focus();
 
   return {
-    state: () => ({ ...s, audio:audioState(), powerItems:items.filter(i=>i.kind==='*'&&!i.taken).map(i=>({x:i.x*TILE,y:i.y*TILE})), done: [...s.done], missions: [...s.missions], mission: { ...s.mission }, enemies: foes.filter((e) => e.alive).map(({ x, y }) => ({ x, y })) }),
+    state: () => ({ ...s,mapSelected:mapSel,mapHovered:mapHover,mapTime:mapClock, audio:audioState(), powerItems:items.filter(i=>i.kind==='*'&&!i.taken).map(i=>({x:i.x*TILE,y:i.y*TILE})), done: [...s.done], missions: [...s.missions], mission: { ...s.mission }, enemies: foes.filter((e) => e.alive).map(({ x, y }) => ({ x, y })) }),
     touch,
     levels: LEVELS.length,
     loadLevel: (n: number) => { canvas.focus(); mapSel = n; loadLevel(n); },
@@ -759,6 +799,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       canvas.removeEventListener('keydown', kd); canvas.removeEventListener('keyup', ku);
       canvas.removeEventListener('blur', blur); canvas.removeEventListener('pointerdown', wake);
       canvas.removeEventListener('focus', onFocus);
+      canvas.removeEventListener('pointermove',hoverMap);canvas.removeEventListener('pointerleave',leaveMap);canvas.style.cursor='';
       document.removeEventListener('visibilitychange', vis);
       io.disconnect();
     },

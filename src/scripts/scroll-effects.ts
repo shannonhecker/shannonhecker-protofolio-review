@@ -13,8 +13,8 @@ export function initScrollEffects() {
     // The image and its caption move at different depths, then settle together.
     // Transform complete frames: the product UI is never cropped for the effect.
     document.querySelectorAll<HTMLElement>('#work .row > picture, #work .row > .project-preview').forEach((picture,index)=>{
-      gsap.fromTo(picture,{x:index%2?64:-64,y:48,scale:.96},{x:0,y:0,scale:1,ease:'none',immediateRender:false,
-        scrollTrigger:{trigger:picture,start:'top 95%',end:'top 28%',scrub:.6}});
+      gsap.fromTo(picture,{x:index%2?28:-28,y:index%2?56:24,scale:.97},{x:0,y:0,scale:1,ease:'none',immediateRender:false,
+        scrollTrigger:{trigger:picture,start:'top 95%',end:'top 65%',scrub:.6}});
     });
     document.querySelectorAll<HTMLElement>('.case-page .beat .body > .h-sub').forEach((heading,index) => {
       gsap.fromTo(heading, { x: index % 2 ? 48 : -48 }, { x: 0, ease:'none', immediateRender:false,

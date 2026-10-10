@@ -35,7 +35,7 @@ export const FOES: Record<LookId, () => Foe> = {
       '.kk......kk.', 'krrk.kk.krrk', '.kkkkrrkkkk.', '.krwwwwwwrk.', 'krwwwkwwwwrk', 'krwwwkwwwwrk', 'krwwwkkkwwrk', '.krwwwwwwrk.', '..kkkkkkkk..',
     ], '..kk....kk..', '...kk..kk...', { r: '#e5484d', w: '#ffffff' }),
   }),
-  // 捷元電腦: software bugs.
+  // Genuine C&C Inc.: software bugs.
   web: () => ({
     name: 'bug',
     frames: walker([
