@@ -1,7 +1,7 @@
 // Shannon, era by era. Each world dresses her the way that year looked, so the
 // character ages through the map: a school ponytail in Kaohsiung, side-swept
 // bangs and a Breton top at university (2008–10), ombré tips and a Peter Pan
-// collar in 2012, a lob and a camel coat in London (2015–16), a blazer at
+// collar in 2010, a lob and a camel coat in London (2015–16), a blazer at
 // J.P. Morgan, and her own reference look today (wavy hair, cream turtleneck,
 // wide pink trousers). Hand-placed pixels; nothing traced or generated.
 // Head and torso are a 16×17 grid per era; legs are drawn per pose below.
@@ -96,7 +96,7 @@ export const LOOKS: Record<LookId, Look> = {
     pal: { h: '#1f1410', H: '#3a2a22', w: '#ffffff', x: '#2b3654', b: '#3d5a80', n: '#161616' },
     legs: 'skinny', shoe: 'flat',
   },
-  // 捷元電腦, 2012: blunt fringe, ombré tips, mint top with a Peter Pan collar, coral skinnies.
+  // 捷元電腦, 2010: blunt fringe, ombré tips, mint top with a Peter Pan collar, coral skinnies.
   web: {
     grid: [
       '....kkkkkk......',
