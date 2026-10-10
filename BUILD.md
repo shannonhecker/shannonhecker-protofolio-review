@@ -404,3 +404,5 @@ I made the work gallery move in layers: images arrive first, then titles and cap
 I corrected my baby milestone from 2011 to 2021, keeping 2018 unchanged. The game journal now lists both family milestones in chronological order.
 
 I gave every stage a different song arrangement: swung harbour melody, campus waltz, clipped workshop groove, slow London rain, rising city theme, fast market rhythm, spacious AI theme and a driving storybook finale. Each has its own note lengths, bass pattern and instrumentation. The browser test observes actual Web Audio notes and checks that changing stages stops the previous song. I embedded the small original journey vectors to avoid twenty competing image requests while the FX hero loads, and defer offscreen video posters with native lazy loading.
+
+I removed the redundant Figma-design caption under the FX hero after my final review. The main project-status explanation and detailed source links remain in the case study.
