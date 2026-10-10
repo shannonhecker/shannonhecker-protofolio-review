@@ -1,6 +1,6 @@
 # Handoff: how to continue this site in a new session
 
-Read this first. It holds the rules, the decisions already made, and what is
+Written for any agent or person, Claude Code or Codex alike. Read this first. It holds the rules, the decisions already made, and what is
 next, so a fresh session can carry on without Shannon re-explaining.
 
 ## What this is
