@@ -14,7 +14,7 @@ import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
   <div class="game" data-state="poster">
     <canvas id="game" width="480" height="270" tabindex="-1" role="application" aria-roledescription="game" aria-label="Working Order" aria-describedby="game-desc"></canvas>
     <div class="game-poster">
-      <Pic name="scene-kaohsiung.png" alt="" sizes="(max-width: 760px) 90vw, 1152px" widths={[480, 960, 1344]} eager />
+      <Pic name="scene-kaohsiung.png" alt="" sizes="(max-width: 760px) 90vw, 420px" widths={[480, 800, 1344]} />
       <button type="button" class="game-play" id="game-play">Press to play</button>
     </div>
     {JOURNEY.map((w, i) => (

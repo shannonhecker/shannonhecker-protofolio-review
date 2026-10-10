@@ -642,3 +642,10 @@ nine pages built, 88 files checked without diagnostics.
 - [x] Fixed deferred screenshot height reservation after reproducing the CI chapter-jump failure in Chromium 156.
 - [x] Nine-page build, 90-file Astro check without diagnostics, 96 Playwright tests passed in 40.4 seconds, including the delayed-image regression.
 - Final CI, merge and production verification are recorded on PR #25. The earlier checkpoints above describe their stated revisions only.
+
+### 10 October, 19:41 BST · custom appearance menu and Figma handoff
+
+- [x] Replaced the native select with the site's own theme component; desktop/mobile visual, keyboard, focus, contrast and persistence checks pass.
+- [x] Nine routes built; 91 files checked without diagnostics; all 98 tests pass in 41.1s. Local root mobile Lighthouse: 100/100/100/100, LCP 1.9s.
+- [ ] Final CI and production release, tracked on PR #25.
+- [ ] Editable desktop/mobile transfer of all nine routes to a separate Figma working file: https://www.figma.com/design/l6noy7onfsRiuBgjqSsKbt . This file is in progress; the original interview deck remains unchanged.

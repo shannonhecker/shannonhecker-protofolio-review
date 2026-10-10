@@ -129,3 +129,10 @@ Explicit source ratios now reserve the correct space before decoding. A held-
 image regression checks the reserved size and stable chapter position. Failure
 screenshots and traces are retained for future diagnosis. Final CI and production
 results are recorded on PR #25, separately from these local checks.
+
+The custom theme menu revision passes 98 browser tests (41.1s), a nine-page build
+and 91-file Astro check with zero diagnostics. Open-menu contrast, mobile bounds,
+keyboard selection, focus restoration, Tab/Escape/outside dismissal and saved
+preferences are checked. After deprioritising optional first-load game artwork,
+the local root mobile audit scores 100/100/100/100 with LCP 1.9s. Remote CI remains
+the release gate; these local results do not imply a production deployment.
