@@ -11,7 +11,10 @@ import Pic from './Pic.astro';
       <p class="eyebrow" style="grid-column:1/4">Play</p>
       <h2 id="play-title" class="h-section" style="grid-column:4/12">Star Run</h2>
     </div>
-    <a class="skip-game" href="#links">Skip to links</a>
+    <div class="game-bar">
+      <a class="skip-game" href="#links">Skip to links</a>
+      <button type="button" class="game-sound" id="game-sound" aria-pressed="false">Sound</button>
+    </div>
     <div class="game" data-state="poster">
       <canvas id="game" width="960" height="540" tabindex="-1" role="application" aria-roledescription="game" aria-label="Star Run" aria-describedby="game-desc"></canvas>
       <div class="game-poster">

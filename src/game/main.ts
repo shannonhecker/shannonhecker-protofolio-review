@@ -2,6 +2,8 @@
 // Hand-written canvas loop: ~a few KB instead of Phaser's ~370 KB gzipped.
 import { T, TILE, VIEW_W, VIEW_H } from './tuning';
 import { LEVEL, parse } from './level';
+import { sfx } from './sound';
+export { setSound } from './sound';
 
 type Item = { x: number; y: number; kind: 'o' | '^' | 'C' | 'F'; taken?: boolean };
 export type GameState = {
@@ -98,6 +100,7 @@ export function start(canvas: HTMLCanvasElement, opts: { reduceMotion: boolean; 
   function hurt(fromX: number) {
     if (p.invuln > 0) return;
     s.hits++;
+    sfx.hit();
     p.invuln = T.invuln;
     p.vx = (p.x + PW / 2 < fromX ? -1 : 1) * T.hitKnockX;
     p.vy = -T.hitKnockY;
@@ -140,6 +143,7 @@ export function start(canvas: HTMLCanvasElement, opts: { reduceMotion: boolean; 
       const bonus = 1 + T.speedJumpBonus * Math.min(1, Math.abs(p.vx) / T.runSpeed);
       p.vy = -T.jumpSpeed * bonus;
       p.buffer = 0; p.coyote = 0; p.grounded = false; p.rising = true; s.jumps++;
+      sfx.jump();
       p.squash = opts.reduceMotion ? 0 : -0.14;
     }
     if (p.rising && (!jump || p.vy >= 0)) p.rising = false;
@@ -189,10 +193,10 @@ export function start(canvas: HTMLCanvasElement, opts: { reduceMotion: boolean; 
       const pad = it.kind === '^' ? 6 : 0;
       const over = p.x < ix + TILE - pad && p.x + PW > ix + pad && p.y < iy + TILE && p.y + PH > iy + pad * 2;
       if (!over) continue;
-      if (it.kind === 'o') { it.taken = true; s.collected++; }
+      if (it.kind === 'o') { it.taken = true; s.collected++; sfx.collect(); }
       else if (it.kind === '^') hurt(ix + TILE / 2);
       else if (it.kind === 'C') { checkpoint = { x: ix + (TILE - PW) / 2, y: iy + TILE - PH }; }
-      else if (it.kind === 'F' && !s.finished) { s.finished = true; opts.onFinish({ ...s }); }
+      else if (it.kind === 'F' && !s.finished) { s.finished = true; sfx.finish(); opts.onFinish({ ...s }); }
     }
 
     p.squash *= Math.pow(0.0001, dt); // ease back to 0 in ~100ms

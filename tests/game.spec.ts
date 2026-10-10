@@ -79,3 +79,13 @@ test.describe('JavaScript off', () => {
     await expect(page.getByRole('button', { name: 'Press to play' })).toBeHidden();
   });
 });
+
+test('sound is off by default and has one toggle', async ({ page }) => {
+  await page.goto('/#play');
+  const btn = page.getByRole('button', { name: 'Sound' });
+  await expect(btn).toHaveAttribute('aria-pressed', 'false');
+  await btn.click();
+  await expect(btn).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+});

@@ -31,6 +31,7 @@ async function boot() {
         again?.focus();
       },
     });
+    (await import('../game/main')).setSound(soundOn);
     (window as unknown as { __game?: () => unknown }).__game = () => game?.state();
   } catch {
     root.dataset.state = 'poster';
@@ -39,6 +40,17 @@ async function boot() {
   }
 }
 play?.addEventListener('click', boot);
+
+// Sound: off by default, one toggle (brief). The audio module ships in the
+// game chunk, so the toggle only records the choice until the game loads.
+const soundBtn = document.getElementById('game-sound') as HTMLButtonElement | null;
+let soundOn = false;
+soundBtn?.addEventListener('click', async () => {
+  soundOn = !soundOn;
+  soundBtn.setAttribute('aria-pressed', String(soundOn));
+  if (game) (await import('../game/main')).setSound(soundOn);
+  game ? canvas?.focus() : undefined;
+});
 again?.addEventListener('click', boot);
 
 // Touch: three on-screen buttons, pointer-driven so multi-touch works.
