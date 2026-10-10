@@ -58,3 +58,19 @@ test('landing greeting uses registered poses and stops immediately when paused',
  await page.getByRole('button',{name:'Resume motion',exact:true}).click();
  await expect(companion).not.toHaveAttribute('data-intro','true');
 });
+
+test('avatar repeats her greeting while visible and responds to a fresh pointer visit',async({page})=>{
+ await page.goto('/panel');
+ const companion=page.locator('.landing-companion');
+ await expect(companion).toHaveAttribute('data-pose','wave',{timeout:8000});
+ await expect(page.locator('.greeting-hand')).toHaveCSS('animation-name','companion-wave');
+ await expect(companion).not.toHaveAttribute('data-pose','wave',{timeout:8000});
+ await expect(companion).toHaveAttribute('data-pose','wave',{timeout:14000});
+ await expect(companion).not.toHaveAttribute('data-intro','true');
+ await expect(companion).not.toHaveAttribute('data-pose',/.+/,{timeout:8000});
+ const bounds=(await page.locator('.companion-stage').boundingBox())!;
+ await page.mouse.move(0,0);await page.mouse.move(bounds.x+bounds.width/2,bounds.y+bounds.height/2);
+ await expect(companion).toHaveAttribute('data-pose','wave');
+ await page.getByRole('button',{name:'Pause motion',exact:true}).click();
+ await expect(page.locator('.greeting-hand')).toBeHidden();
+});

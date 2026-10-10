@@ -21,5 +21,13 @@ for(let n=1;n<=2;n++){
  const sprite=await sharp(data,{raw:info}).extract({left:x0,top:y0,width:x1-x0+1,height:y1-y0+1}).resize({height:450,kernel:'nearest'}).png().toBuffer();
  const registered=await sharp({create:{width:320,height:480,channels:4,background:'#00000000'}}).composite([{input:sprite,left,top:20}]).png().toBuffer();
  const arm=await sharp(registered).composite([{input:mask(paths[n-1]),blend:'dest-in'}]).png().toBuffer();
- await sharp(base).composite([{input:arm}]).webp({lossless:true}).toFile(`${out}/${n===1?'lift':'wave'}.webp`);
+ const posed=await sharp(base).composite([{input:arm}]).png().toBuffer();
+ if(n===2){
+  const handMask=mask('M91 109 L129 109 L128 145 L119 157 L99 155 L91 141 Z');
+  const hand=await sharp(registered).composite([{input:handMask,blend:'dest-in'}]).webp({lossless:true}).toBuffer();
+  const hairBehind=await sharp('public/art/avatar-idle-0.webp').composite([{input:handMask,blend:'dest-in'}]).png().toBuffer();
+  const cleared=await sharp(posed).composite([{input:handMask,blend:'dest-out'}]).png().toBuffer();
+  await sharp(cleared).composite([{input:hairBehind}]).webp({quality:92,alphaQuality:100,effort:6}).toFile(`${out}/wave.webp`);
+  await fs.writeFile(`${out}/hand.webp`,hand);
+ }else await sharp(posed).webp({quality:92,alphaQuality:100,effort:6}).toFile(`${out}/lift.webp`);
 }

@@ -3,6 +3,19 @@
   <p>I use Google Analytics for visits, reading and game play. Off unless you allow it. Nicknames are never sent to Google.</p>
   <div><button type="button" data-analytics-choice="no">No thanks</button><button type="button" data-analytics-choice="yes">Allow analytics</button><a href="/privacy">Privacy details</a></div>
 </aside>
+<script is:inline>
+  // Set visibility before first paint, without waiting for the analytics module.
+  // This only reads the saved preference; tracking still requires explicit consent.
+  (() => {
+    let saved = false;
+    try {
+      const value = JSON.parse(localStorage.getItem('portfolio-analytics-v1') || 'null');
+      saved = !!value && Date.now() - value.at < 180 * 86400000;
+    } catch {}
+    const panel = document.getElementById('analytics-choice');
+    if (panel) panel.hidden = saved;
+  })();
+</script>
 <script>import '../scripts/analytics';</script>
 <style>
 .analytics-choice{position:fixed;z-index:120;bottom:20px;left:20px;width:min(480px,calc(100vw - 40px));padding:24px;border:1px solid #b78b73;border-radius:18px;background:#fffaf2;color:#343b46;box-shadow:0 8px 40px #343b461a;font:400 15px/1.6 Inter,sans-serif}

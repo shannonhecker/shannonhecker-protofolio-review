@@ -173,3 +173,16 @@ layouts. Twelve product/home layouts received the latest editorial refresh;
 Build, Privacy and 404 retain their exports. Text, image fills and vectors remain
 editable. Inter is the documented Figma-only fallback; motion remains in code.
 Exact-head CI and production verification are recorded on PR #25.
+
+### 10 October, 22:31 BST · delayed entrance and recurring greeting
+
+The headline fades/rises after 250ms, supporting text and links follow, and the
+avatar enters after two seconds. Separate wrist movement makes the greeting
+visible; it repeats after ten seconds of rest and on a fresh pointer/touch visit.
+Offscreen, hidden, paused and reduced-motion states stop the loop. All 109 browser
+tests pass (40.5s). The local root mobile Lighthouse audit is 99/100/100/100.
+The three greeting assets total about 56KB after high-quality WebP compression;
+critical Inter weights preload and consent visibility is resolved before paint.
+The latest build covers nine routes and Astro reports no errors or warnings.
+The exact previous commit ea36914 passed remote CI, including all ten Lighthouse
+runs; this timing revision receives its own exact-head gate before release.
