@@ -1,4 +1,12 @@
 ---
+interface Props { top?: boolean }
+// On its own page the case title is the h1 and each beat label an h2; inside
+// the one-page version they sit one level lower. Beat labels are headings so
+// screen-reader users can jump beat to beat.
+const { top = false } = Astro.props;
+const HT = top ? 'h1' : 'h2';
+const HL = top ? 'h2' : 'h3';
+const HD = top ? 'h3' : 'h4'; // decision titles
 import Pic from './Pic.astro';
 import Split from './Split.astro';
 ---
@@ -8,7 +16,7 @@ import Split from './Split.astro';
       <div class="g" style="row-gap:28px;align-items:end">
         <div style="grid-column:1/9;display:grid;gap:24px">
           <p class="eyebrow">Case three · Solo · live on the App Store</p>
-          <h2 class="h-chapter">Winking Star</h2>
+          <HT class="h-chapter" style="view-transition-name:t-winking">Winking Star</HT>
         </div>
         <p class="lead muted" style="grid-column:1/9">A warm, ad-free routine app for families. Every check earns a star, and every week those stars grow a Mystery Pet. I designed and built it on my own, so the visual decisions, the copy and the code are all mine.</p>
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designer and builder, one of one</span><span><b>Stack</b> · React Native, Expo, Firebase</span><span><b>Status</b> · Live, v1.0.4, iPhone and iPad</span><span><b>Languages</b> · EN, FR, ES, DE, 繁體中文</span></div>
@@ -20,7 +28,7 @@ import Split from './Split.astro';
         <div class="ws-hero">
           <div class="art" aria-hidden="true"><Pic name="ws-hero-art.jpg" alt="" sizes="(max-width: 760px) 100vw, 60vw" /></div>
           <div class="copy">
-            <h3>Tiny routines, happy families</h3>
+            <HL>Tiny routines, happy families</HL>
             <p>Kids check off their day. Stars hatch a pet that grows through four stages as the week fills up. On Monday a new pet arrives, so there is always something to look forward to.</p>
             <div class="chips"><span class="chip">No ads, ever</span><span class="chip">No tracking</span><span class="chip">Up to 6 kids</span><span class="chip">Co-parents on one board</span></div>
           </div>
@@ -30,7 +38,7 @@ import Split from './Split.astro';
     </div>
 
     <div class="beat rv" id="ws-problem">
-      <div class="label"><span class="k"><b>01</b> Problem and research</span></div>
+      <div class="label"><HL class="k"><b>01</b> Problem and research</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Bedtime in our house was a nag loop. Every chore chart we tried was built for adults." />
         <ul class="rows">
@@ -43,7 +51,7 @@ import Split from './Split.astro';
     </div>
 
     <div class="beat rv" id="ws-personas">
-      <div class="label"><span class="k"><b>02</b> Personas</span></div>
+      <div class="label"><HL class="k"><b>02</b> Personas</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Three users, one star. Nobody has the same job." />
         <div class="personas">
@@ -78,7 +86,7 @@ import Split from './Split.astro';
     <div class="beat wide rv" id="ws-flow">
       <div class="body">
         <div class="g" style="row-gap:24px">
-          <span class="k mono" style="grid-column:1/4;color:var(--ws-forest)"><b>03</b> The full flow</span>
+          <HL class="k mono" style="grid-column:1/4;color:var(--ws-forest)"><b>03</b> The full flow</HL>
           <Split as="h3" class="h-sub" style="grid-column:4/11" text="Four tabs, one week. Home, Activity, Treasure, Progress." />
         </div>
         <div class="strip-wrap" role="region" tabindex="0" aria-label="App screens, scrollable"><div class="strip" id="strip">
@@ -93,7 +101,7 @@ import Split from './Split.astro';
     </div>
 
     <div class="beat rv" id="ws-journey">
-      <div class="label"><span class="k"><b>04</b> Journey</span></div>
+      <div class="label"><HL class="k"><b>04</b> Journey</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="From a bad bedtime to week two." />
         <p class="muted measure">The parent's journey, with the child's feeling underneath, the moment it breaks, and what the design does about it. Scroll sideways on a phone.</p>
@@ -109,7 +117,7 @@ import Split from './Split.astro';
     </div>
 
     <div class="beat rv" id="ws-loops">
-      <div class="label"><span class="k"><b>05</b> Loops and decisions</span></div>
+      <div class="label"><HL class="k"><b>05</b> Loops and decisions</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Two loops and six decisions." />
         <div>
@@ -139,12 +147,12 @@ import Split from './Split.astro';
           </div>
         </div>
         <ol class="dec">
-          <li><span class="n">01</span><div><h4>Stars and a pet, not a checklist</h4><p>Explored a plain tick list. Research on five to seven year olds said big icons, stickers and celebration win. The checklist lost in our own house within a week.</p></div></li>
-          <li><span class="n">02</span><div><h4>A weekly pet with four stages, not a daily score</h4><p>Daily stars count up and never down. The pet grows across the week on what was done, so one missed bath doesn't end the week, and Monday always brings a new egg.</p></div></li>
-          <li><span class="n">03</span><div><h4>A sample family before any setup</h4><p>Explored a tour and an empty state. Both asked parents to invest before they'd seen the loop. The Sample Family shows a full week on first open, and you replace it when you're ready.</p></div></li>
-          <li><span class="n">04</span><div><h4>A theme per child, drawn not templated</h4><p>Explored one look for all. Kids find their own card by colour and picture before they can read. Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.</p></div></li>
-          <li><span class="n">05</span><div><h4>A parental gate, not a locked app</h4><p>Explored a PIN. Parents forget PINs and kids watch them type. A quick maths question gates anything that leaves the app, uploads a photo or deletes an account, and Kid Mode locks editing so the phone can be handed over mid-routine.</p></div></li>
-          <li><span class="n">06</span><div><h4>Lifetime unlock, not a subscription</h4><p>Explored a small subscription. Dropped it. It's for children, and trust is the product. Free to start, one payment if you want everything, no ads, no third-party tracking.</p></div></li>
+          <li><span class="n">01</span><div><HD>Stars and a pet, not a checklist</HD><p>Explored a plain tick list. Research on five to seven year olds said big icons, stickers and celebration win. The checklist lost in our own house within a week.</p></div></li>
+          <li><span class="n">02</span><div><HD>A weekly pet with four stages, not a daily score</HD><p>Daily stars count up and never down. The pet grows across the week on what was done, so one missed bath doesn't end the week, and Monday always brings a new egg.</p></div></li>
+          <li><span class="n">03</span><div><HD>A sample family before any setup</HD><p>Explored a tour and an empty state. Both asked parents to invest before they'd seen the loop. The Sample Family shows a full week on first open, and you replace it when you're ready.</p></div></li>
+          <li><span class="n">04</span><div><HD>A theme per child, drawn not templated</HD><p>Explored one look for all. Kids find their own card by colour and picture before they can read. Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.</p></div></li>
+          <li><span class="n">05</span><div><HD>A parental gate, not a locked app</HD><p>Explored a PIN. Parents forget PINs and kids watch them type. A quick maths question gates anything that leaves the app, uploads a photo or deletes an account, and Kid Mode locks editing so the phone can be handed over mid-routine.</p></div></li>
+          <li><span class="n">06</span><div><HD>Lifetime unlock, not a subscription</HD><p>Explored a small subscription. Dropped it. It's for children, and trust is the product. Free to start, one payment if you want everything, no ads, no third-party tracking.</p></div></li>
         </ol>
       </div>
     </div>
@@ -160,7 +168,7 @@ import Split from './Split.astro';
     </div>
 
     <div class="beat rv" id="ws-edge">
-      <div class="label"><span class="k"><b>06</b> Edge cases and states</span></div>
+      <div class="label"><HL class="k"><b>06</b> Edge cases and states</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="The states most people never see." />
         <ul class="rows two">
@@ -175,7 +183,7 @@ import Split from './Split.astro';
     </div>
 
     <div class="beat rv" id="ws-outcome">
-      <div class="label"><span class="k"><b>07</b> Outcome</span></div>
+      <div class="label"><HL class="k"><b>07</b> Outcome</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Live, in five languages, and in daily use in my own house first." />
         <div class="metrics">

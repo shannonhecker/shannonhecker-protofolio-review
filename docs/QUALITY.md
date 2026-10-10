@@ -37,11 +37,13 @@ Here they are as checks this repo can be held to. Status as of the `quality/awar
 | Criterion (weight) | Self-score | What carries it | What holds it back |
 |---|---|---|---|
 | **Design (40%)** | 7 / 10 | Disciplined type scale, a lot of air, hairlines, consistent composition, the Winking Star sub-palette, the SH mark | **The case images are dark presentation slides with serif titles.** They read as a different brand from the white grotesk page, and their small text can't be read at 390 px. This is the largest single gap. |
-| **Usability (30%)** | 8 / 10 | Fast, accessible, keyboard and print ready, deep links on every beat | About 43 screens of scroll at 1440 px for a panel that skims. Fixing this means splitting into an index plus one page per case, which is Shannon's decision. |
-| **Creativity (20%)** | 6 / 10 | Directed motion, the playable tick demo, hover peek. A working platformer that is drawn in the site's own visual language: ink hairlines for platforms, the Winking Star orange for collectibles, the grotesk in the HUD. | The game is still placeholder art with one level and no sprite or sound. Cross-page image transitions depend on the structure decision. |
+| **Usability (30%)** | 8 / 10 one-page · **9 / 10 on `explore/multipage`** | Fast, accessible, keyboard and print ready, deep links on every beat | About 43 screens of scroll at 1440 px for a panel that skims. Fixing this means splitting into an index plus one page per case, which is Shannon's decision. |
+| **Creativity (20%)** | 6 / 10 one-page · **7 / 10 on `explore/multipage`** (case titles morph between pages) | Directed motion, the playable tick demo, hover peek. A working platformer that is drawn in the site's own visual language: ink hairlines for platforms, the Winking Star orange for collectibles, the grotesk in the HUD. | The game is still placeholder art with one level and no sprite or sound. Cross-page image transitions depend on the structure decision. |
 | **Content (10%)** | 8 / 10 | Real, verifiable, honest claims. Decisions with trade-offs. Edge states. | Visible placeholders: the Winking Star downloads tile (`__`) and the five empty uoaui.ai screens. |
 
-Weighted now: about **7.2**. That's at the Site of the Day threshold, not yet comfortably above it.
+Weighted now: about **7.2** for the one-page version and about **7.7** on `explore/multipage`.
+
+`explore/multipage` is the same content as an index plus a page per case: the home page is 7.2 screens at 1440px instead of 43; each case title morphs into its page heading via native cross-document view transitions (no JS); every case ends with the next case's index row; the case title is the page's h1 and each beat label is a heading, so screen-reader users can jump beat to beat. Lighthouse: 98–100 mobile and 100 desktop on every page; axe zero on 5 pages × 3 widths. That's at the Site of the Day threshold, not yet comfortably above it.
 
 ## What gets it to the bar, in order of impact
 

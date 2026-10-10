@@ -1,0 +1,13 @@
+---
+import Pic from './Pic.astro';
+import type { CaseRow } from '../lib/cases';
+interface Props { c: CaseRow; peek?: string }
+const { c, peek } = Astro.props;
+---
+<a class="row" href={c.href} data-peek={peek} data-cursor="big">
+  <span class="n">{c.n}</span>
+  <h3 style={`view-transition-name:t-${c.vt}`}>{c.title}</h3>
+  <span class="meta">{c.meta}</span>
+  <span class="arrow">{c.arrow}</span>
+  <Pic name={c.img} alt="" sizes="100vw" widths={[480, 800, 1200]} />
+</a>

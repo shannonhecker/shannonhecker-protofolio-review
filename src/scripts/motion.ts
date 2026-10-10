@@ -127,7 +127,12 @@ function chrome() {
   const prog = document.querySelector<HTMLElement>('.progress');
   const nav = document.querySelector<HTMLElement>('.nav');
   const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.nav a.l'));
-  const sections = links.map((a) => document.querySelector<HTMLElement>(a.getAttribute('href') ?? '')).filter((s): s is HTMLElement => !!s);
+  // Links are either home-page anchors (/#work) or case pages (/fx).
+  const here = location.pathname.replace(/\/$/, '') || '/';
+  const pageLink = links.find((a) => a.getAttribute('href') === here);
+  const sections = here === '/' || here === '/revolut'
+    ? links.map((a) => { const h = a.getAttribute('href') ?? ''; const i = h.indexOf('#'); return i >= 0 ? document.getElementById(h.slice(i + 1)) : null; }).filter((s): s is HTMLElement => !!s)
+    : [];
   const list = nav?.querySelector('ul');
   const edges = () => {
     if (!list) return;
@@ -143,7 +148,8 @@ function chrome() {
     let cur: HTMLElement | null = null;
     sections.forEach((s) => { if (s.offsetTop <= y) cur = s; });
     links.forEach((a) => {
-      if (cur && a.getAttribute('href') === '#' + (cur as HTMLElement).id) a.setAttribute('aria-current', 'true');
+      const on = pageLink ? a === pageLink : !!cur && (a.getAttribute('href') ?? '').endsWith('#' + (cur as HTMLElement).id);
+      if (on) a.setAttribute('aria-current', pageLink ? 'page' : 'true');
       else a.removeAttribute('aria-current');
     });
     nav?.classList.toggle('solid', scrollY > 40);

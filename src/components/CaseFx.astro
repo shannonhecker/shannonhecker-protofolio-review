@@ -1,4 +1,12 @@
 ---
+interface Props { top?: boolean }
+// On its own page the case title is the h1 and each beat label an h2; inside
+// the one-page version they sit one level lower. Beat labels are headings so
+// screen-reader users can jump beat to beat.
+const { top = false } = Astro.props;
+const HT = top ? 'h1' : 'h2';
+const HL = top ? 'h2' : 'h3';
+const HD = top ? 'h3' : 'h4'; // decision titles
 import Pic from './Pic.astro';
 import Split from './Split.astro';
 ---
@@ -8,7 +16,7 @@ import Split from './Split.astro';
       <div class="g" style="row-gap:28px;align-items:end">
         <div style="grid-column:1/9;display:grid;gap:24px">
           <p class="eyebrow">Case one · Barclays · 2025 to now</p>
-          <h2 class="h-chapter">FX execution analytics</h2>
+          <HT class="h-chapter" style="view-transition-name:t-fx">FX execution analytics</HT>
         </div>
         <p class="lead muted" style="grid-column:1/9">A trader works a large FX order over hours and keeps deciding whether to step in or leave it. The desk did that across a static chart, five spreadsheets and a separate execution tool.</p>
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Lead designer, one of one</span><span><b>Team</b> · ~20 engineers, business, charting vendor</span><span><b>Status</b> · Beta with internal users</span><span><b>Platform</b> · Web, light and dark</span></div>
@@ -16,7 +24,7 @@ import Split from './Split.astro';
     </header>
 
     <div class="beat rv" id="fx-problem">
-      <div class="label"><span class="k"><b>01</b> Problem</span></div>
+      <div class="label"><HL class="k"><b>01</b> Problem</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Keep the trader in one place, and cut the time from seeing a price move to acting on it." />
         <ul class="rows">
@@ -29,7 +37,7 @@ import Split from './Split.astro';
     </div>
 
     <div class="beat rv" id="fx-users">
-      <div class="label"><span class="k"><b>02</b> Users and research</span></div>
+      <div class="label"><HL class="k"><b>02</b> Users and research</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="A trader who acts, a desk head who defends, and a quant who tunes." />
         <div class="shot para"><Pic name="fx-users.jpg" alt="Three user profiles: Dana Chen, senior execution trader; Marcus Webb, head of trading; Priya Nair, execution quant. Goals, frictions and what the app gives each" /></div>
@@ -44,7 +52,7 @@ import Split from './Split.astro';
     </div>
 
     <div class="beat rv" id="fx-constraints">
-      <div class="label"><span class="k"><b>03</b> Constraints</span></div>
+      <div class="label"><HL class="k"><b>03</b> Constraints</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Four things shaped every decision. None of them were mine to remove." />
         <ul class="rows">
@@ -57,7 +65,7 @@ import Split from './Split.astro';
     </div>
 
     <div class="beat rv" id="fx-explore">
-      <div class="label"><span class="k"><b>04</b> Explorations</span></div>
+      <div class="label"><HL class="k"><b>04</b> Explorations</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Watch, assess, step in. Every branch lands on a screen." />
         <div class="shot para"><Pic name="fx-loop.jpg" alt="The decision loop flowchart: working order live, watch the canvas, percent done on schedule, average fill inside benchmarks, how to intervene, reprice, stage an order, fill now, cross-filter venues" /></div>
@@ -67,19 +75,19 @@ import Split from './Split.astro';
     </div>
 
     <div class="beat rv" id="fx-decisions">
-      <div class="label"><span class="k"><b>05</b> Decisions and trade-offs</span></div>
+      <div class="label"><HL class="k"><b>05</b> Decisions and trade-offs</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Three calls that defined the product. Each one had a real alternative." />
         <ol class="dec">
-          <li><span class="n">01</span><div><h4>Progress and price on one canvas, not two panels</h4><p>We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.</p><p class="verdict">One canvas with a dual axis won, at the cost of a denser screen that needed careful hierarchy.</p></div></li>
-          <li><span class="n">02</span><div><h4>Reprice on the chart, not in a settings menu</h4><p>The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line.</p><p class="verdict">Drag won because the decision and the action sit in the same place, with a pre-filled ticket as the safety step.</p></div></li>
-          <li><span class="n">03</span><div><h4>Studies on market prices only. A decision I reversed</h4><p>My spec let analytics studies run on any series, including the order's own fills. The vendor showed that order data has gaps, so a study on it looks confident and is wrong.</p><p class="verdict">I reversed it. Studies run on bid, ask and mid only, and the picker says why. Flexibility that produces plausible but wrong output isn't a feature.</p></div></li>
+          <li><span class="n">01</span><div><HD>Progress and price on one canvas, not two panels</HD><p>We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.</p><p class="verdict">One canvas with a dual axis won, at the cost of a denser screen that needed careful hierarchy.</p></div></li>
+          <li><span class="n">02</span><div><HD>Reprice on the chart, not in a settings menu</HD><p>The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line.</p><p class="verdict">Drag won because the decision and the action sit in the same place, with a pre-filled ticket as the safety step.</p></div></li>
+          <li><span class="n">03</span><div><HD>Studies on market prices only. A decision I reversed</HD><p>My spec let analytics studies run on any series, including the order's own fills. The vendor showed that order data has gaps, so a study on it looks confident and is wrong.</p><p class="verdict">I reversed it. Studies run on bid, ask and mid only, and the picker says why. Flexibility that produces plausible but wrong output isn't a feature.</p></div></li>
         </ol>
       </div>
     </div>
 
     <div class="beat rv" id="fx-flow">
-      <div class="label"><span class="k"><b>06</b> The full flow</span></div>
+      <div class="label"><HL class="k"><b>06</b> The full flow</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="From monitoring to action, without leaving the chart." />
         <div class="shot para"><Pic name="fx-flow.jpg" alt="Twenty screens of the full flow: default view, legend, filters, date picker, order ticket, compare orders, hover tooltips, venue analysis, light and dark" /></div>
@@ -95,7 +103,7 @@ import Split from './Split.astro';
     </div>
 
     <div class="beat rv" id="fx-edge">
-      <div class="label"><span class="k"><b>07</b> Edge and validation states</span></div>
+      <div class="label"><HL class="k"><b>07</b> Edge and validation states</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="The states a trader hits when things are not normal." />
         <ul class="rows two">
@@ -108,7 +116,7 @@ import Split from './Split.astro';
     </div>
 
     <div class="beat rv" id="fx-outcome">
-      <div class="label"><span class="k"><b>08</b> Outcome</span></div>
+      <div class="label"><HL class="k"><b>08</b> Outcome</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Where it is today, and how it will be measured." />
         <div class="metrics">

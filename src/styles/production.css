@@ -130,3 +130,17 @@ html:not(.has-js) .game-play{display:none}
 .game-sound[aria-pressed="true"]{color:var(--fg);border-color:var(--fg)}
 .game-sound[aria-pressed="true"]::before{background:#2fbf71}
 html:not(.has-js) .game-sound{display:none}
+
+/* Case pages: the chapter opens under the fixed nav; the next-case row closes it. */
+.case-page>section:first-child{padding-top:clamp(140px,14vw,200px)}
+.next-case{padding-block:clamp(48px,6vw,96px)}
+::view-transition-group(*){animation-duration:.6s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+
+/* Beat labels are headings now; keep the prototype's small-label look. */
+.beat .label .k,.k.mono{font-family:var(--body);font-size:14px;font-weight:400;letter-spacing:0;line-height:1.6;color:var(--fg-2)}
+.k.mono{font-size:13px;font-weight:500}
+.ws .chapter-head h1{font-family:var(--ws-display);font-weight:900;letter-spacing:-.02em;color:var(--ws-forest)}
+/* Level-aware headings keep the prototype's look at either level. */
+.dec h3{font-size:clamp(24px,2.4vw,40px);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:14px}
+.ws .dec h3{font-family:var(--ws-display);font-weight:900;letter-spacing:-.02em;color:var(--ws-forest)}
+.ws-hero .copy h2{font-family:var(--ws-display);font-weight:900;font-size:clamp(34px,4vw,68px);line-height:.98;color:var(--ws-forest)}
