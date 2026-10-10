@@ -21,7 +21,7 @@ const next = CASES[(i + 1) % CASES.length];
   <main id="main" class="case-page">
     <slot />
     {level > 0 && (
-      <p class="wrap play-link"><a href={`/?level=${level}#play`}>Play this case as a level →</a></p>
+      <p class="wrap play-link"><a href={`/?level=${level}#top`}>Play this case as a level →</a></p>
     )}
     <section class="band next-case" aria-label="Next case">
       <div class="wrap"><div class="index"><CaseRowLink c={next} /></div></div>

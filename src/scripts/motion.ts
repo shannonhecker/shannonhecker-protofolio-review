@@ -55,7 +55,7 @@ function smoothScroll() {
 
 function scrollDriven() {
   if (reduce) return;
-  const hi = document.querySelector('.hero-art img');
+  const hi = document.querySelector('.hero-art:not(.hero-game) img');
   if (hi) {
     gsap.to(hi, { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
   }

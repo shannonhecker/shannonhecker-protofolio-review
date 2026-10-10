@@ -4,7 +4,7 @@ import { LEVELS } from '../src/game/levels';
 const state = (page: Page) => page.evaluate(() => (window as unknown as { __game: () => any }).__game());
 
 async function boot(page: Page) {
-  await page.goto('/#play');
+  await page.goto('/');
   await page.getByRole('button', { name: 'Press to play' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
 }
@@ -12,7 +12,7 @@ async function boot(page: Page) {
 test('nothing runs until Play is pressed', async ({ page }) => {
   const chunks: string[] = [];
   page.on('request', (r) => { if (/\/_astro\/main\.[^/]+\.js$/.test(r.url())) chunks.push(r.url()); });
-  await page.goto('/#play');
+  await page.goto('/');
   await page.waitForTimeout(800);
   expect(chunks).toEqual([]);
   await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
@@ -67,7 +67,7 @@ for (const n of [0, 1, 2]) {
   test(`level ${n + 1} can be finished`, async ({ page }) => {
     test.setTimeout(180000);
     await page.addInitScript(() => { (window as unknown as { __gameAssist: object }).__gameAssist = { invuln: true }; });
-    await page.goto(`/?level=${n + 1}#play`);
+    await page.goto(`/?level=${n + 1}#top`);
     await page.getByRole('button', { name: 'Press to play' }).click();
     await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
     const s = await runLevel(page, n);
@@ -81,7 +81,7 @@ for (const n of [0, 1, 2]) {
 }
 
 test('hazards hurt (three hits restart the level)', async ({ page }) => {
-  await page.goto('/?level=2#play');
+  await page.goto('/?level=2#top');
   await page.getByRole('button', { name: 'Press to play' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   // walk into the Board Room's first sliding template
@@ -93,7 +93,7 @@ test('hazards hurt (three hits restart the level)', async ({ page }) => {
 test('a case page links to its level without starting it', async ({ page }) => {
   await page.goto('/fusion');
   const link = page.getByRole('link', { name: /Play this case as a level/ });
-  await expect(link).toHaveAttribute('href', '/?level=2#play');
+  await expect(link).toHaveAttribute('href', '/?level=2#top');
   await link.click();
   await expect(page.locator('.game-level[data-level="1"]')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
@@ -101,7 +101,7 @@ test('a case page links to its level without starting it', async ({ page }) => {
 
 test('the site still works if the game chunk fails to load', async ({ page }) => {
   await page.route(/\/_astro\/main\.[^/]+\.js$/, (r) => r.abort());
-  await page.goto('/#play');
+  await page.goto('/');
   await page.getByRole('button', { name: 'Press to play' }).click();
   await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
   await expect(page.getByRole('button', { name: 'Press to play' })).toBeEnabled();
@@ -111,14 +111,14 @@ test('the site still works if the game chunk fails to load', async ({ page }) =>
 test.describe('JavaScript off', () => {
   test.use({ javaScriptEnabled: false });
   test('the game shows a static poster and no dead Play button', async ({ page }) => {
-    await page.goto('/#play');
+    await page.goto('/');
     await expect(page.locator('.game-poster img')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Press to play' })).toBeHidden();
   });
 });
 
 test('sound is off by default and has one toggle', async ({ page }) => {
-  await page.goto('/#play');
+  await page.goto('/');
   const btn = page.getByRole('button', { name: 'Sound' });
   await expect(btn).toHaveAttribute('aria-pressed', 'false');
   await btn.click();

@@ -1,7 +1,7 @@
 ---
 interface Props { panel?: boolean }
 const { panel = false } = Astro.props;
-import Pic from './Pic.astro';
+import GameBox from './GameBox.astro';
 ---
 <header id="top" data-tone="light" class="hero">
   <div class="wrap">
@@ -20,7 +20,7 @@ import Pic from './Pic.astro';
           <span><i class="amber"></i>uoaui.ai · private alpha</span>
         </div>
       </div>
-      <div class="hero-art anim"><Pic name="ui-fx-cover.jpg" alt="FX execution analytics: a trading chart with progress and price on one canvas" sizes="(max-width: 1100px) 100vw, 34vw" eager /></div>
+      <div class="hero-art hero-game anim"><GameBox /></div>
     </div>
   </div>
   <div class="ticker marquee">

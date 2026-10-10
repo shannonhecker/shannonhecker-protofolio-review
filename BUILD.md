@@ -77,6 +77,20 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
   - A staircase in Bedtime needed precise timing. The cards now overlap.
 - Fixed the test server so tests always run against the current build. One earlier "pass" had been hitting a stale preview.
 
+### PR 6 · The game moves into the hero
+
+**What Shannon decided**
+
+- Move the game into the landing-page hero, the way Google puts a playable Doodle on its home page, instead of a separate section at the end.
+
+**What Claude Code did**
+
+- Kept the headline as the main thing. The game takes the place of the hero image and stays idle until someone presses Play.
+- Sized the game column at up to 480px, exactly 1× the pixel canvas, so the art stays crisp on retina screens. It stacks under the headline on phones, with the touch controls directly under the canvas.
+- Removed the bottom `#play` section. "Play this case as a level" links now land on the hero.
+- Measured the result: Lighthouse is 100 in all four categories on mobile and desktop. Mobile LCP is 1.3–1.5 s, because the pixel poster is 3–6 KB as AVIF where the photo was much larger.
+- Removed a leftover scratch test from the repo.
+
 **What Shannon changed by hand**
 
 - _To fill in._
