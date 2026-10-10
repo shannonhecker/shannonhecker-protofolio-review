@@ -251,3 +251,7 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - **Next: AI copy:** Shannon confirmed that AI is the focus of her job search, so the end card now says it: "Where I'm heading next: designing AI products. uoaui.ai is the AI-native product I design and build to get there. The model drafts, I decide."
 - **Why it's safe to say:** the earlier "practice, not a job search" framing was for a public site. This one is a private link for one panel.
 - **Kept as is:** the uoaui case still calls it a private alpha, not a shipped product, because that's true.
+
+### PR 20 · The panel line names AI (Shannon approved)
+
+- **New wording:** the `/panel` hero eyebrow now reads "Portfolio for the Revolut design panel: product design, heading into AI". This puts the job-search direction above the headline, so the panel sees it before anything else.
