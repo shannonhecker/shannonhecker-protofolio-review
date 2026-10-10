@@ -134,9 +134,12 @@ export function mapBase(): HTMLCanvasElement {
   text(g, 'LONDON', I.x + 4, I.y + 4, INK);
 
   // labels, compass, the honest bit
-  text(g, 'TAIWAN', Math.round(TW(121.3, 23.2)[0]) - 12, Math.round(TW(121.3, 23.2)[1]), '#8a7a52');
-  text(g, 'UNITED', Math.round(UK(-3.2, 56.9)[0]) - 10, Math.round(UK(-3.2, 56.9)[1]), '#8a7a52');
-  text(g, 'KINGDOM', Math.round(UK(-3.2, 56.9)[0]) - 12, Math.round(UK(-3.2, 56.9)[1]) + 7, '#8a7a52');
+  const [twx, twy] = TW(121.3, 23.2).map(Math.round), [ukx, uky] = UK(-3.2, 56.9).map(Math.round);
+  text(g, 'TAIWAN', twx - 12, twy, '#8a7a52');
+  g.drawImage(flagTaiwan(), twx - 8, twy - 14);
+  text(g, 'UNITED', ukx - 10, uky, '#8a7a52');
+  text(g, 'KINGDOM', ukx - 12, uky + 7, '#8a7a52');
+  g.drawImage(flagUK(), ukx - 6, uky - 14);
   const nx = 456, ny = 246; // compass
   px(nx - 1, ny - 12, INK, 3, 24); px(nx - 12, ny - 1, INK, 24, 3); px(nx - 1, ny - 12, '#e5484d', 3, 10);
   text(g, 'N', nx - 1, ny - 20, INK);
@@ -150,3 +153,38 @@ export function labelAt(i: number, s: string, line: number): [number, number] {
   if (i <= 2) return [x - 16 - textWidth(s), y - 6 + line * 8];
   return [Math.round(x - textWidth(s) / 2), y + 14 + line * 8];
 }
+
+// Flags, hand-placed at 16×10 with a 1 px frame. Simplified the way pixel art
+// has to be: the Union Jack without its counterchange, Taiwan's sun as a
+// 3 px disc with eight rays.
+function frame(draw: (px: ReturnType<typeof canvas>['px']) => void) {
+  const f = canvas(18, 12); f.px(0, 0, '#2a1a14', 18, 12); draw((x, y, c, w = 1, h = 1) => f.px(x + 1, y + 1, c, w, h)); return f.c;
+}
+export function flagUK() {
+  return frame((px) => {
+    const W = 16, H = 10;
+    px(0, 0, '#012169', W, H);
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      const u = (x + 0.5) / W, v = (y + 0.5) / H, d = Math.min(Math.abs(u - v), Math.abs(u - (1 - v)));
+      if (d < 0.07) px(x, y, '#c8102e'); else if (d < 0.16) px(x, y, '#ffffff');
+    }
+    px(6, 0, '#ffffff', 4, H); px(0, 3, '#ffffff', W, 4);
+    px(7, 0, '#c8102e', 2, H); px(0, 4, '#c8102e', W, 2);
+  });
+}
+export function flagTaiwan() {
+  return frame((px) => {
+    px(0, 0, '#fe0000', 16, 10); px(0, 0, '#000095', 8, 5);
+    px(3, 1, '#ffffff', 3, 3); // the white sun
+    for (const [x, y] of [[4, 0], [4, 4], [2, 2], [6, 2], [2, 0], [6, 0], [2, 4], [6, 4]]) px(x, y, '#ffffff');
+  });
+}
+
+/** Brand-colour badges for the London stops: a plate in the organisation's
+ * colour under its name. Not their logos (no trademarked artwork), and the
+ * colours are close matches, kept here so they are easy to correct. */
+export const BRAND: Record<number, { bg: string; accent: string; fg: string }> = {
+  3: { bg: '#231f20', accent: '#e4007c', fg: '#ffffff' }, // London Met
+  4: { bg: '#5c4632', accent: '#c9a96e', fg: '#ffffff' }, // J.P. Morgan
+  5: { bg: '#00395d', accent: '#00aeef', fg: '#ffffff' }, // Barclays
+};
