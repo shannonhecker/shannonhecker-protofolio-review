@@ -113,3 +113,19 @@ type system remain within the viewport. Blink, half-blink and smile parts were
 reviewed as registered composites and in the actual browser at display size.
 The expression changes no longer replace the whole body. Existing evidence
 limits in REVOLUT-CHECKLIST remain unchanged. Latest CI/deployment are pending.
+
+### Final source and stability correction
+
+The FX loop now uses a fresh 3057×2667 export from the original Figma vector
+frame, rather than the older 860×720 JPEG. Desktop and phone review confirms
+complete proportions and a full-size source link. The latest homepage mobile
+Lighthouse check scores 100 in performance, accessibility, best practices and
+SEO (LCP 1.8s; intentional noindex audit excluded).
+
+CI on `a0a7118` exposed a real native-anchor layout shift in Chromium 156.
+The image CSS overrode intrinsic aspect ratios, leaving deferred screenshots
+at zero height; loading them moved the uoaui chapter heading by 2834px.
+Explicit source ratios now reserve the correct space before decoding. A held-
+image regression checks the reserved size and stable chapter position. Failure
+screenshots and traces are retained for future diagnosis. Final CI and production
+results are recorded on PR #25, separately from these local checks.

@@ -200,3 +200,14 @@ Design references inspected: https://matthieugivelet.com/ for neutral typography
 large product frames and generous spacing; https://eddy-naboulet.dev/ for a
 responsive character and coherent playful interaction feedback. No reference
 site assets, copy or code were reused.
+
+### Original FX decision-loop export
+
+`public/art/fx-original-decision-loop.png` is a direct 3× PNG export of original
+Figma frame `2068:1768` in file `17Rsi3vWFtaYwlrRf5iO8E`, slide `2068:1681`,
+exported 10 October 2026. Dimensions: 3057 × 2667, transparent, 270,438 bytes.
+The original consists of 69 vector nodes, including outlined labels. No diagram
+content was generated or rewritten. It replaces the low-resolution
+`ui-fx-loop.jpg` usage; the authored flow remains separate from current public
+rebuild screenshots. Display uses a dark #111418 backing for the original light
+labels, native image proportions, and a link to the full-resolution image.

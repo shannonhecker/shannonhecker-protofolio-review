@@ -112,3 +112,11 @@ with an accessible branch transcript and a link to the original source.
 It replaces the later generic SVG, without replacing the separately labelled
 current public-rebuild product captures. This is design exploration evidence,
 not a confidential bank screenshot or a claim that Enhanced shipped at Barclays.
+
+The initial JPEG restoration was superseded by a fresh 3× PNG export from
+`2068:1768`: `public/art/fx-original-decision-loop.png`, 3057 × 2667 pixels.
+The source contains 69 vector nodes and no bitmap nodes; all labels are outlined.
+The PNG preserves the exact authored paths and transparency. It is displayed
+uncropped on #111418 with a full-resolution link and no 1008px display cap.
+SVG export succeeded, but the tool did not attach SVG files; the 3× PNG artifact
+was transferred directly from its image attachment and visually verified.

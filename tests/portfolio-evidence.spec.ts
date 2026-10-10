@@ -1,5 +1,42 @@
 import { test, expect } from '@playwright/test';
 
+test('chapter jumps stay in place while deferred product screenshots load', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  let release!: () => void;
+  const held = new Promise<void>(resolve => { release = resolve; });
+  await page.route('**/*', async route => {
+    if (route.request().resourceType() === 'image') await held;
+    await route.continue();
+  });
+  try {
+    await page.goto('/uoaui', { waitUntil: 'domcontentloaded' });
+    await page.evaluate(() => document.fonts.ready);
+    const images = page.locator('.product-capture .shot img');
+    const unreserved = await images.evaluateAll(elements => elements.filter(el => {
+      const img = el as HTMLImageElement;
+      const box = img.getBoundingClientRect();
+      return !box.height || Math.abs(box.width / box.height - Number(img.getAttribute('width')) / Number(img.getAttribute('height'))) > .02;
+    }).map(el => el.getAttribute('alt')));
+    expect(unreserved).toEqual([]);
+    await page.getByRole('navigation', { name: 'Case study sections' }).getByRole('link', { name: 'Decision map', exact: true }).click();
+    const heading = page.getByRole('heading', { name: 'Decision map', exact: true });
+    await expect(heading).toBeInViewport();
+    const before = (await heading.boundingBox())!.y;
+    release();
+    await images.evaluateAll(async elements => {
+      await Promise.all(elements.map(async el => {
+        const img = el as HTMLImageElement;
+        img.loading = 'eager';
+        await img.decode();
+      }));
+    });
+    await expect(heading).toBeInViewport();
+    expect(Math.abs((await heading.boundingBox())!.y - before)).toBeLessThan(4);
+  } finally {
+    release();
+  }
+});
+
 for (const path of ['/fx', '/fusion', '/winking-star', '/uoaui']) {
   test(`${path}: every case navigation target exists and evidence remains readable`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });

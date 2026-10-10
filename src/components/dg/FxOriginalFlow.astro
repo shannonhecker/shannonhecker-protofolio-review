@@ -1,10 +1,9 @@
 ---
-import Pic from '../Pic.astro';
-import original from '../../assets/img/ui-fx-loop.jpg';
+const original = '/art/fx-original-decision-loop.png';
 ---
 <figure class="fx-original-flow">
-  <a class="diagram-image" href={original.src} target="_blank" rel="noopener" aria-label="Open the complete original FX decision loop image in a new tab">
-    <Pic name="ui-fx-loop.jpg" alt="Original FX decision loop: watch order progress and fill prices, assess schedule and benchmarks, then remain passive or intervene. The complete branches are transcribed below." />
+  <a class="diagram-image" href={original} target="_blank" rel="noopener" aria-label="Open the complete original FX decision loop image in a new tab">
+    <img src={original} width="3057" height="2667" loading="lazy" decoding="async" alt="Original FX decision loop: watch order progress and fill prices, assess schedule and benchmarks, then remain passive or intervene. The complete branches are transcribed below." />
   </a>
   <figcaption>Original design exploration · The decision loop · <a href="https://www.figma.com/design/17Rsi3vWFtaYwlrRf5iO8E/Interview-Presentation-2026?node-id=2068-1681" target="_blank" rel="noopener">View the Figma source<span class="vh"> (opens in a new tab)</span> ↗</a></figcaption>
   <details>
@@ -22,9 +21,9 @@ import original from '../../assets/img/ui-fx-loop.jpg';
 </figure>
 <style>
   .fx-original-flow { margin: 0 0 32px; min-width: 0; }
-  .diagram-image { display: block; width: 100%; max-width: 1008px; padding: 0; border: 0; }
+  .diagram-image { display: block; width: 100%; padding: 0; border: 0; background: #111418; }
   .diagram-image :global(picture) { display: block; width: 100%; }
-  .diagram-image :global(img) { display: block; width: 100%; height: auto; max-height: none; aspect-ratio: auto; object-fit: contain; border-radius: 0; }
+  .diagram-image :global(img) { display: block; width: 100%; height: auto; max-height: none; aspect-ratio: auto 3057 / 2667; object-fit: contain; border-radius: 0; }
   figcaption { margin-top: 16px; font-size: 13px; line-height: 1.6; color: var(--fg-2); }
   details { margin-top: 20px; border-top: 1px solid var(--hair); padding-top: 16px; }
   summary { cursor: pointer; font-size: 15px; font-weight: 600; }

@@ -635,3 +635,10 @@ nine pages built, 88 files checked without diagnostics.
 - [x] Restored the original FX Figma decision loop (2068:1768) with source link and accessible transcript.
 - [x] Local build: 9 pages. Astro: 90 files, zero diagnostics. Browser tests: 95 passed in 51.8 seconds.
 - [ ] Latest commit CI and production verification. PR #25 remains the release vehicle; do not mistake earlier green checks for this revision.
+
+### 10 October, 19:25 BST · original FX artwork and stable loading
+
+- [x] Replaced the old FX JPEG with a fresh 3× export of the exact Figma diagram.
+- [x] Fixed deferred screenshot height reservation after reproducing the CI chapter-jump failure in Chromium 156.
+- [x] Nine-page build, 90-file Astro check without diagnostics, 96 Playwright tests passed in 40.4 seconds, including the delayed-image regression.
+- Final CI, merge and production verification are recorded on PR #25. The earlier checkpoints above describe their stated revisions only.
