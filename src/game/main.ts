@@ -162,6 +162,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       else if (e.key === ' ' || e.key === 'Enter') loadLevel(mapSel);
       return;
     }
+    if (down && s.paused) setPaused(false); // any game key carries on: no separate unpause step
     if (down) { if (!keys.has(e.key) && isJumpKey(e.key)) p.buffer = T.buffer; keys.add(e.key); }
     else keys.delete(e.key);
   };
@@ -169,7 +170,14 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   const ku = (e: KeyboardEvent) => onKey(e, false);
   canvas.addEventListener('keydown', kd);
   canvas.addEventListener('keyup', ku);
-  const blur = () => { keys.clear(); if (s.mode === 'level') setPaused(true); };
+  // Leaving the game pauses it; moving focus to its own controls (touch
+  // arrows, Sound, the world picker) does not.
+  const blur = (e: FocusEvent) => {
+    keys.clear();
+    const to = e.relatedTarget as Node | null;
+    if (to && canvas.closest('.play')?.contains(to)) return;
+    if (s.mode === 'level') setPaused(true);
+  };
   canvas.addEventListener('blur', blur);
   const vis = () => { if (document.hidden && s.mode === 'level') setPaused(true); };
   document.addEventListener('visibilitychange', vis);
@@ -183,7 +191,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       const mx = ((e.clientX - r.left) / r.width) * canvas.width, my = ((e.clientY - r.top) / r.height) * canvas.height;
       let best = -1, bd = 26 * 26;
       NODES.forEach(([nx, ny], i) => { const d = (nx - mx) ** 2 + (ny - my) ** 2; if (d < bd) { bd = d; best = i; } });
-      if (best >= 0) { mapSel = best; loadLevel(best); }
+      if (best >= 0) { mapSel = best; opts.onMapSelect?.(best); loadLevel(best); }
       return;
     }
     setPaused(false);

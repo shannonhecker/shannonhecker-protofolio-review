@@ -65,7 +65,8 @@ async function boot(level: number, toMap: boolean) {
   }
 }
 play?.addEventListener('click', () => boot(chosen, !fromCase));
-picker?.addEventListener('change', () => { chosen = Number(picker.value); if (game) boot(chosen, false); });
+// Choosing a world starts it, before or after Play has been pressed.
+picker?.addEventListener('change', () => { chosen = Number(picker.value); boot(chosen, false); });
 document.querySelectorAll<HTMLButtonElement>('.game-end [data-next]').forEach((b) =>
   b.addEventListener('click', () => boot(Number(b.dataset.next), false)),
 );
@@ -84,7 +85,9 @@ soundBtn?.addEventListener('click', async () => {
 // Touch: three on-screen buttons, pointer-driven so multi-touch works.
 document.querySelectorAll<HTMLButtonElement>('.game-touch button').forEach((b) => {
   const k = b.dataset.k as 'left' | 'right' | 'jump';
-  const set = (v: boolean) => (e: Event) => { e.preventDefault(); if (game) game.touch[k] = v; };
+  // keep focus on the canvas, so a tap never reads as leaving the game
+  const set = (v: boolean) => (e: Event) => { e.preventDefault(); if (game) game.touch[k] = v; if (v) canvas?.focus({ preventScroll: true }); };
+  b.addEventListener('mousedown', (e) => e.preventDefault());
   b.addEventListener('pointerdown', set(true));
   b.addEventListener('pointerup', set(false));
   b.addEventListener('pointercancel', set(false));
