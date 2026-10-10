@@ -31,7 +31,9 @@ const og = new URL('/og.jpg', Astro.site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    {/* Private share for the Revolut panel: no page is listed in search. The
+        vercel.json X-Robots-Tag header says the same for every file. */}
+    <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
