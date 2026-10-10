@@ -181,7 +181,7 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - **AI island:** Next: AI is an island with a dashed, still-drafting coast. Bedtime is a small island beside it.
 - **Map furniture:** a graticule, a compass, and "Not to scale".
 - **Character:** she stands on the selected world in that era's look.
-- **Date:** 捷元電腦 now shows 2010. Shannon later confirmed both the year and the north-Taiwan location.
+- **Date:** 捷元電腦 now shows 2010. Shannon later confirmed the year and the location (Taipei, which is where the map already puts it).
 
 ### PR 11 · Controls that don't get in the way (Shannon's report)
 
