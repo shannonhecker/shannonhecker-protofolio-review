@@ -685,3 +685,7 @@ html[data-theme=dark] .brand-logo-plate figcaption{color:var(--fg-2)}
 html[data-theme=dark] .companion-controls button{background:var(--bg-2);color:var(--fg);border-color:var(--hair)}
 html[data-theme=dark] .brand-logo-plate:not(.brand-logo-dark){background:var(--bg-2)}
 @media(max-width:760px){.appearance select{width:64px;font-size:11px}.nav{gap:8px}.nav .cta{padding-inline:10px}}
+
+.theme-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.theme-gallery img{display:block;width:100%;height:auto;border-radius:8px}
+@media(max-width:640px){.theme-gallery{grid-template-columns:1fr;gap:16px}}

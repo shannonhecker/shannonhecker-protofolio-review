@@ -183,10 +183,9 @@ import WinkingScreens from './WinkingScreens.astro';
 
     <div class="beat wide rv" id="ws-themes">
       <div class="body">
-        <div class="themes marquee" role="region" aria-label="Theme banners from the app, scrolling"><button type="button" class="mq-toggle" aria-pressed="false" aria-label="Pause scrolling"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect class="i-pause" x="2" y="1.5" width="2.6" height="9" rx="1"/><rect class="i-pause" x="7.4" y="1.5" width="2.6" height="9" rx="1"/><path class="i-play" d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5z"/></svg></button><div class="themes-track">
-          <Pic name="ws-theme-football.jpg" alt="Football theme banner" sizes="480px" widths={[480, 800]} /><Pic name="ws-theme-dino.jpg" alt="Dinosaur theme banner" sizes="480px" widths={[480, 800]} /><Pic name="ws-theme-ocean.jpg" alt="Ocean theme banner" sizes="480px" widths={[480, 800]} /><Pic name="ws-theme-unicorn.jpg" alt="Unicorn theme banner" sizes="480px" widths={[480, 800]} />
-          <Pic name="ws-theme-football.jpg" alt="" sizes="480px" widths={[480, 800]} /><Pic name="ws-theme-dino.jpg" alt="" sizes="480px" widths={[480, 800]} /><Pic name="ws-theme-ocean.jpg" alt="" sizes="480px" widths={[480, 800]} /><Pic name="ws-theme-unicorn.jpg" alt="" sizes="480px" widths={[480, 800]} />
-        </div></div>
+        <div class="theme-gallery" role="region" aria-label="Theme banners from the app">
+          <Pic name="ws-theme-football.jpg" alt="Football theme banner" sizes="(max-width: 640px) 90vw, 45vw" widths={[480, 800]} /><Pic name="ws-theme-dino.jpg" alt="Dinosaur theme banner" sizes="(max-width: 640px) 90vw, 45vw" widths={[480, 800]} /><Pic name="ws-theme-ocean.jpg" alt="Ocean theme banner" sizes="(max-width: 640px) 90vw, 45vw" widths={[480, 800]} /><Pic name="ws-theme-unicorn.jpg" alt="Unicorn theme banner" sizes="(max-width: 640px) 90vw, 45vw" widths={[480, 800]} />
+        </div>
         <p class="cap">Four of the fourteen theme banners. Each kid's card, activity row and pet carry their theme.</p>
       </div>
     </div>

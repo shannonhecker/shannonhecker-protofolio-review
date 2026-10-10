@@ -114,7 +114,8 @@ test.describe('reduced motion', () => {
     expect(hidden).toBe(0);
     expect(await page.locator('.idle-blink').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
     await page.goto('/winking-star');
-    expect(await page.locator('.themes-track').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+    await expect(page.locator('.theme-gallery img')).toHaveCount(4);
+    expect(await page.locator('.theme-gallery').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
   });
 });
 

@@ -66,3 +66,7 @@ Official implementation references:
 https://developers.google.com/tag-platform/security/guides/consent
 https://vercel.com/docs/functions/runtimes/node-js
 https://upstash.com/docs/redis/features/restapi
+
+The deployed preview API was verified on `e0fa8aa`: run receipt, score write,
+public read and repeat submission succeeded; the isolated test entry was removed.
+See PR #25 for final CI and production verification.

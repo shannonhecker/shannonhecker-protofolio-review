@@ -604,3 +604,15 @@ Commit/PR preparation is underway. This supersedes the pending-rerun notes;
 PR CI, merge, deployment and live API/Analytics checks remain outstanding.
 Factual product-evidence limitations and independent design-quality caveats
 remain unchanged. No deployment or submission is claimed.
+
+### Release checkpoint: PR #25
+
+- PR: https://github.com/shannonhecker/shannonhecker-protofolio-review/pull/25.
+- The deployed preview revealed a compiled ESM import-path failure. Corrected
+  in `e0fa8aa`, with a compiled-runtime CI gate added.
+- Corrected preview API verified: signed receipt, score save/read, safe repeat
+  submission, nickname/score-only public fields. Removed the isolated test score.
+- Final craft review replaced Winking's automatic theme banner strip with a
+  static four-banner gallery. No duplicate artwork or automatic cropping.
+- Consult the PR for the final merge, CI and production status; the entries above
+  are dated checkpoints, not claims of current deployment status.

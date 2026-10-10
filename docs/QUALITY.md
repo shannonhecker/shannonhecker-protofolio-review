@@ -84,3 +84,14 @@ Verified locally on 10 October 2026:
 The quality target is award-calibre craft, not a claim of an award or an external
 judging result. The source-evidence limits above still apply. Published artwork
 and illustrations cannot fill missing research protocols or measured outcomes.
+
+### Release verification, PR #25
+
+The release is tracked at https://github.com/shannonhecker/shannonhecker-protofolio-review/pull/25.
+Preview verification on commit `e0fa8aa` confirmed a signed run receipt, saved
+score, repeat-safe submission and a public response containing only nickname
+and score. The isolated preview score was removed after the check. This caught
+and corrected a Vercel emitted-module path issue, now covered by a compiled API
+runtime CI gate. Merge/production status is recorded on the PR, rather than
+inferred from these local results. The final Winking theme artwork is a static
+four-banner gallery, with no automatic scrolling or duplicated images.
