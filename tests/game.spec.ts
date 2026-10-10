@@ -179,17 +179,33 @@ test('every world has a mission, shown in the HUD state', async ({ page }) => {
   }
 });
 
-test('Play opens the career map; arrows choose a world and Space starts it', async ({ page }) => {
+test('Play opens the career map; arrows step world by world and Space starts it', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Press to play' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   expect((await state(page)).mode).toBe('map');
+  // four choices: Taiwan, London, Next: AI, Bonus. One step lands on London's first stage.
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('#game-world')).toHaveValue('3');
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('#game-world')).toHaveValue('6');
   await page.keyboard.press('ArrowRight');
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#game-world')).toHaveValue('2');
+  await expect(page.locator('#game-world')).toHaveValue('0'); // wraps back to Taiwan
+  await page.keyboard.press('ArrowRight');
   await page.keyboard.press('Space');
   await expect.poll(async () => (await state(page)).mode).toBe('level');
-  expect((await state(page)).level).toBe(2);
+  expect((await state(page)).level).toBe(3);
+});
+
+test('stages of a world play on: the card offers the next stage, then the next world', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.game-end[data-end="0"] [data-next]')).toHaveText('Next stage');
+  await expect(page.locator('.game-end[data-end="2"] [data-next]')).toHaveText('Next world: London');
+  await expect(page.locator('.game-end[data-end="5"] [data-next]')).toHaveText('Next world: AI');
+  await expect(page.locator('.game-end[data-end="6"] [data-next]')).toHaveText('Bonus: Bedtime');
+  await expect(page.locator('.game-end[data-end="1"] .game-kicker')).toContainText('World 1-2');
+  await expect(page.locator('#game-world optgroup')).toHaveCount(4);
 });
 
 test('Kaohsiung: the scooter makes you faster', async ({ page }) => {

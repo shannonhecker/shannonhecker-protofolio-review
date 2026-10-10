@@ -6,7 +6,7 @@
 // DECISION: Named "Working Order" (a live order still filling; also "things in
 // working order"). Mario-era pixel style, every noun from her own story.
 import Pic from './Pic.astro';
-import { JOURNEY } from '../lib/journey';
+import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
 ---
 <div class="play">
   <div class="game" data-state="poster">
@@ -18,14 +18,14 @@ import { JOURNEY } from '../lib/journey';
     {JOURNEY.map((w, i) => (
       <div class="game-end" data-end={i} hidden>
         <p class="game-badge" hidden>Shipped</p>
-        <p class="game-kicker">World {i + 1} · {w.when}</p>
+        <p class="game-kicker">{stageCode(i) === 'Bonus' ? 'Bonus' : `World ${stageCode(i)}`} · {w.when}</p>
         <p class="game-case">{w.place}</p>
         <p class="game-meta">{w.line}</p>
         <p class="game-mission" hidden></p>
         {w.href && <a class="game-read" href={w.href}>Read the case →</a>}
         {i < JOURNEY.length - 1 ? (
           <div class="game-actions">
-            <button type="button" class="game-play" data-next={i + 1}>Next world</button>
+            <button type="button" class="game-play" data-next={i + 1}>{nextLabel(i)}</button>
             <button type="button" class="game-map" data-map>World map</button>
           </div>
         ) : (
@@ -53,12 +53,16 @@ import { JOURNEY } from '../lib/journey';
     <label class="game-world">
       <span class="vh">Choose a world</span>
       <select id="game-world">
-        {JOURNEY.map((w, i) => <option value={i}>{i + 1} · {w.place}</option>)}
+        {CHAPTERS.map((c, n) => (
+          <optgroup label={'bonus' in c && c.bonus ? `Bonus · ${c.name}` : `World ${n + 1} · ${c.name}`}>
+            {c.stages.map((i) => <option value={i}>{stageCode(i)} · {JOURNEY[i].place}</option>)}
+          </optgroup>
+        ))}
       </select>
     </label>
     <button type="button" class="game-sound" id="game-sound" aria-pressed="false">Sound</button>
   </div>
   <p class="game-caption">Working Order · from Kaohsiung to London to what's next</p>
-  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in eight short worlds: Kaohsiung, Ling Tung University, web design at 捷元電腦, London, J.P. Morgan, Barclays, Next: AI, and a bonus world for Winking Star. Each world has a small enemy you can jump on and an optional mission for a gold star. Arrow keys or WASD to move, Space or Up to jump, Escape to pause. On the map, Left and Right choose a world and Space starts it.</p>
+  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at 捷元電腦), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Each stage has a small enemy you can jump on and an optional mission for a gold star. Arrow keys or WASD to move, Space or Up to jump, Escape to pause. On the map, Left and Right choose a world and Space starts it.</p>
   <p id="game-status" class="vh" aria-live="polite"></p>
 </div>

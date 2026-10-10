@@ -15,3 +15,32 @@ export const JOURNEY = [
 
 /** Which world each case page links to. */
 export const CASE_WORLD: Record<string, number> = { '/fusion': 4, '/fx': 5, '/uoaui': 6, '/winking-star': 7 };
+
+// Worlds group the stops so the map offers four choices, not eight: the
+// stages of a world play back to back (Mario's 1-1, 1-2, 1-3), each with
+// its own story card in between.
+export const CHAPTERS = [
+  { name: 'Taiwan', when: 'Growing up to 2010', stages: [0, 1, 2] },
+  { name: 'London', when: '2015 to now', stages: [3, 4, 5] },
+  { name: 'Next: AI', short: 'AI', when: '2026 to now', stages: [6] },
+  { name: 'Bedtime', when: 'Bonus', stages: [7], bonus: true },
+] as const;
+
+/** Which world a stage belongs to. */
+export const chapterOf = (stage: number) => CHAPTERS.findIndex((c) => (c.stages as readonly number[]).includes(stage));
+
+/** "1-2" for a stage inside a world, "3" for a one-stage world, "Bonus" for the bonus. */
+export function stageCode(stage: number) {
+  const c = chapterOf(stage), ch = CHAPTERS[c];
+  if ('bonus' in ch && ch.bonus) return 'Bonus';
+  return ch.stages.length === 1 ? `${c + 1}` : `${c + 1}-${(ch.stages as readonly number[]).indexOf(stage) + 1}`;
+}
+
+/** The label for the end card's main button. */
+export function nextLabel(stage: number) {
+  const next = stage + 1;
+  if (chapterOf(next) === chapterOf(stage)) return 'Next stage';
+  const ch = CHAPTERS[chapterOf(next)];
+  if ('bonus' in ch && ch.bonus) return `Bonus: ${ch.name}`;
+  return `Next world: ${'short' in ch ? ch.short : ch.name}`;
+}
