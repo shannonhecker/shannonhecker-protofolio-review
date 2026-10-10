@@ -8,6 +8,7 @@ import { LEVELS } from './levels';
 import { THEMES, playerFrames, helmet, pet, scooter, type Theme } from './art';
 import { FOES, type Foe } from './enemies';
 import { text, textWidth } from './pixel';
+import { mapBase, NODES, labelAt } from './map';
 import { sfx } from './sound';
 export { setSound } from './sound';
 
@@ -15,7 +16,7 @@ export { setSound } from './sound';
 export const WORLDS = [
   { short: 'KAOHSIUNG', when: 'GROWING UP' },
   { short: 'LING TUNG', when: '2008-2010' },
-  { short: 'WEB DESIGN', when: '2012' },
+  { short: 'WEB DESIGN', when: '2010' },
   { short: 'LONDON', when: '2015-2016' },
   { short: 'J.P. MORGAN', when: '2016-2025' },
   { short: 'BARCLAYS', when: '2025-NOW' },
@@ -422,48 +423,48 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   // ---- render
   const W = (im: HTMLCanvasElement, x: number, y: number) => ctx.drawImage(im, snap(x), snap(y), im.width / ART, im.height / ART);
 
-  // The map: a path through eight worlds, two rows, art-pixel coordinates.
-  const NODES: [number, number][] = [[52, 92], [158, 92], [264, 92], [370, 92], [430, 190], [324, 190], [218, 190], [112, 190]];
+  // The map: a real-ish map of her route (map.ts), drawn once; nodes, routes,
+  // labels and the character go on top each time it changes.
   const mapIcons = LEVELS.map((l) => THEMES[l.theme]());
+  const base = mapBase();
   function drawMap() {
-    ctx.fillStyle = '#7fb7d9'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-    // land, water and a bit of texture
-    ctx.fillStyle = '#e9f1d8'; ctx.fillRect(16, 40, 448, 210);
-    ctx.fillStyle = '#d7e6c0'; for (let y = 48; y < 246; y += 12) for (let x = 24 + (y % 24); x < 460; x += 24) ctx.fillRect(x, y, 2, 2);
-    text(ctx, 'WORKING ORDER', 16, 14, '#ffffff', 2);
-    text(ctx, 'TAIWAN TO LONDON TO NEXT', 16, 28, '#e6f2fb', 1);
-    // path
-    ctx.fillStyle = '#c9b48a';
-    // L-shaped path: across, then down, so it never crosses a label
-    const dots = (x0: number, y0: number, x1: number, y1: number) => {
-      const n = Math.ceil(Math.hypot(x1 - x0, y1 - y0) / 6);
-      for (let k = 0; k <= n; k++) {
+    ctx.drawImage(base, 0, 0);
+    text(ctx, 'WORKING ORDER', 16, 10, '#ffffff', 2);
+    text(ctx, 'KAOHSIUNG TO LONDON TO NEXT', 16, 24, '#2b3654', 1);
+    // routes: roads in Taiwan and London, sea lanes out to the islands
+    // (Taipei to London is the dashed flight in the base map)
+    const route = (i: number, col: string, gap: number) => {
+      const [x0, y0] = NODES[i], [x1, y1] = NODES[i + 1];
+      const n = Math.ceil(Math.hypot(x1 - x0, y1 - y0) / gap);
+      ctx.fillStyle = col;
+      for (let k = 1; k < n; k++) {
         const x = Math.round(x0 + ((x1 - x0) * k) / n), y = Math.round(y0 + ((y1 - y0) * k) / n);
-        if (NODES.some(([nx, ny]) => Math.abs(nx - x) < 19 && Math.abs(ny - y) < 19)) continue;
-        ctx.fillRect(x - 1, y - 1, 3, 3);
+        if (NODES.some(([nx, ny]) => Math.abs(nx - x) < 12 && Math.abs(ny - y) < 12)) continue;
+        ctx.fillRect(x - 1, y - 1, 2, 2);
       }
     };
-    for (let i = 0; i < NODES.length - 1; i++) {
-      const [ax, ay] = NODES[i], [bx, by] = NODES[i + 1];
-      dots(ax, ay, bx, ay);
-      if (by !== ay) dots(bx, ay, bx, by);
-    }
+    [0, 1, 3, 4].forEach((i) => route(i, '#a0471f', 4));
+    [5, 6].forEach((i) => route(i, '#2b3654', 5));
     NODES.forEach(([x, y], i) => {
       const sel = i === mapSel, done = s.done.includes(i);
-      ctx.fillStyle = sel ? '#161616' : '#ffffff'; ctx.fillRect(x - 16, y - 16, 32, 32);
-      ctx.fillStyle = mapIcons[i].sky; ctx.fillRect(x - 14, y - 14, 28, 28);
+      ctx.fillStyle = sel ? '#e5484d' : '#2b3654'; ctx.fillRect(x - 11, y - 11, 22, 22);
+      ctx.fillStyle = mapIcons[i].sky; ctx.fillRect(x - 9, y - 9, 18, 18);
       const ic = mapIcons[i].pickup[0];
       ctx.drawImage(ic, Math.round(x - ic.width / 2), Math.round(y - ic.height / 2));
       // a star for finishing; gold once the world's mission is done too
-      if (done) text(ctx, '★', x + 10, y - 20, s.missions.includes(i) ? '#f3a414' : '#9a8f78');
-      const label = `${i + 1} ${WORLDS[i].short}`;
-      text(ctx, label, Math.round(x - textWidth(label) / 2), y + 20, sel ? '#161616' : '#4a4a48');
-      text(ctx, WORLDS[i].when, Math.round(x - textWidth(WORLDS[i].when) / 2), y + 28, '#6b6b6b');
+      if (done) text(ctx, '★', x + 8, y - 15, s.missions.includes(i) ? '#f3a414' : '#5a5040');
+      const lines = [`${i + 1} ${WORLDS[i].short}`, WORLDS[i].when];
+      lines.forEach((l, k) => {
+        const [lx, ly] = labelAt(i, l, k);
+        ctx.globalAlpha = 0.85; ctx.fillStyle = '#fbf7ea'; ctx.fillRect(lx - 2, ly - 1, textWidth(l) + 4, 7); ctx.globalAlpha = 1;
+        text(ctx, l, lx, ly, k ? '#5a5a58' : sel ? '#c0392b' : '#161616');
+      });
     });
-    // the character waits by the selected world, in that era's outfit
+    // the character stands on the selected world, dressed for that era
     const [sx, sy] = NODES[mapSel];
     const era = playerFrames(mapIcons[mapSel].id);
-    ctx.drawImage(era.right.idle[0], sx - 26, sy - 22);
+    ctx.drawImage(era.right.idle[0], sx - 8, sy - 37);
+    ctx.globalAlpha = 0.85; ctx.fillStyle = '#fbf7ea'; ctx.fillRect(14, 254, textWidth('ARROWS TO CHOOSE · SPACE TO PLAY') + 4, 9); ctx.globalAlpha = 1;
     text(ctx, 'ARROWS TO CHOOSE · SPACE TO PLAY', 16, 256, '#2b3654');
   }
 

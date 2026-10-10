@@ -172,3 +172,13 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
   - The Kaohsiung bot completes its ride mission.
   - Every end card reports its mission.
 - **Regenerated the map poster.**
+
+### PR 10 · A real map, and 捷元電腦 is 2010
+
+- **Map projection:** the world map is drawn like a real map now (`src/game/map.ts`). Taiwan and Great Britain come from simplified real coastline coordinates (latitude and longitude, squeezed by cos(latitude)), rasterised once with hard pixel edges, a coastline and a shallow-water band.
+- **Real places:** Taiwan's stops sit where they really are: Kaohsiung in the south-west, Ling Tung in Taichung, 捷元電腦 in the north. A dashed flight with a little plane goes from Taipei to London.
+- **London inset:** a box with the Thames and its Isle of Dogs loop holds London Met, J.P. Morgan and Barclays. It makes no claims about which office.
+- **AI island:** Next: AI is an island with a dashed, still-drafting coast. Bedtime is a small island beside it.
+- **Map furniture:** a graticule, a compass, and "Not to scale".
+- **Character:** she stands on the selected world in that era's look.
+- **Date:** 捷元電腦 now shows 2010 (Shannon: "maybe it's 2010"). Check it against LinkedIn before the interview.
