@@ -49,3 +49,17 @@ test('avatar controls are bounded and do not capture page arrow keys',async({pag
   await page.keyboard.press('ArrowLeft');
   expect(await avatar.evaluate(el=>el.style.getPropertyValue('--avatar-x'))).toBe(x);
 });
+
+test('optional game follows the introduction on both landing URLs',async({page})=>{
+  for(const width of [390,1440]){
+    await page.setViewportSize({width,height:900});
+    for(const route of ['/','/panel']){
+      await page.goto(route);
+      const story=await page.locator('.hero-story').boundingBox();
+      const avatar=await page.locator('.landing-companion').boundingBox();
+      const game=await page.locator('.hero-bonus').boundingBox();
+      expect(game!.y).toBeGreaterThan(story!.y+story!.height);
+      expect(game!.y).toBeGreaterThan(avatar!.y+avatar!.height);
+    }
+  }
+});

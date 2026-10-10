@@ -41,7 +41,11 @@ jobs:
           done
       - if: failure()
         uses: actions/upload-artifact@v4
-        with: { name: playwright-report, path: test-results }
+        with:
+          name: release-check-reports
+          path: |
+            test-results
+            lh.json
 
   links:
     # Brief §10: every external link checked live. LinkedIn (HTTP 999) and the

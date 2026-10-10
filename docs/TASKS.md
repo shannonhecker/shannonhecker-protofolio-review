@@ -616,3 +616,11 @@ remain unchanged. No deployment or submission is claimed.
   static four-banner gallery. No duplicate artwork or automatic cropping.
 - Consult the PR for the final merge, CI and production status; the entries above
   are dated checkpoints, not claims of current deployment status.
+
+### Final landing order correction
+
+The root URL lacked the panel eyebrow, allowing CSS auto-placement to put the
+optional game before the introduction. Explicit rows now keep the introduction
+and avatar before the compact game on both landing URLs. A regression check
+covers both routes at phone and desktop widths. All 94 tests passed in 45.2s;
+nine pages built, 88 files checked without diagnostics.

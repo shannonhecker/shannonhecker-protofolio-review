@@ -66,7 +66,7 @@ solutions. The final images keep their full source proportions.
 Verified locally on 10 October 2026:
 
 - Build: nine routes; Astro check: 88 files without diagnostics.
-- 93 browser tests, including all eight game stages, complete-page dark-theme
+- 94 browser tests, including all eight game stages, complete-page dark-theme
   contrast under reduced motion, system/persisted theme selection, avatar bounds,
   score validation, consent and sanitized Analytics URLs.
 - 320/390/820/1440px: home, four cases, build and privacy pages have no document
@@ -95,3 +95,7 @@ and corrected a Vercel emitted-module path issue, now covered by a compiled API
 runtime CI gate. Merge/production status is recorded on the PR, rather than
 inferred from these local results. The final Winking theme artwork is a static
 four-banner gallery, with no automatic scrolling or duplicated images.
+
+The root-URL mobile audit now scores 99/100/100/100 after the landing row-order
+correction (LCP 2.3s). This route is checked separately from `/panel`; the earlier
+CI failure was useful evidence of a real composition error, not a lowered budget.

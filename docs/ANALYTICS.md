@@ -54,7 +54,7 @@ The first-party game run request is functional storage, independent of Analytics
 
 ## Verification
 
-- 93 local tests pass, including receipt tampering/expiry/environment replay,
+- 94 local tests pass, including receipt tampering/expiry/environment replay,
   impossible scores, cross-origin rejection, consent refusal/revocation and
   production-host tag loading with query strings removed.
 - Real provisioned Redis check: two concurrent submissions stored one preview
