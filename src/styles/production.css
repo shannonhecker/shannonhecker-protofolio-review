@@ -1,0 +1,38 @@
+/* Production-only overrides on top of prototype.css. Each one says why. */
+
+/* <picture> wrappers from astro:assets must not change the prototype's
+   layouts, which all target the <img>. */
+picture{display:contents}
+picture>source{display:none}
+
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* No-JS: the phone strip must still be reachable, so it scrolls natively by
+   default. motion.ts adds .driven when GSAP takes over on desktop. */
+.strip-wrap{overflow-x:auto}
+.strip-wrap.driven{overflow:hidden}
+
+/* Brief: marquees pause on hover. Focus inside too, for keyboard users. */
+.ticker:hover .ticker-track,.themes:hover .themes-track,.themes:focus-within .themes-track{animation-play-state:paused}
+
+/* Lenis owns smooth scroll on desktop; native smooth would fight it. */
+html.lenis{scroll-behavior:auto}
+
+/* Footer build line */
+.copyright.built{margin-top:16px}
+.built a{text-underline-offset:3px}
+
+/* /revolut hero line */
+.hero-for{margin-bottom:14px}
+
+/* The prototype has no doctype, so it was signed off in quirks mode. In
+   standards mode the hero's grid shrinks .wrap to its content; this restores
+   the approved full-width composition. */
+.hero>.wrap{width:100%}
+
+/* Winking Star hero art: a lazy, AVIF-capable <picture> instead of the
+   prototype's CSS background, which loaded eagerly as a full-size JPEG.
+   Same crop (center right, cover), same gradient wash on top. */
+.ws-hero .art{background:none}
+.ws-hero .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center right}
+.ws-hero .art::before{z-index:1}

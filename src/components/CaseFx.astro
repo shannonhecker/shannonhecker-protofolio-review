@@ -1,0 +1,124 @@
+---
+import Pic from './Pic.astro';
+import Split from './Split.astro';
+---
+<section id="fx" data-tone="dark" class="band">
+  <div class="wrap">
+    <header class="chapter-head">
+      <div class="g" style="row-gap:28px;align-items:end">
+        <div style="grid-column:1/9;display:grid;gap:24px">
+          <p class="eyebrow">Case one · Barclays · 2025 to now</p>
+          <h2 class="h-chapter">FX execution analytics</h2>
+        </div>
+        <p class="lead muted" style="grid-column:1/9">A trader works a large FX order over hours and keeps deciding whether to step in or leave it. The desk did that across a static chart, five spreadsheets and a separate execution tool.</p>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Lead designer, one of one</span><span><b>Team</b> · ~20 engineers, business, charting vendor</span><span><b>Status</b> · Beta with internal users</span><span><b>Platform</b> · Web, light and dark</span></div>
+      </div>
+    </header>
+
+    <div class="beat rv" id="fx-problem">
+      <div class="label"><span class="k"><b>01</b> Problem</span></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Keep the trader in one place, and cut the time from seeing a price move to acting on it." />
+        <ul class="rows">
+          <li><b>Users</b><p>The sales and trading desk, and the institutional clients executing through the same platform with different entitlements.</p></li>
+          <li><b>Where we started</b><p>One static Execution Over Time chart from the desk. Five spreadsheets covering trades, market data per order, price limit logs and reference prices. A twelve-item wishlist. No design, no interaction model, no visual language.</p></li>
+        </ul>
+        <div class="shot para"><Pic name="fx-before.jpg" alt="The starting point: a static execution-over-time chart, a limit price log, arrival and risk transfer prices in spreadsheets" /></div>
+        <p class="note"><i></i>In beta with internal users at Barclays. Under NDA, so every screen here is my public rebuild with sample data, built from the production spec.</p>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-users">
+      <div class="label"><span class="k"><b>02</b> Users and research</span></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="A trader who acts, a desk head who defends, and a quant who tunes." />
+        <div class="shot para"><Pic name="fx-users.jpg" alt="Three user profiles: Dana Chen, senior execution trader; Marcus Webb, head of trading; Priya Nair, execution quant. Goals, frictions and what the app gives each" /></div>
+        <div class="shot para"><Pic name="fx-journey.jpg" alt="Dana's order lifecycle journey map from pre-trade to post-trade review, with thoughts, emotional experience, effort, tool switching and a product answer at each pain point" /></div>
+        <ul class="rows">
+          <li><b>Professionals whose job is the tool</b><p>A trader will tolerate density because power is worth the learning curve. So the problem is hierarchy under pressure, not simplification.</p></li>
+          <li><b>Five spreadsheets, read line by line</b><p>Fills, market data, limit price changes, arrival price, risk transfer price. I grouped them into four kinds of data and that grouping became the layers of the chart. Every mark maps to a data type. Nothing is decorative.</p></li>
+          <li><b>The limit price log was the clue</b><p>Orders were being changed mid-flight, several times each. So repricing is a core action, not an edge case, and it had to live on the chart.</p></li>
+          <li><b>Watching people decide</b><p>I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-constraints">
+      <div class="label"><span class="k"><b>03</b> Constraints</span></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Four things shaped every decision. None of them were mine to remove." />
+        <ul class="rows">
+          <li><b>One platform, two audiences, old technology</b><p>Internal traders and external clients on the same system with different entitlements. One design had to serve both without a second codebase.</p></li>
+          <li><b>A charting vendor's engine</b><p>Some ideas were possible, some weren't, and some were possible but wrong. The vendor's limits became inputs, not blockers.</p></li>
+          <li><b>Compliance in the flow</b><p>Every action that changes an order needs a confirmation step and an audit trail. Safety could not mean leaving the chart.</p></li>
+          <li><b>The foundation was broken, so I fixed it first</b><p>The brief was to tidy the light theme. I read the code, the tokens and the naming and found hardcoded colours throughout, so one fix would break the next. I gave the product owner and engineering two options with costs. We shipped the feature work first, then phased the fix in the background, starting with the blotter because it was simple and single-themed.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-explore">
+      <div class="label"><span class="k"><b>04</b> Explorations</span></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Watch, assess, step in. Every branch lands on a screen." />
+        <div class="shot para"><Pic name="fx-loop.jpg" alt="The decision loop flowchart: working order live, watch the canvas, percent done on schedule, average fill inside benchmarks, how to intervene, reprice, stage an order, fill now, cross-filter venues" /></div>
+        <div class="shot para"><Pic name="fx-problem.jpg" alt="The core design problem: two questions on one screen, how far along is my order and am I getting a good price, shown on the dual-axis chart with a pinned tooltip" /></div>
+        <p class="lead muted">Two questions, one screen. How far along is my order, and am I getting a good price. Show them apart and the trader flicks between charts under pressure. Mash them together and it's noise. The working principle: readable in two seconds, actionable in one click.</p>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-decisions">
+      <div class="label"><span class="k"><b>05</b> Decisions and trade-offs</span></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Three calls that defined the product. Each one had a real alternative." />
+        <ol class="dec">
+          <li><span class="n">01</span><div><h4>Progress and price on one canvas, not two panels</h4><p>We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.</p><p class="verdict">One canvas with a dual axis won, at the cost of a denser screen that needed careful hierarchy.</p></div></li>
+          <li><span class="n">02</span><div><h4>Reprice on the chart, not in a settings menu</h4><p>The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line.</p><p class="verdict">Drag won because the decision and the action sit in the same place, with a pre-filled ticket as the safety step.</p></div></li>
+          <li><span class="n">03</span><div><h4>Studies on market prices only. A decision I reversed</h4><p>My spec let analytics studies run on any series, including the order's own fills. The vendor showed that order data has gaps, so a study on it looks confident and is wrong.</p><p class="verdict">I reversed it. Studies run on bid, ask and mid only, and the picker says why. Flexibility that produces plausible but wrong output isn't a feature.</p></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-flow">
+      <div class="label"><span class="k"><b>06</b> The full flow</span></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="From monitoring to action, without leaving the chart." />
+        <div class="shot para"><Pic name="fx-flow.jpg" alt="Twenty screens of the full flow: default view, legend, filters, date picker, order ticket, compare orders, hover tooltips, venue analysis, light and dark" /></div>
+        <div class="shot para"><Pic name="fx-action.jpg" alt="Hover a fill, right-click to act, drag the limit line and a pre-filled order ticket opens on the chart" /></div>
+        <p class="lead muted">Hover a fill to see the detail. Right-click to act. Drag a price line to reprice, and it opens a filled-in order ticket. Each step commits you a little more, so you can't reprice by accident. We turned a chart you watch into a chart you can trade from.</p>
+        <ul class="rows">
+          <li><b>Built in six phases</b><p>Theming and data integration first, then display, then interaction, and order submission last. Each phase reduced the risk of the next, and the desk got something usable early.</p></li>
+          <li><b>Too much on the axis, by design, for now</b><p>Phase one puts every attribute on screen on purpose, so the desk can tell us what matters instead of us guessing. Phase two adds entitlement-based templates per user type and a preference panel to hide attributes. Start wide, then narrow with evidence.</p></li>
+          <li><b>Two version-one debts I paid in the rebuild</b><p>Patterned state regions tiled the canvas, so the exceptional read as normal. States now sit in a lane under the time axis. And volume-sized fill dots were honest at twenty clips and a smear at three hundred. Fills now group into counted clusters that expand on zoom.</p></li>
+          <li><b>A compare view, because quality is relative</b><p>Execution quality only means something against a benchmark or another order, so I put a patient working order beside an urgent completed one, with the benchmark metrics in one table.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-edge">
+      <div class="label"><span class="k"><b>07</b> Edge and validation states</span></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="The states a trader hits when things are not normal." />
+        <ul class="rows two">
+          <li><b>Order can't trade</b><p>Suspended, delayed start and outside limit each get their own lane under the time axis, so the price field stays quiet and the state is readable at a glance.</p></li>
+          <li><b>Colour never carries meaning alone</b><p>Every series has its own shape and dash as well as a colour. Favourable and adverse values say so in words, not just in green and red.</p></li>
+          <li><b>Repricing by accident</b><p>Drag opens a pre-filled ticket. Nothing changes until it's confirmed.</p></li>
+          <li><b>No data yet, light or dark, hundreds of fills</b><p>Empty and loading states for a new order. Both themes, because traders run dark rooms and sales run bright ones. Clusters at scale.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-outcome">
+      <div class="label"><span class="k"><b>08</b> Outcome</span></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Where it is today, and how it will be measured." />
+        <div class="metrics">
+          <div class="metric"><span class="big" data-count="6">6</span><span>build phases. The spec was accepted by business and vendor as the contract</span></div>
+          <div class="metric"><span class="big w">Beta</span><span>in use with internal users at Barclays today</span></div>
+          <div class="metric"><span class="big" data-count="3">3</span><span>measures agreed for rollout. Price move to action, tool switches per order, usage per feature</span></div>
+        </div>
+        <div class="shot para"><Pic name="fx-outcomes.jpg" alt="Outcomes: spec accepted as the build contract, in beta with internal users, measures agreed for rollout, rebuilt in code to test the decisions" /></div>
+        <p class="muted measure">No adoption numbers are claimed before rollout. I hold my designs to the same standard as the data. What I'd do differently: direct trader access earlier, instead of going through the business first. And the vendor's engine limits discovered in week one, not mid-spec.</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+// Every image on the page goes through here: AVIF + WebP with a JPEG (or PNG)
+// fallback, width-based srcset, explicit width/height, lazy unless told not to.
+import { Picture } from 'astro:assets';
+import { img } from '../lib/img';
+
+interface Props {
+  name: string;
+  alt: string;
+  sizes?: string;
+  widths?: number[];
+  eager?: boolean;
+}
+const { name, alt, sizes = '(max-width: 1100px) 100vw, 70vw', widths, eager = false } = Astro.props;
+const src = img(name);
+const w = widths ?? [480, 800, 1200, 1600].filter((x) => x < src.width).concat(src.width < 1600 ? [src.width] : []);
+---
+<Picture
+  src={src}
+  alt={alt}
+  formats={['avif', 'webp']}
+  fallbackFormat={src.format === 'png' ? 'png' : 'jpg'}
+  widths={w}
+  sizes={sizes}
+  loading={eager ? 'eager' : 'lazy'}
+  decoding={eager ? 'sync' : 'async'}
+  fetchpriority={eager ? 'high' : undefined}
+/>

@@ -1,0 +1,31 @@
+---
+import Nav from './Nav.astro';
+import Hero from './Hero.astro';
+import Work from './Work.astro';
+import CaseFx from './CaseFx.astro';
+import CaseFusion from './CaseFusion.astro';
+import CaseWinking from './CaseWinking.astro';
+import CaseAi from './CaseAi.astro';
+import HowIWork from './HowIWork.astro';
+import Footer from './Footer.astro';
+
+interface Props { revolut?: boolean }
+const { revolut = false } = Astro.props;
+---
+<div class="progress" aria-hidden="true"></div>
+<a class="skip" href="#work">Skip to work</a>
+<Nav />
+<main id="main">
+  <Hero revolut={revolut} />
+  <Work />
+  <CaseFx />
+  <CaseFusion />
+  <CaseWinking />
+  <CaseAi />
+  <HowIWork />
+</main>
+<Footer />
+<script>
+  import '../scripts/motion.ts';
+  import '../scripts/demo.ts';
+</script>

@@ -1,0 +1,60 @@
+---
+import Split from './Split.astro';
+---
+<section id="ai" data-tone="dark" class="band">
+  <div class="wrap">
+    <header class="chapter-head">
+      <div class="g" style="row-gap:28px;align-items:end">
+        <div style="grid-column:1/9;display:grid;gap:24px">
+          <p class="eyebrow">Private alpha · practice, not a shipped product</p>
+          <h2 class="h-chapter">uoaui.ai</h2>
+        </div>
+        <p class="lead muted" style="grid-column:1/9">A design platform I'm building on Claude. It turns a prompt into a working screen built from real design systems, Salt, Material, Fluent and Carbon among them, with their official React components. Switch system, density or theme and the screen rebuilds.</p>
+      </div>
+    </header>
+
+    <div class="beat rv" id="ai-what">
+      <div class="label"><span class="k"><b>01</b> The problem underneath</span></div>
+      <div class="body">
+        <ul class="rows">
+          <li><b>Designing for output you can't predict</b><p>Where the system acts and where it asks. How a person stays in control without making the AI useless. The compare and tune steps are my answer so far. The model drafts, I decide.</p></li>
+          <li><b>Who it's for, and the trap</b><p>Designers like me, which is dangerous, because designing for yourself hides your blind spots. The alpha exists partly to break my own assumptions.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ai-flow">
+      <div class="label"><span class="k"><b>02</b> The flow</span></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Prompt to production screen." />
+        <div class="screens">
+          <div class="screen">1 · Prompt</div><div class="screen">2 · Generate</div><div class="screen">3 · Compare systems</div><div class="screen">4 · Tune a chart</div><div class="screen">5 · Export React</div>
+        </div>
+        <p class="muted"><span class="todo">Screens to add</span> One run through the builder, captured from the alpha.</p>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ai-decisions">
+      <div class="label"><span class="k"><b>03</b> Decisions and trade-offs</span></div>
+      <div class="body">
+        <ol class="dec">
+          <li><span class="n">01</span><div><h4>Official components only, never overridden</h4><p>We explored letting the model draw free-form UI and restricting it to each system's published React components. Free-form looked impressive and was unusable.</p><p class="verdict">Official-only won. The output is something a developer recognises, at the cost of the model having fewer moves.</p></div></li>
+          <li><span class="n">02</span><div><h4>Five systems, one model underneath</h4><p>I mapped their tokens, density scales and theming into one structure so a screen can switch system without being rebuilt by hand.</p><p class="verdict">Where the systems disagree, I chose the strictest definition each time.</p></div></li>
+          <li><span class="n">03</span><div><h4>Compare and tune before export</h4><p>The model's first answer is a draft. The flow forces a compare step across systems and a tune step on the screen before anything exports.</p><p class="verdict">That's where the person decides, and where I correct the model most often.</p></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ai-judgement">
+      <div class="label"><span class="k"><b>04</b> AI at work</span></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Where Figma still matters, and where a designer still does." />
+        <ul class="rows">
+          <li><b>Figma for foundations</b><p>The better the design file, the better the AI output. At Barclays I'm matching Figma naming to the code so there's no gap in either direction. When the model can't get the spacing right, I point it at the file. Everything after that, I'd rather iterate in code.</p></li>
+          <li><b>Built from the terminal</b><p>Both public rebuilds in this portfolio were made with Claude Code and Codex, in days, to test decisions with real-shaped data. Winking Star shipped the same way.</p></li>
+          <li><b>Where a designer still matters</b><p>A colleague brought me a screen made with AI. It looked fine, used none of our components, and nobody had tested it with a user. I rebuilt it in our system, showed both, and we could ship in two weeks instead of months. A generated screen still needs someone who watched how people work.</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
