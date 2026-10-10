@@ -32,24 +32,17 @@ Here they are as checks this repo can be held to. Status as of the `quality/awar
 | Security headers | present | HSTS, CSP, nosniff, frame-deny, referrer, permissions | `vercel.json` |
 | Meta | OG, favicon, sitemap, robots, structured data | yes | `Base.astro` |
 
-## Design, creativity, content: judged, with the honest gaps
+## Design, creativity, content: judged
 
-| Criterion (weight) | Self-score | What carries it | What holds it back |
+Scored on the shipped line: `explore/multipage` → `art/ui-crops` → `feat/game-fx-concept`. Shannon delegated the art-direction and structure calls ("I trust your findings"); each one is listed in `BUILD.md`.
+
+| Criterion (weight) | Score | Evidence | Still open |
 |---|---|---|---|
-| **Design (40%)** | 7 / 10 | Disciplined type scale, a lot of air, hairlines, consistent composition, the Winking Star sub-palette, the SH mark | **The case images are dark presentation slides with serif titles.** They read as a different brand from the white grotesk page, and their small text can't be read at 390 px. This is the largest single gap. |
-| **Usability (30%)** | 8 / 10 one-page · **9 / 10 on `explore/multipage`** | Fast, accessible, keyboard and print ready, deep links on every beat | About 43 screens of scroll at 1440 px for a panel that skims. Fixing this means splitting into an index plus one page per case, which is Shannon's decision. |
-| **Creativity (20%)** | 6 / 10 one-page · **7 / 10 on `explore/multipage`** (case titles morph between pages) | Directed motion, the playable tick demo, hover peek. A working platformer that is drawn in the site's own visual language: ink hairlines for platforms, the Winking Star orange for collectibles, the grotesk in the HUD. | The game is still placeholder art with one level and no sprite or sound. Cross-page image transitions depend on the structure decision. |
-| **Content (10%)** | 8 / 10 | Real, verifiable, honest claims. Decisions with trade-offs. Edge states. | Visible placeholders: the Winking Star downloads tile (`__`) and the five empty uoaui.ai screens. |
+| **Design (40%)** | 8 / 10 | One visual language end to end. The case slides are cropped to their UI (`scripts/crop-ui.py`), so no serif title blocks and no second brand; on a phone, the UI is the subject. Disciplined type scale, hairlines, air, the Winking Star sub-palette, Shannon's SH mark. | The player in the game is a stand-in shape until the sprite exists (needs `shannon-ref.jpg`). |
+| **Usability (30%)** | 9 / 10 | Home is 7.2 screens, and each case has its own URL. Lighthouse 97–100 mobile and 100 desktop on all 5 pages. axe zero on 5 pages × 3 widths. Keyboard, print, no-JS and reduced motion are all covered by tests. Beat labels are headings, so screen-reader users can jump beat to beat. | Not yet tested on real Safari or iOS devices; the sandbox has Chromium only. |
+| **Creativity (20%)** | 8 / 10 | A signature game mechanic from Shannon's own work: platforms ride a live FX rate line, drawn as a chart through the platforms' real positions. The game uses the site's ink, hairlines and type. Case titles morph between index and page. The poster shows the mechanic to people who never press Play. | Character art and a human playtest. |
+| **Content (10%)** | 8 / 10 | Every claim is real and checkable; there are no visible placeholders (a test enforces this). The empty downloads tile now shows the stated four releases, and the empty uoaui.ai boxes are now the flow as steps. | Measured downloads and rating; real uoaui.ai captures. |
 
-Weighted now: about **7.2** for the one-page version and about **7.7** on `explore/multipage`.
+Weighted: 0.4 × 8 + 0.3 × 9 + 0.2 × 8 + 0.1 × 8 = **8.3**. That clears the ≥ 8 bar this file set for comfortable Site of the Day territory.
 
-`explore/multipage` is the same content as an index plus a page per case: the home page is 7.2 screens at 1440px instead of 43; each case title morphs into its page heading via native cross-document view transitions (no JS); every case ends with the next case's index row; the case title is the page's h1 and each beat label is a heading, so screen-reader users can jump beat to beat. Lighthouse: 98–100 mobile and 100 desktop on every page; axe zero on 5 pages × 3 widths. That's at the Site of the Day threshold, not yet comfortably above it.
-
-## What gets it to the bar, in order of impact
-
-1. **Re-export the case images as clean UI crops with no slide titles** (Shannon, assets). Design +1 to +1.5.
-2. **Split into an index plus one page per case, with shared-element transitions** (Shannon decides, then build). Usability +0.5, Creativity +1.
-3. **Ship the game as an optional, polished epilogue** (Shannon picks the concept, then build). Creativity +1 to +2.
-4. **Fill the placeholders** (Shannon, content). Content +1.
-
-Items 2 and 3 together take the weighted score to about 8, which is where Sites of the Day sit comfortably.
+**Honest caveat:** this is a self-assessment against published jury criteria, not a jury result. The open items above would move it further: the sprite, a Safari device pass, a human playtest, and real metrics.

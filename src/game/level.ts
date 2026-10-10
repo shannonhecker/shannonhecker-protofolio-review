@@ -9,13 +9,13 @@ export const LEVEL = [
   '                                                                                                                                                                                ',
   '                                                                                                                                                                                ',
   '                                                                                                                                                                                ',
-  '                                                                                                              C                                                                 ',
-  '                                                                                                            ####                                                                ',
-  '                                                                                                          o ####    o                                                           ',
-  '                                                           o o             o o                          ########   ###   o                                                      ',
-  '                         o o                              ====            ====     oo                 o ########        ###   o                                                 ',
-  '                oo      ====                         o             oo                               ############             ###   o                                            ',
-  '                                                                                                  o ############                  ###                                           ',
+  '                                                                                                              C    o                                                            ',
+  '                                                                                                            ####        o    o                                                  ',
+  '                                                                                                          o ####                  o                                             ',
+  '                                                           o o             o o                          ########  MMM                                                           ',
+  '                         o o                              ====            ====     oo                 o ########       MMM  MMM                                                 ',
+  '                oo      ====                         o             oo                               ############                 MMM                                            ',
+  '                                                                                                  o ############                                                                ',
   '  P   o  o                            C       ^             ^^              ^             C     ################                            ^       C   o  o  o  o  o  o    F   ',
   '################  ##################################   ###########    ############    ##########################                       #########################################',
   '################  ##################################   ###########    ############    ##########################                       #########################################',
@@ -23,12 +23,14 @@ export const LEVEL = [
 ];
 
 export type Tile = '#' | '=' | ' ';
+export type Mover = { x: number; w: number; baseY: number; i: number };
 
 export function parse(rows: string[]) {
   const h = rows.length;
   const w = Math.max(...rows.map((r) => r.length));
   const tiles: Tile[][] = [];
   const items: { x: number; y: number; kind: 'o' | '^' | 'C' | 'F' }[] = [];
+  const movers: Mover[] = [];
   let spawn = { x: 0, y: 0 };
   for (let y = 0; y < h; y++) {
     tiles[y] = [];
@@ -36,8 +38,14 @@ export function parse(rows: string[]) {
       const c = rows[y][x] ?? ' ';
       tiles[y][x] = c === '#' || c === '=' ? c : ' ';
       if (c === 'P') spawn = { x, y };
+      // A run of M tiles is one price-line platform.
+      if (c === 'M' && rows[y][x - 1] !== 'M') {
+        let w = 0;
+        while (rows[y][x + w] === 'M') w++;
+        movers.push({ x, w, baseY: y, i: movers.length });
+      }
       if (c === 'o' || c === '^' || c === 'C' || c === 'F') items.push({ x, y, kind: c });
     }
   }
-  return { w, h, tiles, items, spawn };
+  return { w, h, tiles, items, spawn, movers };
 }

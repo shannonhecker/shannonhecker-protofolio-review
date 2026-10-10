@@ -43,6 +43,16 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - Wrote a scripted bot that plays the level to the end in CI, so a level edit can never make the game unfinishable. Its first run found a speed-cap bug, which is now fixed.
 - Made the game keyboard-only playable with no focus trap. It pauses on Escape, on blur, when the tab is hidden and when scrolled offscreen. It loads only when Play is pressed, and the page still works if that load fails.
 
+### PR 4 · Calls Shannon delegated ("I trust your findings")
+
+**What Claude Code decided and did**
+
+- **Structure:** an index plus a page per case. The one-page site was 43 screens long; the new home is 7.2.
+- **Art direction:** cropped the case slides to their UI. The originals are kept, and a script makes the crops.
+- **Panel URL:** `/revolut` is now `/panel`, so no URL names another company while Shannon works at Barclays.
+- **Placeholders:** replaced with facts the page already states. Nothing is invented.
+- **Game:** concept B, renamed **Working Order**. Platforms ride an FX rate line.
+
 **What Shannon changed by hand**
 
 - _To fill in._

@@ -50,8 +50,8 @@ test('the level can be finished', async ({ page }) => {
     const s = await state(page);
     if (s.finished) break;
     const tx = Math.floor((s.x + 10) / T), row = Math.floor((s.y + 44) / T);
-    const gap = !solid(tx + 1, row) && !solid(tx + 2, row);
-    const wall = solid(tx + 1, row - 1);
+    const gap = !solid(tx + 1, row) && !solid(tx + 2, row) && LEVEL[row]?.[tx + 1] !== 'M';
+    const wall = solid(tx + 1, row - 1) || solid(tx + 1, row - 2);
     const hazard = LEVEL[row - 1]?.[tx + 1] === '^' || LEVEL[row - 1]?.[tx + 2] === '^';
     stuck = Math.abs(s.x - lastX) < 1 ? stuck + 1 : 0; lastX = s.x;
     if (s.grounded && (gap || wall || hazard || stuck > 3)) {

@@ -1,24 +1,24 @@
 ---
-// DECISION: Section copy beyond the brief's own strings ("Press to play",
-// "Skip to links", "Shipped", "Play again") is kept to a working title and
-// a factual description, and flagged for Shannon to rewrite. "Star Run" is the
-// brief's working title; the research flags it as close to Super Mario Run.
+// DECISION: Named "Working Order" (the trading term for a live order that is
+// still filling) instead of the brief's "Star Run", which sits close to
+// Nintendo's Super Mario Run. The signature mechanic is platforms that ride an
+// FX rate line, so every noun in the game comes from Shannon's own work.
 import Pic from './Pic.astro';
 ---
 <section id="play" class="band play" aria-labelledby="play-title">
   <div class="wrap">
     <div class="g" style="row-gap:24px;margin-bottom:clamp(32px,4vw,56px)">
       <p class="eyebrow" style="grid-column:1/4">Play</p>
-      <h2 id="play-title" class="h-section" style="grid-column:4/12">Star Run</h2>
+      <h2 id="play-title" class="h-section" style="grid-column:4/12">Working Order</h2>
     </div>
     <div class="game-bar">
       <a class="skip-game" href="#links">Skip to links</a>
       <button type="button" class="game-sound" id="game-sound" aria-pressed="false">Sound</button>
     </div>
     <div class="game" data-state="poster">
-      <canvas id="game" width="960" height="540" tabindex="-1" role="application" aria-roledescription="game" aria-label="Star Run" aria-describedby="game-desc"></canvas>
+      <canvas id="game" width="960" height="540" tabindex="-1" role="application" aria-roledescription="game" aria-label="Working Order" aria-describedby="game-desc"></canvas>
       <div class="game-poster">
-        <Pic name="game-poster.png" alt="" sizes="(max-width: 1100px) 100vw, 1100px" widths={[480, 960]} />
+        <Pic name="game-poster.png" alt="" sizes="(max-width: 1100px) 100vw, 1100px" widths={[640, 960, 1440, 1920]} />
         <button type="button" class="game-play" id="game-play">Press to play</button>
       </div>
       <div class="game-end" id="game-end" hidden>
@@ -36,7 +36,7 @@ import Pic from './Pic.astro';
       <button type="button" tabindex="-1" data-k="right">→</button>
       <button type="button" tabindex="-1" data-k="jump">↑</button>
     </div>
-    <p id="game-desc" class="vh">A short side-scrolling platformer. Arrow keys or WASD to move, Space or Up to jump, Escape to pause. Collect every dot to earn the Shipped badge. Playing is optional; everything on this page is readable without it.</p>
+    <p id="game-desc" class="vh">A short side-scrolling platformer in four parts. Platforms over the last gap ride an FX rate line. Arrow keys or WASD to move, Space or Up to jump, Escape to pause. Collect every fill to earn the Shipped badge. Playing is optional; everything on this site is readable without it.</p>
     <p id="game-status" class="vh" aria-live="polite"></p>
   </div>
 </section>

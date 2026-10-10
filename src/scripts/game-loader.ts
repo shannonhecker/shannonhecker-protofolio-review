@@ -27,7 +27,7 @@ async function boot() {
       onFinish: (s) => {
         if (badge) badge.hidden = s.collected < s.total;
         end?.removeAttribute('hidden');
-        if (statusEl) statusEl.textContent = s.collected >= s.total ? 'Finished, with every dot. Shipped.' : `Finished, with ${s.collected} of ${s.total} dots.`;
+        if (statusEl) statusEl.textContent = s.collected >= s.total ? 'Order filled, with every fill. Shipped.' : `Order filled, with ${s.collected} of ${s.total} fills.`;
         again?.focus();
       },
     });

@@ -34,6 +34,15 @@ export function start(canvas: HTMLCanvasElement, opts: { reduceMotion: boolean; 
   const p = { x: checkpoint.x, y: checkpoint.y, vx: 0, vy: 0, grounded: false, face: 1, heldFor: 0, coyote: 0, buffer: 0, jumpHeld: false, rising: false, invuln: 0, squash: 0 };
   const s: GameState = { x: 0, y: 0, vx: 0, vy: 0, grounded: false, hits: 0, collected: 0, total, finished: false, paused: false, jumps: 0 };
   let cam = 0;
+  // Price-line platforms: height follows a deterministic, chart-like signal so
+  // the level plays the same every time. Each platform samples the same "rate"
+  // a little further along, so together they draw one moving line.
+  let clock = 0;
+  const AMP = 56;
+  const price = (t: number) => 0.55 * Math.sin(t * 1.05) + 0.3 * Math.sin(t * 2.3 + 1.1) + 0.15 * Math.sin(t * 4.7 + 0.4);
+  const movers = lvl.movers.map((m) => ({ ...m, px: m.x * TILE, pw: m.w * TILE, y: m.baseY * TILE, prevY: m.baseY * TILE }));
+  const moverY = (m: { baseY: number; i: number }, t: number) => m.baseY * TILE - AMP * price(t + m.i * 0.7);
+  let riding: (typeof movers)[number] | null = null;
   // Juice (off under reduced motion): landing dust and a burst on collect.
   const parts: { x: number; y: number; vx: number; vy: number; life: number; c: string }[] = [];
   const puff = (x: number, y: number, n: number, c: string, spread: number) => {
@@ -128,6 +137,11 @@ export function start(canvas: HTMLCanvasElement, opts: { reduceMotion: boolean; 
   }
 
   function step(dt: number) {
+    clock += dt;
+    for (const m of movers) { m.prevY = m.y; m.y = moverY(m, clock); }
+    if (riding && p.vy >= 0 && p.x + PW > riding.px && p.x < riding.px + riding.pw) {
+      p.y = riding.y - PH;
+    } else riding = null;
     const { dir, jump } = input();
     // horizontal: accelerate toward target, brake harder when reversing
     p.heldFor = dir ? p.heldFor + dt : 0;
@@ -185,10 +199,23 @@ export function start(canvas: HTMLCanvasElement, opts: { reduceMotion: boolean; 
         if (solidAt(tx, row)) land = true;
         if (oneWayAt(tx, row) && feetBefore <= row * TILE + 0.5) land = true;
       }
+      // price-line platforms: land if the feet crossed the platform top this step
+      if (!land) {
+        for (const m of movers) {
+          if (p.x + PW <= m.px || p.x >= m.px + m.pw) continue;
+          if (feetBefore <= Math.max(m.prevY, m.y) + 1 && feetAfter >= m.y) {
+            p.y = m.y - PH; p.vy = 0; p.grounded = true; riding = m;
+            if (!wasGrounded && !opts.reduceMotion) { p.squash = 0.12; puff(p.x + PW / 2, p.y + PH, 6, col.hair, 70); }
+            break;
+          }
+        }
+        if (riding && p.grounded) { /* landed on a mover */ }
+      }
       if (land) {
+        riding = null;
         p.y = row * TILE - PH; p.vy = 0; p.grounded = true;
         if (!wasGrounded && !opts.reduceMotion) { p.squash = 0.12; puff(p.x + PW / 2, p.y + PH, 6, col.hair, 70); }
-      } else p.y = ny;
+      } else if (!p.grounded) p.y = ny;
     } else p.y = ny;
 
     // fell out of the world: back to the last checkpoint, no penalty beyond time
@@ -251,6 +278,23 @@ export function start(canvas: HTMLCanvasElement, opts: { reduceMotion: boolean; 
           ctx.fillStyle = col.ink; ctx.fillRect(tx * TILE, ty * TILE, TILE, 4);
         }
       }
+    if (movers.length) {
+      // the rate, drawn as a smooth chart line through the platforms' real tops
+      const pts = movers.map((m) => [m.px + m.pw / 2, m.y + 2.5]);
+      const f = pts[0], l = pts[pts.length - 1];
+      pts.unshift([f[0] - TILE * 3, f[1] - (pts[1] ? (pts[1][1] - f[1]) * 0.6 : 0)]);
+      pts.push([l[0] + TILE * 3, l[1] + (pts.length > 2 ? (l[1] - pts[pts.length - 2][1]) * 0.6 : 0)]);
+      ctx.strokeStyle = col.grey; ctx.lineWidth = 1.5; ctx.setLineDash([4, 6]); ctx.beginPath();
+      ctx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < pts.length - 1; i++) {
+        const mx = (pts[i][0] + pts[i + 1][0]) / 2, my = (pts[i][1] + pts[i + 1][1]) / 2;
+        ctx.quadraticCurveTo(pts[i][0], pts[i][1], mx, my);
+      }
+      ctx.lineTo(pts[pts.length - 1][0], pts[pts.length - 1][1]);
+      ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = col.ink;
+      for (const m of movers) ctx.fillRect(m.px, m.y, m.pw, 5);
+    }
     for (const it of items) {
       if (it.taken) continue;
       const cx = it.x * TILE + TILE / 2, cy = it.y * TILE + TILE / 2;

@@ -31,10 +31,12 @@ for i, x in enumerate(range(96, 112, 4)):
     ground(x, x + 4, top=13 - i * 2)
     dots([x + 2], 12 - i * 2)
 put(110, 6, 'C')  # top of the stairs: a fall in the pit costs seconds, not the climb
-# islands over the pit (solid tops at decreasing heights)
-for x, top in [(115, 9), (120, 10), (125, 11), (130, 12)]:
-    for xx in range(x, x + 3): put(xx, top, '#')
-    put(x + 1, top - 1, 'o')
+# The signature mechanic: platforms riding an FX price line over the pit
+# ('M' runs become moving one-way platforms in the engine). Fills sit above
+# each one, so you collect them by riding the price, not by waiting.
+for x, top in [(114, 9), (119, 10), (124, 10), (129, 11)]:
+    for xx in range(x, x + 3): put(xx, top, 'M')
+    put(x + 1, top - 3, 'o')
 ground(135, 148)
 put(140, 13, '^')
 # Beat 4: conclude (cols 148-175). Flat run, a line of dots, finish.
