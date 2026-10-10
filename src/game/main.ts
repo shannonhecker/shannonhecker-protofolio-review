@@ -8,7 +8,7 @@ import { LEVELS } from './levels';
 import { THEMES, playerFrames, helmet, pet, scooter, type Theme } from './art';
 import { FOES, type Foe } from './enemies';
 import { text, textWidth } from './pixel';
-import { mapBase, NODES, labelAt, BRAND } from './map';
+import { mapBase, NODES, labelAt, BRAND, SCHOOL_ICONS } from './map';
 import { sfx } from './sound';
 export { setSound } from './sound';
 
@@ -435,6 +435,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   // labels and the character go on top each time it changes.
   const mapIcons = LEVELS.map((l) => THEMES[l.theme]());
   const base = mapBase();
+  const schools: Record<number, HTMLCanvasElement> = Object.fromEntries(Object.entries(SCHOOL_ICONS).map(([k, f]) => [k, f()]));
   function drawMap() {
     ctx.drawImage(base, 0, 0);
     text(ctx, 'WORKING ORDER', 16, 10, '#ffffff', 2);
@@ -458,7 +459,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       const brand = BRAND[i];
       ctx.fillStyle = sel ? '#e5484d' : brand ? brand.bg : '#2b3654'; ctx.fillRect(x - 11, y - 11, 22, 22);
       ctx.fillStyle = mapIcons[i].sky; ctx.fillRect(x - 9, y - 9, 18, 18);
-      const ic = mapIcons[i].pickup[0];
+      const ic = schools[i] ?? mapIcons[i].pickup[0]; // the two schools show their buildings
       ctx.drawImage(ic, Math.round(x - ic.width / 2), Math.round(y - ic.height / 2));
       // a star for finishing; gold once the world's mission is done too
       if (done) text(ctx, '★', x + 8, y - 15, s.missions.includes(i) ? '#f3a414' : '#5a5040');
