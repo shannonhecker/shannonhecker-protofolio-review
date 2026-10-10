@@ -75,7 +75,7 @@ test.describe('reduced motion', () => {
   test.use({ reducedMotion: 'reduce' });
   test('page is complete and still', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('html')).not.toHaveClass(/\bjs\b/);
+    expect(await page.evaluate(() => document.documentElement.classList.contains('js'))).toBe(false);
     const hidden = await page.evaluate(() =>
       [...document.querySelectorAll('.rv, .split .wd, .hero h1 .ln span')].filter((el) => getComputedStyle(el).opacity !== '1').length,
     );

@@ -38,10 +38,10 @@ Here they are as checks this repo can be held to. Status as of the `quality/awar
 |---|---|---|---|
 | **Design (40%)** | 7 / 10 | Disciplined type scale, a lot of air, hairlines, consistent composition, the Winking Star sub-palette, the SH mark | **The case images are dark presentation slides with serif titles.** They read as a different brand from the white grotesk page, and their small text can't be read at 390 px. This is the largest single gap. |
 | **Usability (30%)** | 8 / 10 | Fast, accessible, keyboard and print ready, deep links on every beat | About 43 screens of scroll at 1440 px for a panel that skims. Fixing this means splitting into an index plus one page per case, which is Shannon's decision. |
-| **Creativity (20%)** | 5 / 10 | Directed motion, the playable tick demo, hover peek | No signature moment yet. The game (planned) and cross-page image transitions (if the site splits into pages) are the two candidates. |
+| **Creativity (20%)** | 6 / 10 | Directed motion, the playable tick demo, hover peek. A working platformer that is drawn in the site's own visual language: ink hairlines for platforms, the Winking Star orange for collectibles, the grotesk in the HUD. | The game is still placeholder art with one level and no sprite or sound. Cross-page image transitions depend on the structure decision. |
 | **Content (10%)** | 8 / 10 | Real, verifiable, honest claims. Decisions with trade-offs. Edge states. | Visible placeholders: the Winking Star downloads tile (`__`) and the five empty uoaui.ai screens. |
 
-Weighted now: about **7.0**. That's at the Site of the Day threshold, not yet comfortably above it.
+Weighted now: about **7.2**. That's at the Site of the Day threshold, not yet comfortably above it.
 
 ## What gets it to the bar, in order of impact
 

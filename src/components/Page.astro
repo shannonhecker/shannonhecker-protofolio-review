@@ -8,6 +8,7 @@ import CaseWinking from './CaseWinking.astro';
 import CaseAi from './CaseAi.astro';
 import HowIWork from './HowIWork.astro';
 import Footer from './Footer.astro';
+import Play from './Play.astro';
 
 interface Props { revolut?: boolean }
 const { revolut = false } = Astro.props;
@@ -23,10 +24,12 @@ const { revolut = false } = Astro.props;
   <CaseWinking />
   <CaseAi />
   <HowIWork />
+  <Play />
 </main>
 <Footer />
 <script>
   import '../scripts/motion.ts';
   import '../scripts/demo.ts';
   import '../scripts/marquee.ts';
+  import '../scripts/game-loader.ts';
 </script>

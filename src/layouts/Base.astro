@@ -60,6 +60,7 @@ const og = new URL('/og.jpg', Astro.site).href;
       // html.js is only set when motion is allowed. If the motion bundle never
       // runs (blocked, failed), drop the class so nothing stays hidden.
       (function (d) {
+        d.classList.add('has-js');
         if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         d.classList.add('js');
         setTimeout(function () { if (!d.dataset.ready) d.classList.remove('js'); }, 3000);

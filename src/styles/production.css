@@ -99,3 +99,27 @@ html.lenis{scroll-behavior:auto}
   .links a[href^="http"]::after{content:" " attr(href);font-size:12px;color:var(--fg-2)}
   .row img{display:none}
 }
+
+/* #play: the game sits in a 16:9 frame inside the column. Nothing runs until
+   Play is pressed; with JS off the poster is all there is. */
+.play .game{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--bg-2);border:1px solid var(--hair)}
+.play canvas{position:absolute;inset:0;width:100%;height:100%;display:block;outline-offset:-3px}
+.play .game[data-state="poster"] canvas{visibility:hidden}
+.play .game-poster{position:absolute;inset:0;display:grid;place-items:center}
+.play .game-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.play .game[data-state="playing"] .game-poster{display:none}
+.game-play{position:relative;font:inherit;font-size:17px;font-weight:500;padding:14px 26px;min-height:48px;border-radius:999px;border:1px solid var(--fg);background:var(--bg);color:var(--fg);cursor:pointer;transition:background var(--fast),color var(--fast)}
+.game-play:hover{background:var(--fg);color:var(--bg)}
+html:not(.has-js) .game-play{display:none}
+.skip-game{position:absolute;left:-999px}
+.skip-game:focus{position:static;display:inline-block;margin-bottom:12px}
+.game-end{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:20px;background:rgba(255,255,255,.94);padding:24px;text-align:center}
+.game-end[hidden]{display:none}
+.game-badge{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,56px);letter-spacing:-.04em}
+.game-links{display:grid;gap:8px}
+.game-links a{font-weight:500;text-underline-offset:3px}
+.game-touch{display:none;gap:12px;justify-content:space-between;margin-top:16px}
+.game-touch button{width:64px;height:64px;border-radius:999px;border:1px solid var(--hair);background:var(--bg);font-size:24px;color:var(--fg);touch-action:none;user-select:none;-webkit-user-select:none}
+.game-touch button[data-k="jump"]{margin-left:auto}
+@media (hover:none){.play .game[data-state="playing"] ~ .game-touch{display:flex}}
+@media print{.play{display:none}}
