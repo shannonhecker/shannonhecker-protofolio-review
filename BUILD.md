@@ -390,3 +390,9 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - Every stage has an original tune. Losing a run or falling has its own cue. My scooter uses a seated pose, and a short skippable flight connects Taiwan to the UK.
 - Winking Star now ends with an original Scrollkeeper villain, a storybook castle, a flag I raise and a celebration. Completed stages have check marks, optional missions have stars, and progress stays in the browser between visits.
 - The combined build passes all 120 browser checks, including the final boss, flag, travel, saved completion, distinct stage music, timeline pause/resume, responsive artwork and title-label clearance. CI and live release are recorded separately.
+
+### Final review: FX Figma sync and finale unlock
+
+I brought my revised FX desktop artwork into the case introduction and carried it into the mobile layout: the chart, compare detail, order ticket and original data-layer diagram. The portfolio Figma desktop and mobile frames now also contain my three authored personas and five-stage journey; mobile keeps the copy at a readable size. The final game stage stays locked until all seven earlier stages are finished, including when someone follows a direct level link. The map explains the lock and saved progress unlocks it on later visits.
+
+I added an original starlight wand to the finale. I can face the Scrollkeeper and cast with X or J, gamepad X or the touch Cast button. Gold sparks, a short hand pose, a casting sound and a cooldown make each attack visible. Three wand hits defeat the boss before I raise the flag. I also fixed a heading that clipped when a desktop window became mobile and tightened the greeting timing.

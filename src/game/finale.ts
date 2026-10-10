@@ -33,3 +33,23 @@ export function drawBedtimeCastle(ctx:CanvasRenderingContext2D,flagX:number,floo
  box(flagX+4,y-6,28,6,'#9489b3');
  if(progress>=1&&!reduced){const colours=['#f8d68b','#f6b9c9','#90dce8'];for(let i=0;i<22;i++){const px=x-90+(i*37)%240,py=y-220+((clock*42+i*19)%180);box(px,py,4,4,colours[i%3]);}}
 }
+
+// Original starlight wand, held in front of the avatar with a short casting pose.
+export function drawStarlightWand(ctx:CanvasRenderingContext2D,x:number,feet:number,face:number,casting:boolean){
+ ctx.save();ctx.translate(Math.round(x/2)*2,Math.round((feet-20)/2)*2);ctx.scale(face,1);
+ const box=(x:number,y:number,w:number,h:number,c:string)=>{ctx.fillStyle=c;ctx.fillRect(x,y,w,h);};
+ const reach=casting?6:0;
+ box(10,-4,14+reach,8,'#17243d');box(12,-2,12+reach,4,'#f7ceab');
+ box(20+reach,-20,6,28,'#17243d');box(22+reach,-18,2,24,'#ae83b6');
+ box(18+reach,-24,10,16,'#17243d');box(14+reach,-20,18,8,'#17243d');
+ box(20+reach,-24,6,16,'#f9d877');box(14+reach,-18,18,4,'#f9d877');box(20+reach,-18,6,4,'#fff8d5');
+ if(casting){box(34,-20,4,4,'#fff8d5');box(30,-30,4,4,'#f9d877');}
+ ctx.restore();
+}
+export function drawStarBolt(ctx:CanvasRenderingContext2D,x:number,y:number,face:number){
+ ctx.save();ctx.translate(Math.round(x/2)*2,Math.round(y/2)*2);ctx.scale(face,1);
+ ctx.fillStyle='#17243d';ctx.fillRect(-4,-8,8,16);ctx.fillRect(-8,-4,16,8);
+ ctx.fillStyle='#f9d877';ctx.fillRect(-2,-6,4,12);ctx.fillRect(-6,-2,12,4);
+ ctx.fillStyle='#fff8d5';ctx.fillRect(-2,-2,4,4);
+ ctx.fillStyle='#c9a96e';ctx.fillRect(-16,-2,6,4);ctx.fillRect(-24,0,4,2);ctx.restore();
+}

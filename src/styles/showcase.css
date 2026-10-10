@@ -291,3 +291,5 @@ html.game-is-full :is(.nav,.progress,.avatar-cursor){visibility:hidden!important
 
 .title-pointer,.play .title-traveller{animation-play-state:paused}
 .game-poster[data-visible=true] .title-pointer,.play .game-poster[data-visible=true] .title-traveller{animation-play-state:running}
+
+.game-stages button[data-locked='true']{opacity:.6;cursor:not-allowed}.game-stages button[data-locked='true']::after{content:'Locked';font-size:11px;margin-left:auto}

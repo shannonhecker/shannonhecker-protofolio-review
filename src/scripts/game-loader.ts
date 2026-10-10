@@ -13,6 +13,7 @@ const mapButton = document.getElementById('game-world');
 const stageNav = document.querySelector<HTMLElement>('.game-stages');
 const stageButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-stage]'));
 function syncStage(n:number){
+  const cast=document.querySelector<HTMLButtonElement>('[data-k=cast]');if(cast)cast.hidden=n!==7;
   stageButtons.forEach(button=>button.setAttribute('aria-current',String(Number(button.dataset.stage)===n)));
   mapButton?.setAttribute('data-stage',String(n));
 }
@@ -33,7 +34,12 @@ function flyToUK(){
  return new Promise<void>(resolve=>{const finish=()=>{clearTimeout(timer);flight.hidden=true;cancelFlight=undefined;resolve();};const timer=setTimeout(finish,2400);cancelFlight=finish;});
 }
 flight?.querySelector('button')?.addEventListener('click',()=>cancelFlight?.());
-function syncCompleted(){const done=game?.state().done??[];stageButtons.forEach(button=>{const complete=done.includes(Number(button.dataset.stage));button.dataset.completed=String(complete);button.setAttribute('aria-label',`${button.textContent?.trim()}${complete?', completed':''}`);});}
+function syncCompleted(){
+ const done=game?.state().done??[];
+ const cast=document.querySelector<HTMLButtonElement>('[data-k=cast]');if(cast)cast.hidden=game?.state().mode!=='level'||game?.state().level!==7;
+ if(stageNav&&game)stageNav.hidden=game.state().mode!=='map';
+ stageButtons.forEach(button=>{const n=Number(button.dataset.stage),complete=done.includes(n),locked=n===7&&!Array.from({length:7},(_,i)=>i).every(i=>done.includes(i));button.dataset.completed=String(complete);button.dataset.locked=String(locked);button.disabled=locked;button.setAttribute('aria-label',`${button.textContent?.trim()}${locked?', locked: complete all seven earlier stages':complete?', completed':''}`);});
+}
 const param = new URLSearchParams(location.search).get('level');
 const fromCase = param !== null;
 let chosen = Math.max(0, Math.min(ends.length - 1, (Number(param ?? '1') || 1) - 1));
@@ -171,9 +177,9 @@ timeline?.addEventListener('click',e=>{if(e.target!==timeline)return;const r=tim
 timeline?.addEventListener('close',()=>{if(resumeAfterTimeline&&full){game?.resume();canvas?.focus({preventScroll:true});musicControl?.(true);}else timelineOpen?.focus({preventScroll:true});});
 timeline?.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const controls=Array.from(timeline.querySelectorAll<HTMLElement>('button,a[href]'));const first=controls[0],last=controls[controls.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}});
 
-// Touch: three on-screen buttons, pointer-driven so multi-touch works.
+// Touch: movement, jump and a contextual wand button, pointer-driven so multi-touch works.
 document.querySelectorAll<HTMLButtonElement>('.game-touch button').forEach((b) => {
-  const k = b.dataset.k as 'left' | 'right' | 'jump';
+  const k = b.dataset.k as 'left' | 'right' | 'jump' | 'cast';
   // keep focus on the canvas, so a tap never reads as leaving the game
   const set = (v: boolean) => (e: Event) => {
     e.preventDefault();

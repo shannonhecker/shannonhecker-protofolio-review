@@ -309,3 +309,6 @@ html.game-is-full{overflow:hidden}
 .chapter-head .meta a{color:var(--fg);font-weight:500;text-underline-offset:3px}
 
 }
+
+.game-touch [data-k="cast"]{font:600 15px "Pixelify Sans",monospace;color:#f6d58d}
+@media (hover:none) and (orientation:landscape){.play.is-full .game-touch [data-k="cast"]{grid-column:3;grid-row:2;margin:0}}

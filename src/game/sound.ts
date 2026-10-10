@@ -35,6 +35,7 @@ function tone(freq: number, dur: number, type: OscillatorType, vol: number, slid
 // Winking Star's star landing), a soft drop for a hit, and a short
 // four-note phrase in D major for the finish.
 export const sfx = {
+  cast: () => tone(880,.16,'triangle',.055,1760),
   jump: () => tone(392, 0.12, 'square', 0.05, 587),
   collect: () => { tone(1175, 0.06, 'triangle', 0.07); tone(1568, 0.09, 'triangle', 0.07, undefined, 0.06); },
   power: () => [659,880,988,1319].forEach((f,i)=>tone(f,.15,'square',.045,undefined,i*.07)),

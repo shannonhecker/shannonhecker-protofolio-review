@@ -50,7 +50,8 @@ jobs:
   links:
     # Brief §10: every external link checked live. LinkedIn (HTTP 999) and the
     # App Store rate-limit bots, so they are excluded here and checked by hand
-    # before each release (see README).
+    # before each release (see README). Figma design links require sign-in and
+    # reject the bot with 403; validate their file/node IDs through Figma MCP.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -60,5 +61,6 @@ jobs:
             --no-progress --max-retries 3 --timeout 20
             --exclude 'linkedin\.com' --exclude 'apps\.apple\.com'
             --exclude '^https://shannonhecker\.com'
+            --exclude '^https://www\.figma\.com/design/'
             src/components/*.astro
           fail: true

@@ -15,7 +15,7 @@ import { sfx, setMusicPlaying, setMusicStage, setPowerMusic, audioState } from '
 import { scenery, ground, prepareScenery } from './scenery';
 import { illustrated, drawIllustration, prepareIllustrations } from './illustrated';
 import { drawRainUmbrella } from './umbrella';
-import { drawScrollkeeper, drawBedtimeCastle } from './finale';
+import { drawScrollkeeper, drawBedtimeCastle, drawStarlightWand, drawStarBolt } from './finale';
 import { drawRider } from './rider';
 export { setSound, setMusicPlaying } from './sound';
 export async function prepareArt() {
@@ -97,6 +97,16 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   let achievementToast=0, achievementTitle="";
   let boss:{x:number;y:number;home:number;hp:number;hurt:number}|null=null;
   let finaleHint=false;
+  let castCooldown=0, castPose=0, wandHits=0;
+  const bolts:{x:number;y:number;vx:number;life:number}[]=[];
+  function hitBoss(){
+    if(!boss||boss.hp<=0||boss.hurt>0)return false;
+    boss.hp--;boss.hurt=.75;sfx.stomp();
+    puff(boss.x+28,boss.y+20,14,'#f6b9c9',160);
+    opts.onStatus(boss.hp?`Scrollkeeper: ${boss.hp} hearts left.`:'Scrollkeeper defeated! Go to the flag and press Up or Space to raise it.');
+    if(!boss.hp){finaleHint=false;sfx.power();}
+    return true;
+  }
   function unlockAchievements(finished=false){
     const rewards=ACHIEVEMENTS[s.level];
     const count=finished?rewards.length:Math.min(rewards.length-1,Math.floor(s.collected/Math.max(1,s.total)*rewards.length));
@@ -125,8 +135,11 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   let mapHover=-1, mapClock=0, mapVisible=true;
   let mapAvatarX=NODES[mapSel][0],mapAvatarY=NODES[mapSel][1];
   let runSequence = 0;
+  const isLocked=(n:number)=>n===7&&!Array.from({length:7},(_,i)=>i).every(i=>s.done.includes(i));
   function loadLevel(n: number) {
+    if(isLocked(n)){showMap(n);opts.onStatus(`Final level locked. Complete all seven earlier stages first. ${s.done.filter(i=>i<7).length} of 7 complete.`);return;}
     runSequence++;
+    bolts.length=0;castCooldown=0;castPose=0;wandHits=0;
     s.elapsed = 0; s.jumps = 0; s.achievements=[]; achievementToast=0; s.powerSeconds=0; s.powerStars=0; setPowerMusic(false);
     opts.onLevelStart?.(n);
     s.mode = 'level';
@@ -156,13 +169,13 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     respawn(); p.invuln = 0;
     cam = 0;
     camY = Math.max(0, lvl.h * TILE - VIEW_H);
-    opts.onStatus(`World ${stageCode(n)}: ${WORLDS[n].short.toLowerCase()}. Mission: ${m.text}.`);
+    opts.onStatus(`World ${stageCode(n)}: ${WORLDS[n].short.toLowerCase()}. Mission: ${m.text}.${n===7?' Starlight wand equipped. Face the boss and press X or J, or tap Cast.':''}`);
     resume();
   }
 
   function showMap(sel = mapSel) {
     runSequence++;
-    s.mode = 'map';
+    s.mode = 'map';bolts.length=0;touch.cast=false;
     setMusicStage(null);
     s.paused=false;mapHover=-1;canvas.style.cursor='default';
     setPowerMusic(false);setMusicPlaying(true);
@@ -189,8 +202,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   // ---- input: captured only while the canvas has focus, so the page keeps
   // its arrow keys and space bar, and Tab always leaves (no focus trap).
   const keys = new Set<string>();
-  const touch = { left: false, right: false, jump: false };
-  const GAME_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'Enter', 'a', 'd', 'w', 'A', 'D', 'W']);
+  const touch = { left: false, right: false, jump: false, cast: false };
+  const GAME_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'Enter', 'a', 'd', 'w', 'A', 'D', 'W', 'x', 'X', 'j', 'J']);
   const isJumpKey = (k: string) => k === ' ' || k === 'ArrowUp' || k === 'w' || k === 'W';
   const onKey = (e: KeyboardEvent, down: boolean) => {
     if (e.key === 'Escape' && down) { if (s.mode === 'level') setPaused(!s.paused); e.preventDefault(); return; }
@@ -222,7 +235,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   // Leaving the game pauses it; moving focus to its own controls (touch
   // arrows, Sound, the world picker) does not.
   const blur = (e: FocusEvent) => {
-    keys.clear();
+    keys.clear();touch.cast=false;
     const to = e.relatedTarget as Node | null;
     if (to && canvas.closest('.play')?.contains(to)) return;
     if (s.mode === 'level') setPaused(true);
@@ -259,7 +272,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     if(s.mode!=='map')return;
     const next=hitMap(e);if(next===mapHover)return;
     mapHover=next;canvas.style.cursor=next<0?'default':'pointer';
-    if(next>=0)opts.onStatus(`${WORLDS[next].short}. ${WORLDS[next].when}. Click to play this stage.`);
+    if(next>=0)opts.onStatus(isLocked(next)?`Final level locked. Complete all seven earlier stages first.`:`${WORLDS[next].short}. ${WORLDS[next].when}. Click to play this stage.`);
     draw();
   };
   const leaveMap=()=>{mapHover=-1;canvas.style.cursor='default';if(s.mode==='map')draw();};
@@ -290,14 +303,16 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     let left = keys.has('ArrowLeft') || keys.has('a') || keys.has('A') || touch.left;
     let right = keys.has('ArrowRight') || keys.has('d') || keys.has('D') || touch.right;
     let jump = keys.has(' ') || keys.has('ArrowUp') || keys.has('w') || keys.has('W') || touch.jump;
+    let cast=keys.has('x')||keys.has('X')||keys.has('j')||keys.has('J')||touch.cast;
     const pad = navigator.getGamepads?.().find(Boolean);
     if (pad) {
       left ||= pad.axes[0] < -0.4 || !!pad.buttons[14]?.pressed;
       right ||= pad.axes[0] > 0.4 || !!pad.buttons[15]?.pressed;
       jump ||= !!pad.buttons[0]?.pressed;
+      cast ||= !!pad.buttons[2]?.pressed;
     }
     if (jump && !p.jumpHeld) p.buffer = Math.max(p.buffer, T.buffer);
-    return { dir: (right ? 1 : 0) - (left ? 1 : 0), jump };
+    return { dir: (right ? 1 : 0) - (left ? 1 : 0), jump, cast };
   }
 
   // ---- collision helpers
@@ -339,7 +354,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       opts.onStatus(`Mission complete: ${m.text.toLowerCase()}.`);
     }
   }
-  function respawn() { p.x = checkpoint.x; p.y = checkpoint.y; p.vx = 0; p.vy = 0; p.invuln = 0.6; riding = null; }
+  function respawn() { bolts.length=0;castPose=0; p.x = checkpoint.x; p.y = checkpoint.y; p.vx = 0; p.vy = 0; p.invuln = 0.6; riding = null; }
 
   function step(dt: number) {
     clock += dt;
@@ -359,7 +374,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       }
     }
 
-    const { dir, jump } = input();
+    const { dir, jump, cast } = input();
+    castCooldown=Math.max(0,castCooldown-dt);castPose=Math.max(0,castPose-dt);
     const k = (p.ride ? RIDE : 1)*(s.powerSeconds>0?1.2:1);
     p.heldFor = dir ? p.heldFor + dt : 0;
     const max = (p.heldFor > T.runAfter ? T.runSpeed : T.walkSpeed) * k;
@@ -373,6 +389,11 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     } else {
       const f = T.friction * air * dt;
       p.vx = Math.abs(p.vx) <= f ? 0 : p.vx - Math.sign(p.vx) * f;
+    }
+
+    if(boss&&boss.hp>0&&cast&&castCooldown===0){
+      castCooldown=.5;castPose=.22;sfx.cast();
+      bolts.push({x:p.x+PW/2+p.face*28,y:p.y+18,vx:p.face*520,life:.85});
     }
 
     // jump: buffer + coyote, variable height, apex hang, heavier fall
@@ -448,7 +469,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       else if (it.kind === 'B') { it.taken = true; p.ride = true; sfx.collect(); opts.onStatus('On the scooter.'); }
       else if (it.kind === '^') hurt(ix + TILE / 2);
       else if (it.kind === 'F' && !s.finished) {
-        if(boss?.hp){if(!finaleHint){opts.onStatus('Defeat the Scrollkeeper first. Jump on its head three times.');finaleHint=true;}continue;}
+        if(boss?.hp){if(!finaleHint){opts.onStatus('Defeat the Scrollkeeper first. Face it and cast your wand with X or J, or tap Cast.');finaleHint=true;}continue;}
         if(boss&&!jump){if(!finaleHint){opts.onStatus('The castle is open! Press Up or Space beside the flag to raise it.');finaleHint=true;}continue;}
         if(boss){p.y=iy+TILE-PH;p.vx=0;p.vy=0;p.grounded=true;}
         s.finished = true; endT = 0; s.powerSeconds=0; setPowerMusic(false); sfx.finish(); unlockAchievements(true);
@@ -486,11 +507,18 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       if(overlap(boss.x,boss.y,56,50)){
         const fromAbove=p.vy>0&&p.y+PH-p.vy*dt<=boss.y+14;
         if(!boss.hurt&&(fromAbove||s.powerSeconds>0)){
-          boss.hp--;boss.hurt=.75;p.vy=-T.jumpSpeed*.8;p.rising=true;p.grounded=false;sfx.stomp();
-          puff(boss.x+28,boss.y+20,14,'#f6b9c9',160);
-          opts.onStatus(boss.hp?`Scrollkeeper: ${boss.hp} hearts left.`:'Scrollkeeper defeated! Go to the flag and press Up or Space to raise it.');
-          if(!boss.hp){finaleHint=false;sfx.power();}
+          hitBoss();p.vy=-T.jumpSpeed*.8;p.rising=true;p.grounded=false;
         }else if(!fromAbove&&!boss.hurt)hurt(boss.x+28);
+      }
+    }
+
+    // Short-lived, wall-blocked sparks travel in the direction she is facing.
+    for(let i=bolts.length-1;i>=0;i--){
+      const bolt=bolts[i];bolt.x+=bolt.vx*dt;bolt.life-=dt;
+      if(bolt.life<=0||hitsSolid(bolt.x-4,bolt.y-4,8,8)){bolts.splice(i,1);continue;}
+      if(boss&&boss.hp>0&&bolt.x+6>boss.x&&bolt.x-6<boss.x+56&&bolt.y+6>boss.y&&bolt.y-6<boss.y+50){
+        if(hitBoss())wandHits++;
+        bolts.splice(i,1);
       }
     }
 
@@ -585,7 +613,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     ctx.fillStyle = '#e5484d';
     if (!plate) for (const [x, y] of SELECT_RINGS[chapterOf(mapSel)]) ctx.fillRect(x, y, 1, 1);
     NODES.forEach(([x, y], i) => {
-      const sel=i===mapSel,hover=i===mapHover,done=s.done.includes(i);
+      const sel=i===mapSel,hover=i===mapHover,done=s.done.includes(i),locked=isLocked(i);
       if(sel||hover){
         const size=sel?15:14;ctx.strokeStyle=hover?'#fff8dc':'#ffe28c';ctx.lineWidth=2;ctx.strokeRect(x-size,y-size,size*2,size*2);
         if(sel){const lift=opts.reduceMotion?0:Math.round(Math.sin(mapClock*3)*2);ctx.fillStyle='#ffe28c';ctx.fillRect(x-3,y+19+lift,6,2);ctx.fillRect(x-1,y+21+lift,2,2);}
@@ -596,11 +624,12 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       const ic = logos[i] ?? schools[i] ?? mapIcons[i].pickup[0]; // schools show their buildings; Barclays its eagle
       if (logos[i] || !drawIllustration(ctx, i === 7 ? 'star' : i === 6 ? 'gem' : i === 0 ? 'heart' : 'journal', x, y + 8, 16, 16))
         ctx.drawImage(ic, Math.round(x - ic.width / 2), Math.round(y - ic.height / 2));
+      if(locked){ctx.fillStyle='#17202e';ctx.fillRect(x-10,y-10,20,20);ctx.strokeStyle='#d2d7df';ctx.lineWidth=2;ctx.strokeRect(x-4,y-7,8,8);ctx.fillStyle='#d2d7df';ctx.fillRect(x-6,y-2,12,10);ctx.fillStyle='#17202e';ctx.fillRect(x-1,y+1,2,4);}
       // A check is a completed stage; the gold star is its optional mission.
       if(done){ctx.fillStyle='#173e35';ctx.fillRect(x+5,y-18,14,14);ctx.fillStyle='#b9efd1';ctx.fillRect(x+8,y-11,3,3);ctx.fillRect(x+10,y-9,3,3);ctx.fillRect(x+12,y-13,3,5);ctx.fillRect(x+14,y-15,3,3);}
       if(done&&s.missions.includes(i))drawIllustration(ctx,'star',x-13,y-8,10,10);
       const code = stageCode(i);
-      const lines = [`${code === 'Bonus' ? '★' : code} ${WORLDS[i].short}`, WORLDS[i].when];
+      const lines = [`${code === 'Bonus' ? '★' : code} ${WORLDS[i].short}`, locked?'LOCKED':WORLDS[i].when];
       lines.forEach((l, k) => {
         const [lx, ly] = labelAt(i, l, k);
         if (brand && k === 0) {
@@ -621,7 +650,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     // footer: the selected world, then how to move
     const c = chapterOf(mapSel), ch = CHAPTERS[c];
     const name = 'bonus' in ch && ch.bonus ? `BONUS · ${ch.name}` : `WORLD ${c + 1} · ${ch.name}`;
-    const foot = mapHover>=0?`${WORLDS[mapHover].short} · CLICK TO PLAY`:`< ${name} >   UP/DOWN: STAGE   SPACE: PLAY`;
+    const focusStage=mapHover>=0?mapHover:mapSel;
+    const foot = isLocked(focusStage)?`FINALE LOCKED · ${s.done.filter(i=>i<7).length}/7 STAGES COMPLETE`:mapHover>=0?`${WORLDS[mapHover].short} · CLICK TO PLAY`:`< ${name} >   UP/DOWN: STAGE   SPACE: PLAY`;
     ctx.globalAlpha = 0.85; ctx.fillStyle = '#fbf7ea'; ctx.fillRect(14, 254, textWidth(foot) + 4, 9); ctx.globalAlpha = 1;
     mapText(foot, 16, 255, '#2b3654', 7);
     mapText('NOT TO SCALE', 405, 256, '#2b3654', 6);
@@ -752,6 +782,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       const frame = !p.grounded || s.finished ? 4 : running ? [2, 1, 3, 1][Math.floor(p.run) % 4] : 1;
       if (!(p.ride?drawRider(ctx,p.x+PW/2,p.y+PH,p.face):drawIllustration(ctx, `hero-${theme.id}-${frame}`, p.x + PW / 2, p.y + PH - lift, 60, 60, p.face < 0)))
         ctx.drawImage(p.hurtT > 0.25 ? hero.flash : im, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift), snap(w), snap(hh));
+      if(boss&&!s.finished)drawStarlightWand(ctx,p.x+PW/2,p.y+PH,p.face,castPose>0);
       if (theme.weather === 'rain') drawRainUmbrella(ctx, p.x + PW / 2, p.y + PH - lift, p.face);
       // Kaohsiung: a half-helmet whenever she rides
       if (p.ride && !illustrated(`hero-${theme.id}-1`)) ctx.drawImage(lid, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift - 2), snap(w), snap(10 * (1 - sq)));
@@ -760,6 +791,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
         if (!drawIllustration(ctx, 'scooter', 0, bike.height / ART, 52, 34)) ctx.drawImage(bike, -bike.width / ART / 2, 0, bike.width / ART, bike.height / ART); ctx.restore();
       }
     }
+    for(const bolt of bolts)drawStarBolt(ctx,bolt.x,bolt.y,bolt.vx>0?1:-1);
     for (const q of parts) { ctx.globalAlpha = Math.max(0, q.life / 0.35); ctx.fillStyle = q.c; ctx.fillRect(snap(q.x), snap(q.y), 4, 4); }
     ctx.globalAlpha = 1;
     ctx.restore();
@@ -788,7 +820,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     ctx.fillStyle = s.mission.done ? '#8c5a00' : '#30485a'; ctx.fillText(ms, 8, 24);
     if(achievementToast>0){ctx.fillStyle='#182640';ctx.fillRect(18,HUD_H-36,HUD_W-36,26);ctx.fillStyle='#ffe08a';ctx.fillText(`★ ${achievementTitle}`,28,HUD_H-29);}
     if(s.powerSeconds>0){ctx.fillStyle='#ffe08a';ctx.fillRect(HUD_W-128,22,128,15);ctx.fillStyle='#182640';ctx.fillText(`STAR POWER ${Math.ceil(s.powerSeconds)}s`,HUD_W-120,25);}
-    if(boss&&p.x>boss.home-480){const message=s.finished?(endT<1.6&&!opts.reduceMotion?'RAISING THE FLAG…':'FLAG RAISED · SWEET DREAMS!'):boss.hp?`SCROLLKEEPER · ${boss.hp}/3 · JUMP ON ITS HEAD`:'AT THE FLAG · UP / SPACE TO RAISE';ctx.fillStyle='#172b3b';ctx.fillRect(8,42,ctx.measureText(message).width+16,16);ctx.fillStyle='#f6d58d';ctx.fillText(message,16,46);}
+    if(boss&&p.x<=boss.home-480&&!s.finished){ctx.fillStyle='#172b3b';ctx.fillRect(8,42,176,16);ctx.fillStyle='#f6d58d';ctx.fillText('STARLIGHT WAND · X / J TO CAST',16,46);}
+    if(boss&&p.x>boss.home-480){const message=s.finished?(endT<1.6&&!opts.reduceMotion?'RAISING THE FLAG…':'FLAG RAISED · SWEET DREAMS!'):boss.hp?`SCROLLKEEPER · ${boss.hp}/3 · X / J · CAST WAND`:'AT THE FLAG · UP / SPACE TO RAISE';ctx.fillStyle='#172b3b';ctx.fillRect(8,42,ctx.measureText(message).width+16,16);ctx.fillStyle='#f6d58d';ctx.fillText(message,16,46);}
     if (s.paused) {
       ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(0, 0, HUD_W, HUD_H);
       text(ctx, 'PAUSED', HUD_W / 2 - 36, HUD_H / 2 - 8, '#ffffff', 3);
@@ -825,7 +858,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   canvas.focus();
 
   return {
-    state: () => ({ ...s,boss:boss?{...boss}:null,flagRaised:!!boss&&s.finished&&(opts.reduceMotion||endT>=1.6),mapSelected:mapSel,mapHovered:mapHover,mapTime:mapClock, audio:audioState(), powerItems:items.filter(i=>i.kind==='*'&&!i.taken).map(i=>({x:i.x*TILE,y:i.y*TILE})), done: [...s.done], missions: [...s.missions], mission: { ...s.mission }, enemies: foes.filter((e) => e.alive).map(({ x, y }) => ({ x, y })) }),
+    state: () => ({ ...s,weapon:boss?'starlight-wand':null,wandHits,castCooldown,bolts:bolts.map(b=>({...b})),boss:boss?{...boss}:null,flagRaised:!!boss&&s.finished&&(opts.reduceMotion||endT>=1.6),mapSelected:mapSel,mapHovered:mapHover,mapTime:mapClock, audio:audioState(), powerItems:items.filter(i=>i.kind==='*'&&!i.taken).map(i=>({x:i.x*TILE,y:i.y*TILE})), done: [...s.done], missions: [...s.missions], mission: { ...s.mission }, enemies: foes.filter((e) => e.alive).map(({ x, y }) => ({ x, y })) }),
     touch,
     levels: LEVELS.length,
     loadLevel: (n: number) => { canvas.focus(); mapSel = n; loadLevel(n); },

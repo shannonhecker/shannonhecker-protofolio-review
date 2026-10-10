@@ -48,20 +48,19 @@ async function runLevel(page: Page, n: number) {
   const solid = (x: number, y: number) => L[y]?.[x] === '#';
   const standable = (x: number, y: number) => solid(x, y) || ['=', 'M', 'D'].includes(L[y]?.[x] ?? ' ');
   await page.keyboard.down('ArrowRight');
-  let lastX = 0, stuck = 0;
+  let lastX = 0, stuck = 0, capturedWand = false;
   // generous budget: like a person, the bot may need a retry or two on moving platforms
   for (let i = 0; i < 2000; i++) {
     const s = await state(page);
     if (s.finished) break;
-    if(n===7&&s.boss?.hp>0&&s.x>s.boss.home-160){
-      const dx=s.boss.x+28-(s.x+10);
-      await page.keyboard.up('ArrowRight');await page.keyboard.up('ArrowLeft');
-      if(Math.abs(dx)>10)await page.keyboard.down(dx>0?'ArrowRight':'ArrowLeft');
-      if(s.grounded)await page.keyboard.down('Space');
-      await page.waitForTimeout(60);if(!s.grounded)await page.keyboard.up('Space');
+    if(n===7&&s.boss?.hp>0&&s.x>s.boss.home-220){
+      await page.keyboard.up('ArrowRight');await page.keyboard.up('ArrowLeft');await page.keyboard.up('Space');
+      await page.keyboard.down('x');
+      if(!capturedWand&&s.wandHits===1){await page.screenshot({path:test.info().outputPath('wand-boss.png')});capturedWand=true;}
+      await page.waitForTimeout(60);
       continue;
     }
-    if(n===7&&s.boss?.hp===0){await page.keyboard.up('ArrowLeft');await page.keyboard.down('ArrowRight');if(s.x>165*32)await page.keyboard.down('Space');}
+    if(n===7&&s.boss?.hp===0){await page.keyboard.up('x');await page.keyboard.up('ArrowLeft');await page.keyboard.down('ArrowRight');if(s.x>165*32)await page.keyboard.down('Space');}
     const tx = Math.floor((s.x + 10) / 32), row = Math.floor((s.y + 44) / 32);
     // a pit is a column with no floor anywhere below; a raised platform's edge just drops you down
     const pit = (x: number) => { for (let y = row; y < L.length; y++) if (standable(x, y)) return false; return true; };
@@ -128,6 +127,7 @@ for (const n of [0, 1, 2, 3, 4, 5, 6, 7]) {
   test(`world ${n + 1} (${LEVELS[n].theme}) can be finished`, async ({ page }) => {
     test.setTimeout(180000);
     await page.addInitScript(() => { (window as unknown as { __gameAssist: object }).__gameAssist = { invuln: true }; });
+    if(n===7)await page.addInitScript(()=>{if(!localStorage.getItem('working-order-progress-v2'))localStorage.setItem('working-order-progress-v2',JSON.stringify({done:[0,1,2,3,4,5,6],missions:[]}));});
     await page.goto(`/?level=${n + 1}#top`);
     await page.getByRole('button', { name: 'Start adventure' }).click();
     await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
@@ -144,7 +144,7 @@ for (const n of [0, 1, 2, 3, 4, 5, 6, 7]) {
     // the bot picks up the scooter and rides it to the sea: Kaohsiung's mission
     if (n === 0) { expect(s.missions).toContain(0); await expect(card.locator('.game-mission')).toContainText('Mission complete'); }
     if(n===2){await card.locator('[data-next="3"]').click();await expect(page.locator('.game-flight')).toBeVisible();await expect(page.locator('.game-flight')).toContainText('2013');await page.getByRole('button',{name:'Skip flight'}).click();await expect.poll(async()=>(await state(page)).level).toBe(3);}
-    if(n===7){expect(s.boss.hp).toBe(0);expect((await state(page)).flagRaised).toBe(true);await page.reload();await page.getByRole('button',{name:'Start adventure'}).click();await page.locator('#game-world').click();await expect(page.locator('.game-stages [data-stage="7"]')).toHaveAttribute('data-completed','true');expect((await state(page)).done).toContain(7);}
+    if(n===7){expect(s.wandHits).toBe(3);expect(s.weapon).toBe('starlight-wand');expect(s.boss.hp).toBe(0);expect((await state(page)).flagRaised).toBe(true);await page.reload();await page.getByRole('button',{name:'Start adventure'}).click();await page.locator('#game-world').click();await expect(page.locator('.game-stages [data-stage="7"]')).toHaveAttribute('data-completed','true');expect((await state(page)).done).toContain(7);}
   });
 }
 
@@ -188,6 +188,7 @@ test('small enemies: walking into one from the side is a hit', async ({ page }) 
 });
 
 test('every world has a mission, shown in the HUD state', async ({ page }) => {
+  await page.addInitScript(()=>localStorage.setItem('working-order-progress-v2',JSON.stringify({done:[0,1,2,3,4,5,6],missions:[]})));
   for (const n of [1, 3, 4, 5, 6, 7]) {
     await startWorld(page, n);
     const s = await state(page);
@@ -292,4 +293,45 @@ test('sound is off by default and has one toggle', async ({ page }) => {
   await expect(btn).toHaveAttribute('aria-pressed', 'true');
   await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+});
+
+
+test('the final level stays locked until all seven earlier stages are complete',async({page})=>{
+ for(const done of [[],[0,1,2,3,4,5]]){
+  await page.goto('/');await page.evaluate(done=>localStorage.setItem('working-order-progress-v2',JSON.stringify({done,missions:[]})),done);
+  await page.goto('/?level=8');await page.getByRole('button',{name:'Start adventure'}).click();await page.waitForFunction(() => (window as any).__game?.());
+  await expect.poll(async()=>(await state(page)).mode).toBe('map');
+  await expect(page.locator('.game-stages [data-stage="7"]')).toBeDisabled();
+  await page.locator('#game').press('Space');expect((await state(page)).mode).toBe('map');
+  await expect(page.locator('#game-status')).toContainText('Final level locked');
+  await page.keyboard.press('Escape');
+ }
+ await page.evaluate(()=>localStorage.setItem('working-order-progress-v2',JSON.stringify({done:[0,1,2,3,4,5,6],missions:[]})));
+ await page.goto('/?level=8');await page.getByRole('button',{name:'Start adventure'}).click();await page.waitForFunction(() => (window as any).__game?.());
+ await expect.poll(async()=>(await state(page)).mode).toBe('level');expect((await state(page)).level).toBe(7);
+});
+
+
+test('starlight wand supports touch, cooldown and pause, and stays out of earlier levels', async ({ page }) => {
+  await page.emulateMedia({ media: 'screen' });
+  await page.addInitScript(()=>localStorage.setItem('working-order-progress-v2',JSON.stringify({done:[0,1,2,3,4,5,6],missions:[]})));
+  await startWorld(page,7,true);
+  expect((await state(page)).weapon).toBe('starlight-wand');
+  const cast=page.locator('[data-k="cast"]');
+  await expect(cast).not.toHaveAttribute('hidden');
+  await cast.dispatchEvent('pointerdown');
+  await expect.poll(async()=>(await state(page)).bolts.length).toBe(1);
+  await cast.dispatchEvent('pointerup');
+  expect((await state(page)).castCooldown).toBeGreaterThan(0);
+  await page.getByRole('button',{name:'Timeline',exact:true}).click();
+  const paused=await state(page);
+  await page.waitForTimeout(250);
+  expect((await state(page)).bolts).toEqual(paused.bolts);
+  await page.locator('#game-timeline button').first().click();
+  await page.locator('#game-world').click();
+  await expect(cast).toHaveAttribute('hidden');
+  await page.locator('[data-stage="0"]').click();
+  await expect.poll(async()=>(await state(page)).weapon).toBeNull();
+  await page.keyboard.press('x');
+  expect((await state(page)).bolts).toHaveLength(0);
 });

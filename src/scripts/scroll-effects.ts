@@ -16,8 +16,8 @@ export function initScrollEffects() {
       gsap.fromTo(picture,{x:index%2?28:-28,y:index%2?56:24,scale:.97},{x:0,y:0,scale:1,ease:'none',immediateRender:false,
         scrollTrigger:{trigger:picture,start:'top 95%',end:'top 65%',scrub:.6}});
     });
-    document.querySelectorAll<HTMLElement>('.case-page .beat .body > .h-sub').forEach((heading,index) => {
-      gsap.fromTo(heading, { x: index % 2 ? 48 : -48 }, { x: 0, ease:'none', immediateRender:false,
+    document.querySelectorAll<HTMLElement>('.case-page .beat .body > .h-sub').forEach((heading) => {
+      gsap.fromTo(heading, { y: 32 }, { y: 0, ease:'none', immediateRender:false,
         scrollTrigger:{trigger:heading,start:'top 95%',end:'top 60%',scrub:.5}});
     });
     document.querySelectorAll<HTMLElement>('.case-page .body > .product-capture, .case-page .screen-sequence > .product-capture').forEach((frame,index) => {

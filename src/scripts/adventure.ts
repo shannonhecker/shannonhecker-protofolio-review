@@ -81,7 +81,7 @@ if(companion){
   companion.style.setProperty('--intro-elapsed',`${elapsed}ms`);
   companion.dataset.entered='true';
   if(first)companion.dataset.intro='true';
-  const sequence:[string,number][]=[['rest',first?Math.max(0,1800-elapsed):80],['lift',160],['wave',1800],['lift',160],['rest',250]];
+  const sequence:[string,number][]=[['rest',first?Math.max(0,1250-elapsed):80],['lift',160],['wave',1800],['lift',160],['rest',250]];
   const next=()=>{if(!enabled()){finishGreeting();return;}const step=sequence.shift();if(!step){finishGreeting();idleTimer=window.setTimeout(()=>void greet(),10000);return;}companion.dataset.pose=step[0];greetingTimer=window.setTimeout(next,step[1]);};
   next();
  };

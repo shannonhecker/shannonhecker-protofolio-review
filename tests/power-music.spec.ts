@@ -19,6 +19,7 @@ test('background music follows the sound toggle and stops on leaving both level 
 });
 
 test('each stage has a different soundtrack and the map has its own theme',async({page})=>{
+ await page.addInitScript(()=>localStorage.setItem('working-order-progress-v2',JSON.stringify({done:[0,1,2,3,4,5,6],missions:[]})));
  await start(page);await page.getByRole('button',{name:'Sound',exact:true}).click();
  const tunes=new Set<string>();
  for(let stage=0;stage<8;stage++){
