@@ -148,11 +148,16 @@ test('small enemies: landing on one clears it and counts toward the mission', as
   const before = await state(page);
   expect(before.foes).toBeGreaterThanOrEqual(before.mission.need);
   expect(before.mission.text).toBe('Squash 4 bugs');
-  await page.keyboard.down('ArrowRight');
-  for (let i = 0; i < 40 && (await state(page)).stomped === 0; i++) {
-    await page.keyboard.down('Space'); await page.waitForTimeout(260); await page.keyboard.up('Space'); await page.waitForTimeout(140);
-  }
-  await page.keyboard.up('ArrowRight');
+  // Let the first walking bug approach on this flat stretch. A blind stream
+  // of jumps could miss every bug or fall into a pit, depending on frame timing.
+  await page.waitForFunction(() => {
+    const s = (window as unknown as { __game: () => any }).__game();
+    return s.grounded && s.enemies.some((e: { x: number }) => e.x - s.x >= 32 && e.x - s.x <= 45);
+  }, undefined, { timeout: 18000 });
+  await page.keyboard.down('Space');
+  await page.waitForTimeout(260);
+  await page.keyboard.up('Space');
+  await expect.poll(async () => (await state(page)).stomped, { timeout: 2500 }).toBeGreaterThan(0);
   const s = await state(page);
   expect(s.stomped).toBeGreaterThan(0);
   expect(s.mission.have).toBe(s.stomped);

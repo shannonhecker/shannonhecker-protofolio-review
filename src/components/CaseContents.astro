@@ -1,16 +1,13 @@
 ---
 interface Props { project: 'fx' | 'fusion' | 'ai' | 'winking' }
 const { project } = Astro.props;
-const links = {
-  fx: ['fx-problem', 'fx-personas', 'fx-journey', 'fx-flow', 'fx-decision-map', 'fx-edge', 'fx-outcome'],
-  fusion: ['fu-problem', 'fusion-personas', 'fusion-journey', 'fu-workflow', 'fusion-decision-map', 'fu-design', 'fu-outcome'],
-  ai: ['ai-what', 'ai-personas', 'ai-journey', 'ai-flow', 'ai-decision-map', 'ai-decisions', 'ai-judgement'],
-  winking: ['ws-problem', 'ws-personas', 'ws-journey', 'ws-flow', 'winking-decision-map', 'ws-edge', 'ws-outcome'],
+const links: Record<Props['project'], [string, string][]> = {
+  fx: [['fx-problem','Problem'],['fx-users','Research'],['fx-personas','Personas'],['fx-journey','Journey'],['fx-constraints','Constraints'],['fx-decision-map','Decision map'],['fx-flow','Full flow'],['fx-edge','Edge states'],['fx-accessibility','Accessibility'],['fx-outcome','Outcome']],
+  fusion: [['fu-problem','Problem'],['fusion-personas','Personas'],['fusion-journey','Journey'],['fu-constraints','Constraints'],['fu-workflow','Research and flow'],['fusion-decision-map','Decision map'],['fu-design','UI craft'],['fusion-accessibility','Accessibility'],['fu-outcome','Outcome']],
+  ai: [['ai-what','Problem'],['ai-personas','Personas'],['ai-journey','Journey'],['ai-flow','Full flow'],['ai-decision-map','Decision map'],['ai-brand','Brand and system'],['ai-judgement','AI at work'],['ai-accessibility','Accessibility'],['ai-outcome','Outcome']],
+  winking: [['ws-problem','Problem and research'],['ws-personas','Personas'],['ws-journey','Journey'],['ws-flow','Full flow'],['winking-decision-map','Decision map'],['ws-brand','Brand and system'],['ws-themes','UI craft'],['ws-edge','Edge states and accessibility'],['ws-outcome','Outcome']],
 };
-const names = ['Problem statement', 'Personas', 'User journey', 'User flow', 'Decision map', 'Edge states', 'Outcome'];
-if (project === 'fusion' || project === 'ai') names[5] = 'System';
-if (project === 'ai') names[6] = 'AI at work';
 ---
 <nav class="case-contents" aria-label="Case study sections">
-  {links[project].map((id, i) => <a href={`#${id}`}>{names[i]}</a>)}
+  {links[project].map(([id, name]) => <a href={`#${id}`}>{name}</a>)}
 </nav>

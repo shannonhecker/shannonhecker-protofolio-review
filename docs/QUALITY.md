@@ -1,57 +1,49 @@
 # Quality review, 10 October 2026
 
-The target is award-caliber visual craft and a portfolio that answers the Revolut panel brief. This record distinguishes measured checks, visual inspection and unverified claims. It does not assign itself an award score or claim approval from Awwwards, FWA, the Webbys or Revolut.
+Award-level craft is the target, not a certification. Technical passes do not establish that every Revolut evidence requirement is satisfied. See `REVOLUT-CHECKLIST.md` for the official brief and remaining factual gaps.
 
-## Review criteria
+## Current verification
 
-The repository's `prototype/BRIEF.md` asks for a clear problem, constraints, decisions and trade-offs, complete flows, edge states, outcomes, recency and visible UI craft. All four current cases now link directly to the relevant evidence, with additional personas, journeys and decision maps. Working assumptions remain labelled; no interview participants, product metrics or shipped status were invented.
-
-The [Webby judging criteria](https://www.webbyawards.com/judging-criteria/) include content, structure/navigation, visual design, functionality, interactivity, innovation and overall experience. These are useful review lenses, not a substitute for external judging. Current detailed Awwwards and FWA criteria were not reliably retrieved in this session; older numerical claims in this document have been removed.
-
-## Verification
-
-- `npm run build`: eight routes built successfully.
-- `npm run check`: 63 files, zero errors, warnings or hints.
-- `PW_CHROMIUM_PATH='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' npx playwright test --workers=4`: **78 passed**.
-- Regression coverage includes all eight playable stages; keyboard/touch controls; fullscreen and Escape; accessibility at 390, 820 and 1440px; page overflow at 320, 390, 820 and 1440px; no-JS and reduced-motion content; print visibility; case navigation anchors; full image proportions; current video playback and full-size capture links.
-- Current product videos use native controls, no autoplay and `preload="none"`. The decorative game preview makes no video request under reduced motion and starts only on hover/focus on pointer devices.
-- Lighthouse 12 runs against the local production preview, separately on mobile and desktop, skipping only `is-crawlable` because the site is intentionally private/noindex. Scores below are laboratory measurements, not field performance or real-device guarantees.
+- Production build: eight routes.
+- Astro check: 73 files, zero errors, warnings or hints.
+- Playwright: 78 tests passed after the brand additions; final release CI remains required.
+- Coverage includes all eight stages, keyboard and touch, fullscreen and Escape, accessibility at 390/820/1440px, overflow at 320/390/820/1440px, reduced motion, no JavaScript, print, navigation anchors, intrinsic image proportions and product playback.
+- Lighthouse 12: local production preview, separate mobile and desktop runs, skipping only `is-crawlable` for this intentionally private/noindex site. These are laboratory results, not field measurements.
 
 | Route | Mobile P / A / BP / SEO | Desktop P / A / BP / SEO | Mobile LCP | Mobile CLS |
 |---|---|---|---|---|
-| /panel | 97 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.417 s | 0 |
-| /fx | 96 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.709 s | 0 |
-| /fusion | 97 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.482 s | 0 |
-| /winking-star | 98 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.267 s | 0.0005 |
-| /uoaui | 95 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.784 s | 0 |
+| /panel | 99 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.106 s | 0.0190 |
+| /fx | 97 / 100 / 100 / 100 | 99 / 100 / 100 / 100 | 2.562 s | 0.0037 |
+| /fusion | 97 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.488 s | 0.0050 |
+| /winking-star | 98 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.183 s | 0.0220 |
+| /uoaui | 96 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.710 s | 0.0032 |
 
-P = Performance; A = Accessibility; BP = Best Practices. All ten runs meet the 95-point category budget. Raw summary: `quality-results.json`.
+All ten runs meet the 95-point category budget. Raw summary: `quality-results.json`. Optional desktop scroll effects now load after scrolling begins; touch browsing and initial text do not need that animation framework.
 
-## Visual inspection and fixes
+## Visual review
 
-Reviewed the home page, each case, the build page, game map and playable Kaohsiung stage. Desktop screenshots used 1440px; mobile screenshots used 390px, with responsive/overflow checks at 320 and 820px. Actual videos were sampled at 5 and 12 seconds, with their natural dimensions checked during playback.
+Reviewed the home page, all four cases, build page, every playable stage and game map. Desktop review used 1440px; phone review used 390px, with automated narrow/tablet checks as above.
 
-- Wider vertical gaps and shorter text measures separate case beats; full-width evidence no longer competes with a floating beat label.
-- Visible index thumbnails replace the hidden cursor-following preview. The old preview assets and old uoaui clip are no longer referenced.
-- All product stills retain their source proportions, with full-size links for dense screens. Screenshots were recaptured at sufficient height to include lower charts. Source application scrolling inside tables remains part of the real interface.
-- Winking Star's hero illustration and phone images are no longer cover-cropped. The mobile illustration's inherited opacity was removed so the supplied art stays clear.
-- A first-child decision map no longer overlaps its desktop section label. Diagrams stack without clipped labels on phones.
-- The first game-toolbar pass accidentally hid Sound; this was fixed, with the expanded game regression suite passing.
-- Game-preview playback uses an intent counter to avoid revealing a video after pointer exit or Play. The generated clip is four seconds, with a static fallback.
-- Supplied avatar originals remain unchanged. Their peach/rose/cream palette informs small site accents and the original game art.
-- Product media is real. Higgsfield was used only for the game cover and its motion; see `MEDIA-SOURCES.md`.
+- Shared cream, peach, rose and sky palette; lighter Nunito headings, Inter body and small Pixelify labels; deliberate spacing between narrative, diagrams and full screens.
+- All four work cards have equal prominence. Each case has its own illustrated setting, outfit/prop and sticky chapter index. The avatar follows scroll position and stays still under reduced motion.
+- Real product screens keep source proportions and full-size links. Current tablet/phone captures describe actual support, including FX phone overflow.
+- Journeys use connected task/friction/response lanes; decisions use branching SVG diagrams and readable linked steps on phones. A specificity conflict that displayed both layouts on desktop was fixed.
+- Winking Star and uoaui show their original logos, verified current palettes, typography, system layers and end-to-end ownership. The uoaui house-system screenshot is current; third-party component authorship stays explicit.
+- Eight detailed game backgrounds replace the cover/game mismatch. Kaohsiung no longer contains London landmarks. Generated scenery is stylized artwork, not a literal record of a campus or office. Original animated sprites and map remain deliberately simple.
+- Fullscreen startup now uses the latest visibility event and recovers only from observer-caused pauses. Deliberate pauses are preserved.
+- Product videos retain native controls and load on request. The game cover is a static matching scene; stage art loads after Play, per visited stage.
 
 ## Source integrity
 
-All seven Figma pages were inventoried and screened. `FIGMA-AUDIT.md` records exact nodes, context conflicts and excluded placeholders. Current screenshots and recordings come from Shannon's three designated live products; old slide evidence was replaced by current screens or sharp HTML/SVG process diagrams.
+All seven Figma pages were audited. `FIGMA-AUDIT.md`, `MEDIA-SOURCES.md` and `BRAND-SOURCES.md` record sources and exclusions. The shared Claude chat corroborated UITK work before Fusion and cross-team workshops. Shannon confirmed the accessibility specialist joined from the start; the contradictory reflection was removed.
 
-Two case-copy corrections follow the latest source: uoaui's compare/tune step is Shannon's review practice rather than a forced export gate; FX's separate state lane and counted clusters are refinements shown in schematics, not features visible in the current public rebuild. Classic is the Barclays design; Enhanced is Shannon's public rebuild. FX stays beta and uoaui stays private alpha.
+Original case prose remains apart from logged, source-backed corrections and explicitly requested new sections. FX is beta with sample-data rebuilds; uoaui remains private alpha. Generated role art is labelled fictional, not research participants. No outcome metrics, participant counts or testing dates were invented.
 
-## Remaining limits
+## Remaining limits and next work
 
-- No award jury or independent design panel has reviewed this pass. Winning an award cannot be established by a self-assigned score.
-- FX and uoaui mobile LCP measured 2.709 s and 2.784 s, above the 2.5 s aspiration even though their category scores pass the 95-point gate.
-- Physical Safari/iOS device checks and an independent human game playtest remain useful external validation. This session's automated browser checks used Chrome.
-- Fusion's public rebuild visibly carries an AG Grid trial watermark. Captures preserve it; fixing its license/configuration is work in that source repository.
-- User research and outcomes for the private alpha remain assumptions or unmeasured where the source says so. No numbers were added to fill gaps.
-- Corporate Action Manager, Deal Model and Data Solution are the next separate handoff feature, not new cases delivered by this four-case pass. Their source locations are recorded in the Figma audit.
+- Verified adoption/KPI evidence and research protocols are still incomplete. Fusion and uoaui need fuller edge/validation-state evidence before claiming complete Revolut coverage.
+- FX and uoaui mobile LCP remain above the 2.5-second aspiration, while passing the required category budget.
+- Physical Safari/iOS testing and an independent playtest remain useful external checks. Automated browser coverage here is Chromium.
+- Fusion's public rebuild has an AG Grid trial watermark, preserved in real captures. Its license/configuration belongs to that source repository.
+- Corporate Action Manager, Deal Model and Data Solution remain a separate content feature.
+- Newly requested leaderboard: public scores with optional nicknames; detailed visit/play/level statistics private. Shared storage, server validation and private access are a separate change, not delivered by this visual release.

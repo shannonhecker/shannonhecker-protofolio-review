@@ -5,7 +5,7 @@ import '../styles/fonts.css';
 import '../styles/prototype.css';
 import '../styles/production.css';
 import '../styles/editorial.css';
-import displayFont from '@fontsource/inter-tight/files/inter-tight-latin-700-normal.woff2?url';
+import displayFont from '@fontsource/nunito/files/nunito-latin-600-normal.woff2?url';
 import bodyFont from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
 
 interface Props {
@@ -77,5 +77,6 @@ const og = new URL(ogImage.src, Astro.site).href;
   </head>
   <body>
     <slot />
+    <script>import '../scripts/adventure.ts';</script>
   </body>
 </html>

@@ -10,6 +10,10 @@ const HD = top ? 'h3' : 'h4'; // decision titles
 import Pic from './Pic.astro';
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
+import ChapterScene from './ChapterScene.astro';
+import BrandMark from './BrandMark.astro';
+import BrandSystem from './BrandSystem.astro';
+import PersonaArt from './dg/PersonaArt.astro';
 import DecisionMap from './dg/DecisionMap.astro';
 import CoParent from './dg/CoParent.astro';
 
@@ -20,13 +24,15 @@ import CoParent from './dg/CoParent.astro';
       <div class="g" style="row-gap:28px;align-items:end">
         <div style="grid-column:1/9;display:grid;gap:24px">
           <p class="eyebrow">Case three · Solo · live on the App Store</p>
+          <BrandMark project="winking" />
           <HT class="h-chapter" style="view-transition-name:t-winking">Winking Star</HT>
         </div>
         <p class="lead muted" style="grid-column:1/9">A warm, ad-free routine app for families. Every check earns a star, and every week those stars grow a Mystery Pet. I designed and built it on my own, so the visual decisions, the copy and the code are all mine.</p>
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designer and builder, one of one</span><span><b>Stack</b> · React Native, Expo, Firebase</span><span><b>Status</b> · Live, v1.0.4, iPhone and iPad</span><span><b>Languages</b> · EN, FR, ES, DE, 繁體中文</span></div>
       </div>
-      <CaseContents project="winking" />
+      <ChapterScene project="winking" />
     </header>
+    <CaseContents project="winking" />
 
     <div class="beat wide rv" id="ws-hero">
       <div class="body">
@@ -59,6 +65,7 @@ import CoParent from './dg/CoParent.astro';
       <div class="label"><HL class="k"><b>02</b> Personas</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Three users, one star. Nobody has the same job." />
+        <PersonaArt project="winking" />
         <div class="personas">
           <div class="persona">
             <div class="band" style="background:linear-gradient(90deg,var(--ws-sage),var(--ws-forest))"></div>
@@ -162,6 +169,8 @@ import CoParent from './dg/CoParent.astro';
         </ol>
       </div>
     </div>
+
+    <div class="beat wide rv"><div class="body"><BrandSystem project="winking" /></div></div>
 
     <div class="beat wide rv" id="ws-themes">
       <div class="body">

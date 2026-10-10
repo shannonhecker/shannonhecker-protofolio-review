@@ -5,22 +5,22 @@
     {
       "route": "/panel",
       "preset": "mobile",
-      "date": "2026-10-10T14:08:14.655Z",
+      "date": "2026-10-10T15:27:16.028Z",
       "version": "12.8.2",
       "scores": {
-        "performance": 97,
+        "performance": 99,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2417,
-      "cls": 0,
+      "lcpMs": 2106,
+      "cls": 0.01901078116846946,
       "tbtMs": 0
     },
     {
       "route": "/panel",
       "preset": "desktop",
-      "date": "2026-10-10T14:08:25.924Z",
+      "date": "2026-10-10T15:27:27.277Z",
       "version": "12.8.2",
       "scores": {
         "performance": 100,
@@ -28,44 +28,14 @@
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 514,
-      "cls": 0.0001897476687680588,
+      "lcpMs": 526,
+      "cls": 0.01109279397600911,
       "tbtMs": 0
     },
     {
       "route": "/fx",
       "preset": "mobile",
-      "date": "2026-10-10T14:08:37.323Z",
-      "version": "12.8.2",
-      "scores": {
-        "performance": 96,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "lcpMs": 2709,
-      "cls": 0,
-      "tbtMs": 0
-    },
-    {
-      "route": "/fx",
-      "preset": "desktop",
-      "date": "2026-10-10T14:08:48.787Z",
-      "version": "12.8.2",
-      "scores": {
-        "performance": 100,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "lcpMs": 586,
-      "cls": 0.00003279994089834515,
-      "tbtMs": 0
-    },
-    {
-      "route": "/fusion",
-      "preset": "mobile",
-      "date": "2026-10-10T14:09:00.099Z",
+      "date": "2026-10-10T15:27:38.546Z",
       "version": "12.8.2",
       "scores": {
         "performance": 97,
@@ -73,14 +43,44 @@
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2482,
-      "cls": 0,
+      "lcpMs": 2562,
+      "cls": 0.003736392548105897,
+      "tbtMs": 0
+    },
+    {
+      "route": "/fx",
+      "preset": "desktop",
+      "date": "2026-10-10T15:27:50.208Z",
+      "version": "12.8.2",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 630,
+      "cls": 0.06651814544844294,
+      "tbtMs": 0
+    },
+    {
+      "route": "/fusion",
+      "preset": "mobile",
+      "date": "2026-10-10T15:28:01.853Z",
+      "version": "12.8.2",
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2488,
+      "cls": 0.004983489222880846,
       "tbtMs": 0
     },
     {
       "route": "/fusion",
       "preset": "desktop",
-      "date": "2026-10-10T14:09:11.382Z",
+      "date": "2026-10-10T15:28:13.292Z",
       "version": "12.8.2",
       "scores": {
         "performance": 100,
@@ -88,14 +88,14 @@
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 510,
-      "cls": 0.00004033741754954324,
+      "lcpMs": 588,
+      "cls": 0.0594000389268307,
       "tbtMs": 0
     },
     {
       "route": "/winking-star",
       "preset": "mobile",
-      "date": "2026-10-10T14:09:22.755Z",
+      "date": "2026-10-10T15:28:24.662Z",
       "version": "12.8.2",
       "scores": {
         "performance": 98,
@@ -103,14 +103,14 @@
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2267,
-      "cls": 0.0004706880697735525,
+      "lcpMs": 2183,
+      "cls": 0.02201337754442288,
       "tbtMs": 0
     },
     {
       "route": "/winking-star",
       "preset": "desktop",
-      "date": "2026-10-10T14:09:34.506Z",
+      "date": "2026-10-10T15:28:36.637Z",
       "version": "12.8.2",
       "scores": {
         "performance": 100,
@@ -118,29 +118,29 @@
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 533,
-      "cls": 0.0009513685316522196,
+      "lcpMs": 548,
+      "cls": 0.05671352397265271,
       "tbtMs": 0
     },
     {
       "route": "/uoaui",
       "preset": "mobile",
-      "date": "2026-10-10T14:09:45.795Z",
+      "date": "2026-10-10T15:28:48.511Z",
       "version": "12.8.2",
       "scores": {
-        "performance": 95,
+        "performance": 96,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2784,
-      "cls": 0,
+      "lcpMs": 2710,
+      "cls": 0.0032222028983398196,
       "tbtMs": 0
     },
     {
       "route": "/uoaui",
       "preset": "desktop",
-      "date": "2026-10-10T14:09:57.029Z",
+      "date": "2026-10-10T15:29:00.027Z",
       "version": "12.8.2",
       "scores": {
         "performance": 100,
@@ -148,8 +148,8 @@
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 590,
-      "cls": 0.00003279994089834515,
+      "lcpMs": 669,
+      "cls": 0.01665425212692992,
       "tbtMs": 0
     }
   ]
