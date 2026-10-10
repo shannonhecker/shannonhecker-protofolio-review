@@ -186,3 +186,11 @@ html:not(.has-js) .game-sound{display:none}
 .hero-game .game-links{gap:4px;font-size:14px}
 @media (max-width:1100px){.hero-grid:has(.hero-game){grid-template-columns:minmax(0,1fr)}.hero-art.hero-game{max-width:640px}}
 @media (max-width:760px){.hero-art.hero-game{max-width:none}}
+
+/* The headline is set in three lines and must stay three lines. Each line is
+   unbreakable, the headline column takes exactly its widest line, and the game
+   takes what is left (up to 480px). Without this, laptops around 1280px wrapped
+   "where / mistakes" onto four lines. */
+.hero h1 .ln>span{white-space:nowrap}
+.hero-grid:has(.hero-game){grid-template-columns:min-content minmax(0,480px);justify-content:space-between}
+@media (max-width:1100px){.hero-grid:has(.hero-game){grid-template-columns:minmax(0,1fr)}.hero h1 .ln>span{white-space:normal}}
