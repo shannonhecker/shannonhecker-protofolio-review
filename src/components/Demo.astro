@@ -1,0 +1,19 @@
+---
+// A short, silent product clip. It loads nothing until it nears the screen,
+// plays only while visible, never autoplays under reduced motion (the poster
+// and controls stay), and the text beside it carries the same content.
+interface Props { src: string; poster: string; label: string; width: number; height: number }
+const { src, poster, label, width, height } = Astro.props;
+---
+<figure class="demo shot">
+  <video muted loop playsinline preload="none" controls poster={poster} width={width} height={height} aria-label={label}>
+    <source src={src} type="video/mp4" />
+  </video>
+</figure>
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<HTMLVideoElement>('.demo video').forEach((v) => {
+    if (reduce || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(([e]) => { if (e.isIntersecting) void v.play().catch(() => {}); else v.pause(); }, { threshold: 0.4 }).observe(v);
+  });
+</script>

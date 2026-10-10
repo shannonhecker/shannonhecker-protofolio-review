@@ -8,6 +8,10 @@ const HT = top ? 'h1' : 'h2';
 const HL = top ? 'h2' : 'h3';
 const HD = top ? 'h3' : 'h4'; // decision titles
 import Split from './Split.astro';
+import Pic from './Pic.astro';
+import Demo from './Demo.astro';
+import Flow from './dg/Flow.astro';
+import Stack from './dg/Stack.astro';
 ---
 <section id="ai" data-tone="dark" class="band">
   <div class="wrap">
@@ -18,15 +22,19 @@ import Split from './Split.astro';
           <HT class="h-chapter" style="view-transition-name:t-ai">uoaui.ai</HT>
         </div>
         <p class="lead muted" style="grid-column:1/9">A design platform I'm building on Claude. It turns a prompt into a working screen built from real design systems, Salt, Material, Fluent and Carbon among them, with their official React components. Switch system, density or theme and the screen rebuilds.</p>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designed and built it, solo</span><span><b>Status</b> · Private alpha</span><span><b>Live</b> · <a href="https://uoaui.ai/" target="_blank" rel="noopener">uoaui.ai<span class="vh"> (opens in new tab)</span> →</a></span></div>
       </div>
     </header>
 
     <div class="beat rv" id="ai-what">
       <div class="label"><HL class="k"><b>01</b> The problem underneath</HL></div>
       <div class="body">
+        <Split as="h3" class="h-sub" text="Designing for output you can't fully predict." />
+        <div class="shot para"><Pic name="uo-prompt.jpg" alt="The uoaui.ai prompt screen in dark and light: Hi there, where should we start, with a prompt box and starter chips for dashboard, landing page, form, e-commerce and blog" /></div>
         <ul class="rows">
           <li><b>Designing for output you can't predict</b><p>Where the system acts and where it asks. How a person stays in control without making the AI useless. The compare and tune steps are my answer so far. The model drafts, I decide.</p></li>
           <li><b>Who it's for, and the trap</b><p>Designers like me, which is dangerous, because designing for yourself hides your blind spots. The alpha exists partly to break my own assumptions.</p></li>
+          <li><b>What it isn't</b><p>It doesn't ship the final product and I don't claim it does. It closes the gap between a Figma file and the thing a developer can inspect.</p></li>
         </ul>
       </div>
     </div>
@@ -35,9 +43,19 @@ import Split from './Split.astro';
       <div class="label"><HL class="k"><b>02</b> The flow</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Prompt to production screen." />
-        <ol class="chain" aria-label="The builder flow">
-          <li>Prompt</li><li>Generate</li><li>Compare systems</li><li>Tune a chart</li><li>Export React</li>
-        </ol>
+        <Flow
+          label="The builder flow, prompt to export"
+          steps={[
+            { t: 'Prompt', d: 'Describe the screen in words' },
+            { t: 'Generate', d: "Built from a system's official React components" },
+            { t: 'Compare systems', d: 'The same screen in Salt, Material, Fluent and Carbon' },
+            { t: 'Tune', d: 'Density, theme and charts. The person decides here' },
+            { t: 'Export React', d: 'Code a developer recognises' },
+          ]}
+          caption="The model drafts. Compare and tune are where I decide, before anything exports."
+        />
+        <Demo src="/media/uoaui-demo.mp4" poster="/media/uoaui-demo-poster.jpg" width={1280} height={770} label="A run through the builder: a Salt trading operations board is generated, the same view is rebuilt in Material 3 and Fluent, tuned as a Carbon workspace, then exported to React and shared" />
+        <div class="shot para"><Pic name="uo-systems.jpg" alt="The design hub for one system, Salt: foundations, tokens and components on the left, and the charts and data visualisation set rebuilt in that system" /></div>
       </div>
     </div>
 
@@ -49,6 +67,18 @@ import Split from './Split.astro';
           <li><span class="n">02</span><div><HD>Five systems, one model underneath</HD><p>I mapped their tokens, density scales and theming into one structure so a screen can switch system without being rebuilt by hand.</p><p class="verdict">Where the systems disagree, I chose the strictest definition each time.</p></div></li>
           <li><span class="n">03</span><div><HD>Compare and tune before export</HD><p>The model's first answer is a draft. The flow forces a compare step across systems and a tune step on the screen before anything exports.</p><p class="verdict">That's where the person decides, and where I correct the model most often.</p></div></li>
         </ol>
+        <Stack
+          label="How a screen is built, from the person to the exported code"
+          layers={[
+            { t: 'The person', d: 'Writes the prompt, then compares and tunes before anything exports.', side: 'Where decisions happen' },
+            { t: 'The model', d: 'Claude drafts the screen. A draft, never the final answer.' },
+            { t: 'Token mapping', d: 'Tokens, density scales and theming for five systems in one structure. Where they disagree, the strictest definition wins.', mine: true, side: 'The part I designed' },
+            { t: 'Official components', d: "Each system's published React components, never overridden.", side: 'Salt · Material · Fluent · Carbon · my own' },
+            { t: 'Export', d: 'React a developer can inspect.' },
+          ]}
+          legend="The layer I designed"
+          caption="Switch system, density or theme and the screen rebuilds, because every layer below the model is mapped, not generated."
+        />
       </div>
     </div>
 
