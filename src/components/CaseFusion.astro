@@ -1,0 +1,96 @@
+---
+interface Props { top?: boolean }
+// On its own page the case title is the h1 and each beat label an h2; inside
+// the one-page version they sit one level lower. Beat labels are headings so
+// screen-reader users can jump beat to beat.
+const { top = false } = Astro.props;
+const HT = top ? 'h1' : 'h2';
+const HL = top ? 'h2' : 'h3';
+const HD = top ? 'h3' : 'h4'; // decision titles
+import Pic from './Pic.astro';
+import Split from './Split.astro';
+---
+<section id="fusion" data-tone="light" class="band">
+  <div class="wrap">
+    <header class="chapter-head">
+      <div class="g" style="row-gap:28px;align-items:end">
+        <div style="grid-column:1/9;display:grid;gap:24px">
+          <p class="eyebrow">Case two · J.P. Morgan · 2023 to 2025 · shipped</p>
+          <HT class="h-chapter" style="view-transition-name:t-fusion">Fusion analytics dashboard</HT>
+        </div>
+        <p class="lead muted" style="grid-column:1/9">Portfolio managers and analysts were drowning in fragmented data. Their real need was trust in the numbers, not more features. Performance, attribution and risk they could take into a board meeting.</p>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · VP, Product Design. Led the design</span><span><b>System</b> · Salt, plus a Fusion layer I built</span><span><b>Status</b> · Shipped, opened to clients</span></div>
+      </div>
+    </header>
+
+    <div class="beat rv" id="fu-problem">
+      <div class="label"><HL class="k"><b>01</b> Problem</HL></div>
+      <div class="body">
+        <div class="shot para"><Pic name="ui-fusion-cover.jpg" alt="Fusion analytics dashboard screens laid out at an angle: performance tables, returns charts, allocation and risk views" /></div>
+        <ul class="rows">
+          <li><b>Salt, the firm's design system</b><p>Every component had to come from Salt or go back into it. I built the Fusion layer on top and contributed back. My craft shows in layout, hierarchy and data density, not in new components.</p></li>
+          <li><b>FactSet's engine behind the data</b><p>The analytics came from a partner engine, so the shape of the data was fixed. Design had to fit what the engine could return, fast.</p></li>
+          <li><b>Accessibility as a gate, not a finish</b><p>An accessibility specialist sat in every review. Anything that failed went back before it reached engineering.</p></li>
+          <li><b>Two constraints that pulled against each other</b><p>Dense data and decision speed. I named them both, then built the conflict into the design. Type, hierarchy and colour were set for the worst-case viewing moment, someone presenting live under pressure.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-workflow">
+      <div class="label"><HL class="k"><b>02</b> Research and workflow</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="One analyst, from a raw data cube to a board-ready page." />
+        <div class="steps">
+          <div class="step"><span class="k">01 SELECT</span><h4>A data cube</h4><p>FactSet feeding it.</p></div>
+          <div class="step"><span class="k">02 FILTER</span><h4>Slice it</h4><p>Advanced filtering, toggles, deep slicing.</p></div>
+          <div class="step"><span class="k">03 ANALYSE</span><h4>Returns, attribution, risk</h4><p>Across asset classes.</p></div>
+          <div class="step"><span class="k">04 REPORT</span><h4>Board-ready</h4><p>Without leaving the surface.</p></div>
+        </div>
+        <ul class="rows">
+          <li><b>Sketch, wireframe, high fidelity</b><p>Each flow went through paper, then wireframes, then built screens on Salt. The sketches set the information hierarchy before any visual decision.</p></li>
+          <li><b>The review cycle</b><p>Requirements with the product owner, iteration with UX, review with product, engineering and the accessibility specialist, then pixel-level work with developers in daily stand-ups.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-decisions">
+      <div class="label"><HL class="k"><b>03</b> Decisions and trade-offs</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="What I tried, what I dropped, and why." />
+        <ol class="dec">
+          <li><span class="n">01</span><div><HD>Modular widgets over fixed page templates</HD><p>Fixed layouts were faster to ship, but every new data cube would have needed a new page.</p><p class="verdict">The grid won because one widget serves many cubes and permission levels.</p></div></li>
+          <li><span class="n">02</span><div><HD>Cut a customisation tier</HD><p>Early versions had three levels of configuration. Testing showed the middle tier added cognitive load without changing what people built.</p><p class="verdict">I removed it. The test I use for what not to design: is this serving a real workflow contradiction, or one team's preference?</p></div></li>
+          <li><span class="n">03</span><div><HD>Same screens for internal and external users</HD><p>Phase two brought in clients who'd had no training.</p><p class="verdict">One product with entitlement-based views over a simplified client version, so patterns stayed consistent and the team kept one codebase.</p></div></li>
+          <li><span class="n">04</span><div><HD>What I'd do differently</HD><p>Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules.</p><p class="verdict">And bring the accessibility specialist in from week one, not mid-flow.</p></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-design">
+      <div class="label"><HL class="k"><b>04</b> Design and system</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Configurable pages built from modular widgets, on a layer I made on top of Salt." />
+        <div class="shot para"><Pic name="ui-fusion-design.jpg" alt="Fusion performance results table with a configuration panel, and a sustainable investment portfolio report with a clustered column chart and a date range picker" /></div>
+        <ul class="rows">
+          <li><b>One widget, many cubes</b><p>The same widget works across different data cubes and permission levels. One design serves a portfolio manager and a client who can only see part of the book. Users build their own views and import and export through FactSet.</p></li>
+          <li><b>What I built</b><p>Tokens, components and patterns for Fusion on top of Salt. Data tables, chart frames, filter bars, widget shells, the accessibility layers. Where Salt had a gap, I built it and contributed it back upstream.</p></li>
+          <li><b>Why a layer, not a fork</b><p>A fork would have drifted from the firm's standard within a year. A layer meant every Fusion screen stayed on the platform standard and the platform got better from our work.</p></li>
+          <li><b>How it was adopted</b><p>Other Fusion product teams built their journeys on the same components, which is how the analytics patterns spread across modules without me in every room.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-outcome">
+      <div class="label"><HL class="k"><b>05</b> Outcome</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Shipped, adopted, and opened to clients." />
+        <div class="metrics">
+          <div class="metric"><span class="big" data-count="0">0</span><span>accessibility violations. Shipped to WCAG AA with a specialist in reviews from the start</span></div>
+          <div class="metric"><span class="big w">Adopted</span><span>widget and filtering patterns reused across other Fusion modules</span></div>
+          <div class="metric"><span class="big w">Phase 2</span><span>opened the product to external clients, and several signed after that launch</span></div>
+        </div>
+        <div class="shot para"><Pic name="ui-fusion-outcome.jpg" alt="Outcome screens: the ID exceptions studio table with summary cards, a configuration panel, and the component picker that other teams build on" /></div>
+      </div>
+    </div>
+  </div>
+</section>

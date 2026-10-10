@@ -1,0 +1,75 @@
+---
+import '../styles/fonts.css';
+import '../styles/prototype.css';
+import '../styles/production.css';
+import displayFont from '@fontsource/inter-tight/files/inter-tight-latin-700-normal.woff2?url';
+import bodyFont from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+// Title and description reuse prototype copy (its <title> and hero intro).
+const {
+  title = 'Shannon Hecker Portfolio',
+  description = "Hi, I'm Shannon Hecker, a product designer in London. Lead design for FX and MarketsOne at Barclays, VP of Product Design at J.P. Morgan before that. I build what I design.",
+  noindex = false,
+} = Astro.props;
+// DECISION: /panel is the home page with the panel line. Its canonical points
+// at / and it is kept out of the index. The path is neutral on purpose: Shannon
+// works at Barclays, so no employer-visible URL names another company.
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
+const canonical = new URL(noindex ? '/' : path, Astro.site).href;
+const og = new URL('/og.jpg', Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Shannon Hecker" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="FX execution analytics: a trading chart with progress and price on one canvas" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Shannon Hecker',
+      jobTitle: 'Product Designer',
+      address: { '@type': 'PostalAddress', addressLocality: 'London', addressCountry: 'GB' },
+      url: 'https://shannonhecker.com',
+      sameAs: ['https://www.linkedin.com/in/shannonhecker/'],
+    })} />
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <script is:inline>
+      // Motion gate. Hidden-until-revealed states only apply under html.js, and
+      // html.js is only set when motion is allowed. If the motion bundle never
+      // runs (blocked, failed), drop the class so nothing stays hidden.
+      (function (d) {
+        d.classList.add('has-js');
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        d.classList.add('js');
+        setTimeout(function () { if (!d.dataset.ready) d.classList.remove('js'); }, 3000);
+      })(document.documentElement);
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

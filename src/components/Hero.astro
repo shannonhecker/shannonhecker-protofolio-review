@@ -1,0 +1,34 @@
+---
+interface Props { panel?: boolean }
+const { panel = false } = Astro.props;
+import GameBox from './GameBox.astro';
+---
+<header id="top" data-tone="light" class="hero">
+  <div class="wrap">
+    {panel && (
+      // DECISION: The brief gives the line but not its spot. It sits above the
+      // intro as a small eyebrow so the signed-off composition is untouched.
+      <p class="eyebrow hero-for">Portfolio for the Revolut design panel</p>
+    )}
+    <p class="hero-top">Hi, I'm Shannon Hecker, a product designer in London. Lead design for FX and MarketsOne at Barclays, VP of Product Design at J.P. Morgan before that. I build what I design.</p>
+    <div class="hero-grid">
+      <div>
+        <h1 class="h-giant anim"><span class="ln" style="--i:0"><span>I design tools</span></span><span class="ln" style="--i:1"><span>where mistakes</span></span><span class="ln" style="--i:2"><span>cost money.</span></span></h1>
+        <div class="status-row" role="group" aria-label="Status">
+          <span><i></i>Winking Star · live on the App Store</span>
+          <span><i class="amber"></i>FX analytics · beta at Barclays</span>
+          <span><i class="amber"></i>uoaui.ai · private alpha</span>
+        </div>
+      </div>
+      <div class="hero-art hero-game anim"><GameBox /></div>
+    </div>
+  </div>
+  <div class="ticker marquee">
+    <!-- DECISION: WCAG 2.2.2 needs a real pause for motion over 5s; hover/focus-only pausing does not count. Icon-only, no visible copy. -->
+    <button type="button" class="mq-toggle" aria-pressed="false" aria-label="Pause scrolling"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect class="i-pause" x="2" y="1.5" width="2.6" height="9" rx="1"/><rect class="i-pause" x="7.4" y="1.5" width="2.6" height="9" rx="1"/><path class="i-play" d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5z"/></svg></button>
+    <div class="ticker-track" aria-hidden="true">
+      <span>Problem</span><span>Constraints</span><span>Explorations</span><span>Decisions and trade-offs</span><span>Full flows</span><span>Edge states</span><span>Outcomes</span>
+      <span>Problem</span><span>Constraints</span><span>Explorations</span><span>Decisions and trade-offs</span><span>Full flows</span><span>Edge states</span><span>Outcomes</span>
+    </div>
+  </div>
+</header>

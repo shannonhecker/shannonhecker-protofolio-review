@@ -1,0 +1,36 @@
+---
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import CaseRowLink from '../components/CaseRowLink.astro';
+import { CASES } from '../lib/cases';
+
+interface Props { title: string; href: string }
+const { title, href } = Astro.props;
+const i = CASES.findIndex((c) => c.href === href);
+// Description is the case's own index-row text: no new copy.
+const description = CASES[i].meta;
+// Each of the first three cases is also a level of the game on the home page.
+const level = ['/fx', '/fusion', '/winking-star'].indexOf(href) + 1;
+const next = CASES[(i + 1) % CASES.length];
+---
+<Base title={`${title} · Shannon Hecker`} description={description}>
+  <div class="progress" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
+  <Nav />
+  <main id="main" class="case-page">
+    <slot />
+    {level > 0 && (
+      <p class="wrap play-link"><a href={`/?level=${level}#top`}>Play this case as a level →</a></p>
+    )}
+    <section class="band next-case" aria-label="Next case">
+      <div class="wrap"><div class="index"><CaseRowLink c={next} /></div></div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+<script>
+  import '../scripts/motion.ts';
+  import '../scripts/demo.ts';
+  import '../scripts/marquee.ts';
+</script>

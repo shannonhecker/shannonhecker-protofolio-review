@@ -1,0 +1,21 @@
+---
+import Split from './Split.astro';
+import { peekSrc } from '../lib/img';
+import { CASES } from '../lib/cases';
+import CaseRowLink from './CaseRowLink.astro';
+
+const names = ['ui-fx-cover.jpg', 'ui-fusion-cover.jpg', 'ws-marketing.jpg'];
+const peeks: Record<string, string> = Object.fromEntries(await Promise.all(names.map(async (n) => [n, await peekSrc(n)])));
+---
+<div class="peek" aria-hidden="true"><img src={peeks["ui-fx-cover.jpg"]} alt="" width="840" height="473" loading="lazy" decoding="async"></div>
+<section id="work" data-tone="light" class="band">
+  <div class="wrap">
+    <div class="g" style="row-gap:40px;margin-bottom:clamp(48px,6vw,96px)">
+      <p class="eyebrow" style="grid-column:1/4">Three cases, one method</p>
+      <Split as="h2" class="h-section" style="grid-column:4/12" text="Every case runs the same six beats. Problem, constraints, decisions and their trade-offs, the full flow, the edge states, the outcome." />
+    </div>
+    <div class="index">
+      {CASES.map((c) => <CaseRowLink c={c} peek={c.peek ? peeks[c.peek] : undefined} />)}
+    </div>
+  </div>
+</section>

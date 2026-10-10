@@ -1,0 +1,24 @@
+---
+import Nav from './Nav.astro';
+import Hero from './Hero.astro';
+import Work from './Work.astro';
+import HowIWork from './HowIWork.astro';
+import Footer from './Footer.astro';
+
+interface Props { panel?: boolean }
+const { panel = false } = Astro.props;
+---
+<div class="progress" aria-hidden="true"></div>
+<a class="skip" href="#work">Skip to work</a>
+<Nav />
+<main id="main">
+  <Hero panel={panel} />
+  <Work />
+  <HowIWork />
+</main>
+<Footer />
+<script>
+  import '../scripts/motion.ts';
+  import '../scripts/marquee.ts';
+  import '../scripts/game-loader.ts';
+</script>

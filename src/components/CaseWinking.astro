@@ -1,0 +1,202 @@
+---
+interface Props { top?: boolean }
+// On its own page the case title is the h1 and each beat label an h2; inside
+// the one-page version they sit one level lower. Beat labels are headings so
+// screen-reader users can jump beat to beat.
+const { top = false } = Astro.props;
+const HT = top ? 'h1' : 'h2';
+const HL = top ? 'h2' : 'h3';
+const HD = top ? 'h3' : 'h4'; // decision titles
+import Pic from './Pic.astro';
+import Split from './Split.astro';
+---
+<section id="winking" data-tone="light" class="ws band">
+  <div class="wrap">
+    <header class="chapter-head">
+      <div class="g" style="row-gap:28px;align-items:end">
+        <div style="grid-column:1/9;display:grid;gap:24px">
+          <p class="eyebrow">Case three · Solo · live on the App Store</p>
+          <HT class="h-chapter" style="view-transition-name:t-winking">Winking Star</HT>
+        </div>
+        <p class="lead muted" style="grid-column:1/9">A warm, ad-free routine app for families. Every check earns a star, and every week those stars grow a Mystery Pet. I designed and built it on my own, so the visual decisions, the copy and the code are all mine.</p>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designer and builder, one of one</span><span><b>Stack</b> · React Native, Expo, Firebase</span><span><b>Status</b> · Live, v1.0.4, iPhone and iPad</span><span><b>Languages</b> · EN, FR, ES, DE, 繁體中文</span></div>
+      </div>
+    </header>
+
+    <div class="beat wide rv" id="ws-hero">
+      <div class="body">
+        <div class="ws-hero">
+          <div class="art" aria-hidden="true"><Pic name="ws-hero-art.jpg" alt="" sizes="(max-width: 760px) 100vw, 60vw" /></div>
+          <div class="copy">
+            <HL>Tiny routines, happy families</HL>
+            <p>Kids check off their day. Stars hatch a pet that grows through four stages as the week fills up. On Monday a new pet arrives, so there is always something to look forward to.</p>
+            <div class="chips"><span class="chip">No ads, ever</span><span class="chip">No tracking</span><span class="chip">Up to 6 kids</span><span class="chip">Co-parents on one board</span></div>
+          </div>
+          <div aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ws-problem">
+      <div class="label"><HL class="k"><b>01</b> Problem and research</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Bedtime in our house was a nag loop. Every chore chart we tried was built for adults." />
+        <ul class="rows">
+          <li><b>Problem</b><p>Teeth, bath, reading, Mandarin practice, out of the door for a walk. Two children, two adults, and no shared view of what was done. The kids stopped looking at every chart within a week.</p></li>
+          <li><b>Research</b><p>Built for my own two kids first and watched them use it every evening. I read what works for five to seven year olds: big icons, sticker mechanics, bright colour and celebration moments beat any checklist. Naming research too. Sparkle and Twinkle were taken, so it became Winking Star.</p></li>
+          <li><b>Goal and success measure</b><p>A child who asks to tick their own stars, and a parent who opens it the next evening without being reminded. Routines completed per week, weeks retained, and whether a second adult joins the board.</p></li>
+          <li><b>Constraints</b><p>Solo, evenings and weekends. Free to start with a one-off lifetime unlock, no ads and no subscription, because it's for children. Kids Category rules on the App Store shaped the parental gate and the privacy manifest.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ws-personas">
+      <div class="label"><HL class="k"><b>02</b> Personas</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Three users, one star. Nobody has the same job." />
+        <div class="personas">
+          <div class="persona">
+            <div class="band" style="background:linear-gradient(90deg,var(--ws-sage),var(--ws-forest))"></div>
+            <div class="who">The child · Leo, 6</div>
+            <p>Can't read much yet. Knows his own name, his colour and his football.</p>
+            <span class="k">Wants</span><p>To tick it himself, see the star land, and find out what the pet turns into.</p>
+            <span class="k">Breaks when</span><p>A word he can't read is in the way. A tap target is small. A missed day makes the week feel lost.</p>
+            <span class="k">Design answer</span><p>A big illustrated banner per theme, celebration on every tick, and a weekly pet so one bad day doesn't end the game.</p>
+          </div>
+          <div class="persona">
+            <div class="band" style="background:linear-gradient(90deg,#b9cee3,#494fdf)"></div>
+            <div class="who">The parent · sets it up</div>
+            <p>Downloads it after another bedtime argument. Decides in two minutes if it stays.</p>
+            <span class="k">Wants</span><p>Routines done without nagging. One place both adults can see. Nothing that sells to her kids.</p>
+            <span class="k">Breaks when</span><p>Setup takes more than a minute. An ad appears. The app hands the phone to the child with no guard rails.</p>
+            <span class="k">Design answer</span><p>A sample family on first open, so value shows before any setup. Kid Mode and a parental gate. Custom activities, so Mandarin sits next to teeth.</p>
+          </div>
+          <div class="persona">
+            <div class="band" style="background:linear-gradient(90deg,var(--ws-star),var(--ws-peach))"></div>
+            <div class="who">The second adult · never opted in</div>
+            <p>Partner, grandparent, childminder. Got an invite on WhatsApp. Has thirty seconds.</p>
+            <span class="k">Wants</span><p>To tick a star and get back to bedtime.</p>
+            <span class="k">Breaks when</span><p>Any learning. A board that looks different from the one the kids know.</p>
+            <span class="k">Design answer</span><p>Invite to the same board, same screen, same stars, from their own phone.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat wide rv" id="ws-flow">
+      <div class="body">
+        <div class="g" style="row-gap:24px">
+          <HL class="k mono" style="grid-column:1/4;color:var(--ws-forest)"><b>03</b> The full flow</HL>
+          <Split as="h3" class="h-sub" style="grid-column:4/11" text="Four tabs, one week. Home, Activity, Treasure, Progress." />
+        </div>
+        <div class="strip-wrap" role="region" tabindex="0" aria-label="App screens, scrollable"><div class="strip" id="strip">
+          <div class="phone"><div class="frame"><Pic name="ws-home.jpg" alt="Home tab: The Sample Family, today 23 of 30 done, recent celebrations such as Leo the Brave hatched a cat named Shaul" sizes="300px" widths={[320, 640]} /></div><span class="t">Home</span><span class="d">Today's count for the whole family, and a feed of what each kid hatched or earned.</span></div>
+          <div class="phone"><div class="frame"><Pic name="ws-activity.jpg" alt="Activity tab: Leo the Brave's star week, 36 of 70 stars, pet growth card showing Shaul is growing, weekly goal park picnic" sizes="300px" widths={[320, 640]} /></div><span class="t">Activity</span><span class="d">Pick a kid, tap today's big star spots. The pet card shows how many stars to the next stage.</span></div>
+          <div class="phone"><div class="frame"><Pic name="ws-treasure.jpg" alt="Treasure tab: treasure room with 3 surprises found, next mystery spot after 10 activities, pet pal cat family" sizes="300px" widths={[320, 640]} /></div><span class="t">Treasure</span><span class="d">Surprises drop as activities complete. A shelf for finds, and the pet pals collected so far.</span></div>
+          <div class="phone"><div class="frame"><Pic name="ws-progress.jpg" alt="Progress tab: Leo the Brave's map, 8 of 10 stops complete today, week 18 of 70, streak and badges" sizes="300px" widths={[320, 640]} /></div><span class="t">Progress</span><span class="d">Today's route as a map, with streaks and badges. Each stop fills as the day's activities finish.</span></div>
+          <div class="phone"><div class="frame"><Pic name="ws-welcome.jpg" alt="Onboarding welcome screen with the Winking Star mascot on cream with botanical doodles" sizes="300px" widths={[320, 640]} /></div><span class="t">First open</span><span class="d">The sample family is already there. A parent sees the whole loop before adding anyone.</span></div>
+        </div></div>
+        <p class="cap">Captures from the live app, v1.0.4, on iPhone 15 Pro Max. Sample family data.</p>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ws-journey">
+      <div class="label"><HL class="k"><b>04</b> Journey</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="From a bad bedtime to week two." />
+        <p class="muted measure">The parent's journey, with the child's feeling underneath, the moment it breaks, and what the design does about it. Scroll sideways on a phone.</p>
+        <div class="journey" role="region" tabindex="0" aria-label="Journey stages, scrollable">
+          <div class="stage"><h4>1 · Another bad bedtime</h4><span class="k">Parent does</span><p>Searches for a chore chart app. Most are checklists, subscriptions or ads.</p><span class="k">Child feels</span><p>Fed up.</p><span class="k">Where it breaks</span><p>Nothing is made for a six-year-old.</p><span class="k">Design answer</span><p>Ad-free, kid-first on the store page.</p></div>
+          <div class="stage"><h4>2 · First open</h4><span class="k">Parent does</span><p>Opens the app and finds the Sample Family already set up.</p><span class="k">Child feels</span><p>Curious.</p><span class="k">Where it breaks</span><p>Asked to set up before seeing value.</p><span class="k">Design answer</span><p>A working sample board first. Add your own family when you like it.</p></div>
+          <div class="stage"><h4>3 · First tick</h4><span class="k">Parent does</span><p>Hands the phone over. The child taps teeth. A star lands and confetti fires.</p><span class="k">Child feels</span><p>Delighted.</p><span class="k">Where it breaks</span><p>The child can't read the label, or taps Settings.</p><span class="k">Design answer</span><p>Icon per activity, big targets, Kid Mode locks editing.</p></div>
+          <div class="stage"><h4>4 · End of day</h4><span class="k">Parent does</span><p>Checks Home. The pet grew a stage. A treasure dropped.</p><span class="k">Child feels</span><p>Proud, or a bit flat.</p><span class="k">Where it breaks</span><p>A missed routine feels like failure.</p><span class="k">Design answer</span><p>Stars count up. The pet grows on what was done, not what was missed.</p></div>
+          <div class="stage"><h4>5 · End of week</h4><span class="k">Parent does</span><p>Prints the weekly summary for the fridge. Monday, a new pet arrives.</p><span class="k">Child feels</span><p>Excited.</p><span class="k">Where it breaks</span><p>If Monday is dull, week two never happens.</p><span class="k">Design answer</span><p>A new egg every Monday, and the old pet joins the Pet Pals collection.</p></div>
+          <div class="stage"><h4>6 · Second adult joins</h4><span class="k">Parent does</span><p>Invites grandma to the board. She opens it and ticks a bath.</p><span class="k">Child feels</span><p>Relieved, and a bit smug.</p><span class="k">Where it breaks</span><p>A second board, a second set of rules.</p><span class="k">Design answer</span><p>One shared board. Same screen on every phone.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ws-loops">
+      <div class="label"><HL class="k"><b>05</b> Loops and decisions</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Two loops and six decisions." />
+        <div>
+          <div class="loop-label">Daily · ten seconds</div>
+          <div class="loop"><span>Open</span><i>→</i><span>Pick your child</span><i>→</i><span>Tap a star spot</span><i>→</i><span>Star lands</span><i>→</i><span>Celebration</span><i>→</i><span class="end">Pet grows a little</span></div>
+        </div>
+        <div>
+          <div class="loop-label">Weekly · the reason to come back</div>
+          <div class="loop"><span>Seven days of stars</span><i>→</i><span>Four pet stages</span><i>→</i><span>Treasures and badges</span><i>→</i><span>Fridge summary</span><i>→</i><span class="end">Monday, a new pet</span></div>
+        </div>
+        <div class="demo" id="demo">
+          <div class="demo-head"><span class="demo-name"><Pic name="ws-icon.png" alt="" sizes="40px" widths={[80]} />Try it · Leo, Tuesday</span><span class="demo-stars" id="demo-stars" aria-live="polite">0 of 6 stars</span></div>
+          <div class="demo-routines" role="group" aria-label="Tick a routine">
+            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">🦷</span>Teeth</button>
+            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">🛁</span>Bath</button>
+            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">📖</span>Reading</button>
+            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">🀄</span>Mandarin</button>
+            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">🚶</span>Walk</button>
+            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">😴</span>Sleep</button>
+          </div>
+          <div class="demo-pet">
+            <div class="egg" id="egg" aria-hidden="true"><div class="fill" id="egg-fill"></div><span class="pet" id="egg-pet">🥚</span></div>
+            <div style="display:grid;gap:10px">
+              <div class="stages" id="stages" aria-hidden="true"><span class="on">Egg</span><span>Hatching</span><span>Growing</span><span>Grown</span></div>
+              <p class="muted" id="demo-msg">The pet grows through four stages as the week fills. In the app that takes seven days. Here you can tick all six and watch it now.</p>
+            </div>
+          </div>
+        </div>
+        <ol class="dec">
+          <li><span class="n">01</span><div><HD>Stars and a pet, not a checklist</HD><p>Explored a plain tick list. Research on five to seven year olds said big icons, stickers and celebration win. The checklist lost in our own house within a week.</p></div></li>
+          <li><span class="n">02</span><div><HD>A weekly pet with four stages, not a daily score</HD><p>Daily stars count up and never down. The pet grows across the week on what was done, so one missed bath doesn't end the week, and Monday always brings a new egg.</p></div></li>
+          <li><span class="n">03</span><div><HD>A sample family before any setup</HD><p>Explored a tour and an empty state. Both asked parents to invest before they'd seen the loop. The Sample Family shows a full week on first open, and you replace it when you're ready.</p></div></li>
+          <li><span class="n">04</span><div><HD>A theme per child, drawn not templated</HD><p>Explored one look for all. Kids find their own card by colour and picture before they can read. Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.</p></div></li>
+          <li><span class="n">05</span><div><HD>A parental gate, not a locked app</HD><p>Explored a PIN. Parents forget PINs and kids watch them type. A quick maths question gates anything that leaves the app, uploads a photo or deletes an account, and Kid Mode locks editing so the phone can be handed over mid-routine.</p></div></li>
+          <li><span class="n">06</span><div><HD>Lifetime unlock, not a subscription</HD><p>Explored a small subscription. Dropped it. It's for children, and trust is the product. Free to start, one payment if you want everything, no ads, no third-party tracking.</p></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="beat wide rv" id="ws-themes">
+      <div class="body">
+        <div class="themes marquee" role="region" aria-label="Theme banners from the app, scrolling"><button type="button" class="mq-toggle" aria-pressed="false" aria-label="Pause scrolling"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect class="i-pause" x="2" y="1.5" width="2.6" height="9" rx="1"/><rect class="i-pause" x="7.4" y="1.5" width="2.6" height="9" rx="1"/><path class="i-play" d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5z"/></svg></button><div class="themes-track">
+          <Pic name="ws-theme-football.jpg" alt="Football theme banner" sizes="480px" widths={[480, 800]} /><Pic name="ws-theme-dino.jpg" alt="Dinosaur theme banner" sizes="480px" widths={[480, 800]} /><Pic name="ws-theme-ocean.jpg" alt="Ocean theme banner" sizes="480px" widths={[480, 800]} /><Pic name="ws-theme-unicorn.jpg" alt="Unicorn theme banner" sizes="480px" widths={[480, 800]} />
+          <Pic name="ws-theme-football.jpg" alt="" sizes="480px" widths={[480, 800]} /><Pic name="ws-theme-dino.jpg" alt="" sizes="480px" widths={[480, 800]} /><Pic name="ws-theme-ocean.jpg" alt="" sizes="480px" widths={[480, 800]} /><Pic name="ws-theme-unicorn.jpg" alt="" sizes="480px" widths={[480, 800]} />
+        </div></div>
+        <p class="cap">Four of the fourteen theme banners. Each kid's card, activity row and pet carry their theme.</p>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ws-edge">
+      <div class="label"><HL class="k"><b>06</b> Edge cases and states</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="The states most people never see." />
+        <ul class="rows two">
+          <li><b>First run, no family yet</b><p>The Sample Family is the empty state. Add your own kids when the loop makes sense, and the sample goes away.</p></li>
+          <li><b>A missed routine, or a missed day</b><p>Stars never go negative and nothing turns red. The day just has fewer stars. The pet still grows on what was done.</p></li>
+          <li><b>Midnight</b><p>The day rolls over at local midnight even with the app open, so a late tick lands on the right day. That one shipped as a fix in 1.0.4.</p></li>
+          <li><b>Offline in the bathroom</b><p>An offline banner, ticks queued, synced on reconnect. Two adults can tick the same kid from two phones.</p></li>
+          <li><b>Split homes and birthdays</b><p>A custody label, "at Mum's this week", so the board reads right in both houses. A birthday banner for the whole birthday week.</p></li>
+          <li><b>Accessibility</b><p>VoiceOver on every tab, Dynamic Type with a scaling cap so nothing clips, Reduce Motion respected, and Calm Mode turns confetti off for families who want quieter feedback. Colour never marks state alone.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ws-outcome">
+      <div class="label"><HL class="k"><b>07</b> Outcome</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Live, in five languages, and in daily use in my own house first." />
+        <div class="metrics">
+          <div class="metric"><span class="big w">1.0.4</span><span>live on the App Store, iPhone and iPad, free with no ads</span></div>
+          <div class="metric"><span class="big" data-count="5">5</span><span>languages. English, French, Spanish, German and Traditional Chinese</span></div>
+          <!-- DECISION: no measured download figure yet, so the tile shows a fact the page already states ("Four releases so far"). Swap back when App Store Connect numbers are in. -->
+          <div class="metric"><span class="big" data-count="4">4</span><span>releases since launch, all on the App Store</span></div>
+        </div>
+        <ul class="rows">
+          <li><b>What shipped after launch</b><p>Four releases so far. Privacy and safety work for the Kids Category, smoother weekly stars and treasures, the midnight rollover fix, VoiceOver improvements, faster startup, and rating from Settings.</p></li>
+          <li><b>What I'd change next</b><p>The pet card still truncates its helper text at the smallest sizes, and the pet family labels aren't translated yet. Both are on the list, found in my own usability pass.</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

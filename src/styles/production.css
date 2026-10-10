@@ -1,0 +1,188 @@
+/* Production-only overrides on top of prototype.css. Each one says why. */
+
+/* <picture> wrappers from astro:assets must not change the prototype's
+   layouts, which all target the <img>. */
+picture{display:contents}
+picture>source{display:none}
+
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* No-JS: the phone strip must still be reachable, so it scrolls natively by
+   default. motion.ts adds .driven when GSAP takes over on desktop. */
+.strip-wrap{overflow-x:auto}
+.strip-wrap.driven{overflow:hidden}
+
+/* Brief: marquees pause on hover. Focus inside too, for keyboard users. */
+.ticker:hover .ticker-track,.themes:hover .themes-track,.themes:focus-within .themes-track{animation-play-state:paused}
+
+/* Lenis owns smooth scroll on desktop; native smooth would fight it. */
+html.lenis{scroll-behavior:auto}
+
+/* Footer build line */
+.copyright.built{margin-top:16px}
+.built a{text-underline-offset:3px}
+
+/* /revolut hero line */
+.hero-for{margin-bottom:14px}
+
+/* The prototype has no doctype, so it was signed off in quirks mode. In
+   standards mode the hero's grid shrinks .wrap to its content; this restores
+   the approved full-width composition. */
+.hero>.wrap{width:100%}
+
+/* Winking Star hero art: a lazy, AVIF-capable <picture> instead of the
+   prototype's CSS background, which loaded eagerly as a full-size JPEG.
+   Same crop (center right, cover), same gradient wash on top. */
+.ws-hero .art{background:none}
+.ws-hero .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center right}
+.ws-hero .art::before{z-index:1}
+
+/* Mobile nav: the prototype's link row scrolls but gives no sign of it, so
+   Winking Star, uoaui.ai and How I work were invisible at 390px. The trailing
+   edge fades only while there is more to scroll (motion.ts sets the classes),
+   and the current section's link is kept in view. */
+.nav ul.more-end{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 32px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 32px),transparent)}
+.nav ul.more-start{-webkit-mask-image:linear-gradient(90deg,transparent,#000 32px);mask-image:linear-gradient(90deg,transparent,#000 32px)}
+.nav ul.more-start.more-end{-webkit-mask-image:linear-gradient(90deg,transparent,#000 32px,#000 calc(100% - 32px),transparent);mask-image:linear-gradient(90deg,transparent,#000 32px,#000 calc(100% - 32px),transparent)}
+
+/* Brand mark from shannonhecker.com, replacing the prototype's SH text. */
+.nav .brand .short{display:inline-flex;color:var(--fg)}
+.nav .brand svg{display:block;transition:transform var(--base) var(--ease)}
+.nav .brand:hover svg{transform:rotate(-8deg)}
+.copyright .sig{display:inline-flex;align-items:center;gap:10px}
+@media (prefers-reduced-motion:reduce){.nav .brand:hover svg{transform:none}}
+
+/* Marquee pause control (WCAG 2.2.2). Quiet until the marquee is hovered or
+   focused; always shown on touch, where there is no hover. */
+.marquee{position:relative}
+.mq-toggle{position:absolute;right:12px;top:50%;translate:0 -50%;z-index:2;width:32px;height:32px;display:grid;place-items:center;border-radius:999px;border:1px solid var(--hair);background:var(--bg);color:var(--fg);cursor:pointer;opacity:0;transition:opacity var(--fast) var(--ease)}
+.mq-toggle svg{fill:currentColor}
+.mq-toggle .i-play{display:none}
+.mq-toggle[aria-pressed="true"] .i-play{display:inline}
+.mq-toggle[aria-pressed="true"] .i-pause{display:none}
+.marquee:hover .mq-toggle,.mq-toggle:focus-visible,.mq-toggle[aria-pressed="true"]{opacity:1}
+@media (hover:none){.mq-toggle{opacity:1}}
+.marquee.paused .ticker-track,.marquee.paused .themes-track{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.mq-toggle{display:none}}
+
+/* Keyboard users get the same index-row feedback as hover. */
+.row:focus-visible{padding-left:12px}
+.row:focus-visible .arrow{transform:translateX(6px)}
+
+/* Typesetting: no single-word last lines in running text. */
+.lead,.measure{text-wrap:pretty}
+
+::selection{background:var(--fg);color:var(--bg)}
+
+/* Cross-document transitions between / and /build, no JS. */
+@view-transition{navigation:auto}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
+
+/* Print / Save as PDF: panel members annotate. Everything visible, nothing
+   fixed or moving, beats kept whole, link targets printed. */
+@media print{
+  .nav,.progress,.peek,.skip,.mq-toggle,.ticker{display:none!important}
+  .band{padding-block:48px}
+  .rv,.split .wd,.hero h1 .ln span{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}
+  .hero-art{clip-path:none!important}
+  .hero{min-height:0}
+  .beat .label{position:static}
+  .beat{padding-block:28px}
+  .chapter-head{margin-bottom:32px}
+  .h-chapter{font-size:64px}.h-giant{font-size:56px}.h-section{font-size:36px}.h-sub{font-size:26px}
+  .shot img,.hero-art img{transform:none!important}
+  .shot,.dec>li,.rows>li,.metric,.persona,.stage,.phone,.principle{break-inside:avoid}
+  h2,h3,h4,.label{break-after:avoid}
+  .themes-track,.ticker-track{animation:none!important}
+  .strip-wrap{overflow:visible}.strip{flex-wrap:wrap;width:auto;transform:none!important}
+  .journey{grid-auto-flow:row;overflow:visible}
+  .links a[href^="http"]::after{content:" " attr(href);font-size:12px;color:var(--fg-2)}
+  .row img{display:none}
+}
+
+/* #play: the game sits in a 16:9 frame inside the column. Nothing runs until
+   Play is pressed; with JS off the poster is all there is. */
+.play .game{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--bg-2);border:1px solid var(--hair)}
+.play canvas{position:absolute;inset:0;width:100%;height:100%;display:block;outline-offset:-3px;image-rendering:pixelated;image-rendering:crisp-edges}
+.play .game[data-state="poster"] canvas{visibility:hidden}
+.play .game-poster{position:absolute;inset:0;display:grid;place-items:center}
+.play .game-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.play .game[data-state="playing"] .game-poster{display:none}
+.game-play{position:relative;font:inherit;font-size:17px;font-weight:500;padding:14px 26px;min-height:48px;border-radius:999px;border:1px solid var(--fg);background:var(--bg);color:var(--fg);cursor:pointer;transition:background var(--fast),color var(--fast)}
+.game-play:hover{background:var(--fg);color:var(--bg)}
+html:not(.has-js) .game-play{display:none}
+.skip-game{position:absolute;left:-999px}
+.skip-game:focus{position:static;display:inline-block;margin-bottom:12px}
+.game-end{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:12px;background:rgba(255,255,255,.95);padding:clamp(16px,3vw,40px);text-align:center;overflow:auto}
+.game-kicker{font-size:13px;color:var(--fg-2)}
+.game-case{font-family:var(--display);font-weight:700;font-size:clamp(22px,3vw,40px);letter-spacing:-.04em;line-height:1}
+.game-meta{font-size:15px;color:var(--fg-2);max-width:52ch}
+.game-read{font-weight:500;text-underline-offset:3px}
+.game-end[hidden]{display:none}
+.game-badge{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,56px);letter-spacing:-.04em}
+.game-links{display:grid;gap:8px}
+.game-links a{font-weight:500;text-underline-offset:3px}
+.game-touch{display:none;gap:12px;justify-content:space-between;margin-top:16px}
+.game-touch button{width:64px;height:64px;border-radius:999px;border:1px solid var(--hair);background:var(--bg);font-size:24px;color:var(--fg);touch-action:none;user-select:none;-webkit-user-select:none}
+.game-touch button[data-k="jump"]{margin-left:auto}
+@media (hover:none){.play .game[data-state="playing"] ~ .game-touch{display:flex}}
+@media print{.play{display:none}}
+.game-bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 16px;margin-bottom:12px;min-height:36px}
+.game-levels{display:flex;flex-wrap:wrap;gap:8px}
+.game-level{font:inherit;font-size:14px;font-weight:500;color:var(--fg-2);background:none;border:1px solid var(--hair);border-radius:999px;padding:8px 14px;min-height:36px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.game-level .n{font-size:12px;color:var(--fg-3)}
+.game-level[aria-pressed="true"]{color:var(--fg);border-color:var(--fg)}
+html:not(.has-js) .game-levels{display:none}
+.game-bar .skip-game:focus{margin:0 auto 0 0}
+.game-sound{font:inherit;font-size:14px;font-weight:500;color:var(--fg-2);background:none;border:1px solid var(--hair);border-radius:999px;padding:8px 14px;min-height:36px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.game-sound::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--hair)}
+.game-sound[aria-pressed="true"]{color:var(--fg);border-color:var(--fg)}
+.game-sound[aria-pressed="true"]::before{background:#2fbf71}
+html:not(.has-js) .game-sound{display:none}
+
+/* Case pages: the chapter opens under the fixed nav; the next-case row closes it. */
+.case-page>section:first-child{padding-top:clamp(140px,14vw,200px)}
+.next-case{padding-block:clamp(48px,6vw,96px)}
+::view-transition-group(*){animation-duration:.6s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+
+/* Beat labels are headings now; keep the prototype's small-label look. */
+.beat .label .k,.k.mono{font-family:var(--body);font-size:14px;font-weight:400;letter-spacing:0;line-height:1.6;color:var(--fg-2)}
+.k.mono{font-size:13px;font-weight:500}
+.ws .chapter-head h1{font-family:var(--ws-display);font-weight:900;letter-spacing:-.02em;color:var(--ws-forest)}
+/* Level-aware headings keep the prototype's look at either level. */
+.dec h3{font-size:clamp(24px,2.4vw,40px);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:14px}
+.ws .dec h3{font-family:var(--ws-display);font-weight:900;letter-spacing:-.02em;color:var(--ws-forest)}
+.ws-hero .copy h2{font-family:var(--ws-display);font-weight:900;font-size:clamp(34px,4vw,68px);line-height:.98;color:var(--ws-forest)}
+
+/* UI crops (scripts/crop-ui.py) keep their own ratio instead of the
+   prototype's forced 16:9, so no UI is cut off; the hero centres on the UI. */
+.shot img{aspect-ratio:auto}
+.hero-art img{object-position:center}
+
+/* uoaui.ai flow as a numbered chain until real captures exist (no empty boxes). */
+.chain{display:flex;flex-wrap:wrap;gap:10px;align-items:center;counter-reset:c}
+.chain li{counter-increment:c;display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:var(--bg-2);font-size:15px;font-weight:500}
+.chain li::before{content:counter(c);font-size:13px;color:var(--fg-2);font-variant-numeric:tabular-nums}
+.chain li:not(:last-child)::after{content:"→";margin-left:6px;color:var(--fg-2)}
+.chain li:last-child{background:var(--fg);color:var(--bg)}
+.chain li:last-child::before{color:var(--bg)}
+.play-link{padding-top:clamp(32px,4vw,64px);font-size:17px;font-weight:500}
+.play-link a{text-underline-offset:3px}
+
+/* Game in the hero (a playable "Doodle"): the headline keeps its column; the
+   game takes up to 480px, which is exactly 1× the pixel canvas, so pixels
+   stay crisp on retina screens. */
+.hero-grid:has(.hero-game){grid-template-columns:minmax(0,1fr) minmax(0,480px);align-items:end}
+.hero-art.hero-game{overflow:visible;border-radius:0}
+.hero-game .game{aspect-ratio:16/9;border-radius:6px}
+.hero-game .game-poster img{aspect-ratio:auto;transform:none!important;height:100%;object-fit:cover;image-rendering:pixelated}
+.hero-game .game-bar{margin:12px 0 0;justify-content:space-between}
+.hero-game .game-level,.hero-game .game-sound{font-size:13px;padding:6px 12px;min-height:32px}
+.game-caption{font-size:13px;color:var(--fg-2);margin-top:10px}
+.hero-game .game-end{gap:8px}
+.hero-game .game-case{font-size:clamp(20px,2vw,28px)}
+.hero-game .game-meta{font-size:13px}
+.hero-game .game-badge{font-size:clamp(22px,2.4vw,34px)}
+.hero-game .game-links{gap:4px;font-size:14px}
+@media (max-width:1100px){.hero-grid:has(.hero-game){grid-template-columns:minmax(0,1fr)}.hero-art.hero-game{max-width:640px}}
+@media (max-width:760px){.hero-art.hero-game{max-width:none}}
