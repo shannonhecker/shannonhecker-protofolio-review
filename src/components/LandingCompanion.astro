@@ -1,0 +1,23 @@
+---
+import PixelObject from './PixelObject.astro';
+---
+<aside class="landing-companion" aria-label="Shannon's interactive pixel avatar">
+  <div class="companion-stage">
+    <div class="companion-object object-one"><PixelObject name="journal" size={56} /></div>
+    <div class="companion-object object-two"><PixelObject name="star" size={48} /></div>
+    <div class="companion-avatar" data-avatar role="img" aria-label="Shannon's pixel avatar in a cream jumper and rose trousers">
+      <img class="idle-frame idle-open" src="/art/avatar-idle-0.webp" alt="" width="320" height="480" fetchpriority="high" />
+      <img class="idle-frame idle-blink" src="/art/avatar-idle-1.webp" alt="" width="320" height="480" />
+      <img class="idle-frame idle-smile" src="/art/avatar-idle-2.webp" alt="" width="320" height="480" />
+    </div>
+    <div class="companion-path" aria-hidden="true"></div>
+  </div>
+  <div class="companion-controls" role="group" aria-label="Move the avatar">
+    <button type="button" data-move="left" aria-label="Move avatar left">←</button>
+    <button type="button" data-move="up" aria-label="Move avatar up">↑</button>
+    <button type="button" data-move="down" aria-label="Move avatar down">↓</button>
+    <button type="button" data-move="right" aria-label="Move avatar right">→</button>
+    <button type="button" class="companion-motion" aria-pressed="false">Pause motion</button>
+  </div>
+  <p class="companion-hint">Scroll to explore. Move me with the arrows.</p>
+</aside>

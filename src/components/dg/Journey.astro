@@ -1,11 +1,13 @@
 ---
 import { journeys, type Project } from '../../lib/process';
+import ProcessArt from './ProcessArt.astro';
 interface Props { project: Project }
 const { project } = Astro.props;
 const items = journeys[project] ?? [];
 ---
 <section class="process-journey" aria-labelledby={`${project}-journey-title`} id={`${project}-journey`}>
   <header class="process-heading"><h3 id={`${project}-journey-title`}>User journey</h3><p>{project === 'ai' ? 'I have mapped the intended journey through the alpha, with the person deciding before export.' : 'I have mapped the task, friction and design response described in this case.'}</p></header>
+  <ProcessArt project={project} />
   <ol class="journey-diagram">{items.map((s, i) => <li>
     <header><span class="journey-stop" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><h4>{s.stage}</h4>{i<items.length-1&&<span class="journey-next" aria-hidden="true">→</span>}</header>
     <dl>

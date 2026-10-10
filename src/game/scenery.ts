@@ -3,6 +3,13 @@ import type { ThemeId } from './art';
 // Detailed plates are original Higgsfield artwork. Load only after Play and
 // only for a visited stage. The procedural scene remains a network fallback.
 const plates = new Map<ThemeId, HTMLImageElement>();
+export function prepareScenery(ids: ThemeId[]) {
+  return Promise.all(ids.map((id) => {
+    scenery(id);
+    const image = plates.get(id)!;
+    return Promise.race([image.decode().catch(() => {}), new Promise<void>((resolve) => setTimeout(resolve, 6000))]);
+  }));
+}
 export function scenery(id: ThemeId) {
   let image = plates.get(id);
   if (!image) {

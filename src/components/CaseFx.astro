@@ -11,7 +11,6 @@ import Demo from './Demo.astro';
 import ProductCapture from './ProductCapture.astro';
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
-import ChapterScene from './ChapterScene.astro';
 import ResponsiveEvidence from './ResponsiveEvidence.astro';
 import DecisionMap from './dg/DecisionMap.astro';
 import Personas from './dg/Personas.astro';
@@ -33,15 +32,17 @@ import BeforeAfter from './dg/BeforeAfter.astro';
         <p class="lead muted" style="grid-column:1/9">A trader works a large FX order over hours and keeps deciding whether to step in or leave it. The desk did that across a static chart, five spreadsheets and a separate execution tool.</p>
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Lead designer, one of one</span><span><b>Team</b> · ~20 engineers, business, charting vendor</span><span><b>Status</b> · Beta with internal users</span><span><b>Platform</b> · Web, light and dark</span><span><b>Live</b> · <a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener">My public rebuild<span class="vh"> (opens in new tab)</span> →</a></span></div>
       </div>
-      <ChapterScene project="fx" />
+      <div class="project-hero">
+<ProductCapture name="live-fx.png" alt="The current Enhanced FX interface, with execution chart, order tabs and venue analysis" href="https://shannonhecker.github.io/fx-execution-analytics/" eager label="My public rebuild · Enhanced view · simulated data" />
+      </div>
     </header>
     <CaseContents project="fx" />
+
 
     <div class="beat rv" id="fx-problem">
       <div class="label"><HL class="k"><b>01</b> Problem</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Keep the trader in one place, and cut the time from seeing a price move to acting on it." />
-        <ProductCapture name="live-fx.png" alt="The current Enhanced FX interface, with execution chart, order tabs and venue analysis" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Enhanced view · simulated data" />
         <ul class="rows">
           <li><b>Users</b><p>The sales and trading desk, and the institutional clients executing through the same platform with different entitlements.</p></li>
           <li><b>Where we started</b><p>One static Execution Over Time chart from the desk. Five spreadsheets covering trades, market data per order, price limit logs and reference prices. A twelve-item wishlist. No design, no interaction model, no visual language.</p></li>
@@ -115,6 +116,13 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="label"><HL class="k"><b>06</b> The full flow</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="From monitoring to action, without leaving the chart." />
+    <section class="screen-sequence" aria-labelledby="fx-live-modes">
+      <h3 id="fx-live-modes">One workflow, two presentations</h3>
+      <p class="muted">Classic represents my Barclays design. These are captures of my public rebuild with simulated data, not private bank screens.</p>
+      <ProductCapture name="live-fx-classic.png" alt="Classic FX public rebuild in dark mode, showing the complete order and execution chart" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Classic · Dark mode · Simulated data" />
+      <ProductCapture name="live-fx-classic-light.png" alt="The same Classic FX workspace in light mode" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Classic · Light mode · Simulated data" />
+      <ProductCapture name="live-fx-table.png" alt="Enhanced FX public rebuild with its table view selected" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Enhanced · Table view · Simulated data" />
+    </section>
         <ProductCapture name="live-fx-compare.png" alt="Two simulated FX orders compared side by side in the current public rebuild" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Compare orders" />
         <ProductCapture name="live-fx-ticket.png" alt="The current FX order ticket opened from Fill now, before confirmation" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Order ticket · simulated data" />
         <p class="lead muted">Hover a fill to see the detail. Right-click to act. Drag a price line to reprice, and it opens a filled-in order ticket. Each step commits you a little more, so you can't reprice by accident. We turned a chart you watch into a chart you can trade from.</p>

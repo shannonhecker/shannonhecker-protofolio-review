@@ -1,14 +1,17 @@
 ---
 import Pic from './Pic.astro';
 import BrandMark from './BrandMark.astro';
+import PixelObject from './PixelObject.astro';
 import type { CaseRow } from '../lib/cases';
 interface Props { c: CaseRow }
 const { c } = Astro.props;
 ---
-<a class="row" href={c.href} data-cursor="big">
-  <span class="n">{c.n}</span>
+<a class="row" href={c.href} data-cursor="big" data-chapter={c.vt}>
+  <span class="n"><PixelObject name={c.vt==='winking'?'star':c.vt==='ai'?'gem':c.vt==='fusion'?'journal':'flag'} />{c.n}</span>
   <h3 style={`view-transition-name:t-${c.vt}`}>{c.title}{(c.href==='/uoaui'||c.href==='/winking-star')&&<BrandMark project={c.href==='/uoaui'?'ai':'winking'} compact />}</h3>
   <span class="meta">{c.meta}</span>
   <span class="arrow">{c.arrow}</span>
-  {c.img && <Pic name={c.img} alt="" sizes="(max-width: 760px) 90vw, 28vw" widths={[480, 800]} />}
+  {c.vt==='winking' ? <div class="project-preview appstore-preview">
+    {['home','activity','treasure','progress'].map(screen=><Pic name={`appstore-iphone-${screen}.jpg`} alt={`Winking Star App Store screenshot: ${screen}`} sizes="(max-width:760px) 21vw, 10vw" widths={[240,480]} />)}
+  </div> : c.img && <Pic name={c.img} alt="" sizes="(max-width: 760px) 90vw, 44vw" widths={[480,800,1200]} />}
 </a>

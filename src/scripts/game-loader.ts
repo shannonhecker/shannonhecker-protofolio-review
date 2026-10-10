@@ -1,3 +1,5 @@
+import { startScore, endScore } from './leaderboard';
+import { track } from './analytics';
 // Loads the game chunk only when someone presses Play. If the chunk fails,
 // the poster stays and the rest of the page is untouched. Pressing Play opens
 // the world map; a case page's "Play this case as a level" link (?level=n)
@@ -13,6 +15,7 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 type Game = ReturnType<typeof import('../game/main').start>;
 let game: Game | null = null;
+let bootSequence = 0;
 let soundOn = false;
 const param = new URLSearchParams(location.search).get('level');
 const fromCase = param !== null;
@@ -21,6 +24,7 @@ if (picker) picker.value = String(chosen);
 
 type Mission = { text: string; have: number; need: number; done: boolean };
 function showEnd(n: number | null, shipped = false, mission?: Mission) {
+  if (root) root.dataset.result = String(n !== null);
   ends.forEach((e, i) => {
     e.hidden = i !== n;
     const badge = e.querySelector<HTMLElement>('.game-badge');
@@ -37,9 +41,13 @@ function showEnd(n: number | null, shipped = false, mission?: Mission) {
 
 async function boot(level: number, toMap: boolean) {
   if (!root || !canvas) return;
+  const sequence = ++bootSequence;
   if (play) play.disabled = true;
   try {
     const mod = await import('../game/main');
+    if (statusEl) statusEl.textContent = 'Preparing your adventure…';
+    await mod.prepareArt();
+    if (sequence !== bootSequence) return;
     showEnd(null);
     root.dataset.state = 'playing';
     canvas.tabIndex = 0;
@@ -52,7 +60,8 @@ async function boot(level: number, toMap: boolean) {
         startOnMap: toMap,
         reduceMotion,
         onStatus: (m) => { if (statusEl) statusEl.textContent = m; },
-        onLevelEnd: (s) => { showEnd(s.level, s.collected >= s.total, s.mission); },
+        onLevelStart: (n) => { showEnd(null); startScore(n); },
+        onLevelEnd: (s) => { showEnd(s.level, s.collected >= s.total, s.mission); void endScore(s, ends[s.level]); },
         onMapSelect: (n) => { chosen = n; if (picker) picker.value = String(n); },
       });
       (window as unknown as { __game?: () => unknown }).__game = () => game?.state();
@@ -61,7 +70,7 @@ async function boot(level: number, toMap: boolean) {
   } catch {
     root.dataset.state = 'poster';
   } finally {
-    if (play) play.disabled = false;
+    if (play && sequence === bootSequence) play.disabled = false;
   }
 }
 // ---- full screen: Play opens it; Escape or the Exit button always leaves.
@@ -87,6 +96,7 @@ function enterFull() {
 function exitFull() {
   if (!full) return;
   if (document.fullscreenElement) void document.exitFullscreen().catch(() => {});
+  track('game_exit', { stage: game?.state().level ?? chosen });
   setFull(false);
   play?.focus({ preventScroll: true });
 }
@@ -97,7 +107,7 @@ window.addEventListener('keydown', (e) => { if (full && e.key === 'Escape') { e.
 exitBtn?.addEventListener('click', exitFull);
 fullBtn?.addEventListener('click', () => { enterFull(); if (!game) boot(chosen, !fromCase); });
 
-play?.addEventListener('click', () => { enterFull(); boot(chosen, !fromCase); });
+play?.addEventListener('click', () => { track('game_start'); enterFull(); boot(chosen, !fromCase); });
 // Choosing a world starts it, before or after Play has been pressed.
 picker?.addEventListener('change', () => { chosen = Number(picker.value); boot(chosen, false); });
 document.querySelectorAll<HTMLButtonElement>('.game-end [data-next]').forEach((b) =>

@@ -1,6 +1,7 @@
 ---
 interface Props { project: 'fx' | 'fusion' | 'ai' | 'winking' }
 const { project } = Astro.props;
+import PixelObject from './PixelObject.astro';
 const links: Record<Props['project'], [string, string][]> = {
   fx: [['fx-problem','Problem'],['fx-users','Research'],['fx-personas','Personas'],['fx-journey','Journey'],['fx-constraints','Constraints'],['fx-decision-map','Decision map'],['fx-flow','Full flow'],['fx-edge','Edge states'],['fx-accessibility','Accessibility'],['fx-outcome','Outcome']],
   fusion: [['fu-problem','Problem'],['fusion-personas','Personas'],['fusion-journey','Journey'],['fu-constraints','Constraints'],['fu-workflow','Research and flow'],['fusion-decision-map','Decision map'],['fu-design','UI craft'],['fusion-accessibility','Accessibility'],['fu-outcome','Outcome']],
@@ -9,5 +10,9 @@ const links: Record<Props['project'], [string, string][]> = {
 };
 ---
 <nav class="case-contents" aria-label="Case study sections">
-  {links[project].map(([id, name]) => <a href={`#${id}`}>{name}</a>)}
+  <a href="/panel#work" class="chapter-return" aria-label="Back to all projects"><PixelObject name="journal" size={36} /></a>
+  <div class="chapter-stops">
+    {links[project].map(([id, name], i) => <a href={`#${id}`}><span class="stop-dot" aria-hidden="true">{i + 1}</span>{name}</a>)}
+  </div>
+  <span class="chapter-count" aria-hidden="true">1 / {links[project].length}</span>
 </nav>

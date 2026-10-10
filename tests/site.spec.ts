@@ -69,11 +69,8 @@ test('/panel carries the panel line and stays out of the index', async ({ page }
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://shannonhecker.com/');
 });
 
-test('footer carries the build line and links to the log', async ({ page }) => {
-  await page.goto('/');
-  const line = page.getByRole('link', { name: 'Built in code with Claude Code, art directed by me.' });
-  await expect(line).toHaveAttribute('href', '/build');
-  await line.click();
+test('build log remains directly available', async ({ page }) => {
+  await page.goto('/build');
   await expect(page.getByRole('heading', { level: 1, name: 'Build log' })).toBeVisible();
 });
 
@@ -115,7 +112,7 @@ test.describe('reduced motion', () => {
       [...document.querySelectorAll('.rv, .split .wd, .hero h1 .ln span')].filter((el) => getComputedStyle(el).opacity !== '1').length,
     );
     expect(hidden).toBe(0);
-    expect(await page.locator('.ticker-track').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+    expect(await page.locator('.idle-blink').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
     await page.goto('/winking-star');
     expect(await page.locator('.themes-track').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
   });
@@ -156,16 +153,15 @@ test.describe('mobile nav', () => {
   });
 });
 
-test('marquees have a real pause control (WCAG 2.2.2)', async ({ page }) => {
+test('avatar ambient motion has a persistent pause control', async ({ page }) => {
   await page.goto('/');
-  const btn = page.locator('.ticker .mq-toggle');
-  await btn.focus();
-  await page.keyboard.press('Enter');
+  const btn = page.locator('.companion-motion');
+  await btn.click();
   await expect(btn).toHaveAttribute('aria-pressed', 'true');
-  await expect(btn).toHaveAccessibleName('Pause scrolling');
-  // Stays paused after focus leaves, unlike hover/focus-only pausing.
+  await expect(btn).toHaveAccessibleName('Resume motion');
   await page.locator('body').click({ position: { x: 5, y: 5 } });
-  expect(await page.locator('.ticker-track').evaluate((el) => getComputedStyle(el).animationPlayState)).toBe('paused');
+  await expect(page.locator('.landing-companion')).toHaveAttribute('data-paused', 'true');
+  expect(await page.locator('.idle-blink').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
 });
 
 test('print output shows every section with nothing hidden', async ({ page }) => {

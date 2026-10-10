@@ -47,3 +47,40 @@ Original case prose remains apart from logged, source-backed corrections and exp
 - Fusion's public rebuild has an AG Grid trial watermark, preserved in real captures. Its license/configuration belongs to that source repository.
 - Corporate Action Manager, Deal Model and Data Solution remain a separate content feature.
 - Newly requested leaderboard: public scores with optional nicknames; detailed visit/play/level statistics private. Shared storage, server validation and private access are a separate change, not delivered by this visual release.
+
+## Current release candidate: game identity, themes and evidence
+
+This later review supersedes the cream-scene layout described above. Case heroes
+now show product screens; pages are white by default and FX starts dark. Visitors
+can choose a saved light/dark/system/project preference. Game scenery stays in the
+game. The SH mark, small objects, controllable blinking/smiling avatar and detailed
+map/character/obstacle atlas provide the shared identity.
+
+Self-inspection found and corrected: Contact wrapping onto a second nav row;
+light journey numbers on a pale dark-theme accent; pale video captions inherited
+from the old Winking demo card; Winking dark-mode chips; twelve-column header gaps
+forcing overflow at 320px; and `display:contents` making Winking's three hero
+screens overflow at tablet sizes. These were layout defects, not image cropping
+solutions. The final images keep their full source proportions.
+
+Verified locally on 10 October 2026:
+
+- Build: nine routes; Astro check: 88 files without diagnostics.
+- 93 browser tests, including all eight game stages, complete-page dark-theme
+  contrast under reduced motion, system/persisted theme selection, avatar bounds,
+  score validation, consent and sanitized Analytics URLs.
+- 320/390/820/1440px: home, four cases, build and privacy pages have no document
+  overflow. Product images do not use `object-fit:cover`.
+- All ten Lighthouse runs meet the 95-point category requirement. Mobile
+  performance: home 99, FX 99, Fusion 99, Winking 97, uoaui 96. Desktop performance
+  100 throughout; accessibility, best practices and SEO 100 throughout. The
+  intentional noindex crawlability audit remains excluded.
+- Visual inspection includes project heroes, real screens, personas, journeys,
+  decision maps, compact game preview, map and gameplay. Current App Store iPhone,
+  iPad and localized artwork is explicitly distinguished from direct native UI.
+- Game stage and reading-depth custom dimensions are saved in Analytics.
+  Production delivery and deployed API behavior remain release checks.
+
+The quality target is award-calibre craft, not a claim of an award or an external
+judging result. The source-evidence limits above still apply. Published artwork
+and illustrations cannot fill missing research protocols or measured outcomes.

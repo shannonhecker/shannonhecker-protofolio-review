@@ -132,3 +132,55 @@ remains necessary; merely viewing the generated images is not a playtest.
 Current token and typography provenance is recorded in `BRAND-SOURCES.md`.
 The new brand sections use current source values rather than the old portfolio's
 historical swatches. Their implementation is in progress and awaits validation.
+
+## Detailed atlas, character motion and process art, 10 October 2026
+
+Shannon authorized Higgsfield processing of both supplied avatars and paid
+production. The initial atlas plus idle strip used 11 credits; four Nano Banana
+2.1 process sheets used 8 additional credits. After Shannon removed the credit
+ceiling, the matching obstacle sheet used 2.75 credits. These are supporting
+illustrations, never evidence of product UI or research participants.
+
+| Active asset | Model / job |
+|---|---|
+| `public/game/world-map.webp` | GPT Image 2.5 · `425ad7f4-ff4e-4365-8529-5b8af4af4e85` |
+| `public/game/avatar-walk/01–04.png` | GPT Image 2.5 · `f8b1fe3a-dd95-4170-83aa-3b9b8b0eba59` |
+| `public/art` and `public/game` object sprites | GPT Image 2.5 · `f13571bb-8b00-4272-9882-dc936032cafc` |
+| `public/art/avatar-idle-0–2.webp` | GPT Image 2.5 · `3d071c38-61fa-4ad0-8751-c72290a0f6a1` |
+| `public/game/foe-*.webp` | GPT Image 2.5 · `e2582322-8c16-4344-be46-a12653de0b06` |
+| `process-art-fx.png` | Nano Banana 2.1 · `01c3acbb-b75b-4b55-975f-c6b3cbd88644` |
+| `process-art-fusion.png` | Nano Banana 2.1 · `91755dc7-aa5d-485e-b0a6-2812a80ef1c3` |
+| `process-art-winking.png` | Nano Banana 2.1 · `951282ac-ca08-4497-b14d-db137ab9bf15` |
+| `process-art-ai.png` | Nano Banana 2.1 · `170d74fb-8220-4786-b7b2-6427a556940c` |
+
+Whole animation strips use consistent slots and a shared bottom-centre anchor.
+Atlas extraction removes transparent gutters; process art removes empty outer
+white margins. No meaningful objects or product UI are cropped. All generated
+sources were visually reviewed. The map is stylized and explicitly not to scale.
+SH's pixel logo is a native SVG discretization of Shannon's original mark, not a
+generated replacement. Individual persona portraits are extracted from the
+previously documented role sheets, not new people or research findings.
+
+## Current product and App Store additions
+
+- `live-fx-classic.png`, `live-fx-classic-light.png`, `live-fx-table.png`: real
+  captures of the current public FX rebuild at
+  https://shannonhecker.github.io/fx-execution-analytics/ on 10 October 2026.
+  Simulated data and rebuild notes remain visible. No Barclays private UI.
+- `live-fusion-risk.png`: current public rebuild Risk workspace at
+  https://jpm-analytics-dashboard-shannon-h.vercel.app/ on 10 October 2026.
+  The source's AG Grid trial watermark is preserved.
+- `live-uoaui-forms.png`: live Salt Forms pattern in
+  https://uoaui.ai/ui-kit?ds=salt on 10 October 2026. It is a library pattern,
+  not an invented builder output or a new usability finding.
+- `appstore-iphone-*.jpg` and `appstore-ipad-*.png`: official Apple screenshot
+  URLs returned by https://itunes.apple.com/lookup?id=6765767262&country=gb,
+  version 1.0.4, downloaded 10 October 2026. These are published store artwork,
+  distinct from direct in-app captures already on the case page.
+- `ws-fr-*`, `ws-zh-*`: Shannon's local original app repository,
+  `weekly-superstar-ios/app-store-assets/screenshots-marketing/{fr,zh}`.
+  French and Traditional Chinese marketing compositions are explicitly labelled
+  and do not establish that each depicted localized state is current native UI.
+
+Source URLs and local production manifests remain in
+`/private/tmp/portfolio-review/{redraw,nano}` and `winking-appstore.json`.

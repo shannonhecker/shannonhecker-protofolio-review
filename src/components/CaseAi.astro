@@ -9,7 +9,6 @@ const HL = top ? 'h2' : 'h3';
 const HD = top ? 'h3' : 'h4'; // decision titles
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
-import ChapterScene from './ChapterScene.astro';
 import BrandMark from './BrandMark.astro';
 import BrandSystem from './BrandSystem.astro';
 import ResponsiveEvidence from './ResponsiveEvidence.astro';
@@ -35,7 +34,9 @@ import Stack from './dg/Stack.astro';
         <div class="avatar-practice" style="grid-column:1/13"><Pic name="shannon-building.png" alt="My pixel-art avatar holding a laptop" sizes="320px" widths={[320, 640]} /><p class="lead muted">A design platform I'm building on Claude. It turns a prompt into a working screen built from real design systems, Salt, Material, Fluent and Carbon among them, with their official React components. Switch system, density or theme and the screen rebuilds.</p></div>
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designed and built it, solo</span><span><b>Status</b> · Private alpha</span><span><b>Live</b> · <a href="https://uoaui.ai/" target="_blank" rel="noopener">uoaui.ai<span class="vh"> (opens in new tab)</span> →</a></span><span><b>UI Kit</b> · <a href="https://uoaui.ai/ui-kit?ds=salt" target="_blank" rel="noopener">Salt component library<span class="vh"> (opens in new tab)</span> →</a></span></div>
       </div>
-      <ChapterScene project="ai" />
+      <div class="project-hero">
+<ProductCapture name="live-uoaui-builder.png" alt="The current authenticated uoaui builder showing the Salt Performance Analytics canvas, chat and component library" href="https://uoaui.ai/builder" eager label="uoaui.ai · Current builder · Private alpha" />
+      </div>
     </header>
     <CaseContents project="ai" />
 
@@ -44,7 +45,6 @@ import Stack from './dg/Stack.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="Designing for output you can't fully predict." />
         <ProductCapture name="live-uoaui.png" alt="The live uoaui.ai comparison page showing the same finance screen in Salt and uoaui" href="https://uoaui.ai/" label="uoaui.ai · Private alpha" />
-        <ProductCapture name="live-uoaui-builder.png" alt="The current authenticated uoaui builder showing the Salt Performance Analytics canvas, chat and component library" href="https://uoaui.ai/builder" label="uoaui.ai · Current builder · Private alpha" />
         <ul class="rows">
           <li><b>Designing for output you can't predict</b><p>Where the system acts and where it asks. How a person stays in control without making the AI useless. The compare and tune steps are my answer so far. The model drafts, I decide.</p></li>
           <li><b>Who it's for, and the trap</b><p>Designers like me, which is dangerous, because designing for yourself hides your blind spots. The alpha exists partly to break my own assumptions.</p></li>
@@ -72,6 +72,7 @@ import Stack from './dg/Stack.astro';
         <Demo src="/media/uoaui-current.mp4" poster="/media/uoaui-current-poster.webp" width={1280} height={800} label="The current uoaui walkthrough: choose a template, edit a card and present the screen across five systems." />
         <ProductCapture name="live-uoaui-kit.png" alt="The current uoaui Salt UI Kit with foundations, components, patterns and system controls" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · Salt UI Kit · Component library" />
         <ProductCapture name="live-uoaui-charts.png" alt="The current uoaui UI Kit charts and data visualisation specimens in Salt" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · UI Kit · Charts and data visualisation" />
+        <ProductCapture name="live-uoaui-forms.png" alt="The live Salt Forms pattern with full-name and email fields, a department selector and submit/cancel actions" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · UI Kit · Composed form pattern" />
         <Journey project="ai" />
       </div>
     </div>

@@ -1,156 +1,106 @@
 {
-  "origin": "http://127.0.0.1:4322",
-  "command": "npx -y lighthouse@12 URL [--preset=desktop] --skip-audits=is-crawlable --quiet --chrome-flags=\"--headless=new --no-sandbox\"",
-  "records": [
+  "date": "2026-10-10",
+  "scope": "Local illustrated portfolio release candidate",
+  "results": [
     {
-      "route": "/panel",
+      "route": "panel",
       "preset": "mobile",
-      "date": "2026-10-10T15:27:16.028Z",
-      "version": "12.8.2",
       "scores": {
         "performance": 99,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
-      },
-      "lcpMs": 2106,
-      "cls": 0.01901078116846946,
-      "tbtMs": 0
+      }
     },
     {
-      "route": "/panel",
+      "route": "panel",
       "preset": "desktop",
-      "date": "2026-10-10T15:27:27.277Z",
-      "version": "12.8.2",
       "scores": {
         "performance": 100,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
-      },
-      "lcpMs": 526,
-      "cls": 0.01109279397600911,
-      "tbtMs": 0
+      }
     },
     {
-      "route": "/fx",
+      "route": "fx",
       "preset": "mobile",
-      "date": "2026-10-10T15:27:38.546Z",
-      "version": "12.8.2",
-      "scores": {
-        "performance": 97,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "lcpMs": 2562,
-      "cls": 0.003736392548105897,
-      "tbtMs": 0
-    },
-    {
-      "route": "/fx",
-      "preset": "desktop",
-      "date": "2026-10-10T15:27:50.208Z",
-      "version": "12.8.2",
       "scores": {
         "performance": 99,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
-      },
-      "lcpMs": 630,
-      "cls": 0.06651814544844294,
-      "tbtMs": 0
+      }
     },
     {
-      "route": "/fusion",
+      "route": "fx",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "route": "fusion",
       "preset": "mobile",
-      "date": "2026-10-10T15:28:01.853Z",
-      "version": "12.8.2",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "route": "fusion",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "route": "winking-star",
+      "preset": "mobile",
       "scores": {
         "performance": 97,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
-      },
-      "lcpMs": 2488,
-      "cls": 0.004983489222880846,
-      "tbtMs": 0
+      }
     },
     {
-      "route": "/fusion",
+      "route": "winking-star",
       "preset": "desktop",
-      "date": "2026-10-10T15:28:13.292Z",
-      "version": "12.8.2",
       "scores": {
         "performance": 100,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
-      },
-      "lcpMs": 588,
-      "cls": 0.0594000389268307,
-      "tbtMs": 0
+      }
     },
     {
-      "route": "/winking-star",
+      "route": "uoaui",
       "preset": "mobile",
-      "date": "2026-10-10T15:28:24.662Z",
-      "version": "12.8.2",
-      "scores": {
-        "performance": 98,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "lcpMs": 2183,
-      "cls": 0.02201337754442288,
-      "tbtMs": 0
-    },
-    {
-      "route": "/winking-star",
-      "preset": "desktop",
-      "date": "2026-10-10T15:28:36.637Z",
-      "version": "12.8.2",
-      "scores": {
-        "performance": 100,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "lcpMs": 548,
-      "cls": 0.05671352397265271,
-      "tbtMs": 0
-    },
-    {
-      "route": "/uoaui",
-      "preset": "mobile",
-      "date": "2026-10-10T15:28:48.511Z",
-      "version": "12.8.2",
       "scores": {
         "performance": 96,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
-      },
-      "lcpMs": 2710,
-      "cls": 0.0032222028983398196,
-      "tbtMs": 0
+      }
     },
     {
-      "route": "/uoaui",
+      "route": "uoaui",
       "preset": "desktop",
-      "date": "2026-10-10T15:29:00.027Z",
-      "version": "12.8.2",
       "scores": {
         "performance": 100,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
-      },
-      "lcpMs": 669,
-      "cls": 0.01665425212692992,
-      "tbtMs": 0
+      }
     }
   ]
 }

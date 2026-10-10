@@ -5,7 +5,7 @@ for (const path of ['/fx', '/fusion', '/winking-star', '/uoaui']) {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto(path);
     const nav = page.getByRole('navigation', { name: 'Case study sections' });
-    for (const link of await nav.getByRole('link').all()) {
+    for (const link of await nav.locator('a[href^="#"]').all()) {
       const href = (await link.getAttribute('href'))!;
       await expect(page.locator(href)).toHaveCount(1);
     }

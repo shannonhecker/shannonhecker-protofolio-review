@@ -11,8 +11,12 @@ import { text, textWidth } from './pixel';
 import { mapBase, NODES, labelAt, BRAND, SCHOOL_ICONS, LOGO_ICONS, SELECT_RINGS } from './map';
 import { CHAPTERS, chapterOf, stageCode } from '../lib/journey';
 import { sfx } from './sound';
-import { scenery, ground } from './scenery';
+import { scenery, ground, prepareScenery } from './scenery';
+import { illustrated, drawIllustration, prepareIllustrations } from './illustrated';
 export { setSound } from './sound';
+export async function prepareArt() {
+  await Promise.all([prepareIllustrations(), prepareScenery(LEVELS.map((level) => level.theme))]);
+}
 
 /** What the map and HUD show for each world. Facts only: CV and Shannon's own words. */
 export const WORLDS = [
@@ -42,6 +46,7 @@ export const MISSIONS: { text: string; kind: MissionKind; need: number }[] = [
 ];
 
 export type GameState = {
+  elapsed: number;
   mode: 'map' | 'level';
   level: number; x: number; y: number; vx: number; vy: number; grounded: boolean; riding: boolean;
   hits: number; collected: number; total: number; finished: boolean; paused: boolean; jumps: number;
@@ -55,6 +60,7 @@ type Opts = {
   startOnMap?: boolean;
   reduceMotion: boolean;
   onLevelEnd: (s: GameState) => void;
+  onLevelStart?: (stage: number) => void;
   onStatus: (msg: string) => void;
   onMapSelect?: (n: number) => void;
 };
@@ -78,7 +84,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   // Player hitbox is narrower than the 32×48 sprite cell.
   const PW = 20, PH = 44;
   const p = { x: 0, y: 0, vx: 0, vy: 0, grounded: false, face: 1, heldFor: 0, coyote: 0, buffer: 0, jumpHeld: false, rising: false, invuln: 0, squash: 0, run: 0, hurtT: 0, ride: false };
-  const s: GameState = { mode: 'map', level: 0, x: 0, y: 0, vx: 0, vy: 0, grounded: false, riding: false, hits: 0, collected: 0, total: 0, finished: false, paused: false, jumps: 0, done: [], stomped: 0, foes: 0, mission: { text: '', have: 0, need: 0, done: false }, missions: [] };
+  const s: GameState = { elapsed: 0, mode: 'map', level: 0, x: 0, y: 0, vx: 0, vy: 0, grounded: false, riding: false, hits: 0, collected: 0, total: 0, finished: false, paused: false, jumps: 0, done: [], stomped: 0, foes: 0, mission: { text: '', have: 0, need: 0, done: false }, missions: [] };
 
   // ---- per-level state
   let lvl = parse(LEVELS[0].rows);
@@ -99,7 +105,11 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   const rain: { x: number; y: number }[] = Array.from({ length: 70 }, (_, i) => ({ x: (i * 137) % 480, y: (i * 71) % 270 }));
   let mapSel = Math.max(0, Math.min(LEVELS.length - 1, opts.level ?? 0));
 
+  let runSequence = 0;
   function loadLevel(n: number) {
+    runSequence++;
+    s.elapsed = 0; s.jumps = 0;
+    opts.onLevelStart?.(n);
     s.mode = 'level';
     s.level = n;
     lvl = parse(LEVELS[n].rows);
@@ -129,6 +139,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   }
 
   function showMap(sel = mapSel) {
+    runSequence++;
     s.mode = 'map';
     s.finished = false;
     mapSel = sel;
@@ -291,6 +302,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
 
   function step(dt: number) {
     clock += dt;
+    if (!s.finished) s.elapsed += dt * 1000;
     if (s.finished) { endT += dt; p.vx = 0; return; }
     for (const m of movers) { m.prevY = m.y; m.y = m.baseY * TILE - AMP * price(clock + m.i * 0.7); }
     if (riding && p.vy >= 0 && p.x + PW > riding.px && p.x < riding.px + riding.pw) p.y = riding.y - PH;
@@ -396,7 +408,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
         const code = stageCode(s.level);
         opts.onStatus((s.collected >= s.total ? `World ${code} done, with everything collected. Shipped.` : `World ${code} done, ${s.collected} of ${s.total} collected.`) + ms);
         const done = { ...s, done: [...s.done], missions: [...s.missions], mission: { ...s.mission } };
-        setTimeout(() => opts.onLevelEnd(done), opts.reduceMotion ? 200 : 1300);
+        const finishedRun = runSequence;
+        setTimeout(() => { if (finishedRun === runSequence) opts.onLevelEnd(done); }, opts.reduceMotion ? 200 : 1300);
       }
     }
 
@@ -467,9 +480,16 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   const schools: Record<number, HTMLCanvasElement> = Object.fromEntries(Object.entries(SCHOOL_ICONS).map(([k, f]) => [k, f()]));
   const logos: Record<number, HTMLCanvasElement> = Object.fromEntries(Object.entries(LOGO_ICONS).map(([k, l]) => [k, l.icon()]));
   function drawMap() {
-    ctx.drawImage(base, 0, 0);
-    text(ctx, 'WORKING ORDER', 16, 10, '#263b50', 2);
-    text(ctx, 'KAOHSIUNG TO LONDON TO NEXT', 16, 24, '#2b3654', 1);
+    const plate = illustrated('world-map');
+    if (plate) ctx.drawImage(plate, 0, 0, HUD_W, HUD_H);
+    else ctx.drawImage(base, 0, 0);
+    const mapText = (label: string, x: number, y: number, colour: string, size = 8) => {
+      ctx.font = `${size}px "Pixelify Sans", monospace`;
+      ctx.textBaseline = 'top'; ctx.fillStyle = colour;
+      ctx.fillText(label, x, y);
+    };
+    mapText('WORKING ORDER', 16, 10, '#263b50', 15);
+    mapText('KAOHSIUNG TO LONDON TO NEXT', 16, 27, '#2b3654', 8);
     // routes: roads in Taiwan and London, sea lanes out to the islands
     // (Taipei to London is the dashed flight in the base map)
     const route = (i: number, col: string, gap: number) => {
@@ -486,16 +506,17 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     [5, 6].forEach((i) => route(i, '#2b3654', 5));
     // the selected world: a red line around its own coastline (or London's inset frame)
     ctx.fillStyle = '#e5484d';
-    for (const [x, y] of SELECT_RINGS[chapterOf(mapSel)]) ctx.fillRect(x, y, 1, 1);
+    if (!plate) for (const [x, y] of SELECT_RINGS[chapterOf(mapSel)]) ctx.fillRect(x, y, 1, 1);
     NODES.forEach(([x, y], i) => {
       const sel = chapterOf(i) === chapterOf(mapSel), done = s.done.includes(i);
       const brand = BRAND[i];
       ctx.fillStyle = sel ? '#e5484d' : brand ? brand.bg : '#2b3654'; ctx.fillRect(x - 11, y - 11, 22, 22);
       ctx.fillStyle = LOGO_ICONS[i]?.bg ?? mapIcons[i].sky; ctx.fillRect(x - 9, y - 9, 18, 18);
       const ic = logos[i] ?? schools[i] ?? mapIcons[i].pickup[0]; // schools show their buildings; Barclays its eagle
-      ctx.drawImage(ic, Math.round(x - ic.width / 2), Math.round(y - ic.height / 2));
+      if (logos[i] || !drawIllustration(ctx, i === 7 ? 'star' : i === 6 ? 'gem' : i === 0 ? 'heart' : 'journal', x, y + 8, 16, 16))
+        ctx.drawImage(ic, Math.round(x - ic.width / 2), Math.round(y - ic.height / 2));
       // a star for finishing; gold once the world's mission is done too
-      if (done) text(ctx, '★', x + 8, y - 15, s.missions.includes(i) ? '#f3a414' : '#5a5040');
+      if (done) drawIllustration(ctx, 'star', x + 12, y - 8, 10, 10);
       const code = stageCode(i);
       const lines = [`${code === 'Bonus' ? '★' : code} ${WORLDS[i].short}`, WORLDS[i].when];
       lines.forEach((l, k) => {
@@ -504,23 +525,24 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
           // the organisation's badge: its colour, a stripe of its accent, its name
           ctx.fillStyle = brand.bg; ctx.fillRect(lx - 4, ly - 2, textWidth(l) + 7, 9);
           ctx.fillStyle = brand.accent; ctx.fillRect(lx - 4, ly - 2, 2, 9);
-          text(ctx, l, lx, ly, brand.fg);
+          mapText(l, lx, ly - 1, brand.fg, 7);
           return;
         }
         ctx.globalAlpha = 0.85; ctx.fillStyle = '#fbf7ea'; ctx.fillRect(lx - 2, ly - 1, textWidth(l) + 4, 7); ctx.globalAlpha = 1;
-        text(ctx, l, lx, ly, k ? '#5a5a58' : sel ? '#c0392b' : '#161616');
+        mapText(l, lx, ly - 1, k ? '#5a5a58' : sel ? '#9b372d' : '#161616', 7);
       });
     });
     // the character stands on the selected world, dressed for that era
     const [sx, sy] = NODES[mapSel];
     const era = playerFrames(mapIcons[mapSel].id);
-    ctx.drawImage(era.right.idle[0], sx - 8, sy - 37);
+    if (!drawIllustration(ctx, 'walk-1', sx, sy - 13, 34, 34)) ctx.drawImage(era.right.idle[0], sx - 8, sy - 37);
     // footer: the selected world, then how to move
     const c = chapterOf(mapSel), ch = CHAPTERS[c];
     const name = 'bonus' in ch && ch.bonus ? `BONUS · ${ch.name}` : `WORLD ${c + 1} · ${ch.name}`;
     const foot = `< ${name} · ${ch.stages.length === 1 ? '1 STAGE' : `${ch.stages.length} STAGES`} >   SPACE TO PLAY`;
     ctx.globalAlpha = 0.85; ctx.fillStyle = '#fbf7ea'; ctx.fillRect(14, 254, textWidth(foot) + 4, 9); ctx.globalAlpha = 1;
-    text(ctx, foot, 16, 256, '#2b3654');
+    mapText(foot, 16, 255, '#2b3654', 7);
+    mapText('NOT TO SCALE', 405, 256, '#2b3654', 6);
   }
 
   function draw() {
@@ -549,12 +571,19 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     ctx.translate(snap(-cam + sx), snap(-camY));
     const x0 = Math.floor(cam / TILE) - 1, x1 = x0 + VIEW_W / TILE + 3;
     const y0 = Math.floor(camY / TILE) - 1, y1 = y0 + VIEW_H / TILE + 3;
+    const platformArt = theme.id === 'ai' ? 'glass' : theme.id === 'bedtime' ? 'wood' : theme.id === 'tower' || theme.id === 'desk' ? 'desk' : 'stone';
+    const drawPlatform = (x: number, y: number) => {
+      if (!drawIllustration(ctx, platformArt, x + TILE / 2, y + 14, TILE + 1, 14)) W(theme.platform, x, y);
+    };
     for (let ty = Math.max(0, y0); ty < Math.min(lvl.h, y1); ty++)
       for (let tx = x0; tx < x1; tx++) {
         const t = lvl.tiles[ty]?.[tx];
         if (t === '#') ground(ctx, tx * TILE, ty * TILE, lvl.tiles[ty - 1]?.[tx] !== '#', theme.id);
-        else if (t === '=') W(theme.platform, tx * TILE, ty * TILE);
-        else if (t === 'D' && theme.draft) W(revealed.has(`${tx},${ty}`) ? theme.platform : theme.draft, tx * TILE, ty * TILE);
+        else if (t === '=') drawPlatform(tx * TILE, ty * TILE);
+        else if (t === 'D' && theme.draft) {
+          ctx.globalAlpha = revealed.has(`${tx},${ty}`) ? 1 : .35;
+          drawPlatform(tx * TILE, ty * TILE); ctx.globalAlpha = 1;
+        }
       }
     // floor signs (the tower's job titles)
     if (theme.sign) for (const l of LEVELS[s.level].labels) {
@@ -574,19 +603,22 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       for (let i = 1; i < pts.length - 1; i++) ctx.quadraticCurveTo(pts[i][0], pts[i][1], (pts[i][0] + pts[i + 1][0]) / 2, (pts[i][1] + pts[i + 1][1]) / 2);
       ctx.lineTo(pts[pts.length - 1][0], pts[pts.length - 1][1]);
       ctx.stroke(); ctx.setLineDash([]);
-      for (const m of movers) for (let k = 0; k < m.w; k++) W(theme.platform, m.px + k * TILE, m.y);
+      for (const m of movers) for (let k = 0; k < m.w; k++) drawPlatform(m.px + k * TILE, m.y);
     }
     const bob = opts.reduceMotion ? 0 : Math.round(Math.sin(clock * 4) * 2);
     for (const it of items) {
       if (it.taken) continue;
       const ix = it.x * TILE, iy = it.y * TILE;
-      if (it.kind === 'o' || it.kind === 'u') { const im = it.kind === 'u' && theme.pickup2 ? theme.pickup2 : theme.pickup[0]; W(im, ix + TILE / 2 - im.width, iy + TILE / 2 - im.height + bob); }
-      else if (it.kind === 'B') W(bike, ix + TILE / 2 - bike.width, iy + TILE - bike.height / ART + bob);
+      if (it.kind === 'o' || it.kind === 'u') {
+        const name = it.kind === 'u' ? 'arrow' : theme.id === 'bedtime' ? 'star' : theme.id === 'london' || theme.id === 'lingtung' ? 'journal' : 'gem';
+        if (!drawIllustration(ctx, name, ix + TILE / 2, iy + TILE - 4 + bob, 24, 24)) { const im = it.kind === 'u' && theme.pickup2 ? theme.pickup2 : theme.pickup[0]; W(im, ix + TILE / 2 - im.width, iy + TILE / 2 - im.height + bob); }
+      }
+      else if (it.kind === 'B') { if (!drawIllustration(ctx, 'scooter', ix + TILE / 2, iy + TILE + bob, 50, 34)) W(bike, ix + TILE / 2 - bike.width, iy + TILE - bike.height / ART + bob); }
       else if (it.kind === '^') W(theme.spike, ix, iy + TILE - theme.spike.height / ART);
-      else if (it.kind === 'C') W(theme.check, ix + TILE / 2 - theme.check.width, iy + TILE - theme.check.height / ART);
+      else if (it.kind === 'C') { if (!drawIllustration(ctx, 'flag', ix + TILE / 2, iy + TILE, 26, 38)) W(theme.check, ix + TILE / 2 - theme.check.width, iy + TILE - theme.check.height / ART); }
       else if (it.kind === 'F') {
         const im = theme.finish;
-        W(im, ix + TILE / 2 - im.width, iy + TILE - im.height / ART);
+        if (!drawIllustration(ctx, 'finish', ix + TILE / 2, iy + TILE, 42, 54)) W(im, ix + TILE / 2 - im.width, iy + TILE - im.height / ART);
         // Bedtime: the egg hatches into this week's pet
         if (theme.id === 'bedtime' && s.finished && endT > 0.4) W(petSprite, ix + TILE / 2 - petSprite.width, iy + TILE - im.height / ART - petSprite.height / ART - (opts.reduceMotion ? 0 : Math.min(16, endT * 30)));
       }
@@ -594,6 +626,15 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     for (const h of hazards) if (h.y > -60 && h.y < lvl.h * TILE) W(theme.hazard, h.x, h.y);
     for (const e of foes) {
       const fr = foe.frames[Math.floor(e.t * (foe.fly ? 10 : 5)) % 2];
+      const foeName = ['mosquito','deadline','beetle','pigeon','meeting','change','hallucination','screen'][s.level];
+      if (illustrated(`foe-${foeName}`)) {
+        if (e.alive || (foe.flee ? e.deadT < 1.2 : e.deadT < .35)) {
+          ctx.globalAlpha = e.alive ? 1 : Math.max(0, 1 - e.deadT / (foe.flee ? 1.2 : .35));
+          drawIllustration(ctx, `foe-${foeName}`, e.x + 12, e.y + 20, 28, e.alive || foe.flee ? 26 : 10, e.vx > 0);
+          ctx.globalAlpha = 1;
+        }
+        continue;
+      }
       if (e.alive) {
         // walkers face the way they walk
         if (!foe.fly && e.vx > 0) { ctx.save(); ctx.translate(snap(e.x + 24), snap(e.y)); ctx.scale(-1, 1); ctx.drawImage(fr, 0, 0, 24, 20); ctx.restore(); }
@@ -614,12 +655,14 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     if (!(p.invuln > 0 && p.hurtT === 0 && Math.floor(p.invuln * 12) % 2)) {
       const sq = p.squash, w = 32 * (1 + sq), hh = 48 * (1 - sq);
       const lift = p.ride ? 14 : 0;
-      ctx.drawImage(p.hurtT > 0.25 ? hero.flash : im, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift), snap(w), snap(hh));
+      const frame = p.grounded && Math.abs(p.vx) > 20 && !opts.reduceMotion ? Math.floor(p.run) % 4 + 1 : 1;
+      if (!drawIllustration(ctx, `walk-${frame}`, p.x + PW / 2, p.y + PH - lift, 60, 60, p.face < 0))
+        ctx.drawImage(p.hurtT > 0.25 ? hero.flash : im, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift), snap(w), snap(hh));
       // Kaohsiung: a half-helmet whenever she rides
-      if (p.ride) ctx.drawImage(lid, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift - 2), snap(w), snap(10 * (1 - sq)));
+      if (p.ride && !illustrated('walk-1')) ctx.drawImage(lid, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift - 2), snap(w), snap(10 * (1 - sq)));
       if (p.ride) {
         ctx.save(); ctx.translate(snap(p.x + PW / 2), snap(p.y + PH - bike.height / ART)); ctx.scale(p.face >= 0 ? 1 : -1, 1);
-        ctx.drawImage(bike, -bike.width / ART / 2, 0, bike.width / ART, bike.height / ART); ctx.restore();
+        if (!drawIllustration(ctx, 'scooter', 0, bike.height / ART, 52, 34)) ctx.drawImage(bike, -bike.width / ART / 2, 0, bike.width / ART, bike.height / ART); ctx.restore();
       }
     }
     for (const q of parts) { ctx.globalAlpha = Math.max(0, q.life / 0.35); ctx.fillStyle = q.c; ctx.fillRect(snap(q.x), snap(q.y), 4, 4); }
@@ -633,15 +676,21 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     }
 
     // HUD in the pixel font, at art resolution, on a strip so it reads on any background
-    ctx.globalAlpha = 0.82; ctx.fillStyle = theme.sky; ctx.fillRect(0, 0, HUD_W, 22); ctx.globalAlpha = 1;
-    text(ctx, `${s.collected}/${s.total}`, 8, 8, theme.hud, 2);
-    for (let i = 0; i < T.maxHits; i++) { ctx.fillStyle = i < T.maxHits - s.hits ? theme.hud : 'rgba(127,127,127,.35)'; ctx.fillRect(HUD_W - 14 - i * 10, 8, 6, 6); }
+    ctx.globalAlpha = 0.94; ctx.fillStyle = '#f6fbfd'; ctx.fillRect(0, 0, HUD_W, 22); ctx.globalAlpha = 1;
+    ctx.font = '12px "Pixelify Sans", monospace'; ctx.textBaseline = 'top'; ctx.fillStyle = '#30485a';
+    ctx.fillText(`${s.collected}/${s.total}`, 8, 6);
+    for (let i = 0; i < T.maxHits; i++) {
+      ctx.globalAlpha = i < T.maxHits - s.hits ? 1 : .25;
+      drawIllustration(ctx, 'heart', HUD_W - 12 - i * 13, 17, 10, 10);
+    }
+    ctx.globalAlpha = 1;
     const head = `${stageCode(s.level)} ${WORLDS[s.level].short} · ${WORLDS[s.level].when}`;
-    text(ctx, head, Math.round(HUD_W / 2 - textWidth(head) / 2), 10, theme.hud);
+    ctx.font = '8px "Pixelify Sans", monospace'; ctx.fillStyle = '#30485a';
+    ctx.fillText(head, (HUD_W - ctx.measureText(head).width) / 2, 8);
     // the mission, under the strip
     const ms = s.mission.done ? `★ ${s.mission.text} · DONE` : MISSIONS[s.level].kind === 'ride' ? `★ ${s.mission.text}` : `★ ${s.mission.text} · ${s.mission.have}/${s.mission.need}`;
-    ctx.globalAlpha = 0.82; ctx.fillStyle = theme.sky; ctx.fillRect(0, 22, textWidth(ms) + 16, 12); ctx.globalAlpha = 1;
-    text(ctx, ms, 8, 25, s.mission.done ? '#f3a414' : theme.hud);
+    ctx.globalAlpha = .94; ctx.fillStyle = '#f6fbfd'; ctx.fillRect(0, 22, ctx.measureText(ms).width + 16, 13); ctx.globalAlpha = 1;
+    ctx.fillStyle = s.mission.done ? '#8c5a00' : '#30485a'; ctx.fillText(ms, 8, 24);
     if (s.paused) {
       ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(0, 0, HUD_W, HUD_H);
       text(ctx, 'PAUSED', HUD_W / 2 - 36, HUD_H / 2 - 8, '#ffffff', 3);

@@ -106,3 +106,26 @@ settings are stylized, not literal historical offices or campuses. Physics is
 unchanged. Fresh build produced eight routes and check found zero diagnostics
 across 70 files. The latest full suite passed 77 tests with one enemy-landing
 timing failure under investigation; layout and axe checks passed. No release yet.
+
+## Review correction, 10 October 2026, 16:49
+
+Shannon removed the illustrated room/landscape scenes from all project pages.
+Keep scenery inside the game. Site background returns to clean white, with more
+padding and space and stronger typography. This supersedes the cream page and
+scroll-traveller case-header decisions above. Product screens, persona graphics
+and diagrams remain; their intrinsic proportions still apply.
+
+## Final review direction, 10 October 2026
+
+Shannon's later feedback takes precedence over the original cream-world pass:
+white, clean case pages; FX defaults dark to frame its real screenshots. A saved
+Light / Dark / System / Theme choice applies across the site. Product heroes show
+product screens, never decorative office scenes. Pixel art belongs to identity,
+process illustration, navigation accents and the optional game. Typography is
+stronger again (700 headings), with generous reading space. No generic scrolling
+word marquee and no build-credit footer line. The original words remain.
+
+Avoid a template impression through specific original brand assets, actual
+product flows and trade-offs, varied screen compositions and semantic project
+accents. More decorative images alone do not meet this direction. Keep the game
+secondary, with clear routes to the work and reduced-motion/static alternatives.

@@ -330,6 +330,277 @@ historical checkpoints, superseded by this one.
 
 Next requested feature, after this release: public end-of-game scores with
 optional nicknames; detailed visit, play and per-level statistics private to
-Shannon. No database or environment variables are connected to this portfolio
-project yet. Shared storage and secure private access must be implemented and
-verified; browser-local counters must not be presented as global visitors.
+Shannon. Upstash free London database `portfolio-game` is now provisioned and connected
+to `shannonhecker-work`, after Shannon accepted terms; `autoUpgrade=false`.
+Shared scoreboard storage and private reporting still need implementation and
+verification. Browser-local counters must not be presented as global visitors.
+
+
+## Current release and analytics follow-up
+
+Parent reports PR 24 merged as `3d7e4036` after all CI checks passed. Deployment
+verification is in progress; do not claim the live follow-up is verified yet.
+The Upstash connection is provisioned, not evidence that a scoreboard is working.
+
+Shannon requests Google Analytics for private visitor/play/per-level reporting,
+with public scores and optional nicknames. Analytics configuration, event
+implementation, scoreboard API and privacy boundaries remain open work.
+
+| ID | Task | State | Acceptance |
+|---|---|---|---|
+| A01 | Verify PR 24 deployment | In progress | Correct merge deployed; routes, media and game checked |
+| A02 | Connect shared score storage | Provisioned; application integration pending | Free London Upstash, no automatic upgrade; server-side credentials only |
+| A03 | Define score and attempts | Audit complete; implementation pending | Stable stage IDs, explicit scoring/ties, retry/reset semantics, idempotent completion |
+| A04 | Public scoreboard | Pending | Optional nickname, clear public submission action, safe validation, bounded leaderboard |
+| A05 | Private GA reporting | Pending | Visitor/play/per-level views private to Shannon; no public analytics dashboard or personal identifiers in events |
+| A06 | Verify/release analytics feature | Pending | Event deduplication, API validation, outage behavior, consent behavior, tests, CI and deployed verification |
+
+### Existing game behavior relevant to scoring
+
+- Eight stages in four chapters; the picker can start any stage. Finishing the
+  bonus alone does not establish a complete eight-stage run.
+- `collected`, `hits`, `stomped` and mission progress reset on `loadLevel`.
+  Session `done`/`missions` persist. `jumps` currently appears cumulative;
+  explicitly scope/reset it if used in a per-stage record.
+- Three hits restart a stage. Restart attempts need their own IDs/counters.
+- Completion is snapshotted, then the end callback runs after 200/1300ms.
+  Associate it with its run ID so switching stages cannot submit a stale result
+  or display the wrong end card.
+- The existing “Shipped” reward means every pickup collected; mission completion
+  is separate. Do not equate either with a real portfolio project's ship status.
+- Current state has no published numeric score or elapsed completion time.
+  Define the formula and active-play clock before showing rankings. Pause,
+  background time and loading must not penalize completion time.
+
+### Recommended events and scoreboard validation
+
+Use stable `game_version`, `stage_id`, chapter and attempt/run identifiers.
+Separate opening Play/map from actually starting a level. Emit level start,
+restart, complete and exit once per transition; derive mission completion from
+one authoritative state. Track completion with active elapsed time, pickups,
+total pickups, hits and mission result. Score-submission success/failure is a
+separate event, not another completion. No frame-by-frame tracking is needed.
+
+Keep optional public nicknames out of GA payloads. Do not send email, raw IP,
+free-text input or arbitrary URL query strings. Avoid high-cardinality run IDs
+as registered report dimensions; use them only where necessary for deduplication.
+Existing analytics consent behavior must be respected; requesting public score
+submission is a separate choice from analytics participation.
+
+Prefer per-stage rankings or normalize deliberately: pickup totals and mission
+requirements differ. The API should validate stage/version IDs, integer ranges,
+finite values, completion status, nickname length and allowed characters; render
+nicknames as text. Compute scores server-side rather than trust a submitted score.
+Use run IDs for idempotency, bounded responses and rate limits. A client game can
+be manipulated, so do not describe browser-submitted scores as cheat-proof.
+Read-only `__game`/test-assist paths must not establish trusted competitive results.
+
+Verify duplicate callbacks/submissions, replay/restart, direct stage links,
+map exit, fullscreen pause, hidden tabs, reduced motion, empty nickname, Unicode,
+invalid/oversized input, network failure and unavailable storage. Score failures
+must not prevent normal play or end-card navigation. Confirm reports receive
+real events without exposing private visitor analytics publicly.
+
+## Latest product-screen and layout feedback
+
+Active branch observed: `feat/game-leaderboard-analytics`. Shannon's current
+priority is more real product screens on every case page. Existing recordings,
+generated scene art and process diagrams do not substitute for additional
+real UI states. Audit below is from local assets/components, not a new live
+product verification. Do not claim a missing state exists until observed.
+
+| Case | Current real screen coverage | Prioritized additional captures, if available |
+|---|---|---|
+| FX | Enhanced workspace, filters, comparison, pre-submit ticket; tablet/phone captures; current video | Classic versus Enhanced at the same data/context; actual reprice ticket with validation or cancel path; suspended/delayed/outside-limit state as currently rendered; no-results filter result. Use simulated rebuild only, and never present proposed lane/clusters as live |
+| Fusion | Catalogue, Performance, configuration, Sustainable Investment; responsive catalogue; video | Risk workspace; report selection through configured result; current navigation/setting destination; observable empty/loading/permission/error states. Do not fabricate entitlement screens or represent the public rebuild as original client production |
+| uoaui | Landing comparison, signed-in builder, Salt UI Kit, charts, own-system library; responsive UI Kit; current video | Same saved canvas in two systems with full context; actual template selection and editable property panel; export dialog/output preview if accessible without changing saved work; observed generation/empty/error state only when safely reproducible. UI Kit screens do not complete the builder flow |
+| Winking Star | Home, Activity, Treasure, Progress, Welcome; original icon/art/theme banners | Settings and Kid Mode; actual shared-board invite/join screens; add-child or routine edit with validation; current iPad layout; offline or midnight/weekly transition evidence if available. Use sample family and approved Monday/iOS behavior, not older contradictory drafts |
+
+Capture acceptance: whole meaningful screen at readable resolution, intrinsic
+proportions, clear date/source/state caption, placed beside the decision it
+supports. Show connected before/action/result screens where genuine states are
+available. Avoid reusing the same screenshot repeatedly merely to increase
+image count. Public captures must remain free of confidential customer data.
+Winking theme banners, persona illustrations and chapter scenes are artwork,
+not product-state coverage.
+
+### Feedback queue, pending verification
+
+- Remove the marquee. Hero ticker markup and Winking theme marquee still exist
+  in source at this audit; do not mark removed based on intention alone. Retain
+  useful banner content statically if appropriate.
+- Make the secondary game preview compact, using the Google Doodle reference;
+  preserve optional play and existing keyboard/touch/fullscreen access.
+- Enlarge and align the hero avatar with the text composition across breakpoints.
+- Theme discussion subsequently led to local project/light/dark/system choices.
+  All variants still require final contrast, persistence and responsive checks.
+- Footer credit is removed locally per the latest user instruction, overriding
+  the older handoff preference. Deployment/visual verification remains pending.
+- Game-art integration, diagrams, personas and navigation remain review work
+  under the newest feedback. Earlier implementation notes are not acceptance
+  of the latest composition; inspect before closing these items.
+- Analytics/scoreboard tasks remain tracked above. Neither a provisioned database
+  nor earlier release CI proves completion of the active feature branch.
+
+
+## Latest active-branch checkpoint: bespoke visual pass
+
+Parent-reported current full suite: **80/83 passed**, with three FX dark-theme
+journey-number contrast failures under correction. This is not a green release
+candidate. The following are locally implemented, not deployed or accepted as
+complete merely because they exist:
+
+- Project/light/dark/system theme choices.
+- Animated landing avatar with explicit controls, and compact secondary game.
+- Pixel logo and objects; four Nano process illustration strips.
+- Persona portraits placed inside their cards, remaining fictional role art.
+- Four official iPhone and two iPad Winking Star screens. French/Chinese
+  marketing materials are labelled as marketing rather than live UI states.
+- Additional real current FX, Fusion and uoaui captures.
+
+The generated game map/avatar/object batch still awaits integration. Earlier
+coverage tables describe the pre-addition inventory; reconcile each final
+screen with its source and observed state before closing coverage gaps.
+
+### Remaining concrete gates
+
+1. Fix all three FX journey-number contrast failures, then pass the full 83-test
+   suite on the final build. Review every theme, including system preference
+   changes, stored selection, first paint and reduced-motion behavior.
+2. Integrate the pending game map/avatar/object batch and inspect cover → map →
+   stage transitions at desktop and phone sizes. Retest all eight stages, hit
+   readability, controls, pause/resume, fullscreen and score reporting after it.
+3. Inspect avatar animation controls for keyboard operation, accessible state,
+   reduced-motion/static fallback and focus. Confirm the compact game stays
+   secondary to the introduction and works without motion.
+4. Inspect process strips and persona cards for readable text, alignment and
+   overflow. Generated artwork must not imply new research participants,
+   observations or data. Confirm all labels remain real accessible text.
+5. Audit added screenshots in context: intrinsic proportions, enough readable
+   scale, linked full size where appropriate, real source/date/state captions,
+   device/platform labels and connected flows. Translation/marketing panels
+   must not substitute for missing actual application states.
+6. Confirm marquee removal and local footer-credit removal in final output;
+   finish navigation and responsive layout review rather than inherit earlier
+   acceptance. Verify all routes at 320/390/820/1440px and in supported themes.
+7. Honor Shannon's explicit request to avoid an AI-template appearance. Judge
+   the result as a coherent personal design: purposeful hierarchy and imagery,
+   restrained repetition, project-specific details and real work carrying the
+   story. Merely adding generated strips, cards or decorative objects does not
+   satisfy this criterion. Record concrete visual findings and fixes.
+8. Recheck production performance after new images, animation and theme code;
+   complete scoreboard/private-analytics validation, fresh build/check/tests,
+   CI and deployed route verification. Nothing in this checkpoint is live yet.
+
+Source and metrics gaps remain open in `REVOLUT-CHECKLIST.md`: no invented
+adoption/KPIs, no fabricated test method/sample/date, no cross-product transfer
+of research. FX remains beta/public simulated rebuild, Fusion's public interface
+remains a rebuild, and uoaui remains private alpha. New screens improve visual
+coverage but do not establish measured outcomes or every requested edge state.
+
+
+## Current status, latest verification
+
+This checkpoint supersedes earlier in-progress counts above. The implementation
+is local; PR, CI and deployment have not been completed. Award-level craft is
+the target, not an independently certified result.
+
+| Area | Verified result or current state |
+|---|---|
+| Automated suite | Final local suite passed 93/93 in 59.4 seconds after all dark-theme fixes |
+| Build / diagnostic check | Nine pages built; 88 files checked, zero diagnostics |
+| Local Lighthouse | Ten runs: mobile performance 96–99, desktop performance 100; accessibility, best practices and SEO all 100 |
+| Game artwork | New map, walking avatar, objects and all eight enemy sets integrated; loader prepares art before play |
+| Visual corrections | Contact navigation wrap corrected with three-column actions; journey contrast and video captions corrected |
+| Product captures | Small final refinements recaptured current UI at more useful viewport sizes |
+| Analytics privacy | Every event and configuration URL now sanitized; final verification remains part of release checks |
+| GA reporting | Game stage and Reading depth definitions visibly verified saved |
+| Additional dark audit | Winking journey headings, loop, product-sample colours and brand caption corrected; final suite passed |
+
+### Remaining work before release
+
+1. Complete the additional dark-theme audit and inspect 320px and tablet layouts,
+   including navigation, case evidence, diagrams, themes and game entry/exit.
+2. Verify the final small capture/analytics refinements with appropriate checks;
+   distinguish the tested build from any subsequent edits. Preserve reduced-motion
+   behavior, image proportions and legible caption contrast.
+3. Confirm public scores and private analytics boundaries, duplicate-submission
+   behavior and error handling. Saved GA definitions alone do not establish
+   correct event delivery or complete reports.
+4. Complete PR and CI, then verify the deployed routes, new assets and game.
+   Current local scores/tests do not prove deployed behavior.
+5. Retain the factual limitations in `REVOLUT-CHECKLIST.md`. No new image,
+   animation, test count or Lighthouse score closes missing product KPIs,
+   research sample/protocol evidence or unsupported edge-state claims.
+
+### Evidence and quality limits
+
+FX is internal beta with a simulated public rebuild; Fusion's public UI is a
+rebuild of shipped work; uoaui is private alpha. Persona portraits and process
+illustrations are supportive artwork, not evidence of research participation.
+Keep current source captions, platform limitations and marketing labels intact.
+
+Review the final composition against Shannon's request for a personal, coherent
+site that avoids an AI-template appearance. Record concrete findings rather
+than self-awarded quality scores. No award jury or Revolut panel has approved
+this implementation, and no submission is implied by a technical release.
+
+### Final local inspection update
+
+Complete-page dark-theme auditing exposed Winking chip contrast; corrected.
+320px review exposed header grid gaps wider than the viewport; corrected.
+820px Winking review exposed the global picture wrapper rule; corrected without
+cropping the three screens. All seven reviewed routes now fit at
+320/390/820/1440px. Final build/check/test evidence is in QUALITY.md. The release
+still requires PR CI, merge and live API/Analytics smoke checks.
+
+
+### Final-scope assessment, pending release
+
+Shannon reiterated that the site must not resemble an AI template. The local
+scope now addresses the requested components: compact optional game, controlled
+avatar, coherent game assets, theme choices, personal brand work, richer real
+product evidence, illustrated roles/process, chapter navigation and private
+analytics/public scores. Their presence does not by itself establish the
+requested level of originality or final visual quality.
+
+Actual remaining essentials:
+
+- **Final green build evidence:** the latest full suite is running after the
+  Winking dark journey-heading contrast correction. The preceding 91/93 run
+  failed only that issue. Build has nine pages; check now covers 88 files with
+  zero diagnostics. Do not cite the older 93/93 as final-change verification.
+- **Release:** PR, CI and deployment remain pending. Live score persistence,
+  validation, failure handling and Analytics delivery still require production
+  smoke checks. Locally saved GA definitions are not delivery evidence.
+- **Personal visual judgment:** review full compositions, not component counts.
+  Look for repetitive identical cards/illustration strips that overwhelm project
+  differences, decorative scenes displacing readable product UI, inconsistent
+  avatar/game craft, and filler labels. Only observed defects should trigger
+  changes; record why the final choices serve Shannon's work.
+- **Brief evidence:** measured impact/adoption and complete test protocols are
+  still unavailable for several cases; Fusion/uoaui complete edge-state proof
+  remains limited. Do not mark every official Revolut criterion fully satisfied
+  just because all sections exist. Keep the exact source/status caveats.
+- **Scope boundary:** the current deliverable covers the four published cases.
+  Corporate Action Manager, Deal Model and Data Solution remain separate future
+  cases; do not imply the entire historical portfolio has been rebuilt.
+
+The 320px and tablet layout defects have been locally corrected and inspected,
+including intact Winking hero image proportions. Current verification must
+still follow the final fixes. No external award certification, panel approval,
+submission, or deployed acceptance is claimed.
+
+
+### Final local checkpoint before PR
+
+All **93/93 tests passed in 59.4 seconds** after the final dark-theme corrections.
+Nine routes built; 88 files checked with zero diagnostics. Winking dark mode now
+includes corrected journey headings, loop and sample-product colours and brand
+caption; navigation link colours update immediately with the theme. Main visually
+inspected the updated tablet Winking hero and mobile home, game and FX captures.
+
+Commit/PR preparation is underway. This supersedes the pending-rerun notes;
+PR CI, merge, deployment and live API/Analytics checks remain outstanding.
+Factual product-evidence limitations and independent design-quality caveats
+remain unchanged. No deployment or submission is claimed.

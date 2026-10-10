@@ -326,3 +326,22 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - I made my end-to-end ownership visible in Winking Star and uoaui: original logos, current palettes, typography, spacing and component foundations. Winking uses the original 1024px app icon; uoaui uses my original lockup and a fresh capture of my own live system. Current product tokens take precedence over older portfolio swatches.
 - I fixed the narrow-screen hero overflow and updated the enemy-landing check to approach an enemy and jump deliberately, rather than jump blindly on a timer. The test reads enemy positions; gameplay physics are unchanged.
 - Final local verification: eight routes built, 73 files checked with zero diagnostics, all 78 tests passed in 42.0 seconds, and all ten Lighthouse runs met the 95-point category budget. Mobile performance is 96–99. Optional desktop effects now load on scroll. Release CI and deployment are tracked separately.
+
+### PR 27 · Optional scores and private visit reports
+
+- I added a stage scoreboard with an optional made-up nickname. Sharing is a deliberate choice at the end of a stage, and each stage has its own top ten. The score rewards finishing and pickups, with a small deduction for bumps.
+- I connected a free London database with paid auto-upgrades disabled. The server checks score bounds, signs short-lived run receipts and saves repeat submissions only once. These are friendly, client-reported game scores, not a cheat-proof tournament.
+- I connected my existing Google Analytics stream for visits, reading depth and stage starts/completions. Analytics loads only after consent, with advertising features off. Nicknames are never sent to Google. Footer settings and a privacy page explain the choice.
+- I reset jump counts per attempt and prevent an old delayed finish from showing over a new stage. Network failures leave the game playable.
+- Local checks: nine routes built, 81 files checked without diagnostics, 83 tests passed. A real database concurrency check saved one result from two simultaneous submissions, then removed the test entry. Release and visual checks are tracked in docs/TASKS.md.
+
+- Following my visual review, I removed the illustrated landscape headers from all four cases and kept scenery in the game. The pages are white again, with stronger 700-weight headings, medium-weight introductions and more generous chapter, row and diagram spacing.
+- Each case now opens with its own product UI: the current public FX and Fusion rebuilds, the current uoaui builder, and a three-screen Winking Star flow. Screens keep their full proportions.
+- I removed the build credit from the footer after my review. The build log remains available at its existing address.
+
+- I made the introduction and optional game feel like my own small adventure: my pixel SH mark, a larger avatar with blink and smile frames, bounded arrow controls and a pause button. The game preview stays compact and the four projects share equal space.
+- I brought the game map, walk cycle, objects, obstacles and HUD closer to the detailed scenery. Artwork is prepared before play, with the original renderer as a connection fallback. Keyboard, touch and physics stay intact.
+- I gave each project its own accent and added light, dark, system and project theme choices. FX starts dark. The main navigation slips away while reading and returns on upward scroll; Contact and the theme selector remain on one row.
+- I put role portraits inside persona cards, added project-specific process illustrations, and removed repetitive filled boxes from journey and flow diagrams. All diagram text stays selectable and responsive. Decorative art is labelled separately from research evidence.
+- I added more current public FX, Fusion and uoaui screens, plus Winking Star's published iPhone and iPad artwork and labelled French and Traditional Chinese store compositions. Screens retain their proportions and full-size links.
+- The current local release candidate passes 93 browser tests, including all eight game stages, theme persistence, system preference changes, bounded avatar controls, accessibility and analytics consent. Ten Lighthouse runs meet the 95-point gate: mobile performance 96–99, desktop 100, and accessibility/best practices/SEO 100. CI and live deployment remain separate gates in the tracker.

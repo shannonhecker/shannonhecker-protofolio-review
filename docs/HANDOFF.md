@@ -23,7 +23,7 @@ Repo: `shannonhecker/shannonhecker-protofolio-review`. The brief is in
 - Keep Shannon's words. She said no to cutting the case copy (10 Oct 2026).
   Add images, spacing and diagrams around it instead.
 - Game: no Nintendo characters, sprites, sounds, items or names.
-- Footer line: "Built in code with Claude Code, art directed by me." linking to /build.
+- Footer: Shannon requested removal of the build credit on 10 October 2026. Keep the build log at `/build`, without the credit line in the footer.
 - Branch per change, PR to main, merge. Run `npx playwright test` first
   (`PW_CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome` in the cloud sandbox).
 - Ask Shannon one question at a time.

@@ -5,3 +5,8 @@ test-results
 playwright-report
 .vercel
 .DS_Store
+.env*
+
+# Local integration skill installation
+.agents/
+skills-lock.json

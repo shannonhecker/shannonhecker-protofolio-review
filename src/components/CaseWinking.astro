@@ -10,12 +10,12 @@ const HD = top ? 'h3' : 'h4'; // decision titles
 import Pic from './Pic.astro';
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
-import ChapterScene from './ChapterScene.astro';
 import BrandMark from './BrandMark.astro';
 import BrandSystem from './BrandSystem.astro';
-import PersonaArt from './dg/PersonaArt.astro';
+import ProcessArt from './dg/ProcessArt.astro';
 import DecisionMap from './dg/DecisionMap.astro';
 import CoParent from './dg/CoParent.astro';
+import WinkingScreens from './WinkingScreens.astro';
 
 ---
 <section id="winking" data-tone="light" class="ws band">
@@ -30,7 +30,14 @@ import CoParent from './dg/CoParent.astro';
         <p class="lead muted" style="grid-column:1/9">A warm, ad-free routine app for families. Every check earns a star, and every week those stars grow a Mystery Pet. I designed and built it on my own, so the visual decisions, the copy and the code are all mine.</p>
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designer and builder, one of one</span><span><b>Stack</b> · React Native, Expo, Firebase</span><span><b>Status</b> · Live, v1.0.4, iPhone and iPad</span><span><b>Languages</b> · EN, FR, ES, DE, 繁體中文</span></div>
       </div>
-      <ChapterScene project="winking" />
+      <figure class="project-hero app-hero">
+        <div class="app-hero-screens">
+          <Pic name="ws-home.jpg" alt="Winking Star home screen with the daily routine and weekly pet" sizes="(max-width:760px) 28vw, 300px" eager />
+          <Pic name="ws-activity.jpg" alt="Winking Star activity screen" sizes="(max-width:760px) 28vw, 300px" eager />
+          <Pic name="ws-progress.jpg" alt="Winking Star progress screen showing the week's stars" sizes="(max-width:760px) 28vw, 300px" eager />
+        </div>
+        <figcaption>Winking Star · iPhone app · Home, activities and progress</figcaption>
+      </figure>
     </header>
     <CaseContents project="winking" />
 
@@ -65,10 +72,9 @@ import CoParent from './dg/CoParent.astro';
       <div class="label"><HL class="k"><b>02</b> Personas</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Three users, one star. Nobody has the same job." />
-        <PersonaArt project="winking" />
         <div class="personas">
           <div class="persona">
-            <div class="band" style="background:linear-gradient(90deg,var(--ws-sage),var(--ws-forest))"></div>
+            <div class="persona-portrait"><Pic name="persona-winking-0.png" alt="" sizes="160px" widths={[160,320]} /></div>
             <div class="who">The child · Leo, 6</div>
             <p>Can't read much yet. Knows his own name, his colour and his football.</p>
             <span class="k">Wants</span><p>To tick it himself, see the star land, and find out what the pet turns into.</p>
@@ -76,7 +82,7 @@ import CoParent from './dg/CoParent.astro';
             <span class="k">Design answer</span><p>A big illustrated banner per theme, celebration on every tick, and a weekly pet so one bad day doesn't end the game.</p>
           </div>
           <div class="persona">
-            <div class="band" style="background:linear-gradient(90deg,#b9cee3,#494fdf)"></div>
+            <div class="persona-portrait"><Pic name="persona-winking-1.png" alt="" sizes="160px" widths={[160,320]} /></div>
             <div class="who">The parent · sets it up</div>
             <p>Downloads it after another bedtime argument. Decides in two minutes if it stays.</p>
             <span class="k">Wants</span><p>Routines done without nagging. One place both adults can see. Nothing that sells to her kids.</p>
@@ -84,7 +90,7 @@ import CoParent from './dg/CoParent.astro';
             <span class="k">Design answer</span><p>A sample family on first open, so value shows before any setup. Kid Mode and a parental gate. Custom activities, so Mandarin sits next to teeth.</p>
           </div>
           <div class="persona">
-            <div class="band" style="background:linear-gradient(90deg,var(--ws-star),var(--ws-peach))"></div>
+            <div class="persona-portrait"><Pic name="persona-winking-2.png" alt="" sizes="160px" widths={[160,320]} /></div>
             <div class="who">The second adult · never opted in</div>
             <p>Partner, grandparent, childminder. Got an invite on WhatsApp. Has thirty seconds.</p>
             <span class="k">Wants</span><p>To tick a star and get back to bedtime.</p>
@@ -95,12 +101,14 @@ import CoParent from './dg/CoParent.astro';
       </div>
     </div>
 
+    <p class="art-note">Role illustrations, not photographs of research participants.</p>
     <div class="beat wide rv" id="ws-flow">
       <div class="body">
         <div class="g" style="row-gap:24px">
           <HL class="k mono" style="grid-column:1/4;color:var(--ws-forest)"><b>03</b> The full flow</HL>
           <Split as="h3" class="h-sub" style="grid-column:4/11" text="Four tabs, one week. Home, Activity, Treasure, Progress." />
         </div>
+        <WinkingScreens />
         <div class="strip-wrap" role="region" tabindex="0" aria-label="App screens, scrollable"><div class="strip" id="strip">
           <div class="phone"><div class="frame"><Pic name="ws-home.jpg" alt="Home tab: The Sample Family, today 23 of 30 done, recent celebrations such as Leo the Brave hatched a cat named Shaul" sizes="300px" widths={[320, 640]} /></div><span class="t">Home</span><span class="d">Today's count for the whole family, and a feed of what each kid hatched or earned.</span></div>
           <div class="phone"><div class="frame"><Pic name="ws-activity.jpg" alt="Activity tab: Leo the Brave's star week, 36 of 70 stars, pet growth card showing Shaul is growing, weekly goal park picnic" sizes="300px" widths={[320, 640]} /></div><span class="t">Activity</span><span class="d">Pick a kid, tap today's big star spots. The pet card shows how many stars to the next stage.</span></div>
@@ -117,6 +125,7 @@ import CoParent from './dg/CoParent.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="From a bad bedtime to week two." />
         <p class="muted measure">The parent's journey, with the child's feeling underneath, the moment it breaks, and what the design does about it. Scroll sideways on a phone.</p>
+        <ProcessArt project="winking" />
         <div class="journey" role="region" tabindex="0" aria-label="Journey stages, scrollable">
           <div class="stage"><h4>1 · Another bad bedtime</h4><span class="k">Parent does</span><p>Searches for a chore chart app. Most are checklists, subscriptions or ads.</p><span class="k">Child feels</span><p>Fed up.</p><span class="k">Where it breaks</span><p>Nothing is made for a six-year-old.</p><span class="k">Design answer</span><p>Ad-free, kid-first on the store page.</p></div>
           <div class="stage"><h4>2 · First open</h4><span class="k">Parent does</span><p>Opens the app and finds the Sample Family already set up.</p><span class="k">Child feels</span><p>Curious.</p><span class="k">Where it breaks</span><p>Asked to set up before seeing value.</p><span class="k">Design answer</span><p>A working sample board first. Add your own family when you like it.</p></div>
