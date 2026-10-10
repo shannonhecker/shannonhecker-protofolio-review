@@ -203,3 +203,39 @@ html:not(.has-js) .game-sound{display:none}
 .game-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .game-map{font:inherit;font-size:15px;font-weight:500;padding:12px 20px;min-height:44px;border-radius:999px;border:1px solid var(--hair);background:var(--bg);color:var(--fg);cursor:pointer}
 html:not(.has-js) .game-world{display:none}
+
+/* Full screen game: real Fullscreen API where the browser allows it, and the
+   same layout as a fixed overlay where it doesn't (iPhone Safari). Escape or
+   the Exit button always returns to the page. */
+.game-tools{display:inline-flex;gap:8px}
+.game-exit{display:none}
+.play.is-full{position:fixed;inset:0;z-index:1000;background:#0b0f1a;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding:max(56px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));overflow:hidden}
+.play.is-full .game{width:min(100%,calc((100dvh - 180px) * 16 / 9));border-color:transparent;border-radius:4px}
+.play.is-full .game-bar{width:min(100%,calc((100dvh - 180px) * 16 / 9));margin:0}
+.play.is-full .game-bar select,.play.is-full .game-sound{color:#fff;border-color:rgba(255,255,255,.35);background:transparent}
+.play.is-full .game-bar select option,.play.is-full .game-bar select optgroup{color:#161616}
+.play.is-full .game-caption{display:none}
+.play.is-full .game-touch{width:min(100%,calc((100dvh - 180px) * 16 / 9));margin:0}
+.play.is-full .game-touch button{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.35)}
+.play.is-full .game-exit{display:inline-flex;position:absolute;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));gap:8px;align-items:center;font:inherit;font-size:14px;font-weight:600;color:#161616;background:#fff;border:0;border-radius:999px;padding:10px 16px;min-height:44px;cursor:pointer}
+.play.is-full .game-exit:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.play.is-full #game-full{display:none}
+html.game-is-full{overflow:hidden}
+@media (hover:none){.play.is-full .game{width:min(100%,calc((100dvh - 200px) * 16 / 9))}}
+.game-rotate{display:none}
+/* phone held upright: invite a turn */
+@media (hover:none) and (orientation:portrait){.play.is-full .game-rotate{display:block;font-size:14px;color:rgba(255,255,255,.7);margin:0}}
+/* phone sideways: the game takes the full height; the arrows sit in the dark
+   side margins and the picker steps aside, so nothing covers the play */
+@media (hover:none) and (orientation:landscape){
+  .play.is-full{padding:8px max(8px,env(safe-area-inset-right)) 8px max(8px,env(safe-area-inset-left))}
+  .play.is-full .game{width:min(calc(100% - 176px),calc((100dvh - 16px) * 16 / 9))}
+  .play.is-full .game-bar{display:none}
+  .play.is-full .game[data-state] ~ .game-touch{position:absolute;inset:0;width:auto;pointer-events:none;padding:0 max(12px,env(safe-area-inset-right)) 16px max(12px,env(safe-area-inset-left));display:grid;grid-template-columns:64px 1fr 64px;grid-template-rows:1fr 64px 64px;gap:12px}
+  .play.is-full .game-touch button{pointer-events:auto}
+  .play.is-full .game-touch [data-k="left"]{grid-column:1;grid-row:2}
+  .play.is-full .game-touch [data-k="right"]{grid-column:1;grid-row:3}
+  .play.is-full .game-touch [data-k="jump"]{grid-column:3;grid-row:3;margin:0}
+  .play.is-full .game-exit{padding:0;width:44px;justify-content:center;top:8px;right:max(8px,env(safe-area-inset-right))}
+  .play.is-full .game-exit-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+}

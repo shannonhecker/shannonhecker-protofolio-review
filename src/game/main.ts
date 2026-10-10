@@ -105,7 +105,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     items = lvl.items.map((i) => ({ ...i }));
     s.total = items.filter((i) => i.kind === 'o' || i.kind === 'u').length;
     arrows = items.filter((i) => i.kind === 'u').length; arrowsGot = 0;
-    s.collected = 0; s.hits = 0; s.finished = false; endT = 0; clock = 0; p.ride = false;
+    s.collected = 0; s.hits = 0; s.finished = false; s.paused = false; endT = 0; clock = 0; p.ride = false;
     foe = FOES[theme.id]();
     foes = lvl.foes.map((f) => ({ x: f.x * TILE + 4, y: (f.y + 1) * TILE - 20, ox: f.x * TILE + 4, oy: (f.y + 1) * TILE - 20, vx: -46, t: f.i * 1.3, alive: true, deadT: 0 }));
     s.stomped = 0; s.foes = foes.length;

@@ -8,7 +8,9 @@
 import Pic from './Pic.astro';
 import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
 ---
-<div class="play">
+<div class="play" data-lenis-prevent>
+  <button type="button" class="game-exit" id="game-exit" hidden><span class="game-exit-label">Exit full screen</span> <span aria-hidden="true">✕</span></button>
+  <p class="game-rotate" aria-hidden="true">Turn your phone sideways for a bigger game</p>
   <div class="game" data-state="poster">
     <canvas id="game" width="480" height="270" tabindex="-1" role="application" aria-roledescription="game" aria-label="Working Order" aria-describedby="game-desc"></canvas>
     <div class="game-poster">
@@ -60,9 +62,12 @@ import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
         ))}
       </select>
     </label>
-    <button type="button" class="game-sound" id="game-sound" aria-pressed="false">Sound</button>
+    <span class="game-tools">
+      <button type="button" class="game-sound" id="game-full">Full screen</button>
+      <button type="button" class="game-sound" id="game-sound" aria-pressed="false">Sound</button>
+    </span>
   </div>
   <p class="game-caption">Working Order · from Kaohsiung to London to what's next</p>
-  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at 捷元電腦), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Each stage has a small enemy you can jump on and an optional mission for a gold star. Arrow keys or WASD to move, Space or Up to jump, Escape to pause. On the map, Left and Right choose a world and Space starts it.</p>
+  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at 捷元電腦), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Each stage has a small enemy you can jump on and an optional mission for a gold star. Pressing Play opens it full screen; Escape or the Exit full screen button returns to the page. Arrow keys or WASD to move, Space or Up to jump, Escape to pause when not full screen. On the map, Left and Right choose a world and Space starts it.</p>
   <p id="game-status" class="vh" aria-live="polite"></p>
 </div>
