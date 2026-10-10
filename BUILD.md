@@ -386,7 +386,7 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 
 - I replaced the section popup with a closable side panel and made the FX status note plain text. My new FX personas, journey map and two interaction frames now come from my supplied Figma file, with source links and responsive text. The sample-data labels distinguish designs from the public rebuild.
 - I removed the coloured gaps around the home artwork, set interface corners to 4px and kept desktop product statuses on one row. The introduction now flows from text to scenery to my avatar with a much shorter pause.
-- I added my 2011 and 2018 family milestones, my 2013 move to the UK for a working holiday and study, and my art, craft, digital media, game and UX education details to the game. A few source-linked world events provide context.
+- I added my 2018 and 2021 family milestones, my 2013 move to the UK for a working holiday and study, and my art, craft, digital media, game and UX education details to the game. A few source-linked world events provide context.
 - Every stage has an original tune. Losing a run or falling has its own cue. My scooter uses a seated pose, and a short skippable flight connects Taiwan to the UK.
 - Winking Star now ends with an original Scrollkeeper villain, a storybook castle, a flag I raise and a celebration. Completed stages have check marks, optional missions have stars, and progress stays in the browser between visits.
 - The combined build passes all 120 browser checks, including the final boss, flag, travel, saved completion, distinct stage music, timeline pause/resume, responsive artwork and title-label clearance. CI and live release are recorded separately.
@@ -400,3 +400,7 @@ I added an original starlight wand to the finale. I can face the Scrollkeeper an
 ### Scroll motion and page-load rhythm
 
 I made the work gallery move in layers: images arrive first, then titles and captions catch up. Section words reveal through masks that follow scrolling in both directions, and the intro's book, star and backdrop travel at different speeds. Touch uses smaller movements; reduced motion restores static, fully readable content. Case metadata and descriptions enter in a short sequence. I tightened the text-to-scene-to-avatar entrance and load the first greeting poses eagerly, so the choreography does not add a long wait. This pass changes website code only while Claude improves the Figma file.
+
+I corrected my baby milestone from 2011 to 2021, keeping 2018 unchanged. The game journal now lists both family milestones in chronological order.
+
+I gave every stage a different song arrangement: swung harbour melody, campus waltz, clipped workshop groove, slow London rain, rising city theme, fast market rhythm, spacious AI theme and a driving storybook finale. Each has its own note lengths, bass pattern and instrumentation. The browser test observes actual Web Audio notes and checks that changing stages stops the previous song. I embedded the small original journey vectors to avoid twenty competing image requests while the FX hero loads, and defer offscreen video posters with native lazy loading.

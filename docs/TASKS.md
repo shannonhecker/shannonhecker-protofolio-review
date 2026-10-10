@@ -679,7 +679,7 @@ nine pages built, 88 files checked without diagnostics.
 
 - [x] Expandable section side panel, unboxed project status, new authored FX personas/journey and interaction frames.
 - [x] Home artwork edge repair, 4px UI corners, one-row desktop statuses, tighter text/scenery/avatar timing.
-- [x] Timeline with 2011/2018 births, 2013 UK move, verified education focus and source-linked world events.
+- [x] Timeline with 2018/2021 births, 2013 UK move, verified education focus and source-linked world events.
 - [x] Per-stage music, death cue, seated scooter pose, Taiwan-to-UK flight, final villain/castle/flag and locally saved completed-stage marks.
 - [x] Nine-route build; 120 browser checks pass.
 - [ ] Exact-head PR #25 CI, merge and production verification.
@@ -692,3 +692,5 @@ nine pages built, 88 files checked without diagnostics.
 - [x] Reversible masked text, layered gallery parallax and timed page entrances; 125 browser checks pass.
 - [ ] Exact-head CI, main merge and production verification, tracked on PR #25.
 - Current Figma work belongs to Claude; this final pass stays in website code.
+
+- [x] Corrected baby milestones to 2018/2021 and rewrote stage songs with distinct rhythm, phrasing and arrangements; actual Web Audio switching is covered.

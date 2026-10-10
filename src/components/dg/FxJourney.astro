@@ -1,5 +1,6 @@
 ---
 import { Picture } from 'astro:assets';
+import { readFileSync } from 'node:fs';
 import portraits from '../../assets/img/fx-figma/personas.png';
 const steps = [
  {title:'Pre-trade',color:'#aa5400',description:'Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.',recommendations:['Order ticket with percentile presets','Benchmarks captured and frozen on the canvas'],quotes:["Where’s the liquidity today?"]},
@@ -14,7 +15,9 @@ const levels=[600.08,524.44,545.70,654.04,650.59,584.40,549.85,498.98,491.38];
 const stems=['02234','0c537','2cdd2','1476b','fe36f','0fc8a','564c9','a085e','f2418'];
 const heights=[229,153,175,283,280,213,179,128,120];
 const events=[{x:560,w:187,text:'Order staged from the BID pill'},{x:880,w:162,text:'Suspend band, hands off'},{x:1180,w:100,text:'Limit repriced'},{x:1450,w:151,text:'CSV export for best-ex'}];
-const asset=(name:string)=>`/art/fx-journey/${name}.svg`;
+// Embed these small authored vectors so below-fold diagram details do not
+// open twenty image requests during the hero's first render.
+const asset=(name:string)=>`data:image/svg+xml,${encodeURIComponent(readFileSync(`public/art/fx-journey/${name}.svg`,'utf8'))}`;
 ---
 <section id="fx-journey" class="fx-authored-journey" aria-labelledby="fx-journey-title">
   <header class="authored-heading"><h3 id="fx-journey-title">User journey</h3><a href="https://www.figma.com/design/uCUV8a6hZVWo54ko5GrjvJ?node-id=148-8308" target="_blank" rel="noopener">View my Figma journey map<span class="vh"> (opens in new tab)</span> ↗</a></header>

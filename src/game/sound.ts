@@ -1,3 +1,4 @@
+import {scores as tracks, melodySteps} from './music-score';
 // Original synthesised sounds (no samples, no borrowed tunes). Off by default;
 // the page's Sound toggle switches it on. One shared AudioContext, created on
 // the first user gesture as browsers require.
@@ -51,24 +52,12 @@ export const sfx = {
 
 // Original stage themes: distinct melodies, tempos, bass progressions and timbres.
 // No recorded samples or borrowed game tunes.
-type Track={name:string;bpm:number;lead:OscillatorType;notes:number[];bass:number[]};
-const tracks:Track[]=[
- {name:'Harbour morning',bpm:112,lead:'square',notes:[62,66,69,74,71,69,66,64,62,66,69,71,69,66,64,57,59,62,66,69,67,66,62,59,57,61,64,69,67,64,61,57],bass:[38,38,35,33]},
- {name:'Campus sketchbook',bpm:124,lead:'triangle',notes:[72,76,79,76,74,77,81,77,76,79,84,79,74,72,69,0,69,72,76,79,77,74,71,74,67,71,74,79,76,74,72,0],bass:[36,41,33,43]},
- {name:'Pixel workshop',bpm:132,lead:'square',notes:[64,0,71,76,74,71,67,71,64,67,0,74,76,79,76,71,69,0,72,76,74,72,69,67,66,69,71,74,71,66,64,0],bass:[40,36,45,35]},
- {name:'London rain',bpm:88,lead:'triangle',notes:[69,72,76,0,74,72,69,0,67,71,74,0,72,71,67,0,65,69,72,76,74,72,69,0,64,68,71,0,68,64,0,0],bass:[45,43,41,40]},
- {name:'City ascent',bpm:120,lead:'square',notes:[67,71,74,79,74,71,69,74,71,74,79,83,81,79,74,0,72,76,79,84,83,79,76,72,69,74,78,81,79,78,74,0],bass:[43,40,36,38]},
- {name:'Market pulse',bpm:138,lead:'square',notes:[62,0,65,69,0,72,69,65,64,0,67,71,0,74,71,67,65,69,72,0,74,72,69,65,57,61,64,69,67,64,61,0],bass:[38,40,41,33]},
- {name:'New possibilities',bpm:106,lead:'sine',notes:[66,73,78,0,75,73,70,0,68,75,80,0,78,75,73,0,70,73,78,82,80,78,75,0,66,70,73,78,75,73,70,0],bass:[42,44,46,37]},
- {name:'Winking lullaby',bpm:72,lead:'sine',notes:[72,0,76,79,0,76,74,0,71,0,74,77,0,74,72,0,69,0,72,76,0,72,71,0,67,0,71,74,0,71,72,0],bass:[36,43,33,41]},
- {name:'The scenic route',bpm:96,lead:'triangle',notes:[62,0,69,66,74,0,71,69,67,0,71,74,76,74,71,0],bass:[38,43,35,33]},
-];
 let trackIndex=8,musicAllowed=false,power=false,timer:ReturnType<typeof setInterval>|undefined;
 let nextNote=0,beat=0,quietUntil=0;
 const voices=new Set<OscillatorNode>();
-function musicNote(midi:number,when:number,duration:number,volume:number,type:OscillatorType){
- if(!ac)return;const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=440*2**((midi-69)/12);
- g.gain.setValueAtTime(0,when);g.gain.linearRampToValueAtTime(volume,when+.008);g.gain.exponentialRampToValueAtTime(.0001,when+duration);
+function musicNote(midi:number,when:number,duration:number,volume:number,type:OscillatorType,attack=.008,slideTo?:number){
+ if(!ac)return;const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(440*2**((midi-69)/12),when);if(slideTo)o.frequency.exponentialRampToValueAtTime(slideTo,when+duration);
+ g.gain.setValueAtTime(0,when);g.gain.linearRampToValueAtTime(volume,when+Math.min(attack,duration/2));g.gain.exponentialRampToValueAtTime(.0001,when+duration);
  o.connect(g).connect(ac.destination);voices.add(o);o.onended=()=>{voices.delete(o);o.disconnect();g.disconnect();};o.start(when);o.stop(when+duration+.02);
 }
 function stopMusic(){if(timer)clearInterval(timer);timer=undefined;voices.forEach(v=>{try{v.stop();}catch{}});voices.clear();}
@@ -76,11 +65,19 @@ function syncMusic(){
  if(!soundOn||!musicAllowed||document.hidden||!ac){stopMusic();return;}
  if(timer)return;nextNote=Math.max(ac.currentTime,quietUntil);const schedule=()=>{
   if(!ac)return;const track=tracks[trackIndex];
-  while(nextNote<ac.currentTime+.18){const step=60/(power?Math.max(152,track.bpm*1.2):track.bpm)/2;
-   const note=track.notes[beat%track.notes.length];
-   if(note)musicNote(note+(power?12:0),nextNote,step*.8,.022,track.lead);
-   if(beat%2===0)musicNote(track.bass[Math.floor(beat/8)%track.bass.length],nextNote,step*1.5,.035,'triangle');
-   beat++;nextNote+=step;
+  while(nextNote<ac.currentTime+.18){
+   const step=60/(power?Math.max(152,track.bpm*1.2):track.bpm)/2;
+   const phrase=melodySteps[trackIndex],note=phrase[beat%phrase.length];
+   if(note)musicNote(note.pitch+(power?12:0),nextNote,step*note.length*track.gate,track.lead==='sawtooth'?.012:.022,track.lead,track.attack);
+   const bar=track.beatsPerBar*2,root=track.roots[Math.floor(beat/bar)%track.roots.length];
+   const bass=track.bass[beat%track.bass.length];
+   if(bass!==null)musicNote(root+bass,nextNote,step*(track.pad?3:1.2),.032,'triangle');
+   if(track.pad&&beat%bar===0)track.pad.forEach(interval=>musicNote(root+12+interval,nextNote,step*(bar-.2),.005,'sine',.12));
+   const drum=track.drums[beat%track.drums.length];
+   if(drum==='k')musicNote(43,nextNote,.12,.042,'sine',.004,38);
+   else if(drum==='s')musicNote(68,nextNote,.065,.013,'triangle',.003,100);
+   else if(drum==='h')musicNote(100,nextNote,.024,.006,'square',.002);
+   beat++;nextNote+=step*(1+(track.swing??0)*(beat%2===1?1:-1));
   }
  };schedule();timer=setInterval(schedule,90);
 }

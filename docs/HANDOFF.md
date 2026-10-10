@@ -114,7 +114,7 @@ generic synthesized diagram. See the latest PR #25 checkpoint in TASKS.
 
 ### Latest confirmed personal timeline, 10 October late evening
 
-Shannon confirmed babies in 2011 and 2018, arrival in the UK in 2013 for a working holiday and study, art/craft/digital media study in Taiwan, and Digital Media at London Met focused on game and UX design. The existing London Met degree dates remain 2015–2016; they must not be described as the UK arrival dates. These details appear in the optional game's journal, education cards and achievements. Source-linked world news is context, not her personal experience or a scored achievement.
+Shannon confirmed babies in 2018 and 2021, arrival in the UK in 2013 for a working holiday and study, art/craft/digital media study in Taiwan, and Digital Media at London Met focused on game and UX design. The existing London Met degree dates remain 2015–2016; they must not be described as the UK arrival dates. These details appear in the optional game's journal, education cards and achievements. Source-linked world news is context, not her personal experience or a scored achievement.
 
 Interface corners now use a shared 4px token. Keep circular art/dots intentional. The game has eight distinct original soundtracks plus a map tune, a separate death cue, seated scooter pose, Taiwan→UK flight and a final Scrollkeeper/castle/flag sequence. Functional browser storage `working-order-progress-v2` remembers completed stages and mission stars; it is separate from analytics and scoreboard data.
 
@@ -123,3 +123,5 @@ Late FX sync: user confirmed BOTH website and Figma mobile frame. Portfolio file
 Finale weapon: starlight wand is equipped in stage 7. X/J, gamepad button 2, or contextual touch Cast fires a wall-blocked projectile in the facing direction; 0.5s cooldown, three boss hits, pause freezes shots. Original pixel art and synthesized casting sound. No weapon in earlier levels.
 
 Latest instruction: finish the website changes and push them all live; Claude is independently improving Figma, so do not overwrite those frames. Website scroll motion uses the existing GSAP ScrollTrigger plugin, loaded on first scroll. Reversible masked words and staggered image/caption timelines use shorter touch movement and matchMedia cleanup for reduced motion. Keep product screenshots complete. The home intro uses a ~1.3s sequence; derive elapsed time from document.timeline and animation.startTime, because finished animation.currentTime is clamped.
+
+Music scores live in `src/game/music-score.ts`: eight stage songs plus a map waltz, each with original phrasing, metre, bass and percussion. Stage switching stops all old music voices and resets the score; tests observe Web Audio scheduling rather than only track names. Baby milestones are **2018 and 2021**, per Shannon's correction on 11 October.
