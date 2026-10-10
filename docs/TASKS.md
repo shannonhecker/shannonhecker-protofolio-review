@@ -42,9 +42,9 @@ research evidence.
 | P08 | Winking Star co-parent flow | Complete | Shared board and approved offline behavior; no invented conflict-resolution rule; unconfirmed and superseded deck claims excluded |
 | P09 | Corporate Action Manager, Deal Model, Data Solution | Next separate feature | Exact source notes located in `FIGMA-AUDIT.md`; historical public-image selection and new case implementation remain future work |
 | P10 | Iterative visual self-inspection | Complete for this pass | Main reviewed home, four cases, build page, map and Kaohsiung; 1440px desktop and 390px mobile screenshots, automated 320/820 checks; fixes recorded in `QUALITY.md` |
-| P11 | Fresh local validation | Passed; remaining Lighthouse run completing | Build eight routes; Astro 63 files, zero errors/warnings/hints; 78 Playwright tests passed. PM read final logs; Lighthouse results below |
-| P12 | Quality, source and build records | Complete apart from final audit table population | `QUALITY.md` removes stale self-scores; `MEDIA-SOURCES.md`, `FIGMA-AUDIT.md`, handoff and `BUILD.md` reflect this pass |
-| P13 | PR, CI, merge and deployment | Pending | PR against `main`, required CI green, merge and verify deployed `/panel` plus four case routes |
+| P11 | Fresh local validation | Passed | Build eight routes; Astro 63 files, zero errors/warnings/hints; 78 Playwright tests passed. All ten Lighthouse runs passed; final seven-test media rerun passed after the Winking opacity adjustment |
+| P12 | Quality, source and build records | Complete | `QUALITY.md` removes stale self-scores; `MEDIA-SOURCES.md`, `FIGMA-AUDIT.md`, handoff and `BUILD.md` reflect this pass |
+| P13 | PR, CI, merge and deployment | PR open; release checks running | [PR #23](https://github.com/shannonhecker/shannonhecker-protofolio-review/pull/23), Vercel preview ready and link check passed; merge after required CI, then verify production |
 | P14 | Supplied avatars and playful accents | Complete | Original standing/laptop avatars integrated unchanged; restrained peach/rose accents preserve case readability |
 | P15 | All-page Figma source review | Complete | Seven pages, 327 top-level nodes, 2,433 text nodes screened; key frames read fully; exact sources/exclusions in `FIGMA-AUDIT.md`; no Figma edits |
 
@@ -72,13 +72,13 @@ Fresh Lighthouse 12 results read from `final-lh-*.json` on 10 October:
 | `/fx` | 96 | 2709ms | 100 | All 100 |
 | `/fusion` | 97 | 2482ms | 100 | All 100 |
 | `/winking-star` | 98 | 2267ms | 100 | All 100 |
-| `/uoaui` | 95 | 2784ms | Run completing | Mobile all 100 |
+| `/uoaui` | 95 | 2784ms | 100 | All 100 |
 
 These are local laboratory measurements, not real-device or field guarantees.
 FX and uoaui mobile LCP exceed the earlier aspirational 2.5s target; their
 performance scores pass the 95 release gate. Do not claim universal sub-2.5s LCP.
-The final score table in `QUALITY.md` is the release record once remaining
-results land.
+The final score table in `QUALITY.md` and `quality-results.json` record all ten
+completed runs.
 
 ## Review findings closed
 
@@ -100,9 +100,9 @@ results land.
 
 ## Remaining release gates and limits
 
-1. Finish the remaining desktop Lighthouse result and populate the final quality
-   table; no source or implementation issue is pending from this PM review.
-2. Open the PR, pass required CI, merge and verify the deployed routes and media.
+1. Final local media rerun: seven tests passed after the Winking opacity adjustment.
+   The fresh build passed. No source or implementation issue is pending from this PM review.
+2. PR #23 is open with a ready Vercel preview. Complete required CI, merge and verify production routes and media.
 3. Physical Safari/iOS checks and an independent game playtest remain external
    validation, accurately disclosed in `QUALITY.md`.
 4. Fusion's source watermark is preserved. Its licensing/configuration belongs
