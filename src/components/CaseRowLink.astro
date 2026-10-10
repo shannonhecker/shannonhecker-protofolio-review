@@ -9,5 +9,5 @@ const { c, peek } = Astro.props;
   <h3 style={`view-transition-name:t-${c.vt}`}>{c.title}</h3>
   <span class="meta">{c.meta}</span>
   <span class="arrow">{c.arrow}</span>
-  <Pic name={c.img} alt="" sizes="100vw" widths={[480, 800, 1200]} />
+  {c.img && <Pic name={c.img} alt="" sizes="100vw" widths={[480, 800]} />}
 </a>

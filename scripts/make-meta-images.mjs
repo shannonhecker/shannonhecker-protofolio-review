@@ -19,6 +19,6 @@ head.writeUInt8(32, 6); head.writeUInt8(32, 7); head.writeUInt16LE(1, 10); head.
 head.writeUInt32LE(png32.length, 14); head.writeUInt32LE(22, 18);
 await writeFile('public/favicon.ico', Buffer.concat([head, png32]));
 
-// OG: the hero image, cropped to 1200x630 on the same focal point as the hero.
-await sharp('src/assets/img/fx-cover.jpg').resize(1200, 630, { fit: 'cover', position: 'right' }).jpeg({ quality: 82, mozjpeg: true }).toFile('public/og.jpg');
+// OG: the hero's UI crop at 1200x630.
+await sharp('src/assets/img/ui-fx-cover.jpg').resize(1200, 630, { fit: 'cover', position: 'centre' }).jpeg({ quality: 82, mozjpeg: true }).toFile('public/og.jpg');
 console.log('ok');
