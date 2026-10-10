@@ -51,3 +51,51 @@ html.lenis{scroll-behavior:auto}
 .nav .brand:hover svg{transform:rotate(-8deg)}
 .copyright .sig{display:inline-flex;align-items:center;gap:10px}
 @media (prefers-reduced-motion:reduce){.nav .brand:hover svg{transform:none}}
+
+/* Marquee pause control (WCAG 2.2.2). Quiet until the marquee is hovered or
+   focused; always shown on touch, where there is no hover. */
+.marquee{position:relative}
+.mq-toggle{position:absolute;right:12px;top:50%;translate:0 -50%;z-index:2;width:32px;height:32px;display:grid;place-items:center;border-radius:999px;border:1px solid var(--hair);background:var(--bg);color:var(--fg);cursor:pointer;opacity:0;transition:opacity var(--fast) var(--ease)}
+.mq-toggle svg{fill:currentColor}
+.mq-toggle .i-play{display:none}
+.mq-toggle[aria-pressed="true"] .i-play{display:inline}
+.mq-toggle[aria-pressed="true"] .i-pause{display:none}
+.marquee:hover .mq-toggle,.mq-toggle:focus-visible,.mq-toggle[aria-pressed="true"]{opacity:1}
+@media (hover:none){.mq-toggle{opacity:1}}
+.marquee.paused .ticker-track,.marquee.paused .themes-track{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.mq-toggle{display:none}}
+
+/* Keyboard users get the same index-row feedback as hover. */
+.row:focus-visible{padding-left:12px}
+.row:focus-visible .arrow{transform:translateX(6px)}
+
+/* Typesetting: no single-word last lines in running text. */
+.lead,.measure{text-wrap:pretty}
+
+::selection{background:var(--fg);color:var(--bg)}
+
+/* Cross-document transitions between / and /build, no JS. */
+@view-transition{navigation:auto}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
+
+/* Print / Save as PDF: panel members annotate. Everything visible, nothing
+   fixed or moving, beats kept whole, link targets printed. */
+@media print{
+  .nav,.progress,.peek,.skip,.mq-toggle,.ticker{display:none!important}
+  .band{padding-block:48px}
+  .rv,.split .wd,.hero h1 .ln span{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}
+  .hero-art{clip-path:none!important}
+  .hero{min-height:0}
+  .beat .label{position:static}
+  .beat{padding-block:28px}
+  .chapter-head{margin-bottom:32px}
+  .h-chapter{font-size:64px}.h-giant{font-size:56px}.h-section{font-size:36px}.h-sub{font-size:26px}
+  .shot img,.hero-art img{transform:none!important}
+  .shot,.dec>li,.rows>li,.metric,.persona,.stage,.phone,.principle{break-inside:avoid}
+  h2,h3,h4,.label{break-after:avoid}
+  .themes-track,.ticker-track{animation:none!important}
+  .strip-wrap{overflow:visible}.strip{flex-wrap:wrap;width:auto;transform:none!important}
+  .journey{grid-auto-flow:row;overflow:visible}
+  .links a[href^="http"]::after{content:" " attr(href);font-size:12px;color:var(--fg-2)}
+  .row img{display:none}
+}

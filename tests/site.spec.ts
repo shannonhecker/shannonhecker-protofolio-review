@@ -120,3 +120,37 @@ test.describe('mobile nav', () => {
     }, { timeout: 3000 }).toBe(true);
   });
 });
+
+test('marquees have a real pause control (WCAG 2.2.2)', async ({ page }) => {
+  await page.goto('/');
+  const btn = page.locator('.ticker .mq-toggle');
+  await btn.focus();
+  await page.keyboard.press('Enter');
+  await expect(btn).toHaveAttribute('aria-pressed', 'true');
+  await expect(btn).toHaveAccessibleName('Pause scrolling');
+  // Stays paused after focus leaves, unlike hover/focus-only pausing.
+  await page.locator('body').click({ position: { x: 5, y: 5 } });
+  expect(await page.locator('.ticker-track').evaluate((el) => getComputedStyle(el).animationPlayState)).toBe('paused');
+});
+
+test('print output shows every section with nothing hidden', async ({ page }) => {
+  await page.goto('/');
+  await page.emulateMedia({ media: 'print' });
+  expect(await page.locator('.nav').isVisible()).toBe(false);
+  const hidden = await page.evaluate(() =>
+    [...document.querySelectorAll('.rv, .split .wd')].filter((el) => getComputedStyle(el).opacity !== '1').length,
+  );
+  expect(hidden).toBe(0);
+});
+
+test('unknown paths get the 404 page', async ({ page }) => {
+  const res = await page.goto('/nope');
+  expect(res?.status()).toBe(404);
+  await expect(page.getByRole('link', { name: /Back to the work/ })).toHaveAttribute('href', '/');
+});
+
+test('structured data names the person', async ({ page }) => {
+  await page.goto('/');
+  const ld = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent()) ?? '{}');
+  expect(ld).toMatchObject({ '@type': 'Person', name: 'Shannon Hecker' });
+});

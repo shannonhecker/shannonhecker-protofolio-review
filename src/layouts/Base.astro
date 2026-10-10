@@ -44,6 +44,15 @@ const og = new URL('/og.jpg', Astro.site).href;
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="FX execution analytics: a trading chart with progress and price on one canvas" />
     <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Shannon Hecker',
+      jobTitle: 'Product Designer',
+      address: { '@type': 'PostalAddress', addressLocality: 'London', addressCountry: 'GB' },
+      url: 'https://shannonhecker.com',
+      sameAs: ['https://www.linkedin.com/in/shannonhecker/'],
+    })} />
     <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
     <script is:inline>

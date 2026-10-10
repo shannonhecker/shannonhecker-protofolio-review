@@ -23,8 +23,10 @@ import Pic from './Pic.astro';
       <div class="hero-art anim"><Pic name="fx-cover.jpg" alt="FX execution analytics: a trading chart with progress and price on one canvas" sizes="(max-width: 1100px) 100vw, 34vw" eager /></div>
     </div>
   </div>
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track">
+  <div class="ticker marquee">
+    <!-- DECISION: WCAG 2.2.2 needs a real pause for motion over 5s; hover/focus-only pausing does not count. Icon-only, no visible copy. -->
+    <button type="button" class="mq-toggle" aria-pressed="false" aria-label="Pause scrolling"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect class="i-pause" x="2" y="1.5" width="2.6" height="9" rx="1"/><rect class="i-pause" x="7.4" y="1.5" width="2.6" height="9" rx="1"/><path class="i-play" d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5z"/></svg></button>
+    <div class="ticker-track" aria-hidden="true">
       <span>Problem</span><span>Constraints</span><span>Explorations</span><span>Decisions and trade-offs</span><span>Full flows</span><span>Edge states</span><span>Outcomes</span>
       <span>Problem</span><span>Constraints</span><span>Explorations</span><span>Decisions and trade-offs</span><span>Full flows</span><span>Edge states</span><span>Outcomes</span>
     </div>

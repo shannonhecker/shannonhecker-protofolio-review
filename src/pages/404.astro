@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+// DECISION: a 404 needs some words. Kept to the minimum and flagged in the PR
+// for Shannon to rewrite in her voice.
+---
+<Base title="Not found · Shannon Hecker">
+  <main id="main" class="hero" style="min-height:100svh;display:grid;place-items:center">
+    <div class="wrap" style="display:grid;gap:28px;justify-items:start">
+      <a href="/" aria-label="Shannon Hecker, home"><Logo size={44} /></a>
+      <h1 class="h-giant">This page doesn't exist.</h1>
+      <a class="cta-link" href="/">Back to the work →</a>
+    </div>
+  </main>
+</Base>
+<style is:global>
+  .cta-link{font-size:17px;font-weight:500;text-decoration:none;padding:12px 20px;border:1px solid var(--fg);border-radius:999px;transition:background var(--fast),color var(--fast)}
+  .cta-link:hover{background:var(--fg);color:#fff}
+</style>
