@@ -9,6 +9,7 @@ import { THEMES, playerFrames, helmet, pet, scooter, type Theme } from './art';
 import { FOES, type Foe } from './enemies';
 import { text, textWidth } from './pixel';
 import { mapBase, NODES, labelAt, BRAND, SCHOOL_ICONS, LOGO_ICONS } from './map';
+import { CHAPTERS, chapterOf, stageCode } from '../lib/journey';
 import { sfx } from './sound';
 export { setSound } from './sound';
 
@@ -120,7 +121,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     respawn(); p.invuln = 0;
     cam = 0;
     camY = Math.max(0, lvl.h * TILE - VIEW_H);
-    opts.onStatus(`World ${n + 1}: ${WORLDS[n].short.toLowerCase()}. Mission: ${m.text}.`);
+    opts.onStatus(`World ${stageCode(n)}: ${WORLDS[n].short.toLowerCase()}. Mission: ${m.text}.`);
     resume();
   }
 
@@ -128,7 +129,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     s.mode = 'map';
     s.finished = false;
     mapSel = sel;
-    opts.onStatus(`World map. ${WORLDS[sel].short.toLowerCase()} selected. Left and right to choose, Space to start.`);
+    const ch = CHAPTERS[chapterOf(sel)];
+    opts.onStatus(`World map. ${ch.name}, ${ch.stages.length === 1 ? 'one stage' : `${ch.stages.length} stages`}, selected. Left and right to choose a world, Space to start.`);
     draw();
   }
 
@@ -157,8 +159,15 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     e.preventDefault();
     if (s.mode === 'map') {
       if (!down) return;
-      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') { mapSel = (mapSel + LEVELS.length - 1) % LEVELS.length; opts.onMapSelect?.(mapSel); showMap(mapSel); }
-      else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { mapSel = (mapSel + 1) % LEVELS.length; opts.onMapSelect?.(mapSel); showMap(mapSel); }
+      // arrows step world by world, landing on that world's first unfinished stage
+      const step = (d: number) => {
+        const c = (chapterOf(mapSel) + d + CHAPTERS.length) % CHAPTERS.length;
+        const st = CHAPTERS[c].stages as readonly number[];
+        mapSel = st.find((i) => !s.done.includes(i)) ?? st[0];
+        opts.onMapSelect?.(mapSel); showMap(mapSel);
+      };
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') step(-1);
+      else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') step(1);
       else if (e.key === ' ' || e.key === 'Enter') loadLevel(mapSel);
       return;
     }
@@ -365,7 +374,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
         if (MISSIONS[s.level].kind === 'ride' && p.ride) progress(1);
         if (!s.done.includes(s.level)) s.done.push(s.level);
         const ms = s.mission.done ? ' Mission complete: gold star.' : ` Mission: ${s.mission.have} of ${s.mission.need}.`;
-        opts.onStatus((s.collected >= s.total ? `World ${s.level + 1} done, with everything collected. Shipped.` : `World ${s.level + 1} done, ${s.collected} of ${s.total} collected.`) + ms);
+        const code = stageCode(s.level);
+        opts.onStatus((s.collected >= s.total ? `World ${code} done, with everything collected. Shipped.` : `World ${code} done, ${s.collected} of ${s.total} collected.`) + ms);
         const done = { ...s, done: [...s.done], missions: [...s.missions], mission: { ...s.mission } };
         setTimeout(() => opts.onLevelEnd(done), opts.reduceMotion ? 200 : 1300);
       }
@@ -455,8 +465,24 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     };
     [0, 1, 3, 4].forEach((i) => route(i, '#a0471f', 4));
     [5, 6].forEach((i) => route(i, '#2b3654', 5));
+    // the selected world: one dashed red frame around all of its stages
+    {
+      const st = CHAPTERS[chapterOf(mapSel)].stages as readonly number[];
+      let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+      for (const i of st) {
+        const [x, y] = NODES[i];
+        x0 = Math.min(x0, x - 13); y0 = Math.min(y0, y - 13); x1 = Math.max(x1, x + 13); y1 = Math.max(y1, y + 13);
+        for (const [k, l] of [`${stageCode(i)} ${WORLDS[i].short}`, WORLDS[i].when].entries()) {
+          const [lx, ly] = labelAt(i, l, k);
+          x0 = Math.min(x0, lx - 6); x1 = Math.max(x1, lx + textWidth(l) + 5); y1 = Math.max(y1, ly + 9);
+        }
+      }
+      ctx.fillStyle = '#e5484d';
+      for (let x = x0; x <= x1; x += 4) { ctx.fillRect(x, y0, 2, 2); ctx.fillRect(x, y1, 2, 2); }
+      for (let y = y0; y <= y1; y += 4) { ctx.fillRect(x0, y, 2, 2); ctx.fillRect(x1, y, 2, 2); }
+    }
     NODES.forEach(([x, y], i) => {
-      const sel = i === mapSel, done = s.done.includes(i);
+      const sel = chapterOf(i) === chapterOf(mapSel), done = s.done.includes(i);
       const brand = BRAND[i];
       ctx.fillStyle = sel ? '#e5484d' : brand ? brand.bg : '#2b3654'; ctx.fillRect(x - 11, y - 11, 22, 22);
       ctx.fillStyle = LOGO_ICONS[i]?.bg ?? mapIcons[i].sky; ctx.fillRect(x - 9, y - 9, 18, 18);
@@ -464,12 +490,13 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       ctx.drawImage(ic, Math.round(x - ic.width / 2), Math.round(y - ic.height / 2));
       // a star for finishing; gold once the world's mission is done too
       if (done) text(ctx, '★', x + 8, y - 15, s.missions.includes(i) ? '#f3a414' : '#5a5040');
-      const lines = [`${i + 1} ${WORLDS[i].short}`, WORLDS[i].when];
+      const code = stageCode(i);
+      const lines = [`${code === 'Bonus' ? '★' : code} ${WORLDS[i].short}`, WORLDS[i].when];
       lines.forEach((l, k) => {
         const [lx, ly] = labelAt(i, l, k);
         if (brand && k === 0) {
           // the organisation's badge: its colour, a stripe of its accent, its name
-          ctx.fillStyle = sel ? '#e5484d' : brand.bg; ctx.fillRect(lx - 4, ly - 2, textWidth(l) + 7, 9);
+          ctx.fillStyle = brand.bg; ctx.fillRect(lx - 4, ly - 2, textWidth(l) + 7, 9);
           ctx.fillStyle = brand.accent; ctx.fillRect(lx - 4, ly - 2, 2, 9);
           text(ctx, l, lx, ly, brand.fg);
           return;
@@ -482,8 +509,12 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     const [sx, sy] = NODES[mapSel];
     const era = playerFrames(mapIcons[mapSel].id);
     ctx.drawImage(era.right.idle[0], sx - 8, sy - 37);
-    ctx.globalAlpha = 0.85; ctx.fillStyle = '#fbf7ea'; ctx.fillRect(14, 254, textWidth('ARROWS TO CHOOSE · SPACE TO PLAY') + 4, 9); ctx.globalAlpha = 1;
-    text(ctx, 'ARROWS TO CHOOSE · SPACE TO PLAY', 16, 256, '#2b3654');
+    // footer: the selected world, then how to move
+    const c = chapterOf(mapSel), ch = CHAPTERS[c];
+    const name = 'bonus' in ch && ch.bonus ? `BONUS · ${ch.name}` : `WORLD ${c + 1} · ${ch.name}`;
+    const foot = `< ${name} · ${ch.stages.length === 1 ? '1 STAGE' : `${ch.stages.length} STAGES`} >   SPACE TO PLAY`;
+    ctx.globalAlpha = 0.85; ctx.fillStyle = '#fbf7ea'; ctx.fillRect(14, 254, textWidth(foot) + 4, 9); ctx.globalAlpha = 1;
+    text(ctx, foot, 16, 256, '#2b3654');
   }
 
   function draw() {
@@ -590,7 +621,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     ctx.globalAlpha = 0.82; ctx.fillStyle = theme.sky; ctx.fillRect(0, 0, canvas.width, 22); ctx.globalAlpha = 1;
     text(ctx, `${s.collected}/${s.total}`, 8, 8, theme.hud, 2);
     for (let i = 0; i < T.maxHits; i++) { ctx.fillStyle = i < T.maxHits - s.hits ? theme.hud : 'rgba(127,127,127,.35)'; ctx.fillRect(canvas.width - 14 - i * 10, 8, 6, 6); }
-    const head = `${s.level + 1} ${WORLDS[s.level].short} · ${WORLDS[s.level].when}`;
+    const head = `${stageCode(s.level)} ${WORLDS[s.level].short} · ${WORLDS[s.level].when}`;
     text(ctx, head, Math.round(canvas.width / 2 - textWidth(head) / 2), 10, theme.hud);
     // the mission, under the strip
     const ms = s.mission.done ? `★ ${s.mission.text} · DONE` : MISSIONS[s.level].kind === 'ride' ? `★ ${s.mission.text}` : `★ ${s.mission.text} · ${s.mission.have}/${s.mission.need}`;

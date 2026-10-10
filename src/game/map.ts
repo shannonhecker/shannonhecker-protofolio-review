@@ -44,8 +44,8 @@ export const NODES: [number, number][] = [
   [170, 174], // 4 London (in the inset)
   [226, 214], // 5 J.P. Morgan
   [282, 174], // 6 Barclays
-  [312, 98], // 7 Next: AI, uncharted
-  [236, 104], // 8 Bedtime bonus, a small island
+  [294, 98], // 7 Next: AI, uncharted
+  [222, 104], // 8 Bedtime bonus, a small island
 ];
 
 const SEA = '#8ec5e3', SHALLOW = '#a9d4ea', LAND = '#efe5c4', HILL = '#e2d4a8', COAST = '#6f5d3a', INK = '#2b3654', GRID = '#9fcde6';
@@ -101,11 +101,11 @@ export function mapBase(): HTMLCanvasElement {
   for (let t = 0; t <= 1; t += 0.06) px(Math.round(m0x + (m1x - m0x) * t) - 3, Math.round(m0y + (m1y - m0y) * t), HILL, 6, 2);
   for (let y = 120; y < 175; y += 6) px(Math.round(UK(-2.2, 54.5)[0]) - 2, y, HILL, 5, 2);
   // a small island for the bonus world
-  fillPoly(px, [[226, 96], [244, 94], [250, 104], [240, 114], [224, 110]], LAND);
+  fillPoly(px, [[212, 96], [230, 94], [236, 104], [226, 114], [210, 110]], LAND);
   coast(g, 0, 0, 480, 270);
   // the uncharted AI island: its coast is dashed, still being drafted
-  fillPoly(px, [[292, 84], [318, 78], [334, 92], [328, 112], [300, 116], [288, 102]], LAND);
-  coast(g, 280, 70, 64, 56, true);
+  fillPoly(px, [[274, 84], [300, 78], [316, 92], [310, 112], [282, 116], [270, 102]], LAND);
+  coast(g, 262, 70, 64, 56, true);
 
   // flight: a dashed arc from Taipei to London, with a little plane at the top
   const [ax, ay] = [NODES[2][0] - 6, NODES[2][1] - 6], [bx, by] = LONDON, cx = 270, cy = -24;
@@ -131,7 +131,7 @@ export function mapBase(): HTMLCanvasElement {
     px(x, y - 2, '#7fb3d6', 1, 5);
   }
   for (let i = 0; i < 40; i++) { const x = I.x + 6 + ((i * 41) % (I.w - 12)), y = I.y + 6 + ((i * 29) % (I.h - 12)); px(x, y, '#e6dcbc', 4, 3); } // streets, loosely
-  text(g, 'LONDON', I.x + 4, I.y + 4, INK);
+  text(g, 'LONDON', I.x + I.w - 28, I.y + 4, INK);
 
   // labels, compass, the honest bit
   const [twx, twy] = TW(121.3, 23.2).map(Math.round), [ukx, uky] = UK(-3.2, 56.9).map(Math.round);

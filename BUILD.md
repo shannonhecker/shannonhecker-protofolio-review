@@ -218,3 +218,16 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - **Octagon icon:** the J.P. Morgan tile shows the octagon from the logo file Shannon sent, blue on white. The wordmark is left off: at 16 px it can't be read, and the badge already names the company.
 - **Seams restored:** downsampling closed the octagon's four white seams, which turned it into a plain ring. I put them back at 1 px each, where the logo has them, so the pinwheel around the square hole still reads.
 - **Exact colours:** the J.P. Morgan badge now uses the wordmark brown and octagon blue sampled from her file, replacing my earlier close match.
+
+### PR 16 · Worlds and stages (Shannon: "too many choices")
+
+- **Four choices, not eight:** the map offered eight separate choices. They're now grouped the way Mario does it:
+  - World 1 · Taiwan (1-1 Kaohsiung, 1-2 Ling Tung, 1-3 捷元電腦).
+  - World 2 · London (2-1 London Met, 2-2 J.P. Morgan, 2-3 Barclays).
+  - World 3 · Next: AI.
+  - A bonus.
+- **Choosing a world:** Left and Right on the map step through the four, landing on each world's first unfinished stage. A dashed red frame marks the whole world. The footer reads "World 2 · London · 3 stages".
+- **Why stages, not merged levels:** merging the three Taiwan levels into one long level would have lost the era looks and the story cards that carry the facts. Each stage still ends on its card.
+- **End-card buttons:** "Next stage" inside a world, then "Next world: London", "Next world: AI" and "Bonus: Bedtime".
+- **Picker:** the world dropdown uses `<optgroup>`s, so it's four groups of stages. A case page's `?level=` link still starts its exact stage.
+- **Shared data:** groups live in `CHAPTERS` in `src/lib/journey.ts`, which the game, the cards and the picker all share.
