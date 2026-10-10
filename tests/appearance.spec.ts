@@ -119,8 +119,7 @@ test('game preview spans the content as a shallow banner and opens at its origin
   expect(preview.width/preview.height).toBeCloseTo(4,1);
   await page.locator('#game-play').click();
   await expect(page.locator('.play')).toHaveClass(/is-full/);
-  const expanded=(await game.boundingBox())!;
-  expect(expanded.width/expanded.height).toBeCloseTo(16/9,1);
+  await expect.poll(async()=>{const expanded=(await game.boundingBox())!;return expanded.width/expanded.height;}).toBeCloseTo(16/9,1);
   await page.locator('#game-exit').click();
   await expect(page.locator('.play')).not.toHaveClass(/is-full/);
 });

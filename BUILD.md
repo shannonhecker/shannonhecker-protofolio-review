@@ -361,3 +361,4 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - I removed the decorative process illustration strips. The journeys now connect interaction schematics to friction and design responses; decision branches show the chosen approach beside its alternative. My existing words and original FX Figma flow remain intact.
 - I fixed rapid fullscreen exit/re-entry, narrow banner sizing and diagram connector overflow found during testing. Scroll reveals now batch layout reads before writes to reduce initial work on slower phones.
 - My final preview check sharpened the map labels with the bitmap font, improved the game caption contrast, and corrected the home introduction to say four cases.
+- Release CI caught the map chooser squeezing its canvas vertically. I reserved room for the chooser and kept the playing surface at 16:9. The hazard check now waits for collected star protection to expire before checking damage.

@@ -239,6 +239,9 @@ test('hazards hurt (three hits restart the level)', async ({ page }) => {
     await page.keyboard.down(k); await page.waitForTimeout(x < 380 || x > 520 ? 200 : 40); await page.keyboard.up(k);
     await page.waitForTimeout(120);
   }
+  // The walk crosses the optional star. First let its protection expire,
+  // then allow complete falling-sheet cycles rather than combining both waits.
+  await expect.poll(async () => (await state(page)).powerSeconds, { timeout: 10000 }).toBe(0);
   await expect.poll(async () => (await state(page)).hits, { timeout: 8000 }).toBeGreaterThan(0);
 });
 

@@ -87,3 +87,6 @@ html[data-theme=dark] .companion-stage::before { background:#302930; }
 .hero-game .play:not(.is-full) .game{width:100%;max-width:100%;min-width:0}
 
 .play.is-full .game-caption{color:#b8c7d4}
+.play.is-full .game{flex-shrink:0}
+/* Leave room for the map's flat stage chooser without squeezing its canvas. */
+.play.is-full:has(.game-stages:not([hidden])) .game{width:min(100%,calc((100dvh - 260px) * 16 / 9))}
