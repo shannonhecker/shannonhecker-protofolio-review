@@ -6,61 +6,78 @@
 import { sprite, canvas, flip, tint, text, type Palette } from './pixel';
 
 // ---------------------------------------------------------------- player
-// DECISION: a neutral designer character until Shannon's reference photo
-// (assets/shannon-ref.jpg) arrives. Only the hair, top and trouser colours
-// below need changing to match her; frames stay the same.
+// Shannon, from her own pixel-art references: long wavy dark-brown hair with
+// a fringe, a pearl earring, a cream turtleneck with a gold pendant, wide pink
+// trousers and cream trainers. That is her look today; earlier worlds swap the
+// top 'w' and trousers 'b' for that era (see each theme's outfit). Shades 'W'
+// and 'B' are derived, so an era only names two colours.
 const BASE: Palette = {
-  k: '#161616', h: '#3a2a22', s: '#e9b892', e: '#161616',
-  w: '#f4f1ea', a: '#f3a414', b: '#2b3654', m: '#161616', c: '#d98c78',
+  k: '#2a1a14', h: '#4a2c20', H: '#6e4432', s: '#f4c9a4', e: '#2a1a14', c: '#f08c8c', m: '#c8505a',
+  p: '#ffffff', w: '#f7e8cc', a: '#f3a414', b: '#f08ca4', n: '#f6efe2',
 };
 const HEAD_TORSO = [
   '....kkkkkk......',
-  '...khhhhhhkk....',
-  '..khhhhhhhhhk...',
-  '..khhhhhhhhhk...',
-  '..khhssssshhk...',
-  '..khsseesseshk..',
-  '..khsssssssshk..',
-  '..khhsscssshk...',
-  '...khssssssk....',
-  '....kkssskk.....',
-  '....kwwwwwwk....',
-  '...kwwwwwawwk...',
-  '..kswwwwwwwwsk..',
-  '..kswwwwwwwwsk..',
-  '...kwwwwwwwwk...',
-  '...kbbbbbbbbk...',
-  '...kbbbbbbbbk...',
+  '...khhHhhhkk....',
+  '..khhhhHhhhhk...',
+  '.khhhhhhhhhhhk..',
+  '.khhhhhhhhhhhk..',
+  '.khhshshhshhhhk.',
+  '.khsssssssshhhk.',
+  '.khspesspeshHhk.',
+  '.khseesseesphhk.',
+  '.khhcssssschhhk.',
+  'kHhhhssmsshhhHk.',
+  'khhhkWWWWWkhhhk.',
+  'khhkwwWwwwwkhhk.',
+  'khkswwwawwwwkhk.',
+  '.kkswwwwwwwwskhk',
+  '..kswwwwwwWWskk.',
+  '...kwwwwwwwwkk..',
 ];
+
+/** Darken a #rrggbb colour (shading for sweater folds and trouser creases). */
+function shade(hex: string, f = 0.85) {
+  const n = parseInt(hex.slice(1), 16);
+  const ch = (v: number) => Math.round(v * f).toString(16).padStart(2, '0');
+  return `#${ch(n >> 16)}${ch((n >> 8) & 255)}${ch(n & 255)}`;
+}
 
 type Pose = 'idle' | 'run' | 'jump' | 'fall' | 'hurt' | 'cheer';
 
 function body(pose: Pose, f: number, outfit: Partial<Palette> = {}) {
   const P = { ...BASE, ...outfit } as Palette;
+  P.W = shade(P.w); P.B = shade(P.b);
   const rows = HEAD_TORSO.map((r) => r.padEnd(16, '.'));
   const { c, g, px } = canvas(16, 24);
   g.drawImage(sprite(rows, P), 0, f === 1 && pose === 'idle' ? 1 : 0); // idle breathes
+  // wide-leg trousers: 5 px legs with a crease, cream trainers
   const leg = (x: number, lift: number, len = 5) => {
-    px(x, 17, P.k, 4, 1);
-    px(x, 17, P.k, 1, len); px(x + 3, 17, P.k, 1, len);
-    px(x + 1, 17, P.b, 2, len);
-    px(x - 1, 17 + len - lift, P.k, 5, 2); // shoe
+    px(x, 17, P.k, 1, len); px(x + 4, 17, P.k, 1, len);
+    px(x + 1, 17, P.b, 3, len); px(x + 2, 18, P.B, 1, len - 2);
+    const sy = 17 + len - lift;
+    px(x - 1, sy, P.k, 7, 2); px(x, sy, P.n, 5, 1); // trainer
   };
-  if (pose === 'idle') { leg(4, 0); leg(8, 0); }
+  px(3, 17, P.k, 10, 1); px(4, 17, P.b, 8, 1); // waistband
+  const sleeve = (x: number, y: number, h: number) => { px(x, y, P.w, 2, h); px(x, y + h, P.s, 2, 1); };
+  if (pose === 'idle') { leg(2, 0); leg(9, 0); }
   else if (pose === 'run') {
     const ph = (f / 6) * Math.PI * 2;
     const d = Math.round(Math.sin(ph) * 2);
-    leg(5 + d, Math.max(0, Math.round(Math.cos(ph) * 2)));
-    leg(7 - d, Math.max(0, Math.round(-Math.cos(ph) * 2)));
-    // arms swing opposite the legs
-    px(2, 12 - Math.max(0, -d), P.s, 1, 2); px(13, 12 - Math.max(0, d), P.s, 1, 2);
-  } else if (pose === 'jump') { leg(3, 2, 4); leg(9, 0, 5); }
-  else if (pose === 'fall') { leg(3, 0, 5); leg(9, 0, 5); px(1, 9, P.s, 1, 3); px(14, 9, P.s, 1, 3); }
-  else if (pose === 'hurt') { leg(4, 0); leg(8, 0); px(6, 5, P.k, 1, 1); px(9, 5, P.k, 1, 1); }
-  else if (pose === 'cheer') {
-    leg(4, f ? 1 : 0); leg(8, f ? 0 : 1);
+    leg(3 + d, Math.max(0, Math.round(Math.cos(ph) * 2)));
+    leg(8 - d, Math.max(0, Math.round(-Math.cos(ph) * 2)));
+    // hands swing opposite the legs
+    px(2, 14 - Math.max(0, -d), P.s, 1, 2); px(13, 14 - Math.max(0, d), P.s, 1, 2);
+  } else if (pose === 'jump') { leg(1, 2, 4); leg(10, 0, 5); }
+  else if (pose === 'fall') { leg(1, 0, 5); leg(10, 0, 5); sleeve(0, 9, 3); sleeve(14, 9, 3); }
+  else if (pose === 'hurt') {
+    leg(2, 0); leg(9, 0);
+    // squeezed-shut eyes
+    px(4, 7, P.s, 2, 2); px(8, 7, P.s, 2, 2); px(4, 8, P.e, 2, 1); px(8, 8, P.e, 2, 1);
+  } else if (pose === 'cheer') {
+    leg(2, f ? 1 : 0); leg(9, f ? 0 : 1);
     // both arms up, a little star in hand on the second frame (Winking Star nod)
-    px(1, 7 - f, P.s, 2, 4); px(13, 7 - f, P.s, 2, 4);
+    sleeve(0, 8 - f, 4); sleeve(14, 8 - f, 4);
+    px(0, 7 - f, P.s, 2, 1); px(14, 7 - f, P.s, 2, 1);
     if (f) { px(1, 4, P.a, 1, 1); px(0, 5, P.a, 3, 1); px(1, 6, P.a, 1, 1); }
   }
   return c;
@@ -165,7 +182,7 @@ function desk(): Theme {
   const near = canvas(480, 270);
   // a ticker line along the floor of the trading room
   for (let x = 0; x < 480; x += 2) near.px(x, 214 + Math.round(Math.sin(x / 23) * 6 + Math.sin(x / 7) * 2), '#2e3c6e', 2, 1);
-  return { id: 'desk', sky, ground, fill, platform, pickup: [dot, dot], hazard: sheet, finish, check: post('#4a90d9'), spike: spike('#9aa7c7', '#161616'), far: far.c, near: near.c, ink: '#f4f1ea', hud: '#cfe3fb', outfit: { w: '#f4f1ea', b: '#2b3654' } };
+  return { id: 'desk', sky, ground, fill, platform, pickup: [dot, dot], hazard: sheet, finish, check: post('#4a90d9'), spike: spike('#9aa7c7', '#161616'), far: far.c, near: near.c, ink: '#f4f1ea', hud: '#cfe3fb' };
 }
 
 // Bonus · Bedtime (Winking Star): cream, botanical doodles, the app's palette.
@@ -221,7 +238,7 @@ function bedtime(): Theme {
   [[40, 158, '#7fbf8f'], [130, 150, '#f5b9a0'], [220, 166, '#7fbf8f'], [310, 152, '#9db8d6'], [400, 162, '#f5b9a0'], [455, 156, '#7fbf8f']].forEach(([x, y, c]) => leaf(x as number, y as number, c as string));
   const near = canvas(480, 270);
   [[60, 40], [180, 70], [260, 30], [360, 60], [440, 35]].forEach(([x, y]) => { near.px(x, y, '#f3a414', 1, 3); near.px(x - 1, y + 1, '#f3a414', 3, 1); });
-  return { id: 'bedtime', sky, ground, fill, platform, pickup: [star, star], hazard: nag, finish, check: post('#f3a414'), spike: spike('#ded6c8', '#12351f'), far: far.c, near: near.c, ink: '#12351f', hud: '#12351f', outfit: { w: '#ffe0d2', b: '#2b3654' } };
+  return { id: 'bedtime', sky, ground, fill, platform, pickup: [star, star], hazard: nag, finish, check: post('#f3a414'), spike: spike('#ded6c8', '#12351f'), far: far.c, near: near.c, ink: '#12351f', hud: '#12351f' };
 }
 
 // Checkpoint: a small marker post (not a flag).
@@ -473,7 +490,7 @@ function ai(): Theme {
   for (const [x, y, r] of [[90, 80, 40], [330, 120, 56], [420, 60, 24]]) for (let k = r; k > 0; k -= 6) far.px(x - k, y - k / 2, k > r / 2 ? '#1d1830' : '#241e3a', k * 2, k);
   const near = canvas(480, 270);
   for (const [x, y] of [[60, 50], [200, 30], [280, 90], [420, 40]]) { near.px(x, y, '#c4b5fd', 1, 3); near.px(x - 1, y + 1, '#c4b5fd', 3, 1); }
-  return { id: 'ai', sky, ground, fill, platform, draft, pickup: [spark, spark], hazard: noise, finish: door.c, check: post('#a78bfa'), spike: spike('#5b4f86', '#a78bfa'), far: far.c, near: near.c, ink: '#c4b5fd', hud: '#c4b5fd', outfit: { w: '#161616', b: '#2b3654' } };
+  return { id: 'ai', sky, ground, fill, platform, draft, pickup: [spark, spark], hazard: noise, finish: door.c, check: post('#a78bfa'), spike: spike('#5b4f86', '#a78bfa'), far: far.c, near: near.c, ink: '#c4b5fd', hud: '#c4b5fd' };
 }
 
 /** The scooter for World 1: mint body, two wheels. Drawn under the rider. */

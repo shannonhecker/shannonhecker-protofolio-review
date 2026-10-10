@@ -117,7 +117,7 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
   - The first tower layout needed jumps longer than the jump allows.
   - A low ceiling blocked the climb.
   - A Ling Tung platform ended right at a pit.
-- Left the 捷元電腦 years off until Shannon confirms them.
+- Left the 捷元電腦 years off until Shannon confirmed them (2012, added in PR 8).
 
 **What Shannon changed by hand**
 
@@ -126,3 +126,15 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 **Decisions Shannon overruled**
 
 - _To fill in._
+
+### PR 8 · Shannon's own character
+
+- Shannon sent two pixel-art references of herself. I redrew the 16×24 sprite by hand from them:
+  - Long wavy dark-brown hair with a fringe, big eyes with a highlight, blush, and a pearl earring.
+  - A cream turtleneck with a gold pendant, wide pink trousers and cream trainers.
+- That outfit is her look today. Barclays, Next: AI and the Winking Star bonus world use it.
+- Earlier worlds keep their era clothes: summer blue in Kaohsiung, student green at Ling Tung, cream and navy at 捷元電腦, a camel coat in London, navy at J.P. Morgan. Shades are derived from each era's two colours, so an era still names only a top and trousers.
+- Left the laptop out of the sprite. Her reference shows tool-brand stickers, and the game uses no brand marks. At 16 px it would also hide the pendant.
+- 捷元電腦 now shows 2012 on the map, the HUD and the end card.
+- Regenerated the map poster so the no-JS and pre-play state shows the new character.
+- Checked every pose in every world on a contact sheet. 57/57 Playwright tests pass.
