@@ -84,6 +84,26 @@ function coast(g: CanvasRenderingContext2D, x0: number, y0: number, w: number, h
   g.fillStyle = COAST; for (const [x, y] of edge) if (!dashed || (x + y) % 4 < 2) g.fillRect(x0 + x, y0 + y, 1, 1);
 }
 
+/** Selection outlines, one per world, filled in by mapBase(): pixels that hug
+ * the real coastline (Taiwan, the two islands) or the London inset's frame. */
+export const SELECT_RINGS: [number, number][][] = [[], [], [], []];
+
+/** Sea pixels exactly 2 px outside the land inside a box: a line that follows the coast. */
+function ringOf(g: CanvasRenderingContext2D, x0: number, y0: number, w: number, h: number) {
+  const d = g.getImageData(x0, y0, w, h).data;
+  let m = new Uint8Array(w * h);
+  for (let i = 0; i < w * h; i++) m[i] = d[i * 4] > 200 && d[i * 4 + 1] > 190 && d[i * 4 + 2] < 215 ? 1 : 0;
+  const grow = (a: Uint8Array) => {
+    const b = a.slice();
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (!a[y * w + x] && ((x > 0 && a[y * w + x - 1]) || (x < w - 1 && a[y * w + x + 1]) || (y > 0 && a[(y - 1) * w + x]) || (y < h - 1 && a[(y + 1) * w + x]))) b[y * w + x] = 1;
+    return b;
+  };
+  const d1 = grow(m), d2 = grow(d1);
+  const out: [number, number][] = [];
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (d2[y * w + x] && !d1[y * w + x]) out.push([x0 + x, y0 + y]);
+  return out;
+}
+
 export function mapBase(): HTMLCanvasElement {
   const { c, g, px } = canvas(480, 270);
   // sea, graticule, a few waves
@@ -96,16 +116,19 @@ export function mapBase(): HTMLCanvasElement {
   const tw = project(TAIWAN, 372, 44, 54, 120.1, 25.3, 23.5);
   const uk = project(BRITAIN, 26, 46, 21, -5.8, 58.64, 54);
   fillPoly(px, tw, LAND); fillPoly(px, uk, LAND);
+  SELECT_RINGS[0] = ringOf(g, 360, 30, 120, 210); // Taiwan
   // Taiwan's Central Mountain Range, Britain's Pennines: hatched hills
   const [m0x, m0y] = TW(121.4, 24.7), [m1x, m1y] = TW(120.85, 22.4);
   for (let t = 0; t <= 1; t += 0.06) px(Math.round(m0x + (m1x - m0x) * t) - 3, Math.round(m0y + (m1y - m0y) * t), HILL, 6, 2);
   for (let y = 120; y < 175; y += 6) px(Math.round(UK(-2.2, 54.5)[0]) - 2, y, HILL, 5, 2);
   // a small island for the bonus world
   fillPoly(px, [[212, 96], [230, 94], [236, 104], [226, 114], [210, 110]], LAND);
+  SELECT_RINGS[3] = ringOf(g, 200, 84, 46, 40); // the bonus island
   coast(g, 0, 0, 480, 270);
   // the uncharted AI island: its coast is dashed, still being drafted
   fillPoly(px, [[274, 84], [300, 78], [316, 92], [310, 112], [282, 116], [270, 102]], LAND);
   coast(g, 262, 70, 64, 56, true);
+  SELECT_RINGS[2] = ringOf(g, 258, 66, 70, 62); // the AI island
 
   // flight: a dashed arc from Taipei to London, with a little plane at the top
   const [ax, ay] = [NODES[2][0] - 6, NODES[2][1] - 6], [bx, by] = LONDON, cx = 270, cy = -24;
@@ -121,6 +144,9 @@ export function mapBase(): HTMLCanvasElement {
 
   // the London inset: a frame, leader lines to London, the Thames with its loop
   const I = INSET;
+  // London: the inset's frame, just outside its border
+  for (let x = I.x - 4; x <= I.x + I.w + 3; x++) for (const y of [I.y - 4, I.y + I.h + 3]) SELECT_RINGS[1].push([x, y]);
+  for (let y = I.y - 4; y <= I.y + I.h + 3; y++) for (const x of [I.x - 4, I.x + I.w + 3]) SELECT_RINGS[1].push([x, y]);
   for (let t = 0; t <= 1; t += 0.03) { px(Math.round(LONDON[0] + (I.x - LONDON[0]) * t), Math.round(LONDON[1] + (I.y - LONDON[1]) * t), INK); px(Math.round(LONDON[0] + (I.x - LONDON[0]) * t), Math.round(LONDON[1] + (I.y + I.h - LONDON[1]) * t), INK); }
   px(LONDON[0] - 2, LONDON[1] - 2, INK, 5, 5); px(LONDON[0] - 1, LONDON[1] - 1, '#e5484d', 3, 3);
   px(I.x - 2, I.y - 2, INK, I.w + 4, I.h + 4); px(I.x, I.y, '#f5eed6', I.w, I.h);

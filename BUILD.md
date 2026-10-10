@@ -238,3 +238,9 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - **robots.txt stays open on purpose:** a Disallow there would stop crawlers reading the noindex, and a blocked URL can still turn up in search as a bare link.
 - **Lighthouse gate:** CI now skips Lighthouse's `is-crawlable` audit, the one check this choice fails by design. Every category is still 100, mobile and desktop.
 - **Limit:** noindex keeps the site out of search; it doesn't password-protect it. Anyone with the link can open it, so share the link only with the panel. A password would need Vercel's paid Deployment Protection, or Vercel Authentication, which would make interviewers log in to Vercel.
+
+### PR 18 · Selection follows the coastline (Shannon: "can't the red dotted square be the Taiwan shape?")
+
+- **Coastline outline:** the selected world is now outlined by its own shape, not a box. A red line runs 2 px outside the real coastline of Taiwan, of the AI island and of the bonus island. For London it goes around the inset frame.
+- **How:** each outline is computed once from the land pixels when the map is drawn (`SELECT_RINGS` in `src/game/map.ts`).
+- **Why solid:** I tried a dotted version first. At this size it broke up into noise along the curved coast, so the line is solid.

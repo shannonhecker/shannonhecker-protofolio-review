@@ -8,7 +8,7 @@ import { LEVELS } from './levels';
 import { THEMES, playerFrames, helmet, pet, scooter, type Theme } from './art';
 import { FOES, type Foe } from './enemies';
 import { text, textWidth } from './pixel';
-import { mapBase, NODES, labelAt, BRAND, SCHOOL_ICONS, LOGO_ICONS } from './map';
+import { mapBase, NODES, labelAt, BRAND, SCHOOL_ICONS, LOGO_ICONS, SELECT_RINGS } from './map';
 import { CHAPTERS, chapterOf, stageCode } from '../lib/journey';
 import { sfx } from './sound';
 export { setSound } from './sound';
@@ -465,22 +465,9 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     };
     [0, 1, 3, 4].forEach((i) => route(i, '#a0471f', 4));
     [5, 6].forEach((i) => route(i, '#2b3654', 5));
-    // the selected world: one dashed red frame around all of its stages
-    {
-      const st = CHAPTERS[chapterOf(mapSel)].stages as readonly number[];
-      let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
-      for (const i of st) {
-        const [x, y] = NODES[i];
-        x0 = Math.min(x0, x - 13); y0 = Math.min(y0, y - 13); x1 = Math.max(x1, x + 13); y1 = Math.max(y1, y + 13);
-        for (const [k, l] of [`${stageCode(i)} ${WORLDS[i].short}`, WORLDS[i].when].entries()) {
-          const [lx, ly] = labelAt(i, l, k);
-          x0 = Math.min(x0, lx - 6); x1 = Math.max(x1, lx + textWidth(l) + 5); y1 = Math.max(y1, ly + 9);
-        }
-      }
-      ctx.fillStyle = '#e5484d';
-      for (let x = x0; x <= x1; x += 4) { ctx.fillRect(x, y0, 2, 2); ctx.fillRect(x, y1, 2, 2); }
-      for (let y = y0; y <= y1; y += 4) { ctx.fillRect(x0, y, 2, 2); ctx.fillRect(x1, y, 2, 2); }
-    }
+    // the selected world: a red line around its own coastline (or London's inset frame)
+    ctx.fillStyle = '#e5484d';
+    for (const [x, y] of SELECT_RINGS[chapterOf(mapSel)]) ctx.fillRect(x, y, 1, 1);
     NODES.forEach(([x, y], i) => {
       const sel = chapterOf(i) === chapterOf(mapSel), done = s.done.includes(i);
       const brand = BRAND[i];
