@@ -1,3 +1,4 @@
+@layer production {
 /* Production-only overrides on top of prototype.css. Each one says why. */
 
 /* <picture> wrappers from astro:assets must not change the prototype's
@@ -306,3 +307,5 @@ html.game-is-full{overflow:hidden}
 .demo{margin:0}
 .demo video{display:block;width:100%;height:auto;aspect-ratio:1280/770;background:var(--bg-2)}
 .chapter-head .meta a{color:var(--fg);font-weight:500;text-underline-offset:3px}
+
+}

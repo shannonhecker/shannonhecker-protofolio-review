@@ -119,7 +119,14 @@ soundBtn?.addEventListener('click', async () => {
 document.querySelectorAll<HTMLButtonElement>('.game-touch button').forEach((b) => {
   const k = b.dataset.k as 'left' | 'right' | 'jump';
   // keep focus on the canvas, so a tap never reads as leaving the game
-  const set = (v: boolean) => (e: Event) => { e.preventDefault(); if (game) game.touch[k] = v; if (v) canvas?.focus({ preventScroll: true }); };
+  const set = (v: boolean) => (e: Event) => {
+    e.preventDefault();
+    if (game) game.touch[k] = v;
+    if (v) {
+      canvas?.focus({ preventScroll: true });
+      game?.resume();
+    }
+  };
   b.addEventListener('mousedown', (e) => e.preventDefault());
   b.addEventListener('pointerdown', set(true));
   b.addEventListener('pointerup', set(false));

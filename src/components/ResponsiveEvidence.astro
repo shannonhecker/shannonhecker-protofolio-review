@@ -1,0 +1,21 @@
+---
+import Pic from './Pic.astro';
+interface Props { project:'fx'|'fusion'|'ai' }
+const {project}=Astro.props;
+const capture=project==='ai'?'uikit':project;
+const facts={
+ fx:{heading:'Meaning survives without colour.',text:'Bid, ask, mid, limit and fills each have their own shape and dash. Favourable and adverse say so in words.',responsive:'The current public rebuild fits the 820px tablet viewport. At 390px, its desktop trading surface overflows horizontally. Mobile parity is not claimed.',href:'https://shannonhecker.github.io/fx-execution-analytics/'},
+ fusion:{heading:'Accessibility was a review step.',text:'An accessibility specialist sat in every review. Anything that failed went back before it reached engineering.',responsive:'The current dashboard catalogue reflows within both the 820px tablet and 390px phone viewports. These captures show the catalogue, not a claim that every dense analytics workspace has mobile parity.',href:'https://jpm-analytics-dashboard-shannon-h.vercel.app/'},
+ ai:{heading:'Systems, density and theme stay inspectable.',text:'The current UI Kit exposes a skip link, design-system selection, theme and density controls. These are observable affordances, not a claim of a complete accessibility audit.',responsive:'The current Salt UI Kit fits both the 820px tablet and 390px phone viewports. The private builder remains a separate canvas workflow.',href:'https://uoaui.ai/ui-kit?ds=salt'},
+}[project];
+---
+<section class="responsive-evidence" id={`${project}-accessibility`} aria-labelledby={`${project}-accessibility-title`}>
+ <header class="process-heading"><h3 id={`${project}-accessibility-title`}>Accessibility and responsiveness</h3></header>
+ <div class="access-notes"><div><h4>{facts.heading}</h4><p>{facts.text}</p></div><div><h4>Across screen sizes</h4><p>{facts.responsive}</p></div></div>
+ {project==='fx'&&<div class="encoding-legend" aria-label="Chart meaning uses more than colour"><span><i class="encoding-line"></i>Market prices</span><span><i class="encoding-dash"></i>Benchmarks</span><span><i class="encoding-dot"></i>Fills</span><span><i class="encoding-range"></i>Order states</span></div>}
+ <div class="responsive-captures">
+  <figure><Pic name={`live-${capture}-tablet.png`} alt="Current product at an 820-pixel tablet viewport" sizes="(max-width:760px) 90vw, 620px" widths={[620,820]} /><figcaption>Tablet · 820px viewport</figcaption></figure>
+  <figure><Pic name={`live-${capture}-mobile.png`} alt="Current product at a 390-pixel phone viewport" sizes="(max-width:760px) 72vw, 300px" widths={[390]} /><figcaption>Phone · 390px viewport</figcaption></figure>
+ </div>
+ <p class="capture-source">Current public product captures · 10 October 2026 · <a href={facts.href} target="_blank" rel="noopener">Open live product<span class="vh"> (opens in new tab)</span> →</a></p>
+</section>

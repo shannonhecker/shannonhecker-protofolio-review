@@ -1,3 +1,4 @@
+@layer legacy {
 /* From prototype/site-v4/index.html, unchanged except one asset path (img/ -> ../assets/img/).
    Production overrides live in production.css so this file stays diffable against v4. */
 /* One idea: a white page, one heavy grotesk, and air. Small text sits top-left,
@@ -270,4 +271,6 @@ footer.band{background:var(--bg-2)}
   .g>*{grid-column:1/-1!important}
   .hero-art{max-width:none}
   .hero-art img{aspect-ratio:16/10}
+}
+
 }

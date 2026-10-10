@@ -1,6 +1,6 @@
 // The game chunk, loaded only when someone presses Play (see game-loader.ts).
 // Hand-written canvas engine. The world is 960×540 with 32px tiles; it renders
-// as pixel art on a 480×270 canvas, scaled up with nearest-neighbour in CSS.
+// with a 960×540 backing canvas. Map and HUD retain their 480×270 logical grid.
 // Shannon's career is the world map: one short level per stage, Kaohsiung to AI.
 import { T, TILE, VIEW_W, VIEW_H } from './tuning';
 import { parse } from './level';
@@ -11,6 +11,7 @@ import { text, textWidth } from './pixel';
 import { mapBase, NODES, labelAt, BRAND, SCHOOL_ICONS, LOGO_ICONS, SELECT_RINGS } from './map';
 import { CHAPTERS, chapterOf, stageCode } from '../lib/journey';
 import { sfx } from './sound';
+import { scenery, ground } from './scenery';
 export { setSound } from './sound';
 
 /** What the map and HUD show for each world. Facts only: CV and Shannon's own words. */
@@ -59,14 +60,16 @@ type Opts = {
 };
 
 const STEP = 1 / 120; // fixed physics step; render at display rate
-const ART = 0.5; // art px per world px
+const ART = 0.5; // sprite px per world px
+const RENDER = 2; // preserve fine illustrated detail without changing physics
+const HUD_W = VIEW_W * ART, HUD_H = VIEW_H * ART;
 const snap = (v: number) => Math.round(v * ART) / ART;
 const RIDE = 1.45; // scooter speed multiplier
 
 export function start(canvas: HTMLCanvasElement, opts: Opts) {
   const ctx = canvas.getContext('2d')!;
-  canvas.width = VIEW_W * ART;
-  canvas.height = VIEW_H * ART;
+  canvas.width = HUD_W * RENDER;
+  canvas.height = HUD_H * RENDER;
   ctx.imageSmoothingEnabled = false;
   const petSprite = pet();
   const bike = scooter();
@@ -190,14 +193,29 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   canvas.addEventListener('blur', blur);
   const vis = () => { if (document.hidden && s.mode === 'level') setPaused(true); };
   document.addEventListener('visibilitychange', vis);
-  const io = new IntersectionObserver(([e]) => { if (!e.isIntersecting && s.mode === 'level') setPaused(true); }, { threshold: 0.25 });
+  // Entering the browser's fullscreen layer can briefly report the focused
+  // canvas as non-intersecting. Restore only a pause caused by this observer;
+  // an explicit pause, blur or hidden tab must still wait for the player.
+  let pausedOffscreen = false;
+  const io = new IntersectionObserver((entries) => {
+    // A fullscreen transition may batch both the old and new visibility.
+    const e = entries[entries.length - 1];
+    if (!e || s.mode !== 'level') return;
+    if (!e.isIntersecting && !s.paused) {
+      setPaused(true);
+      pausedOffscreen = true;
+    } else if (e.isIntersecting && pausedOffscreen) {
+      pausedOffscreen = false;
+      if (!document.hidden && document.activeElement === canvas) setPaused(false);
+    }
+  }, { threshold: 0.25 });
   io.observe(canvas);
   const wake = (e: PointerEvent) => {
     canvas.focus();
     if (s.mode === 'map') {
       // click a world on the map to start it
       const r = canvas.getBoundingClientRect();
-      const mx = ((e.clientX - r.left) / r.width) * canvas.width, my = ((e.clientY - r.top) / r.height) * canvas.height;
+      const mx = ((e.clientX - r.left) / r.width) * HUD_W, my = ((e.clientY - r.top) / r.height) * HUD_H;
       let best = -1, bd = 26 * 26;
       NODES.forEach(([nx, ny], i) => { const d = (nx - mx) ** 2 + (ny - my) ** 2; if (d < bd) { bd = d; best = i; } });
       if (best >= 0) { mapSel = best; opts.onMapSelect?.(best); loadLevel(best); }
@@ -210,6 +228,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   canvas.addEventListener('focus', onFocus);
 
   function setPaused(v: boolean) {
+    pausedOffscreen = false;
     if (s.finished || s.paused === v) return;
     s.paused = v;
     opts.onStatus(v ? 'Paused. Press Escape or click the game to carry on.' : 'Playing.');
@@ -505,6 +524,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   }
 
   function draw() {
+    ctx.setTransform(RENDER, 0, 0, RENDER, 0, 0);
     if (s.mode === 'map') { drawMap(); return; }
     ctx.save();
     ctx.scale(ART, ART);
@@ -515,7 +535,15 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       ctx.drawImage(im, snap(o), 0, VIEW_W, VIEW_H);
       ctx.drawImage(im, snap(o + VIEW_W), 0, VIEW_W, VIEW_H);
     };
-    par(theme.far, 0.2); par(theme.near, 0.5);
+    const plate = scenery(theme.id);
+    if (plate) {
+      // Full image, never cropped or tiled: a landmark appears once.
+      const scale = Math.min(VIEW_W / plate.naturalWidth, VIEW_H / plate.naturalHeight);
+      const width = plate.naturalWidth * scale, height = plate.naturalHeight * scale;
+      ctx.imageSmoothingEnabled = true;
+      ctx.drawImage(plate, (VIEW_W - width) / 2, (VIEW_H - height) / 2, width, height);
+      ctx.imageSmoothingEnabled = false;
+    } else { par(theme.far, 0.2); par(theme.near, 0.5); }
 
     const sx = shake ? (Math.random() - 0.5) * shake : 0;
     ctx.translate(snap(-cam + sx), snap(-camY));
@@ -524,7 +552,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     for (let ty = Math.max(0, y0); ty < Math.min(lvl.h, y1); ty++)
       for (let tx = x0; tx < x1; tx++) {
         const t = lvl.tiles[ty]?.[tx];
-        if (t === '#') W(lvl.tiles[ty - 1]?.[tx] === '#' ? theme.fill : theme.ground, tx * TILE, ty * TILE);
+        if (t === '#') ground(ctx, tx * TILE, ty * TILE, lvl.tiles[ty - 1]?.[tx] !== '#', theme.id);
         else if (t === '=') W(theme.platform, tx * TILE, ty * TILE);
         else if (t === 'D' && theme.draft) W(revealed.has(`${tx},${ty}`) ? theme.platform : theme.draft, tx * TILE, ty * TILE);
       }
@@ -605,18 +633,18 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     }
 
     // HUD in the pixel font, at art resolution, on a strip so it reads on any background
-    ctx.globalAlpha = 0.82; ctx.fillStyle = theme.sky; ctx.fillRect(0, 0, canvas.width, 22); ctx.globalAlpha = 1;
+    ctx.globalAlpha = 0.82; ctx.fillStyle = theme.sky; ctx.fillRect(0, 0, HUD_W, 22); ctx.globalAlpha = 1;
     text(ctx, `${s.collected}/${s.total}`, 8, 8, theme.hud, 2);
-    for (let i = 0; i < T.maxHits; i++) { ctx.fillStyle = i < T.maxHits - s.hits ? theme.hud : 'rgba(127,127,127,.35)'; ctx.fillRect(canvas.width - 14 - i * 10, 8, 6, 6); }
+    for (let i = 0; i < T.maxHits; i++) { ctx.fillStyle = i < T.maxHits - s.hits ? theme.hud : 'rgba(127,127,127,.35)'; ctx.fillRect(HUD_W - 14 - i * 10, 8, 6, 6); }
     const head = `${stageCode(s.level)} ${WORLDS[s.level].short} · ${WORLDS[s.level].when}`;
-    text(ctx, head, Math.round(canvas.width / 2 - textWidth(head) / 2), 10, theme.hud);
+    text(ctx, head, Math.round(HUD_W / 2 - textWidth(head) / 2), 10, theme.hud);
     // the mission, under the strip
     const ms = s.mission.done ? `★ ${s.mission.text} · DONE` : MISSIONS[s.level].kind === 'ride' ? `★ ${s.mission.text}` : `★ ${s.mission.text} · ${s.mission.have}/${s.mission.need}`;
     ctx.globalAlpha = 0.82; ctx.fillStyle = theme.sky; ctx.fillRect(0, 22, textWidth(ms) + 16, 12); ctx.globalAlpha = 1;
     text(ctx, ms, 8, 25, s.mission.done ? '#f3a414' : theme.hud);
     if (s.paused) {
-      ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-      text(ctx, 'PAUSED', canvas.width / 2 - 36, canvas.height / 2 - 8, '#ffffff', 3);
+      ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(0, 0, HUD_W, HUD_H);
+      text(ctx, 'PAUSED', HUD_W / 2 - 36, HUD_H / 2 - 8, '#ffffff', 3);
     }
   }
 
@@ -641,7 +669,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   canvas.focus();
 
   return {
-    state: () => ({ ...s, done: [...s.done], missions: [...s.missions], mission: { ...s.mission } }),
+    state: () => ({ ...s, done: [...s.done], missions: [...s.missions], mission: { ...s.mission }, enemies: foes.filter((e) => e.alive).map(({ x, y }) => ({ x, y })) }),
     touch,
     levels: LEVELS.length,
     loadLevel: (n: number) => { canvas.focus(); mapSel = n; loadLevel(n); },

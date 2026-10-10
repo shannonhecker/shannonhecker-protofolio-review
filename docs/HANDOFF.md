@@ -88,3 +88,12 @@ Shannon's latest directions override the older source/media guidance above:
 After this release, the next new-content feature remains Corporate Action
 Manager, Deal Model and Data Solution, with source verification before adding
 outcome claims. Award quality is a craft target, not an award certification.
+
+## Later direction, 10 October 2026
+
+Shannon explicitly reopened layout and art direction. Follow
+`docs/ADVENTURE-DIRECTION.md` for the confirmed immersive illustrated pixel world,
+readable lighter typography, scroll-led chapters and optional game. These choices
+supersede the earlier white-page-only visual restriction and frozen composition.
+Content accuracy, NDA, original words, complete images and accessibility still
+apply. The redesign is not complete; see `docs/TASKS.md` for remaining work.
