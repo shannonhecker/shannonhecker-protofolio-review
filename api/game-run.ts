@@ -1,4 +1,4 @@
-import { issue, json, limited, readBody, sameOrigin, validStage } from '../server/scoreboard.ts';
+import { issue, json, limited, readBody, sameOrigin, validStage } from '../server/scoreboard.js';
 export async function POST(req: Request) {
   if (!sameOrigin(req)) return json({ error: 'Same-site requests only' }, 403);
   let body;

@@ -13,6 +13,16 @@ jobs:
         with: { node-version: 22, cache: npm }
       - run: npm ci
       - run: npx astro check
+      - name: Compiled API runtime
+        run: |
+          npx tsc api/game-run.ts api/leaderboard.ts --outDir "$RUNNER_TEMP/portfolio-api" --module NodeNext --moduleResolution NodeNext --target ES2022 --types node --skipLibCheck --ignoreConfig
+          node --input-type=module <<'JS'
+          const api = await import(`${process.env.RUNNER_TEMP}/portfolio-api/api/game-run.js`);
+          const response = await api.POST(new Request('https://example.com/api/game-run', {
+            method: 'POST', headers: { origin: 'https://wrong.example', 'content-type': 'application/json' }, body: '{}'
+          }));
+          if (response.status !== 403) throw new Error('Compiled API origin guard failed');
+          JS
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test

@@ -1,4 +1,4 @@
-import { json, limited, namespace, readBody, redis, sameOrigin, validStage, validateResult, verify } from '../server/scoreboard.ts';
+import { json, limited, namespace, readBody, redis, sameOrigin, validStage, validateResult, verify } from '../server/scoreboard.js';
 export async function GET(req: Request) {
   const value = new URL(req.url).searchParams.get('stage');
   const stage = value === null ? -1 : Number(value);

@@ -1,5 +1,5 @@
 import { createHmac, randomUUID, timingSafeEqual } from 'node:crypto';
-import { LEVELS } from '../src/game/levels.ts';
+import { LEVELS } from '../src/game/levels.js';
 
 export const ttl = 7200;
 export const stageLimits = LEVELS.map(level => ({
