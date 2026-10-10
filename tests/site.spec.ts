@@ -52,7 +52,7 @@ test('links home go to /panel, so the panel line stays', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Work', exact: true })).toHaveAttribute('href', '/panel#work');
   await page.locator('.nav a.brand').click();
   await expect(page).toHaveURL(/\/panel$/);
-  await expect(page.getByText('Portfolio for the Revolut design panel')).toBeVisible();
+  await expect(page.getByText('Portfolio for the Revolut design panel: product design, heading into AI')).toBeVisible();
 });
 
 test('private share: every page stays out of search', async ({ page }) => {
@@ -64,7 +64,7 @@ test('private share: every page stays out of search', async ({ page }) => {
 
 test('/panel carries the panel line and stays out of the index', async ({ page }) => {
   await page.goto('/panel');
-  await expect(page.getByText('Portfolio for the Revolut design panel')).toBeVisible();
+  await expect(page.getByText('Portfolio for the Revolut design panel: product design, heading into AI')).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://shannonhecker.com/');
 });
