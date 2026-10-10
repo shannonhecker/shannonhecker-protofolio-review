@@ -227,3 +227,7 @@ and are not used in the site. Generation was authorized by Shannon.
 The greeting hand is now a separate registered layer (`hand.webp`). Its wrist
 pivots gently while the arm, face and body remain fixed. Original hair is restored
 behind that hand, avoiding a transparent hole during the wave.
+
+### User-edited home artwork, 10 October 2026
+
+Figma working file `l6noy7onfsRiuBgjqSsKbt`, Home page `32:2`, desktop `32:3`, mobile `32:4`. Shannon explicitly requested publishing this revision. `src/assets/img/home-figma/` retains the downloaded source artwork. FX source `120:1958` depicts the public rebuild in a tablet mockup; Fusion source `120:1950` is the supplied analytics collage; uoaui source `109:64` is the supplied desktop composition. Winking artwork is exported from the image-only composition containers `109:46` and `109:219`, preserving the separately authored desktop/mobile positions. These are gallery cover compositions; case evidence remains unchanged. No complete page screenshot is used as implementation. The rainy-stage umbrella is original canvas pixel art in `src/game/umbrella.ts`.

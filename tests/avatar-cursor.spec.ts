@@ -74,3 +74,20 @@ test('avatar repeats her greeting while visible and responds to a fresh pointer 
  await page.getByRole('button',{name:'Pause motion',exact:true}).click();
  await expect(page.locator('.greeting-hand')).toBeHidden();
 });
+
+test('landing copy finishes before the scene appears, followed by the avatar',async({page})=>{
+ await page.goto('/panel');
+ const stages=await page.evaluate(()=>new Promise<string[]>(resolve=>{
+  const seen:string[]=[];const started=performance.now();
+  const sample=()=>{
+   const copy=document.querySelector('.explore-work')!;
+   const scene=document.querySelector('.companion-stage')!;
+   const avatar=document.querySelector('.companion-avatar')!;
+   if(Number(getComputedStyle(copy).opacity)>.99&&!seen.includes('copy'))seen.push('copy');
+   if(Number(getComputedStyle(scene,'::before').opacity)>.05&&!seen.includes('scene'))seen.push('scene');
+   if(Number(getComputedStyle(avatar).opacity)>.05&&!seen.includes('avatar'))seen.push('avatar');
+   if(seen.length===3||performance.now()-started>6000)resolve(seen);else requestAnimationFrame(sample);
+  };sample();
+ }));
+ expect(stages).toEqual(['copy','scene','avatar']);
+});

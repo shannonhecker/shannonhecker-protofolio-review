@@ -48,7 +48,7 @@ if(companion){
   const first=!greeted;greeted=true;
   companion.dataset.entered='true';
   if(first)companion.dataset.intro='true';
-  const sequence:[string,number][]=[['rest',first?2800:80],['lift',160],['wave',1800],['lift',160],['rest',250]];
+  const sequence:[string,number][]=[['rest',first?3050:80],['lift',160],['wave',1800],['lift',160],['rest',250]];
   const next=()=>{if(!enabled()){finishGreeting();return;}const step=sequence.shift();if(!step){finishGreeting();idleTimer=window.setTimeout(()=>void greet(),10000);return;}companion.dataset.pose=step[0];greetingTimer=window.setTimeout(next,step[1]);};
   next();
  };
@@ -81,6 +81,6 @@ if(companion){
  reduced.addEventListener('change',sync);
  document.addEventListener('visibilitychange',sync);
  addEventListener('scroll',()=>{if(!enabled())return;targetY=Math.max(-12,Math.min(0,-scrollY*.025));schedule();},{passive:true});
- new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;companion.dataset.visible=String(visible);sync();}).observe(companion);
+ new IntersectionObserver(([entry])=>{visible=entry.isIntersecting&&entry.intersectionRatio>=.25;companion.dataset.visible=String(visible);sync();},{threshold:[0,.25]}).observe(companion);
  sync();
 }

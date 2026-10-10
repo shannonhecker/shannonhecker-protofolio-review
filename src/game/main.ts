@@ -14,6 +14,7 @@ import { CHAPTERS, chapterOf, stageCode } from '../lib/journey';
 import { sfx, setMusicPlaying, setPowerMusic, audioState } from './sound';
 import { scenery, ground, prepareScenery } from './scenery';
 import { illustrated, drawIllustration, prepareIllustrations } from './illustrated';
+import { drawRainUmbrella } from './umbrella';
 export { setSound, setMusicPlaying } from './sound';
 export async function prepareArt() {
   await Promise.all([prepareIllustrations(), prepareScenery(LEVELS.map((level) => level.theme))]);
@@ -715,6 +716,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       const frame = !p.grounded || s.finished ? 4 : running ? [2, 1, 3, 1][Math.floor(p.run) % 4] : 1;
       if (!drawIllustration(ctx, `hero-${theme.id}-${frame}`, p.x + PW / 2, p.y + PH - lift, 60, 60, p.face < 0))
         ctx.drawImage(p.hurtT > 0.25 ? hero.flash : im, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift), snap(w), snap(hh));
+      if (theme.weather === 'rain') drawRainUmbrella(ctx, p.x + PW / 2, p.y + PH - lift, p.face);
       // Kaohsiung: a half-helmet whenever she rides
       if (p.ride && !illustrated(`hero-${theme.id}-1`)) ctx.drawImage(lid, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift - 2), snap(w), snap(10 * (1 - sq)));
       if (p.ride) {

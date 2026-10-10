@@ -98,6 +98,7 @@ function setFull(on: boolean) {
   full = on;
   box?.classList.toggle('is-full', on);
   document.documentElement.classList.toggle('game-is-full', on);
+  window.dispatchEvent(new Event('portfolio-game-mode'));
   if (exitBtn) exitBtn.hidden = !on;
   if (on) { canvas?.focus({ preventScroll: true }); game?.resume(); musicControl?.(true); }
   else { musicControl?.(false); if ((game?.state() as { mode?: string } | undefined)?.mode === 'level') game?.pause(); box?.scrollIntoView({ block: 'center' }); }
@@ -158,5 +159,16 @@ document.querySelectorAll<HTMLButtonElement>('.game-touch button').forEach((b) =
   b.addEventListener('pointercancel', set(false));
   b.addEventListener('pointerleave', set(false));
 });
+
+// Decorative title motion runs only while its scene is actually being viewed.
+const poster = document.querySelector<HTMLElement>('.game-poster');
+if (poster) {
+  let visible = false;
+  const syncTitle = () => { poster.dataset.visible = String(visible && !document.hidden); };
+  new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; syncTitle(); }).observe(poster);
+  document.addEventListener('visibilitychange', syncTitle);
+}
+// The title screen becomes actionable only after its handlers are attached.
+if (play) play.disabled = false;
 
 export {};

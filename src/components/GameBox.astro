@@ -15,7 +15,12 @@ import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
     <canvas id="game" width="480" height="270" tabindex="-1" role="application" aria-roledescription="game" aria-label="Working Order" aria-describedby="game-desc"></canvas>
     <div class="game-poster">
       <img src="/game/banner.webp" alt="" width="960" height="240" loading="lazy" decoding="async" />
-      <button type="button" class="game-play" id="game-play">Press to play</button>
+      <div class="title-hud" aria-hidden="true"><span>SHANNON<br />000000</span><span>WORLD<br />1–1</span><span>ADVENTURE<br />START</span></div>
+      <div class="title-plaque" aria-hidden="true"><span>WORKING</span><span>ORDER</span></div>
+      <span class="title-traveller" aria-hidden="true"></span>
+      <span class="title-ground" aria-hidden="true"></span>
+      <button type="button" class="game-play game-title-start" id="game-play" aria-label="Start adventure" disabled><span><span class="title-pointer" aria-hidden="true">▶</span> START ADVENTURE</span></button>
+      <span class="title-credit" aria-hidden="true">A SHANNON HECKER ADVENTURE</span>
     </div>
     {JOURNEY.map((w, i) => (
       <div class="game-end" data-end={i} hidden>
@@ -82,6 +87,6 @@ import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
     {JOURNEY.map((stage,i)=><button type="button" data-stage={i}><span>{stageCode(i)}</span>{stage.place}</button>)}
   </nav>
   <p class="game-caption">Working Order · from Kaohsiung to London to what's next</p>
-  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at Genuine C&C Inc.), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Collect a power star for eight seconds of extra speed and protection. Each stage has a small enemy you can jump on and an optional mission for a gold star. Pressing Play opens it full screen; Escape or the Exit full screen button returns to the page. Arrow keys or WASD to move, Space or Up to jump, Escape to pause when not full screen. On the map, Left and Right choose a world, Up and Down choose a stage, and Space starts it. Hover a marker to preview it, or click or tap it to play.</p>
+  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at Genuine C&C Inc.), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Collect a power star for eight seconds of extra speed and protection. Each stage has a small enemy you can jump on and an optional mission for a gold star. Choosing Start adventure opens it full screen; Escape or the Exit full screen button returns to the page. Arrow keys or WASD to move, Space or Up to jump, Escape to pause when not full screen. On the map, Left and Right choose a world, Up and Down choose a stage, and Space starts it. Hover a marker to preview it, or click or tap it to play.</p>
   <p id="game-status" class="vh" aria-live="polite"></p>
 </div>

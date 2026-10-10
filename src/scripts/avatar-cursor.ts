@@ -60,3 +60,6 @@ window.addEventListener('blur',hide);window.addEventListener('pageswap',hide);
 allowed.addEventListener('change',sync);
 toggle?.addEventListener('click',()=>{enabled=!enabled;try{localStorage.setItem('portfolio-avatar-cursor',enabled?'on':'off');}catch{}sync();});
 sync();
+
+// Entering the game can happen without another pointermove. Restore its cursor now.
+addEventListener('portfolio-game-mode',hide);

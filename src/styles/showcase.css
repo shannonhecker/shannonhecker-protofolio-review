@@ -132,7 +132,7 @@ html[data-theme=dark] #work .row[data-chapter=ai] { --work-surface:#302940; }
  #work .row:hover>picture img { translate:0 -8px; }
  #work .row:hover>.appstore-preview picture:nth-child(odd) img { translate:0 -10px; }
  #work .row:hover>.appstore-preview picture:nth-child(even) img { translate:0 10px; }
- @keyframes case-title-enter { from{opacity:0;translate:-50% 24px}to{opacity:1;translate:-50% 0} }
+ @keyframes case-title-enter { from{opacity:0;translate:0 24px}to{opacity:1;translate:0 0} }
  @keyframes case-gallery-enter { from{opacity:.5;translate:0 64px}to{opacity:1;translate:0 0} }
 }
 .case-page .strip-wrap { margin-inline:0;max-width:100%; }
@@ -195,7 +195,7 @@ html[data-theme=dark] #work .row[data-chapter=ai] { --work-surface:#302940; }
 @keyframes companion-wave{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-9deg)}75%{transform:rotate(9deg)}}
 .landing-companion:is([data-pose=lift],[data-pose=wave]) .idle-open{visibility:hidden}
 .has-js .landing-companion:not([data-entered=true]) .companion-avatar{opacity:0}
-.landing-companion[data-intro=true] .companion-avatar{animation:companion-arrive .8s 2s cubic-bezier(.22,1,.36,1) both}
+.landing-companion[data-intro=true] .companion-avatar{animation:companion-arrive .8s 2.25s cubic-bezier(.22,1,.36,1) both}
 .landing-companion[data-pose=wave] .idle-smile{visibility:visible;animation:none!important}
 @keyframes companion-arrive{from{opacity:0;translate:-50% 24px}to{opacity:1;translate:-50% 0}}
 @media(prefers-reduced-motion:reduce){.greeting-frame{visibility:hidden!important}.idle-open{visibility:visible!important}.companion-avatar{animation:none!important;opacity:1!important}}
@@ -207,3 +207,71 @@ html[data-theme=dark] #work .row[data-chapter=ai] { --work-surface:#302940; }
  @keyframes hero-copy-enter{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 }
 @media print{.hero-story>*{animation:none!important;opacity:1!important;clip-path:none!important}.companion-avatar{animation:none!important;opacity:1!important}}
+
+/* The scene arrives between the finished copy and the character greeting. */
+.has-js .landing-companion:not([data-entered=true]) .companion-stage::before,
+.has-js .landing-companion:not([data-entered=true]) :is(.companion-object,.companion-path,.companion-controls,.companion-hint){opacity:0}
+.landing-companion[data-intro=true] .companion-stage::before,
+.landing-companion[data-intro=true] :is(.companion-object,.companion-path,.companion-controls,.companion-hint){animation:companion-scene-enter .5s 1.7s ease-out both}
+@keyframes companion-scene-enter{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){
+ .landing-companion .companion-stage::before,.landing-companion :is(.companion-object,.companion-path,.companion-controls,.companion-hint){animation:none!important;opacity:1!important}
+}
+@media print{
+ .landing-companion .companion-stage::before,.landing-companion :is(.companion-object,.companion-path,.companion-controls,.companion-hint){animation:none!important;opacity:1!important}
+}
+
+/* An original cartridge-era title screen, using the game's own harbour art. */
+.play .game-poster{--title-ink:#172b3b;--title-paper:#fff2cf;--title-sign:#a34b29;overflow:hidden;color:var(--title-paper);font-family:var(--pixel);isolation:isolate}
+.adventure-hero .play:not(.is-full) .game[data-state=poster]{min-height:290px}
+.play .title-hud{position:absolute;inset:6% 5% auto;display:flex;justify-content:space-between;z-index:1;font:clamp(12px,1.2vw,18px)/1.1 var(--pixel);letter-spacing:.04em;color:#172b3b}
+.play .title-hud span:last-child{text-align:right}
+.play .title-plaque{position:absolute;top:16%;left:50%;translate:-50% 0;display:grid;text-align:center;padding:8px 28px 12px;background:var(--title-sign);border:4px solid #edb876;box-shadow:5px 5px 0 var(--title-ink);font:clamp(38px,4.4vw,70px)/.9 var(--pixel);letter-spacing:.025em;text-shadow:3px 3px 0 #532e2b;z-index:1}
+.play .title-plaque::before,.play .title-plaque::after{content:'';position:absolute;top:6px;bottom:6px;width:4px;border-block:4px solid var(--title-paper)}
+.play .title-plaque::before{left:6px}.play .title-plaque::after{right:6px}
+.adventure-hero .game-poster .game-title-start{position:absolute;inset:0;z-index:3;width:100%;height:100%;margin:0;padding:0;border:0!important;border-radius:0!important;background:transparent!important;color:#172b3b;font:clamp(17px,1.7vw,25px)/1.2 var(--pixel);box-shadow:none}
+.game-title-start>span{position:absolute;top:70%;left:50%;translate:-50% 0;white-space:nowrap;padding:4px 12px;background:#d5f2ee}
+.title-pointer{display:inline-block;margin-right:8px;animation:title-prompt 1.2s steps(2,end) infinite}
+.game-title-start:hover>span,.game-title-start:focus-visible>span{background:#fff2cf;color:#172b3b}
+.play .game-title-start:focus-visible{outline:4px solid #fff2cf!important;outline-offset:-8px}
+.play .game-title-start:disabled>span{opacity:.65}
+.play .title-credit{position:absolute;top:84%;left:50%;translate:-50% 0;white-space:nowrap;font:clamp(10px,1vw,14px)/1 var(--pixel);color:#172b3b;background:#d5f2ee;padding:3px 6px;z-index:1}
+.play .title-ground{position:absolute;bottom:0;inset-inline:0;height:20px;background:#607887 url('/game/stone.webp') repeat-x bottom/40px 40px;border-top:4px solid #fff2cf;image-rendering:pixelated;z-index:1}
+.play .title-traveller{position:absolute;bottom:24px;left:12%;width:51px;height:72px;background:url('/game/eras/kaohsiung/1.png') center/contain no-repeat;image-rendering:pixelated;z-index:2;animation:title-idle 2.4s steps(2,end) infinite}
+@keyframes title-prompt{50%{opacity:0}}
+@keyframes title-idle{50%{translate:0 -2px}}
+@media(max-width:760px){
+ .adventure-hero .play:not(.is-full) .game[data-state=poster]{min-height:250px}
+ .play .title-plaque{top:22%;padding:8px 22px 10px;font-size:40px}
+ .play .title-hud{font-size:12px}
+ .play .title-traveller{left:5%;width:34px;height:48px}
+ .game-title-start>span{top:69%;padding:5px 8px}
+ .play .title-credit{top:84%;font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){.title-pointer,.play .title-traveller{animation:none}}
+
+/* Shannon's 10 October Figma home revision. Covers are authored compositions;
+   full product evidence remains on each unchanged case page. */
+.hero-story .h-giant,#work .work-title,#work .row h3{font-family:var(--body)}
+#work .row>.home-artwork{position:relative;padding:0;display:block;aspect-ratio:681/523.844;border-radius:2px}
+#work .home-artwork picture{display:block;position:absolute;inset:0}
+#work .home-artwork img{display:block;width:100%;height:100%;max-height:none;object-fit:cover;transition:transform .65s cubic-bezier(.16,1,.3,1)}
+#work .home-artwork-fx picture{width:126.432%;height:109.575%;left:-11.16%;top:-6.067%}
+#work .home-artwork-fusion picture{width:100%;height:130.001%;top:-26.684%}
+#work .home-artwork-winking picture:last-child{display:none}
+#work .home-artwork-ai picture{top:.36%;height:100.03%}
+#work .row:hover .home-artwork img{transform:scale(1.025)}
+@media(max-width:760px){
+ #work .home-artwork-fx picture{width:120.286%;height:104.46%;left:-13.143%;top:-4.461%}
+ #work .home-artwork-fusion picture{width:109.143%;height:141.892%;left:-2.286%;top:-41.728%}
+ #work .home-artwork-winking picture:first-child{display:none}
+ #work .home-artwork-winking picture:last-child{display:block}
+}
+@media(prefers-reduced-motion:reduce){#work .home-artwork img{transition:none}#work .row:hover .home-artwork img{transform:none}}
+
+/* The overlay fallback must clear the fixed site navigation and cursor too. */
+html.game-is-full :is(.nav,.progress,.avatar-cursor){visibility:hidden!important}
+.play .title-hud span{background:#86cddd;padding:3px 5px}
+
+.title-pointer,.play .title-traveller{animation-play-state:paused}
+.game-poster[data-visible=true] .title-pointer,.play .game-poster[data-visible=true] .title-traveller{animation-play-state:running}

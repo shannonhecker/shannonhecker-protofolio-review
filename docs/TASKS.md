@@ -670,3 +670,7 @@ nine pages built, 88 files checked without diagnostics.
 - [x] Nine-route build, zero Astro errors/warnings, 108 browser tests passed in 38.8s.
 - [ ] Exact-head CI and production verification: PR #25.
 - [x] Latest request: delayed text entrances and avatar arrival after two seconds; separate wrist wave repeats while visible and responds to visits. 109 tests pass; root mobile audit 99/100/100/100.
+- [x] Synced user-edited Figma home desktop/mobile artwork and typography; kept case imagery unchanged.
+- [x] Text, backdrop/objects, avatar entrance order verified; pixel title screen replaces Press to play.
+- [x] Rainy-stage umbrella follows the character; responsive title offset fixed and checked at seven widths.
+- [x] Final local 114 browser tests pass; latest home mobile Lighthouse 96/100/100/100.

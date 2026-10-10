@@ -6,7 +6,7 @@ const state = (page: Page) => page.evaluate(() => (window as unknown as { __game
 // Press Play (which opens the career map), then Space to start the first world.
 async function boot(page: Page) {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   await page.keyboard.press('Space');
   await expect.poll(async () => (await state(page)).mode).toBe('level');
@@ -119,7 +119,7 @@ for (const n of [0, 1, 2, 3, 4, 5, 6, 7]) {
     test.setTimeout(180000);
     await page.addInitScript(() => { (window as unknown as { __gameAssist: object }).__gameAssist = { invuln: true }; });
     await page.goto(`/?level=${n + 1}#top`);
-    await page.getByRole('button', { name: 'Press to play' }).click();
+    await page.getByRole('button', { name: 'Start adventure' }).click();
     await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
     const s = n === 4 ? await climbTower(page) : await runLevel(page, n);
     expect(s.finished, `stopped at tile ${Math.floor(s.x / 32)}, row ${Math.floor((s.y + 44) / 32)}`).toBe(true);
@@ -139,7 +139,7 @@ for (const n of [0, 1, 2, 3, 4, 5, 6, 7]) {
 async function startWorld(page: Page, n: number, invuln = false) {
   if (invuln) await page.addInitScript(() => { (window as unknown as { __gameAssist: object }).__gameAssist = { invuln: true }; });
   await page.goto(`/?level=${n + 1}#top`);
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   await expect.poll(async () => (await state(page)).grounded).toBe(true);
 }
@@ -187,7 +187,7 @@ test('every world has a mission, shown in the HUD state', async ({ page }) => {
 
 test('Play opens the career map; arrows step world by world and Space starts it', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   expect((await state(page)).mode).toBe('map');
   // four choices: Taiwan, London, Next: AI, Bonus. One step lands on London's first stage.
@@ -216,7 +216,7 @@ test('stages of a world play on: the card offers the next stage, then the next w
 
 test('Kaohsiung: the scooter makes you faster', async ({ page }) => {
   await page.goto('/?level=1#top');
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => (await state(page)).riding, { timeout: 6000 }).toBe(true);
@@ -228,7 +228,7 @@ test('Kaohsiung: the scooter makes you faster', async ({ page }) => {
 
 test('hazards hurt (three hits restart the level)', async ({ page }) => {
   await page.goto('/?level=5#top');
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   // stand in the tower's falling-sheet lane on the ground floor and wait
   // nudge into the lane (x 440 to 468) with short taps
@@ -257,9 +257,9 @@ test('a case page links to its chapter of the game without starting it', async (
 test('the site still works if the game chunk fails to load', async ({ page }) => {
   await page.route(/\/_astro\/main\.[^/]+\.js$/, (r) => r.abort());
   await page.goto('/');
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
-  await expect(page.getByRole('button', { name: 'Press to play' })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Start adventure' })).toBeEnabled();
   await expect(page.locator('#links h2')).toBeVisible();
 });
 
@@ -268,7 +268,7 @@ test.describe('JavaScript off', () => {
   test('the game shows a static poster and no dead Play button', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('.game-poster img')).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Press to play' })).toBeHidden();
+    await expect(page.getByRole('button', { name: 'Start adventure' })).toBeHidden();
   });
 });
 
@@ -278,6 +278,6 @@ test('sound is off by default and has one toggle', async ({ page }) => {
   await expect(btn).toHaveAttribute('aria-pressed', 'false');
   await btn.click();
   await expect(btn).toHaveAttribute('aria-pressed', 'true');
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
 });
