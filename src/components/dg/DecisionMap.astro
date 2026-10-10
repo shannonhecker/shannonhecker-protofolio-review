@@ -1,0 +1,13 @@
+---
+import { decisions, type Project } from '../../lib/process';
+interface Props { project: Project }
+const { project } = Astro.props;
+---
+<section class="decision-map" aria-labelledby={`${project}-decision-map-title`} id={`${project}-decision-map`}>
+  <header class="process-heading"><h3 id={`${project}-decision-map-title`}>Decision map</h3><p>I have pulled the choices and trade-offs below into one view.</p></header>
+  <ol>{decisions[project].map((d) => <li>
+    <h4>{d.question}</h4>
+    <div class="decision-branches"><div class="decision-choice"><span>I chose</span><p>{d.chosen}</p></div><div class="decision-option"><span>Alternative</span><p>{d.alternative}</p></div></div>
+    <p class="decision-reason">{d.reason}</p>
+  </li>)}</ol>
+</section>

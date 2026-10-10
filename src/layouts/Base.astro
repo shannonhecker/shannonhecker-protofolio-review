@@ -1,7 +1,10 @@
 ---
+import { getImage } from 'astro:assets';
+import { img } from '../lib/img';
 import '../styles/fonts.css';
 import '../styles/prototype.css';
 import '../styles/production.css';
+import '../styles/editorial.css';
 import displayFont from '@fontsource/inter-tight/files/inter-tight-latin-700-normal.woff2?url';
 import bodyFont from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
 
@@ -21,7 +24,8 @@ const {
 // works at Barclays, so no employer-visible URL names another company.
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
 const canonical = new URL(noindex ? '/' : path, Astro.site).href;
-const og = new URL('/og.jpg', Astro.site).href;
+const ogImage = await getImage({ src: img('live-fx.png'), width: 1200, format: 'jpg', quality: 85 });
+const og = new URL(ogImage.src, Astro.site).href;
 ---
 <!doctype html>
 <html lang="en">
@@ -45,7 +49,7 @@ const og = new URL('/og.jpg', Astro.site).href;
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={og} />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:height" content="750" />
     <meta property="og:image:alt" content="FX execution analytics: a trading chart with progress and price on one canvas" />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json" set:html={JSON.stringify({

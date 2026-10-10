@@ -2,6 +2,7 @@
 interface Props { panel?: boolean }
 const { panel = false } = Astro.props;
 import GameBox from './GameBox.astro';
+import Pic from './Pic.astro';
 ---
 <header id="top" data-tone="light" class="hero">
   <div class="wrap">
@@ -10,7 +11,10 @@ import GameBox from './GameBox.astro';
       // intro as a small eyebrow so the signed-off composition is untouched.
       <p class="eyebrow hero-for">Portfolio for the Revolut design panel: product design, heading into AI</p>
     )}
-    <p class="hero-top">Hi, I'm Shannon Hecker, a product designer in London. Lead design for FX and MarketsOne at Barclays, VP of Product Design at J.P. Morgan before that. I build what I design.</p>
+    <div class="hero-intro">
+      <div class="avatar-stamp"><Pic name="shannon-avatar.png" alt="My pixel-art avatar in a cream jumper and pink trousers" sizes="120px" widths={[160, 240]} eager /></div>
+      <p class="hero-top">Hi, I'm Shannon Hecker, a product designer in London. Lead design for FX and MarketsOne at Barclays, VP of Product Design at J.P. Morgan before that. I build what I design.</p>
+    </div>
     <div class="hero-grid">
       <div>
         <h1 class="h-giant anim"><span class="ln" style="--i:0"><span>I design tools</span></span><span class="ln" style="--i:1"><span>where mistakes</span></span><span class="ln" style="--i:2"><span>cost money.</span></span></h1>

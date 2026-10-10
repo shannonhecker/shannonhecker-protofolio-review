@@ -14,7 +14,8 @@ import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
   <div class="game" data-state="poster">
     <canvas id="game" width="480" height="270" tabindex="-1" role="application" aria-roledescription="game" aria-label="Working Order" aria-describedby="game-desc"></canvas>
     <div class="game-poster">
-      <Pic name="game-poster.png" alt="" sizes="(max-width: 1100px) 100vw, 480px" widths={[480, 960, 1440]} eager />
+      <Pic name="working-order-cover.png" alt="" sizes="(max-width: 1100px) 90vw, 480px" widths={[480, 960, 1344]} eager />
+      <video class="game-cover-motion" muted playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="/media/working-order-cover.mp4"></video>
       <button type="button" class="game-play" id="game-play">Press to play</button>
     </div>
     {JOURNEY.map((w, i) => (
@@ -71,3 +72,34 @@ import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
   <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at 捷元電腦), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Each stage has a small enemy you can jump on and an optional mission for a gold star. Pressing Play opens it full screen; Escape or the Exit full screen button returns to the page. Arrow keys or WASD to move, Space or Up to jump, Escape to pause when not full screen. On the map, Left and Right choose a world and Space starts it.</p>
   <p id="game-status" class="vh" aria-live="polite"></p>
 </div>
+<script>
+  // A four-second response to hover/focus, never a perpetual background loop.
+  // No video bytes are requested on load, touch or under reduced motion.
+  const poster = document.querySelector<HTMLElement>('.game-poster');
+  const video = poster?.querySelector<HTMLVideoElement>('.game-cover-motion');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const fine = matchMedia('(hover: hover)');
+  if (poster && video) {
+    let intent = 0;
+    const stop = () => { intent++; video.pause(); video.classList.remove('is-visible'); };
+    const preview = () => {
+      if (reduce.matches || !fine.matches || document.hidden) return;
+      const request = ++intent;
+      if (!video.src) video.src = video.dataset.src!;
+      video.currentTime = 0;
+      void video.play().then(() => {
+        if (request === intent) video.classList.add('is-visible');
+
+      }).catch(() => { if (request === intent) stop(); });
+    };
+    poster.addEventListener('pointerenter', preview);
+    poster.addEventListener('focusin', preview);
+    poster.addEventListener('pointerleave', stop);
+    poster.addEventListener('focusout', stop);
+    poster.addEventListener('click', stop);
+    video.addEventListener('ended', stop);
+    reduce.addEventListener('change', stop);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+    new IntersectionObserver(([e]) => { if (!e.isIntersecting) stop(); }).observe(poster);
+  }
+</script>

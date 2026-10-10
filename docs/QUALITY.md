@@ -1,48 +1,57 @@
-# Quality bar: award level
+# Quality review, 10 October 2026
 
-The target is the standard of an Awwwards Site of the Day, an FWA of the Day and a Webby nominee. This file turns that into criteria I can check, scores the site against them with evidence, and lists what still stands between the site and the bar. Re-score after every PR.
+The target is award-caliber visual craft and a portfolio that answers the Revolut panel brief. This record distinguishes measured checks, visual inspection and unverified claims. It does not assign itself an award score or claim approval from Awwwards, FWA, the Webbys or Revolut.
 
-## How the juries judge
+## Review criteria
 
-- **Awwwards:** jurors score 1–10 on Design (40%), Usability (30%), Creativity (20%) and Content (10%). Site of the Day winners usually average above 7. The separate Developer Award checks semantics, animations, accessibility, performance (WPO), responsive design and markup.
-- **FWA:** craft, innovation and the "wow" of the experience, judged by a jury of practitioners.
-- **Webby:** for portfolio and personal sites, content, structure and navigation, visual design, functionality, interactivity and overall experience.
+The repository's `prototype/BRIEF.md` asks for a clear problem, constraints, decisions and trade-offs, complete flows, edge states, outcomes, recency and visible UI craft. All four current cases now link directly to the relevant evidence, with additional personas, journeys and decision maps. Working assumptions remain labelled; no interview participants, product metrics or shipped status were invented.
 
-Here they are as checks this repo can be held to. Status as of the `quality/award-pass` branch.
+The [Webby judging criteria](https://www.webbyawards.com/judging-criteria/) include content, structure/navigation, visual design, functionality, interactivity, innovation and overall experience. These are useful review lenses, not a substitute for external judging. Current detailed Awwwards and FWA criteria were not reliably retrieved in this session; older numerical claims in this document have been removed.
 
-## Engineering and usability: measured
+## Verification
 
-| Check | Bar | Now | Evidence |
-|---|---|---|---|
-| Lighthouse mobile, Performance | ≥ 95 | 99–100 | Lighthouse 12, simulated slow 4G, 4× CPU |
-| Lighthouse desktop, all four | ≥ 95 | 100 / 100 / 100 / 100 | Lighthouse 12 desktop preset |
-| Lighthouse mobile, A11y, Best Practices, SEO | ≥ 95 | 100 / 100 / 100 | same |
-| LCP mobile / CLS | < 2.5 s / < 0.1 | 1.8 s / 0 | same |
-| Scroll smoothness | 60 fps | p95 frame 16.7 ms at 1× and 4× CPU throttle | rAF frame timing while scrolling |
-| axe-core, WCAG 2.2 AA + best practice | 0 violations | 0 at 390 / 820 / 1440 | `tests/site.spec.ts` |
-| No horizontal scroll | none at any width | none at 320 / 390 / 820 / 1440 | `tests/site.spec.ts` |
-| JavaScript off | all content readable | yes, strip scrolls natively | `tests/site.spec.ts` |
-| Reduced motion | nothing moves, nothing hidden | yes | `tests/site.spec.ts` |
-| Moving content | real pause control (WCAG 2.2.2) | yes, both marquees | `tests/site.spec.ts` |
-| Keyboard | hover feedback mirrored on focus | yes, index rows | `production.css` |
-| Mobile nav | every section reachable and visible | yes, overflow edge and active link kept in view | `tests/site.spec.ts` |
-| Print / PDF | complete and annotatable | yes, images load, nothing hidden, 33 pages A4 | `tests/site.spec.ts` + manual PDF check |
-| Visual parity with signed-off v4 | same layout | section offsets match to the pixel, apart from 2 explained deltas | offset diff script |
-| JS weight | small, deferred | 50 KB gz (GSAP + ScrollTrigger + Lenis) | build output |
-| Security headers | present | HSTS, CSP, nosniff, frame-deny, referrer, permissions | `vercel.json` |
-| Meta | OG, favicon, sitemap, robots, structured data | yes | `Base.astro` |
+- `npm run build`: eight routes built successfully.
+- `npm run check`: 63 files, zero errors, warnings or hints.
+- `PW_CHROMIUM_PATH='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' npx playwright test --workers=4`: **78 passed**.
+- Regression coverage includes all eight playable stages; keyboard/touch controls; fullscreen and Escape; accessibility at 390, 820 and 1440px; page overflow at 320, 390, 820 and 1440px; no-JS and reduced-motion content; print visibility; case navigation anchors; full image proportions; current video playback and full-size capture links.
+- Current product videos use native controls, no autoplay and `preload="none"`. The decorative game preview makes no video request under reduced motion and starts only on hover/focus on pointer devices.
+- Lighthouse 12 runs against the local production preview, separately on mobile and desktop, skipping only `is-crawlable` because the site is intentionally private/noindex. Scores below are laboratory measurements, not field performance or real-device guarantees.
 
-## Design, creativity, content: judged
+| Route | Mobile P / A / BP / SEO | Desktop P / A / BP / SEO | Mobile LCP | Mobile CLS |
+|---|---|---|---|---|
+| /panel | 97 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.417 s | 0 |
+| /fx | 96 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.709 s | 0 |
+| /fusion | 97 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.482 s | 0 |
+| /winking-star | 98 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.267 s | 0.0005 |
+| /uoaui | 95 / 100 / 100 / 100 | 100 / 100 / 100 / 100 | 2.784 s | 0 |
 
-Scored on the shipped line: `explore/multipage` → `art/ui-crops` → `feat/game-fx-concept`. Shannon delegated the art-direction and structure calls ("I trust your findings"); each one is listed in `BUILD.md`.
+P = Performance; A = Accessibility; BP = Best Practices. All ten runs meet the 95-point category budget. Raw summary: `quality-results.json`.
 
-| Criterion (weight) | Score | Evidence | Still open |
-|---|---|---|---|
-| **Design (40%)** | 8 / 10 | One visual language end to end. The case slides are cropped to their UI (`scripts/crop-ui.py`), so no serif title blocks and no second brand; on a phone, the UI is the subject. Disciplined type scale, hairlines, air, the Winking Star sub-palette, Shannon's SH mark. | The player in the game is a stand-in shape until the sprite exists (needs `shannon-ref.jpg`). |
-| **Usability (30%)** | 9 / 10 | Home is 7.2 screens, and each case has its own URL. Lighthouse 97–100 mobile and 100 desktop on all 5 pages. axe zero on 5 pages × 3 widths. Keyboard, print, no-JS and reduced motion are all covered by tests. Beat labels are headings, so screen-reader users can jump beat to beat. | Not yet tested on real Safari or iOS devices; the sandbox has Chromium only. |
-| **Creativity (20%)** | 8.5 / 10 | A pixel-art platformer in three worlds, one per case, built from each case's own nouns: candlestick platforms and the moving FX rate line; data-table rows and sliding fixed templates; activity cards, the nag-loop cloud and a pet that hatches. Story cards between levels hand the reader back to the case. Case titles morph between index and page. | The hero sprite is a neutral stand-in until Shannon's photo arrives. Needs a human playtest. |
-| **Content (10%)** | 8 / 10 | Every claim is real and checkable; there are no visible placeholders (a test enforces this). The empty downloads tile now shows the stated four releases, and the empty uoaui.ai boxes are now the flow as steps. | Measured downloads and rating; real uoaui.ai captures. |
+## Visual inspection and fixes
 
-Weighted: 0.4 × 8 + 0.3 × 9 + 0.2 × 8.5 + 0.1 × 8 = **8.4**. That clears the ≥ 8 bar this file set for comfortable Site of the Day territory.
+Reviewed the home page, each case, the build page, game map and playable Kaohsiung stage. Desktop screenshots used 1440px; mobile screenshots used 390px, with responsive/overflow checks at 320 and 820px. Actual videos were sampled at 5 and 12 seconds, with their natural dimensions checked during playback.
 
-**Honest caveat:** this is a self-assessment against published jury criteria, not a jury result. The open items above would move it further: the sprite, a Safari device pass, a human playtest, and real metrics.
+- Wider vertical gaps and shorter text measures separate case beats; full-width evidence no longer competes with a floating beat label.
+- Visible index thumbnails replace the hidden cursor-following preview. The old preview assets and old uoaui clip are no longer referenced.
+- All product stills retain their source proportions, with full-size links for dense screens. Screenshots were recaptured at sufficient height to include lower charts. Source application scrolling inside tables remains part of the real interface.
+- Winking Star's hero illustration and phone images are no longer cover-cropped. The mobile illustration's inherited opacity was removed so the supplied art stays clear.
+- A first-child decision map no longer overlaps its desktop section label. Diagrams stack without clipped labels on phones.
+- The first game-toolbar pass accidentally hid Sound; this was fixed, with the expanded game regression suite passing.
+- Game-preview playback uses an intent counter to avoid revealing a video after pointer exit or Play. The generated clip is four seconds, with a static fallback.
+- Supplied avatar originals remain unchanged. Their peach/rose/cream palette informs small site accents and the original game art.
+- Product media is real. Higgsfield was used only for the game cover and its motion; see `MEDIA-SOURCES.md`.
+
+## Source integrity
+
+All seven Figma pages were inventoried and screened. `FIGMA-AUDIT.md` records exact nodes, context conflicts and excluded placeholders. Current screenshots and recordings come from Shannon's three designated live products; old slide evidence was replaced by current screens or sharp HTML/SVG process diagrams.
+
+Two case-copy corrections follow the latest source: uoaui's compare/tune step is Shannon's review practice rather than a forced export gate; FX's separate state lane and counted clusters are refinements shown in schematics, not features visible in the current public rebuild. Classic is the Barclays design; Enhanced is Shannon's public rebuild. FX stays beta and uoaui stays private alpha.
+
+## Remaining limits
+
+- No award jury or independent design panel has reviewed this pass. Winning an award cannot be established by a self-assigned score.
+- FX and uoaui mobile LCP measured 2.709 s and 2.784 s, above the 2.5 s aspiration even though their category scores pass the 95-point gate.
+- Physical Safari/iOS device checks and an independent human game playtest remain useful external validation. This session's automated browser checks used Chrome.
+- Fusion's public rebuild visibly carries an AG Grid trial watermark. Captures preserve it; fixing its license/configuration is work in that source repository.
+- User research and outcomes for the private alpha remain assumptions or unmeasured where the source says so. No numbers were added to fill gaps.
+- Corporate Action Manager, Deal Model and Data Solution are the next separate handoff feature, not new cases delivered by this four-case pass. Their source locations are recorded in the Figma audit.

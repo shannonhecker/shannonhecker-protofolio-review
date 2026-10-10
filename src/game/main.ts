@@ -449,7 +449,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   const logos: Record<number, HTMLCanvasElement> = Object.fromEntries(Object.entries(LOGO_ICONS).map(([k, l]) => [k, l.icon()]));
   function drawMap() {
     ctx.drawImage(base, 0, 0);
-    text(ctx, 'WORKING ORDER', 16, 10, '#ffffff', 2);
+    text(ctx, 'WORKING ORDER', 16, 10, '#263b50', 2);
     text(ctx, 'KAOHSIUNG TO LONDON TO NEXT', 16, 24, '#2b3654', 1);
     // routes: roads in Taiwan and London, sea lanes out to the islands
     // (Taipei to London is the dashed flight in the base map)

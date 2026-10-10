@@ -61,3 +61,30 @@ Next, in order:
 
 ## Known limits of the cloud sandbox
 It cannot reach uoaui.ai, shannonhecker.github.io, the vercel.app sites or figma.com downloads unless those hosts are in the environment's Allowed domains (changes apply to new sessions). It has no link to Shannon's browser.
+
+## Continuation update, 10 October 2026
+
+The breathing-room pass, current media replacement, four-case process diagrams,
+co-parent flow and supplied avatar direction are implemented on
+`design/breathing-room-game-craft`. See `docs/TASKS.md` for release status,
+`docs/QUALITY.md` for current checks and `docs/MEDIA-SOURCES.md` for provenance.
+
+Shannon's latest directions override the older source/media guidance above:
+
+- Use the three live product URLs for **current** screenshots and videos,
+  including the signed-in uoaui builder when authorized. The older public-site
+  captures are superseded, not extra evidence to leave beside current screens.
+- Preserve full image proportions throughout. Recreate process graphics as
+  HTML/SVG when needed; do not crop UI screenshots to fit a decorative frame.
+- Both supplied pixel avatars are approved assets. Match small site accents
+  and game art to their playful direction.
+- Higgsfield graphics and animation were explicitly requested and are now
+  authorized supporting assets. They must not stand in for real product UI.
+- Read every Figma page for context. The seven-page source audit is recorded
+  in `docs/FIGMA-AUDIT.md`; older drafts and `[Confirm]` claims stay excluded.
+- Preserve the narrative except identified conflicts with the latest product.
+  The two scoped corrections in this pass are logged in BUILD.md.
+
+After this release, the next new-content feature remains Corporate Action
+Manager, Deal Model and Data Solution, with source verification before adding
+outcome claims. Award quality is a craft target, not an award certification.

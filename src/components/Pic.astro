@@ -18,6 +18,7 @@ const w = widths ?? [480, 800, 1200, 1600].filter((x) => x < src.width).concat(s
 <Picture
   src={src}
   alt={alt}
+  style={`--source-width:${src.width}px`}
   formats={['avif', 'webp']}
   fallbackFormat={src.format === 'png' ? 'png' : 'jpg'}
   widths={w}

@@ -48,7 +48,7 @@ export const NODES: [number, number][] = [
   [222, 104], // 8 Bedtime bonus, a small island
 ];
 
-const SEA = '#8ec5e3', SHALLOW = '#a9d4ea', LAND = '#efe5c4', HILL = '#e2d4a8', COAST = '#6f5d3a', INK = '#2b3654', GRID = '#9fcde6';
+const SEA = '#b8d7e6', SHALLOW = '#d5e8ee', LAND = '#efe5c4', HILL = '#e2d4a8', COAST = '#6f5d3a', INK = '#2b3654', GRID = '#c4dee9';
 
 /** Fill a polygon with hard pixel edges (even-odd scanlines). */
 function fillPoly(px: (x: number, y: number, c: string, w?: number, h?: number) => void, pts: [number, number][], col: string) {

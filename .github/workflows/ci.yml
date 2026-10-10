@@ -22,7 +22,7 @@ jobs:
         run: |
           npx astro preview --port 4321 --ignore-lock &
           sleep 3
-          for path in / /fx /winking-star; do
+          for path in / /fx /fusion /winking-star /uoaui; do
             for preset in mobile desktop; do
               flag=""; [ "$preset" = desktop ] && flag="--preset=desktop"
               npx -y lighthouse@12 "http://localhost:4321$path" $flag --skip-audits=is-crawlable --quiet --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=lh.json
