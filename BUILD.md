@@ -231,3 +231,10 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - **End-card buttons:** "Next stage" inside a world, then "Next world: London", "Next world: AI" and "Bonus: Bedtime".
 - **Picker:** the world dropdown uses `<optgroup>`s, so it's four groups of stages. A case page's `?level=` link still starts its exact stage.
 - **Shared data:** groups live in `CHAPTERS` in `src/lib/journey.ts`, which the game, the cards and the picker all share.
+
+### PR 17 · Private share (Shannon: "private share only, for the Revolut interview")
+
+- **No search listing:** every page now carries `noindex, nofollow`, and `vercel.json` sends the same as an `X-Robots-Tag` header on every file, including images and the CV. The sitemap is gone.
+- **robots.txt stays open on purpose:** a Disallow there would stop crawlers reading the noindex, and a blocked URL can still turn up in search as a bare link.
+- **Lighthouse gate:** CI now skips Lighthouse's `is-crawlable` audit, the one check this choice fails by design. Every category is still 100, mobile and desktop.
+- **Limit:** noindex keeps the site out of search; it doesn't password-protect it. Anyone with the link can open it, so share the link only with the panel. A password would need Vercel's paid Deployment Protection, or Vercel Authentication, which would make interviewers log in to Vercel.

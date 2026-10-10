@@ -46,6 +46,13 @@ test('Winking Star tick demo reaches 6 of 6', async ({ page }) => {
   await expect(group.getByRole('button', { pressed: true })).toHaveCount(6);
 });
 
+test('private share: every page stays out of search', async ({ page }) => {
+  for (const path of ['/', '/fx', '/fusion', '/uoaui', '/winking-star', '/panel', '/build']) {
+    await page.goto(path);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+  }
+});
+
 test('/panel carries the panel line and stays out of the index', async ({ page }) => {
   await page.goto('/panel');
   await expect(page.getByText('Portfolio for the Revolut design panel')).toBeVisible();
