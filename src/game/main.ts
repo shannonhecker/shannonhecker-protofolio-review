@@ -1,6 +1,6 @@
 // The game chunk, loaded only when someone presses Play (see game-loader.ts).
 // Hand-written canvas engine. The world is 960×540 with 32px tiles; it renders
-// with a 960×540 backing canvas. Map and HUD retain their 480×270 logical grid.
+// on a 480×270 pixel canvas. Map, scenery and sprites share the same pixel grid.
 // Shannon's career is the world map: one short level per stage, Kaohsiung to AI.
 import { T, TILE, VIEW_W, VIEW_H } from './tuning';
 import { parse } from './level';
@@ -501,9 +501,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     if (plate) ctx.drawImage(plate, 0, 0, HUD_W, HUD_H);
     else ctx.drawImage(base, 0, 0);
     const mapText = (label: string, x: number, y: number, colour: string, size = 8) => {
-      ctx.font = `${size}px "Pixelify Sans", monospace`;
-      ctx.textBaseline = 'top'; ctx.fillStyle = colour;
-      ctx.fillText(label, x, y);
+      text(ctx, label, Math.round(x), Math.round(y), colour, size >= 15 ? 2 : 1);
     };
     mapText('WORKING ORDER', 16, 10, '#263b50', 15);
     mapText('KAOHSIUNG TO LONDON TO NEXT', 16, 27, '#2b3654', 8);

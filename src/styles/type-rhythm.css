@@ -85,3 +85,5 @@ html[data-theme=dark] .companion-stage::before { background:#302930; }
 .career-achievements{margin:16px auto;max-width:560px;text-align:left;font-size:14px;line-height:1.6}.career-achievements summary{cursor:pointer;min-height:44px;padding:10px 0;color:inherit}.career-achievements>ul{display:grid;gap:16px;list-style:none;padding:8px 0}.career-achievements li>ul{padding-left:20px;margin-top:6px}.career-achievements strong{font-weight:600}
 
 .hero-game .play:not(.is-full) .game{width:100%;max-width:100%;min-width:0}
+
+.play.is-full .game-caption{color:#b8c7d4}
