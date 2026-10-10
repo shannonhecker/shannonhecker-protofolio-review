@@ -11,10 +11,12 @@ import { text, textWidth } from './pixel';
 import { mapBase, NODES, labelAt, BRAND, SCHOOL_ICONS, LOGO_ICONS, SELECT_RINGS } from './map';
 import { ACHIEVEMENTS } from '../lib/achievements';
 import { CHAPTERS, chapterOf, stageCode } from '../lib/journey';
-import { sfx, setMusicPlaying, setPowerMusic, audioState } from './sound';
+import { sfx, setMusicPlaying, setMusicStage, setPowerMusic, audioState } from './sound';
 import { scenery, ground, prepareScenery } from './scenery';
 import { illustrated, drawIllustration, prepareIllustrations } from './illustrated';
 import { drawRainUmbrella } from './umbrella';
+import { drawScrollkeeper, drawBedtimeCastle } from './finale';
+import { drawRider } from './rider';
 export { setSound, setMusicPlaying } from './sound';
 export async function prepareArt() {
   await Promise.all([prepareIllustrations(), prepareScenery(LEVELS.map((level) => level.theme))]);
@@ -88,8 +90,13 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   const PW = 20, PH = 44;
   const p = { x: 0, y: 0, vx: 0, vy: 0, grounded: false, face: 1, heldFor: 0, coyote: 0, buffer: 0, jumpHeld: false, rising: false, invuln: 0, squash: 0, run: 0, hurtT: 0, ride: false };
   const s: GameState = { achievements: [], elapsed: 0, mode: 'map', level: 0, x: 0, y: 0, vx: 0, vy: 0, grounded: false, riding: false, powerSeconds: 0, powerStars: 0, hits: 0, collected: 0, total: 0, finished: false, paused: false, jumps: 0, done: [], stomped: 0, foes: 0, mission: { text: '', have: 0, need: 0, done: false }, missions: [] };
+  const progressKey='working-order-progress-v2';
+  try{const saved=JSON.parse(localStorage.getItem(progressKey)??'null');const valid=(value:unknown)=>Array.isArray(value)?[...new Set(value.filter((n:unknown):n is number=>typeof n==='number'&&Number.isInteger(n)&&n>=0&&n<LEVELS.length))]:[];s.done=valid(saved?.done);s.missions=valid(saved?.missions).filter(n=>s.done.includes(n));}catch{}
+  const saveProgress=()=>{try{localStorage.setItem(progressKey,JSON.stringify({done:s.done,missions:s.missions}));}catch{}};
 
   let achievementToast=0, achievementTitle="";
+  let boss:{x:number;y:number;home:number;hp:number;hurt:number}|null=null;
+  let finaleHint=false;
   function unlockAchievements(finished=false){
     const rewards=ACHIEVEMENTS[s.level];
     const count=finished?rewards.length:Math.min(rewards.length-1,Math.floor(s.collected/Math.max(1,s.total)*rewards.length));
@@ -123,11 +130,14 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     s.elapsed = 0; s.jumps = 0; s.achievements=[]; achievementToast=0; s.powerSeconds=0; s.powerStars=0; setPowerMusic(false);
     opts.onLevelStart?.(n);
     s.mode = 'level';
+    setMusicStage(n);
     s.level = n;
     lvl = parse(LEVELS[n].rows);
     theme = THEMES[LEVELS[n].theme]();
     hero = playerFrames(theme.id);
     items = lvl.items.map((i) => ({ ...i }));
+    const finish=items.find(item=>item.kind==='F');
+    boss=n===7&&finish?{x:(finish.x-6)*TILE,y:(finish.y+1)*TILE-50,home:(finish.x-6)*TILE,hp:3,hurt:0}:null;finaleHint=false;
     s.total = items.filter((i) => i.kind === 'o' || i.kind === 'u').length;
     arrows = items.filter((i) => i.kind === 'u').length; arrowsGot = 0;
     s.collected = 0; s.hits = 0; s.finished = false; s.paused = false; endT = 0; clock = 0; p.ride = false;
@@ -153,6 +163,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   function showMap(sel = mapSel) {
     runSequence++;
     s.mode = 'map';
+    setMusicStage(null);
     s.paused=false;mapHover=-1;canvas.style.cursor='default';
     setPowerMusic(false);setMusicPlaying(true);
     s.finished = false;
@@ -306,7 +317,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   function hurt(fromX: number) {
     if (s.powerSeconds>0 || p.invuln > 0 || assist().invuln) return;
     s.hits++;
-    sfx.hit();
+    if(s.hits<T.maxHits)sfx.hit();
     p.invuln = T.invuln; p.hurtT = 0.35;
     p.vx = (p.x + PW / 2 < fromX ? -1 : 1) * T.hitKnockX;
     p.vy = -T.hitKnockY;
@@ -315,6 +326,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       // Brief: three hits restart the level. No lives, no game-over screen.
       opts.onStatus('Three hits. This world starts again.');
       loadLevel(s.level);
+      sfx.death();
     }
   }
   // mission progress; announces once when it completes
@@ -415,7 +427,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       if (p.grounded && !wasGrounded && !opts.reduceMotion) { p.squash = 0.12; puff(p.x + PW / 2, p.y + PH, 6, theme.ink, 70); }
     } else p.y = ny;
 
-    if (p.y > lvl.h * TILE + 80) respawn(); // fell out: back to the last checkpoint
+    if (p.y > lvl.h * TILE + 80) { sfx.death();respawn();opts.onStatus('Back to the last checkpoint. Try again.'); }
 
     if(s.powerSeconds>0){
       s.powerSeconds=Math.max(0,s.powerSeconds-dt);
@@ -436,15 +448,19 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       else if (it.kind === 'B') { it.taken = true; p.ride = true; sfx.collect(); opts.onStatus('On the scooter.'); }
       else if (it.kind === '^') hurt(ix + TILE / 2);
       else if (it.kind === 'F' && !s.finished) {
+        if(boss?.hp){if(!finaleHint){opts.onStatus('Defeat the Scrollkeeper first. Jump on its head three times.');finaleHint=true;}continue;}
+        if(boss&&!jump){if(!finaleHint){opts.onStatus('The castle is open! Press Up or Space beside the flag to raise it.');finaleHint=true;}continue;}
+        if(boss){p.y=iy+TILE-PH;p.vx=0;p.vy=0;p.grounded=true;}
         s.finished = true; endT = 0; s.powerSeconds=0; setPowerMusic(false); sfx.finish(); unlockAchievements(true);
         if (MISSIONS[s.level].kind === 'ride' && p.ride) progress(1);
         if (!s.done.includes(s.level)) s.done.push(s.level);
+        saveProgress();
         const ms = s.mission.done ? ' Mission complete: gold star.' : ` Mission: ${s.mission.have} of ${s.mission.need}.`;
         const code = stageCode(s.level);
         opts.onStatus((s.collected >= s.total ? `World ${code} done, with everything collected. Shipped.` : `World ${code} done, ${s.collected} of ${s.total} collected.`) + ms);
         const done = { ...s, done: [...s.done], missions: [...s.missions], mission: { ...s.mission } };
         const finishedRun = runSequence;
-        setTimeout(() => { if (finishedRun === runSequence) opts.onLevelEnd(done); }, opts.reduceMotion ? 200 : 1300);
+        setTimeout(() => { if (finishedRun === runSequence) opts.onLevelEnd(done); }, opts.reduceMotion ? 200 : boss ? 3400 : 1300);
       }
     }
 
@@ -461,6 +477,21 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
         h.x = h.ox + Math.cos(h.t * 1.8) * 44 - 2; h.y = h.oy + Math.sin(h.t * 1.8) * 30;
       }
       if (overlap(h.x + 3, h.y + 3, h.w - 6, h.h - 6)) hurt(h.x + h.w / 2);
+    }
+
+    // The final guardian stays in its arena. A stomp or a powered touch takes
+    // one heart; a cooldown prevents a single contact counting three times.
+    if(boss&&boss.hp>0){
+      boss.hurt=Math.max(0,boss.hurt-dt);boss.x=boss.home+Math.sin(clock*1.4)*36;
+      if(overlap(boss.x,boss.y,56,50)){
+        const fromAbove=p.vy>0&&p.y+PH-p.vy*dt<=boss.y+14;
+        if(!boss.hurt&&(fromAbove||s.powerSeconds>0)){
+          boss.hp--;boss.hurt=.75;p.vy=-T.jumpSpeed*.8;p.rising=true;p.grounded=false;sfx.stomp();
+          puff(boss.x+28,boss.y+20,14,'#f6b9c9',160);
+          opts.onStatus(boss.hp?`Scrollkeeper: ${boss.hp} hearts left.`:'Scrollkeeper defeated! Go to the flag and press Up or Space to raise it.');
+          if(!boss.hp){finaleHint=false;sfx.power();}
+        }else if(!fromAbove&&!boss.hurt)hurt(boss.x+28);
+      }
     }
 
     // small enemies: walkers turn at walls and ledges; fliers hover on a beat.
@@ -533,6 +564,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     };
     mapText('WORKING ORDER', 16, 10, '#263b50', 15);
     mapText('KAOHSIUNG TO LONDON TO NEXT', 16, 27, '#2b3654', 8);
+    const cleared=s.done.length===LEVELS.length?'ADVENTURE COMPLETE':`${s.done.length}/${LEVELS.length} STAGES CLEAR`;
+    ctx.fillStyle='#fbf7ea';ctx.fillRect(HUD_W-textWidth(cleared)-20,10,textWidth(cleared)+10,12);mapText(cleared,HUD_W-textWidth(cleared)-15,13,'#263b50',8);
     // routes: roads in Taiwan and London, sea lanes out to the islands
     // (Taipei to London is the dashed flight in the base map)
     const route = (i: number, col: string, gap: number) => {
@@ -563,8 +596,9 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       const ic = logos[i] ?? schools[i] ?? mapIcons[i].pickup[0]; // schools show their buildings; Barclays its eagle
       if (logos[i] || !drawIllustration(ctx, i === 7 ? 'star' : i === 6 ? 'gem' : i === 0 ? 'heart' : 'journal', x, y + 8, 16, 16))
         ctx.drawImage(ic, Math.round(x - ic.width / 2), Math.round(y - ic.height / 2));
-      // a star for finishing; gold once the world's mission is done too
-      if (done) drawIllustration(ctx, 'star', x + 12, y - 8, 10, 10);
+      // A check is a completed stage; the gold star is its optional mission.
+      if(done){ctx.fillStyle='#173e35';ctx.fillRect(x+5,y-18,14,14);ctx.fillStyle='#b9efd1';ctx.fillRect(x+8,y-11,3,3);ctx.fillRect(x+10,y-9,3,3);ctx.fillRect(x+12,y-13,3,5);ctx.fillRect(x+14,y-15,3,3);}
+      if(done&&s.missions.includes(i))drawIllustration(ctx,'star',x-13,y-8,10,10);
       const code = stageCode(i);
       const lines = [`${code === 'Bonus' ? '★' : code} ${WORLDS[i].short}`, WORLDS[i].when];
       lines.forEach((l, k) => {
@@ -670,12 +704,14 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       else if (it.kind === '^') W(theme.spike, ix, iy + TILE - theme.spike.height / ART);
       else if (it.kind === 'C') { if (!drawIllustration(ctx, 'flag', ix + TILE / 2, iy + TILE, 26, 38)) W(theme.check, ix + TILE / 2 - theme.check.width, iy + TILE - theme.check.height / ART); }
       else if (it.kind === 'F') {
+        if(boss){drawBedtimeCastle(ctx,ix,iy+TILE,s.finished?(opts.reduceMotion?1:Math.min(1,endT/1.6)):0,clock+endT,opts.reduceMotion);continue;}
         const im = theme.finish;
         if (!drawIllustration(ctx, 'finish', ix + TILE / 2, iy + TILE, 42, 54)) W(im, ix + TILE / 2 - im.width, iy + TILE - im.height / ART);
         // Bedtime: the egg hatches into this week's pet
         if (theme.id === 'bedtime' && s.finished && endT > 0.4) W(petSprite, ix + TILE / 2 - petSprite.width, iy + TILE - im.height / ART - petSprite.height / ART - (opts.reduceMotion ? 0 : Math.min(16, endT * 30)));
       }
     }
+    if(boss&&boss.hp>0)drawScrollkeeper(ctx,boss.x,boss.y,boss.hp,clock,boss.hurt>0);
     for (const h of hazards) if (h.y > -60 && h.y < lvl.h * TILE) W(theme.hazard, h.x, h.y);
     for (const e of foes) {
       const fr = foe.frames[Math.floor(e.t * (foe.fly ? 10 : 5)) % 2];
@@ -712,9 +748,9 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     if (!(p.invuln > 0 && p.hurtT === 0 && Math.floor(p.invuln * 12) % 2)) {
       const sq = p.squash, w = 32 * (1 + sq), hh = 48 * (1 - sq);
       const lift = p.ride ? 14 : 0;
-      const running = p.grounded && Math.abs(p.vx) > 20 && !opts.reduceMotion;
+      const running = !p.ride && p.grounded && Math.abs(p.vx) > 20 && !opts.reduceMotion;
       const frame = !p.grounded || s.finished ? 4 : running ? [2, 1, 3, 1][Math.floor(p.run) % 4] : 1;
-      if (!drawIllustration(ctx, `hero-${theme.id}-${frame}`, p.x + PW / 2, p.y + PH - lift, 60, 60, p.face < 0))
+      if (!(p.ride?drawRider(ctx,p.x+PW/2,p.y+PH,p.face):drawIllustration(ctx, `hero-${theme.id}-${frame}`, p.x + PW / 2, p.y + PH - lift, 60, 60, p.face < 0)))
         ctx.drawImage(p.hurtT > 0.25 ? hero.flash : im, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift), snap(w), snap(hh));
       if (theme.weather === 'rain') drawRainUmbrella(ctx, p.x + PW / 2, p.y + PH - lift, p.face);
       // Kaohsiung: a half-helmet whenever she rides
@@ -752,6 +788,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     ctx.fillStyle = s.mission.done ? '#8c5a00' : '#30485a'; ctx.fillText(ms, 8, 24);
     if(achievementToast>0){ctx.fillStyle='#182640';ctx.fillRect(18,HUD_H-36,HUD_W-36,26);ctx.fillStyle='#ffe08a';ctx.fillText(`★ ${achievementTitle}`,28,HUD_H-29);}
     if(s.powerSeconds>0){ctx.fillStyle='#ffe08a';ctx.fillRect(HUD_W-128,22,128,15);ctx.fillStyle='#182640';ctx.fillText(`STAR POWER ${Math.ceil(s.powerSeconds)}s`,HUD_W-120,25);}
+    if(boss&&p.x>boss.home-480){const message=s.finished?(endT<1.6&&!opts.reduceMotion?'RAISING THE FLAG…':'FLAG RAISED · SWEET DREAMS!'):boss.hp?`SCROLLKEEPER · ${boss.hp}/3 · JUMP ON ITS HEAD`:'AT THE FLAG · UP / SPACE TO RAISE';ctx.fillStyle='#172b3b';ctx.fillRect(8,42,ctx.measureText(message).width+16,16);ctx.fillStyle='#f6d58d';ctx.fillText(message,16,46);}
     if (s.paused) {
       ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(0, 0, HUD_W, HUD_H);
       text(ctx, 'PAUSED', HUD_W / 2 - 36, HUD_H / 2 - 8, '#ffffff', 3);
@@ -788,7 +825,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   canvas.focus();
 
   return {
-    state: () => ({ ...s,mapSelected:mapSel,mapHovered:mapHover,mapTime:mapClock, audio:audioState(), powerItems:items.filter(i=>i.kind==='*'&&!i.taken).map(i=>({x:i.x*TILE,y:i.y*TILE})), done: [...s.done], missions: [...s.missions], mission: { ...s.mission }, enemies: foes.filter((e) => e.alive).map(({ x, y }) => ({ x, y })) }),
+    state: () => ({ ...s,boss:boss?{...boss}:null,flagRaised:!!boss&&s.finished&&(opts.reduceMotion||endT>=1.6),mapSelected:mapSel,mapHovered:mapHover,mapTime:mapClock, audio:audioState(), powerItems:items.filter(i=>i.kind==='*'&&!i.taken).map(i=>({x:i.x*TILE,y:i.y*TILE})), done: [...s.done], missions: [...s.missions], mission: { ...s.mission }, enemies: foes.filter((e) => e.alive).map(({ x, y }) => ({ x, y })) }),
     touch,
     levels: LEVELS.length,
     loadLevel: (n: number) => { canvas.focus(); mapSel = n; loadLevel(n); },

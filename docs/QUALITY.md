@@ -207,3 +207,7 @@ arch and objects now enter after copy and before the character. Title-screen
 ambient motion pauses offscreen/hidden, and the avatar waits until meaningfully
 visible. Full-screen play hides site navigation and decorative cursor while
 preserving the map's native pointer affordance.
+
+### 10 October, late review · combined release candidate
+
+Nine routes build. Astro checks 110 files with zero errors/warnings and one existing unused-parameter hint. All 120 Playwright tests pass (43.9s), including eight complete levels, final villain/flag, source-linked timeline, pause/resume, death/mute, eight distinct music themes, travel sequence and persistent completion markers. Title HUD/plaque/start spacing passes at 320–1920px; home images cover the authored frame at mobile and desktop sizes with no exposed wrapper colour. Section drawer keyboard focus, close/Escape/backdrop and 390px layout pass. Existing accessibility, full image aspect ratio, privacy/consent and navigation checks stay green. FX personas/journey and game timeline inspected in Chrome; exact-head CI remains the release gate.

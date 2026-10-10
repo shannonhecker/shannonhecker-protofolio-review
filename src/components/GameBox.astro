@@ -6,6 +6,7 @@
 // DECISION: Named "Working Order" (a live order still filling; also "things in
 // working order"). Mario-era pixel style, every noun from her own story.
 import { ACHIEVEMENTS } from '../lib/achievements';
+import GameTimeline from './GameTimeline.astro';
 import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
 ---
 <div class="play" data-lenis-prevent>
@@ -22,9 +23,18 @@ import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
       <button type="button" class="game-play game-title-start" id="game-play" aria-label="Start adventure" disabled><span><span class="title-pointer" aria-hidden="true">▶</span> START ADVENTURE</span></button>
       <span class="title-credit" aria-hidden="true">A SHANNON HECKER ADVENTURE</span>
     </div>
+    <div class="game-flight" hidden aria-labelledby="flight-title">
+      <p class="flight-year">A new chapter · 2013</p><h2 id="flight-title">Taiwan → United Kingdom</h2>
+      <p class="flight-story">I came to the UK for a working holiday and study.</p>
+      <div class="flight-route" aria-hidden="true"><span>Taiwan</span><i></i><span>UK</span>
+        <svg class="flight-plane" viewBox="0 0 40 32"><path d="M0 14H8V10H18V2H24V12H32V16H40V20H32V24H24V30H18V22H8V18H0Z" fill="#182640"/><path d="M4 14H12V12H20V4H22V14H30V16H36V18H30V20H22V28H20V20H12V18H4Z" fill="#fff0ce"/><path d="M12 14H28V18H12Z" fill="#d87890"/></svg>
+      </div>
+      <p class="flight-next">Next stop: London Met · Digital Media · 2015–2016</p>
+      <button type="button" data-skip-flight>Skip flight →</button>
+    </div>
     {JOURNEY.map((w, i) => (
       <div class="game-end" data-end={i} hidden>
-        <div class="game-result-emblem" aria-hidden="true"><img src="/game/star.webp" alt="" width="48" height="48" loading="lazy" /><span>Stage clear</span></div>
+        <div class="game-result-emblem" aria-hidden="true"><img src="/game/star.webp" alt="" width="48" height="48" loading="lazy" /><span>{i===7?'Castle clear · Flag raised':'Stage clear'}</span></div>
         <p class="game-badge" hidden>Shipped</p>
         <p class="game-kicker">{stageCode(i) === 'Bonus' ? 'Bonus' : `World ${stageCode(i)}`} · {w.when}</p>
         <p class="game-case">{w.place}</p>
@@ -79,10 +89,12 @@ import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
   <div class="game-bar">
     <button type="button" class="game-sound" id="game-world">World map</button>
     <span class="game-tools">
+      <button type="button" class="game-sound" id="game-timeline-open" aria-haspopup="dialog" aria-controls="game-timeline">Timeline</button>
       <button type="button" class="game-sound" id="game-full">Full screen</button>
       <button type="button" class="game-sound" id="game-sound" aria-pressed="false">Sound</button>
     </span>
   </div>
+  <GameTimeline />
   <nav class="game-stages" aria-label="Choose a stage" hidden>
     {JOURNEY.map((stage,i)=><button type="button" data-stage={i}><span>{stageCode(i)}</span>{stage.place}</button>)}
   </nav>

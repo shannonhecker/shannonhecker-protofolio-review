@@ -2,9 +2,9 @@
 // These are career facts revealed by the game, not measured product outcomes.
 export const ACHIEVEMENTS = [
   [{ title:'From Kaohsiung', projects:['The story begins by the sea.'] }],
-  [{ title:'BA · 2008–2010', projects:['Digital Media Arts and Management'] }],
+  [{ title:'BA · 2008–2010', projects:['Digital Media Arts and Management','Art, craft and digital media · Taiwan'] }],
   [{ title:'Web & visual designer · 2010', projects:['Genuine C&C Inc. · B2C web design'] }],
-  [{ title:'MA · 2015–2016', projects:['Digital Media · London Metropolitan University'] }],
+  [{ title:'MA · 2015–2016', projects:['Digital Media · London Metropolitan University','Game and UX design'] }],
   [
     {title:'Trading platforms · 2016–2019',projects:['JPMM Execute Trading Platform','JPMM FX, Raas, Algo Center','Bento Design Library']},
     {title:'Complex workflows · 2019–2023',projects:['ETF Instruct','Complex Assets & CAM','Corporate Action Manager']},

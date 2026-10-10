@@ -111,3 +111,9 @@ The original Figma FX decision loop is again the primary flowchart, source-linke
 and accompanied by an accessible transcript. Keep authored Figma process work
 alongside current labelled public-rebuild screenshots; do not replace it with a
 generic synthesized diagram. See the latest PR #25 checkpoint in TASKS.
+
+### Latest confirmed personal timeline, 10 October late evening
+
+Shannon confirmed babies in 2011 and 2018, arrival in the UK in 2013 for a working holiday and study, art/craft/digital media study in Taiwan, and Digital Media at London Met focused on game and UX design. The existing London Met degree dates remain 2015–2016; they must not be described as the UK arrival dates. These details appear in the optional game's journal, education cards and achievements. Source-linked world news is context, not her personal experience or a scored achievement.
+
+Interface corners now use a shared 4px token. Keep circular art/dots intentional. The game has eight distinct original soundtracks plus a map tune, a separate death cue, seated scooter pose, Taiwan→UK flight and a final Scrollkeeper/castle/flag sequence. Functional browser storage `working-order-progress-v2` remembers completed stages and mission stars; it is separate from analytics and scoreboard data.

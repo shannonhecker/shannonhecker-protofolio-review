@@ -14,8 +14,9 @@ import CaseContents from './CaseContents.astro';
 import ResponsiveEvidence from './ResponsiveEvidence.astro';
 import DecisionMap from './dg/DecisionMap.astro';
 import FxOriginalFlow from './dg/FxOriginalFlow.astro';
-import Personas from './dg/Personas.astro';
-import Journey from './dg/Journey.astro';
+import FxPersonas from './dg/FxPersonas.astro';
+import FxDesignEvidence from './FxDesignEvidence.astro';
+import FxJourney from './dg/FxJourney.astro';
 
 import Flow from './dg/Flow.astro';
 import Layers from './dg/Layers.astro';
@@ -49,7 +50,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <li><b>Users</b><p>The sales and trading desk, and the institutional clients executing through the same platform with different entitlements.</p></li>
           <li><b>Where we started</b><p>One static Execution Over Time chart from the desk. Five spreadsheets covering trades, market data per order, price limit logs and reference prices. A twelve-item wishlist. No design, no interaction model, no visual language.</p></li>
         </ul>
-        <p class="note"><i></i>In beta with internal users at Barclays. Under NDA, so every screen here is my public rebuild with sample data, built from the production spec.</p>
+        <div class="project-status"><span class="project-status-label">Project status</span><p>In beta with internal users at Barclays. Under NDA, so the screens here are my public rebuild and Figma designs, using sample data and based on the production spec.</p></div>
       </div>
     </div>
 
@@ -75,10 +76,11 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           result="Each kind of data gets its own shape. Nothing on the chart is decorative."
           caption="Understanding the data. Redrawn from my working diagram for the spec."
         />
-        <Personas project="fx" />
-        <Journey project="fx" />
+        <FxPersonas />
       </div>
     </div>
+
+    <FxJourney />
 
     <div class="beat rv" id="fx-constraints">
       <div class="label"><HL class="k"><b>03</b> Constraints</HL></div>
@@ -126,7 +128,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <ProductCapture name="live-fx-table.png" alt="Enhanced FX public rebuild with its table view selected" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Enhanced · Table view · Simulated data" />
     </section>
         <ProductCapture name="live-fx-compare.png" alt="Two simulated FX orders compared side by side in the current public rebuild" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Compare orders" />
-        <ProductCapture name="live-fx-ticket.png" alt="The current FX order ticket opened from Fill now, before confirmation" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Order ticket · simulated data" />
+        <FxDesignEvidence />
         <p class="lead muted">Hover a fill to see the detail. Right-click to act. Drag a price line to reprice, and it opens a filled-in order ticket. Each step commits you a little more, so you can't reprice by accident. We turned a chart you watch into a chart you can trade from.</p>
         <Flow
           label="Monitoring to action, step by step"

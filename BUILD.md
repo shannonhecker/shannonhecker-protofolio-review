@@ -381,3 +381,12 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - I synced my revised Figma home gallery, including the FX tablet mockup, Fusion composition, Winking Star phone artwork and uoaui desktop. My home headings use the revised Inter type; project-page imagery stays unchanged.
 - I moved the arch, book and star entrance after the copy and before my avatar. The game banner now has its own pixel title screen and Start adventure prompt. Decorative motion stops outside the viewport.
 - I added a gold pixel umbrella to the rainy London stage, anchored to my character as she turns and jumps. I fixed a heading entrance that left case titles shifted offscreen, and cleared the navigation and avatar cursor from the full-screen game overlay.
+
+### PR 25 · Final review: the reading experience and the journey
+
+- I replaced the section popup with a closable side panel and made the FX status note plain text. My new FX personas, journey map and two interaction frames now come from my supplied Figma file, with source links and responsive text. The sample-data labels distinguish designs from the public rebuild.
+- I removed the coloured gaps around the home artwork, set interface corners to 4px and kept desktop product statuses on one row. The introduction now flows from text to scenery to my avatar with a much shorter pause.
+- I added my 2011 and 2018 family milestones, my 2013 move to the UK for a working holiday and study, and my art, craft, digital media, game and UX education details to the game. A few source-linked world events provide context.
+- Every stage has an original tune. Losing a run or falling has its own cue. My scooter uses a seated pose, and a short skippable flight connects Taiwan to the UK.
+- Winking Star now ends with an original Scrollkeeper villain, a storybook castle, a flag I raise and a celebration. Completed stages have check marks, optional missions have stars, and progress stays in the browser between visits.
+- The combined build passes all 120 browser checks, including the final boss, flag, travel, saved completion, distinct stage music, timeline pause/resume, responsive artwork and title-label clearance. CI and live release are recorded separately.

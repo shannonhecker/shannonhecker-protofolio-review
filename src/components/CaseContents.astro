@@ -9,11 +9,15 @@ const links: Record<Props['project'], [string, string][]> = {
 };
 ---
 <nav class="case-contents" aria-label="Case study sections">
-  <details class="section-picker">
-    <summary>Sections <span class="section-current">{links[project][0][1]}</span><span class="section-chevron" aria-hidden="true">+</span></summary>
+  <button class="section-open" type="button" aria-haspopup="dialog" aria-controls="section-panel" aria-expanded="false">Sections <span class="section-current">{links[project][0][1]}</span><span aria-hidden="true">↗</span></button>
+  <dialog id="section-panel" class="section-panel" aria-labelledby="section-panel-title">
+    <div class="section-panel-head">
+      <h2 id="section-panel-title">Sections</h2>
+      <button class="section-close" type="button" aria-label="Close sections">×</button>
+    </div>
     <div class="chapter-stops">
       {links[project].map(([id, name]) => <a href={`#${id}`}>{name}</a>)}
-      <a href="/panel#work" class="all-projects">All projects ↗</a>
     </div>
-  </details>
+    <a href="/panel#work" class="all-projects">All projects ↗</a>
+  </dialog>
 </nav>

@@ -18,7 +18,7 @@ test('chapter jumps stay in place while deferred product screenshots load', asyn
       return !box.height || Math.abs(box.width / box.height - Number(img.getAttribute('width')) / Number(img.getAttribute('height'))) > .02;
     }).map(el => el.getAttribute('alt')));
     expect(unreserved).toEqual([]);
-    await page.locator('.section-picker summary').click();
+    await page.locator('.section-open').click();
     await page.getByRole('navigation', { name: 'Case study sections' }).getByRole('link', { name: 'Decision map', exact: true }).click();
     const heading = page.getByRole('heading', { name: 'Decision map', exact: true });
     await expect(heading).toBeInViewport();
@@ -47,9 +47,9 @@ for (const path of ['/fx', '/fusion', '/winking-star', '/uoaui']) {
       const href = (await link.getAttribute('href'))!;
       await expect(page.locator(href)).toHaveCount(1);
     }
-    await nav.locator('summary').click();
+    await nav.locator('.section-open').click();
     await nav.getByRole('link', { name: 'Decision map', exact: true }).click();
-    await expect(nav.locator('details')).not.toHaveAttribute('open', '');
+    await expect(nav.locator('dialog')).not.toHaveAttribute('open', '');
     await expect(page.getByRole('heading', { name: 'Decision map', exact: true })).toBeInViewport();
     for (const width of [320, 820, 1440]) {
       await page.setViewportSize({ width, height: 900 });
@@ -103,5 +103,38 @@ test('current product recordings stay paused until requested and use their full 
       const response = await page.request.get((await link.getAttribute('href'))!);
       expect(response.ok()).toBe(true);
     }
+  }
+});
+
+test('section drawer supports keyboard, outside dismissal and small screens', async ({ page }) => {
+  await page.goto('/fx');
+  await page.getByRole('button', { name: 'No thanks' }).click();
+  const opener = page.locator('.section-open');
+  const drawer = page.getByRole('dialog', { name: 'Sections' });
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 640 });
+    await opener.click();
+    await expect(drawer).toBeVisible();
+    await expect(page.locator('html')).not.toHaveClass(/avatar-cursor-active/);
+    await expect(opener).toHaveAttribute('aria-expanded', 'true');
+    await expect(page.getByRole('button', { name: 'Close sections' })).toBeFocused();
+    await page.keyboard.press('Shift+Tab');
+    await expect(drawer.getByRole('link', { name: 'All projects' })).toBeFocused();
+    await drawer.evaluate(async element => { await Promise.all(element.getAnimations().map(animation => animation.finished)); });
+    const box = (await drawer.boundingBox())!;
+    expect(box.x).toBeGreaterThanOrEqual(0);
+    expect(Math.abs(box.x + box.width - width)).toBeLessThan(1);
+    expect(box.height).toBe(640);
+    await page.keyboard.press('Escape');
+    await expect(drawer).not.toBeVisible();
+    await expect(opener).toBeFocused();
+    await expect(opener).toHaveAttribute('aria-expanded', 'false');
+    await opener.click();
+    await page.mouse.click(5, 320);
+    await expect(drawer).not.toBeVisible();
+    await expect(opener).toBeFocused();
+    await opener.click();
+    await page.getByRole('button', { name: 'Close sections' }).click();
+    await expect(drawer).not.toBeVisible();
   }
 });

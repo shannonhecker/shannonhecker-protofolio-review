@@ -209,11 +209,11 @@ def lvl_bedtime():
     plat(110, 114, 7); plat(116, 120, 9); plat(122, 126, 11)
     put(112, 6, 'o'); put(118, 8, 'o'); put(124, 10, 'o')
     ground(128, 148); put(140, 9, 'N')
-    # conclude: a quiet walk home to the egg
+    # conclude: the Scrollkeeper guards a storybook castle and flag
     put(148, 13, 'C'); ground(148, W)
     for x in range(151, 165, 3): put(x, 13, 'o')
     for x in (27, 44, 88, 134): put(x, 13, 'E')   # screens
-    put(168, 13, 'F')
+    put(166, 13, 'F')
     return g
 
 worlds = [

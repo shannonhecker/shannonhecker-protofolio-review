@@ -15,7 +15,7 @@ const follower=document.createElement('span');follower.className='avatar-cursor-
 cursor.append(hotspot,follower);
 let images:HTMLImageElement[]=[],ready=false,loading=false,active=false,frame=0,last=0;
 let mx=0,my=0,x=0,y=0,direction=1,movedAt=0,hovered=false;
-const nativeTarget=(el:Element|null)=>!!el?.closest('input,textarea,select,[contenteditable],video,canvas,.play.is-full');
+const nativeTarget=(el:Element|null)=>!!el?.closest('input,textarea,select,[contenteditable],video,canvas,dialog,.play.is-full');
 function hide(){active=false;root.classList.remove('avatar-cursor-active');cursor.dataset.visible='false';cancelAnimationFrame(frame);frame=0;}
 function sync(){
  if(toggle){toggle.hidden=!allowed.matches;toggle.setAttribute('aria-pressed',String(enabled));toggle.textContent=enabled?'Avatar cursor on':'Avatar cursor off';}
@@ -43,7 +43,7 @@ function tick(time:number){
  if(moving)frame=requestAnimationFrame(tick);
 }
 document.addEventListener('pointermove',event=>{
- if(event.pointerType!=='mouse'||!enabled||!allowed.matches||nativeTarget(event.target as Element)||window.getSelection()?.toString()){hide();return;}
+ if(root.classList.contains('sections-open')||event.pointerType!=='mouse'||!enabled||!allowed.matches||nativeTarget(event.target as Element)||window.getSelection()?.toString()){hide();return;}
  if(!ready){void load();return;}
  const dx=event.clientX-mx;if(Math.abs(dx)>2)direction=dx>0?1:-1;
  mx=event.clientX;my=event.clientY;movedAt=performance.now();
@@ -63,3 +63,5 @@ sync();
 
 // Entering the game can happen without another pointermove. Restore its cursor now.
 addEventListener('portfolio-game-mode',hide);
+
+addEventListener('portfolio-sections-mode',hide);

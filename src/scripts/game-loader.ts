@@ -24,6 +24,16 @@ let game: Game | null = null;
 let musicControl: ((on:boolean)=>void) | undefined;
 let bootSequence = 0;
 let soundOn = false;
+const flight=document.querySelector<HTMLElement>('.game-flight');
+let cancelFlight:(()=>void)|undefined;
+function flyToUK(){
+ if(!flight||reduceMotion)return Promise.resolve();
+ game?.pause();musicControl?.(false);flight.hidden=false;
+ flight.querySelector<HTMLButtonElement>('button')?.focus({preventScroll:true});
+ return new Promise<void>(resolve=>{const finish=()=>{clearTimeout(timer);flight.hidden=true;cancelFlight=undefined;resolve();};const timer=setTimeout(finish,2400);cancelFlight=finish;});
+}
+flight?.querySelector('button')?.addEventListener('click',()=>cancelFlight?.());
+function syncCompleted(){const done=game?.state().done??[];stageButtons.forEach(button=>{const complete=done.includes(Number(button.dataset.stage));button.dataset.completed=String(complete);button.setAttribute('aria-label',`${button.textContent?.trim()}${complete?', completed':''}`);});}
 const param = new URLSearchParams(location.search).get('level');
 const fromCase = param !== null;
 let chosen = Math.max(0, Math.min(ends.length - 1, (Number(param ?? '1') || 1) - 1));
@@ -48,7 +58,9 @@ function showEnd(n: number | null, shipped = false, mission?: Mission) {
 
 async function boot(level: number, toMap: boolean) {
   if (!root || !canvas) return;
+  const crossingToUK=!toMap&&level===3&&game?.state().level===2&&game.state().finished;
   const sequence = ++bootSequence;
+  cancelFlight?.();
   if (play) play.disabled = true;
   try {
     const mod = await import('../game/main');
@@ -57,6 +69,7 @@ async function boot(level: number, toMap: boolean) {
     await mod.prepareArt();
     if (sequence !== bootSequence) return;
     showEnd(null);
+    if(crossingToUK){await flyToUK();if(sequence!==bootSequence)return;}
     root.dataset.state = 'playing';
     if(stageNav)stageNav.hidden=!toMap;
     canvas.tabIndex = 0;
@@ -70,12 +83,13 @@ async function boot(level: number, toMap: boolean) {
         reduceMotion,
         onStatus: (m) => { if (statusEl) statusEl.textContent = m; },
         onLevelStart: (n) => { if(stageNav)stageNav.hidden=true; syncStage(n); showEnd(null); startScore(n); },
-        onLevelEnd: (s) => { showEnd(s.level, s.collected >= s.total, s.mission); void endScore(s, ends[s.level]); },
+        onLevelEnd: (s) => { showEnd(s.level, s.collected >= s.total, s.mission); syncCompleted();void endScore(s, ends[s.level]); },
         onMapSelect: (n) => { chosen = n; syncStage(n); },
       });
       (window as unknown as { __game?: () => unknown }).__game = () => game?.state();
     }
     mod.setSound(soundOn);
+    syncCompleted();
   } catch {
     root.dataset.state = 'poster';
   } finally {
@@ -95,6 +109,7 @@ function changeNativeFullscreen(action:()=>Promise<void>){
   fullscreenQueue=fullscreenQueue.then(action).catch(()=>{}).finally(()=>{fullscreenChanges--;});
 }
 function setFull(on: boolean) {
+  if(!on&&cancelFlight){++bootSequence;cancelFlight();if(play)play.disabled=false;const current=game?.state();if(current?.finished)showEnd(current.level,current.collected>=current.total,current.mission);}
   full = on;
   box?.classList.toggle('is-full', on);
   document.documentElement.classList.toggle('game-is-full', on);
@@ -119,7 +134,7 @@ function exitFull() {
 // the browser's own Escape (or its exit gesture) leaves real full screen
 document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && full && fullscreenChanges===0) setFull(false); });
 // in the overlay, Escape leaves too (capture phase: before the game's own pause key)
-window.addEventListener('keydown', (e) => { if (full && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); exitFull(); } }, true);
+window.addEventListener('keydown', (e) => { if (full && e.key === 'Escape' && !timeline?.open) { e.preventDefault(); e.stopPropagation(); exitFull(); } }, true);
 exitBtn?.addEventListener('click', exitFull);
 fullBtn?.addEventListener('click', () => { enterFull(); if (!game) boot(chosen, !fromCase); });
 
@@ -140,6 +155,21 @@ soundBtn?.addEventListener('click', async () => {
   soundBtn.setAttribute('aria-pressed', String(soundOn));
   if (game) { (await import('../game/main')).setSound(soundOn); canvas?.focus(); }
 });
+
+// The story journal pauses the action and soundtrack. It lives inside the
+// fullscreen element, so it stays available in native fullscreen too.
+const timeline=document.querySelector<HTMLDialogElement>('#game-timeline');
+const timelineOpen=document.querySelector<HTMLButtonElement>('#game-timeline-open');
+let resumeAfterTimeline=false;
+timelineOpen?.addEventListener('click',()=>{
+  resumeAfterTimeline=!!game&&!game.state().paused&&full;
+  timeline?.showModal();game?.pause();musicControl?.(false);
+  window.dispatchEvent(new Event('portfolio-game-mode'));
+});
+timeline?.querySelector('button')?.addEventListener('click',()=>timeline.close());
+timeline?.addEventListener('click',e=>{if(e.target!==timeline)return;const r=timeline.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)timeline.close();});
+timeline?.addEventListener('close',()=>{if(resumeAfterTimeline&&full){game?.resume();canvas?.focus({preventScroll:true});musicControl?.(true);}else timelineOpen?.focus({preventScroll:true});});
+timeline?.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const controls=Array.from(timeline.querySelectorAll<HTMLElement>('button,a[href]'));const first=controls[0],last=controls[controls.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}});
 
 // Touch: three on-screen buttons, pointer-driven so multi-touch works.
 document.querySelectorAll<HTMLButtonElement>('.game-touch button').forEach((b) => {
