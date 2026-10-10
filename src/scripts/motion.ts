@@ -128,6 +128,14 @@ function chrome() {
   const nav = document.querySelector<HTMLElement>('.nav');
   const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.nav a.l'));
   const sections = links.map((a) => document.querySelector<HTMLElement>(a.getAttribute('href') ?? '')).filter((s): s is HTMLElement => !!s);
+  const list = nav?.querySelector('ul');
+  const edges = () => {
+    if (!list) return;
+    list.classList.toggle('more-start', list.scrollLeft > 2);
+    list.classList.toggle('more-end', list.scrollLeft + list.clientWidth < list.scrollWidth - 2);
+  };
+  list?.addEventListener('scroll', edges, { passive: true });
+  let lastCur: HTMLElement | null = null;
   const upd = () => {
     const h = root.scrollHeight - innerHeight;
     if (prog) prog.style.transform = `scaleX(${h > 0 ? Math.min(1, scrollY / h) : 0})`;
@@ -139,6 +147,16 @@ function chrome() {
       else a.removeAttribute('aria-current');
     });
     nav?.classList.toggle('solid', scrollY > 40);
+    if (list && cur !== lastCur) {
+      lastCur = cur;
+      const a = list.querySelector<HTMLElement>('a[aria-current="true"]');
+      if (a && list.scrollWidth > list.clientWidth) {
+        const ar = a.getBoundingClientRect();
+        const lr = list.getBoundingClientRect();
+        list.scrollTo({ left: list.scrollLeft + ar.left - lr.left - lr.width / 2 + ar.width / 2, behavior: reduce ? 'auto' : 'smooth' });
+      }
+    }
+    edges();
     sweep();
   };
   let t = 0;

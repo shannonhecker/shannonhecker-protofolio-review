@@ -104,3 +104,19 @@ test.describe('JavaScript disabled', () => {
     expect(await page.locator('.strip-wrap').evaluate((el) => getComputedStyle(el).overflowX)).toBe('auto');
   });
 });
+
+test.describe('mobile nav', () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+  test('signals overflow and keeps the current section in view', async ({ page }) => {
+    await page.goto('/');
+    const list = page.locator('.nav ul');
+    await expect(list).toHaveClass(/more-end/);
+    await page.locator('#how').scrollIntoViewIfNeeded();
+    const link = page.locator('.nav a.l', { hasText: 'How I work' });
+    await expect(link).toHaveAttribute('aria-current', 'true');
+    await expect.poll(async () => {
+      const [l, a] = await Promise.all([list.boundingBox(), link.boundingBox()]);
+      return !!l && !!a && a.x >= l.x - 1 && a.x + a.width <= l.x + l.width + 1;
+    }, { timeout: 3000 }).toBe(true);
+  });
+});

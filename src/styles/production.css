@@ -36,3 +36,11 @@ html.lenis{scroll-behavior:auto}
 .ws-hero .art{background:none}
 .ws-hero .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center right}
 .ws-hero .art::before{z-index:1}
+
+/* Mobile nav: the prototype's link row scrolls but gives no sign of it, so
+   Winking Star, uoaui.ai and How I work were invisible at 390px. The trailing
+   edge fades only while there is more to scroll (motion.ts sets the classes),
+   and the current section's link is kept in view. */
+.nav ul.more-end{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 32px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 32px),transparent)}
+.nav ul.more-start{-webkit-mask-image:linear-gradient(90deg,transparent,#000 32px);mask-image:linear-gradient(90deg,transparent,#000 32px)}
+.nav ul.more-start.more-end{-webkit-mask-image:linear-gradient(90deg,transparent,#000 32px,#000 calc(100% - 32px),transparent);mask-image:linear-gradient(90deg,transparent,#000 32px,#000 calc(100% - 32px),transparent)}
