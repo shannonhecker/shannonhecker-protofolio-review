@@ -113,7 +113,7 @@ function chrome() {
     t = requestAnimationFrame(() => { upd(); t = 0; });
   }, { passive: true });
   addEventListener('resize', upd);
-  upd();
+  requestAnimationFrame(upd);
 }
 
 reveals();
@@ -121,9 +121,9 @@ peek();
 chrome();
 root.dataset.ready = '1';
 
-// Optional desktop effects load after browsing begins. Initial content and
-// touch scrolling need no animation framework or smooth-scroll runtime.
-if (!reduce && fine) {
+// Optional scroll effects load only after browsing begins. Initial paint uses
+// CSS; desktop gets layered depth and touch gets shorter masked entrances.
+if (!reduce) {
   const loadEffects = () => {
     removeEventListener('scroll', loadEffects);
     import('./scroll-effects').then(({ initScrollEffects }) => initScrollEffects());

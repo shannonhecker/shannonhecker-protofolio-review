@@ -683,3 +683,12 @@ nine pages built, 88 files checked without diagnostics.
 - [x] Per-stage music, death cue, seated scooter pose, Taiwan-to-UK flight, final villain/castle/flag and locally saved completed-stage marks.
 - [x] Nine-route build; 120 browser checks pass.
 - [ ] Exact-head PR #25 CI, merge and production verification.
+
+### Final motion and finale pass, 11 October
+
+- [x] Finale locked until all seven previous stages are complete, including direct links.
+- [x] Starlight wand: original art, ranged attack, sound, keyboard/gamepad/touch, cooldown and pause.
+- [x] Revised FX source artwork and personas/journey in website desktop/mobile and portfolio Figma (before Claude's current edits).
+- [x] Reversible masked text, layered gallery parallax and timed page entrances; 125 browser checks pass.
+- [ ] Exact-head CI, main merge and production verification, tracked on PR #25.
+- Current Figma work belongs to Claude; this final pass stays in website code.

@@ -4,8 +4,11 @@ const root=document.documentElement;
 const index=document.querySelector<HTMLElement>('.case-contents');
 const nav=document.querySelector<HTMLElement>('.nav');
 if(nav){
- const measure=()=>root.style.setProperty('--global-nav-height',`${nav.offsetHeight}px`);
- measure();new ResizeObserver(measure).observe(nav);
+ let navHeight=0;
+ new ResizeObserver(([entry])=>{
+  const height=entry.borderBoxSize[0]?.blockSize??entry.contentRect.height;
+  if(height!==navHeight){navHeight=height;root.style.setProperty('--global-nav-height',`${height}px`);}
+ }).observe(nav);
 }
 if(index){
  const panel=index.querySelector<HTMLDialogElement>('.section-panel')!;
@@ -77,11 +80,14 @@ if(companion){
   if(!enabled()){greetingActive=false;return;}
   const first=!greeted;greeted=true;
   const copyAnimation=document.querySelector('.hero-story>h1')?.getAnimations()[0];
-  const elapsed=first?Number(copyAnimation?.currentTime??0):0;
+  // Animation.currentTime stops at the final keyframe. Timeline time keeps
+  // advancing, so slow image decoding cannot replay a delay after the copy.
+  const elapsed=first&&copyAnimation?.startTime!=null
+    ?Math.max(0,Number(document.timeline.currentTime??0)-Number(copyAnimation.startTime)):0;
   companion.style.setProperty('--intro-elapsed',`${elapsed}ms`);
   companion.dataset.entered='true';
   if(first)companion.dataset.intro='true';
-  const sequence:[string,number][]=[['rest',first?Math.max(0,1250-elapsed):80],['lift',160],['wave',1800],['lift',160],['rest',250]];
+  const sequence:[string,number][]=[['rest',first?Math.max(0,820-elapsed):80],['lift',160],['wave',1800],['lift',160],['rest',250]];
   const next=()=>{if(!enabled()){finishGreeting();return;}const step=sequence.shift();if(!step){finishGreeting();idleTimer=window.setTimeout(()=>void greet(),10000);return;}companion.dataset.pose=step[0];greetingTimer=window.setTimeout(next,step[1]);};
   next();
  };
