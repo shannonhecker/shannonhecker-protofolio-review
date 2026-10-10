@@ -198,3 +198,10 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - **Why not logos:** these are badges, not logos. Shannon picked this over official logo files, so the site uses no trademarked artwork, and her current employer's mark isn't on a job-search site.
 - **Colours:** they are close matches and live in `BRAND` in `src/game/map.ts`, so they're easy to correct.
 - **Label:** world 4's map label now reads "London Met", which names the organisation like the other two badges.
+
+### PR 13 · School buildings on the map (Shannon's note)
+
+- **School icons:** Ling Tung and London Met are where Shannon studied, so their map tiles now show school buildings, not the level's pickup icon.
+  - Ling Tung: a cream campus block with a red-tiled roof and a flag.
+  - London Met: a brick building with a pediment, tall windows and steps.
+- **How:** both are hand-placed 16×14 sprites in `SCHOOL_ICONS` (`src/game/map.ts`).

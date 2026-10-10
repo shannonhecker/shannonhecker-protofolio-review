@@ -4,7 +4,7 @@
 // Next: AI as an uncharted island with a dashed coast. Not to scale, and it
 // says so. Everything is rasterised once into an art-resolution canvas with
 // hard pixel edges; the game draws nodes and the character on top.
-import { canvas, text, textWidth } from './pixel';
+import { canvas, sprite, text, textWidth } from './pixel';
 
 type LL = [number, number]; // [lon, lat]
 
@@ -187,4 +187,43 @@ export const BRAND: Record<number, { bg: string; accent: string; fg: string }> =
   3: { bg: '#231f20', accent: '#e4007c', fg: '#ffffff' }, // London Met
   4: { bg: '#5c4632', accent: '#c9a96e', fg: '#ffffff' }, // J.P. Morgan
   5: { bg: '#00395d', accent: '#00aeef', fg: '#ffffff' }, // Barclays
+};
+
+// School buildings for the two places she studied, in place of the level's
+// pickup icon. 16×14, hand-placed. Ling Tung: a cream campus block with a
+// red-tiled roof and a flagpole. London Met: a brick building with tall
+// windows, a pediment and steps.
+export const SCHOOL_ICONS: Record<number, () => HTMLCanvasElement> = {
+  1: () => sprite([
+    '.......k........',
+    '.......kff......',
+    '.......kf.......',
+    '..kkkkkkkkkkkk..',
+    '.krrrrrrrrrrrrk.',
+    'krrrrrrrrrrrrrrk',
+    'kkkkkkkkkkkkkkkk',
+    'kwwwwwwwwwwwwwwk',
+    'kwbbwbbwwbbwbbwk',
+    'kwbbwbbwwbbwbbwk',
+    'kwwwwwwkkwwwwwwk',
+    'kwbbwbbkdkwbbwwk',
+    'kwwwwwwkdkwwwwwk',
+    'kkkkkkkkkkkkkkkk',
+  ], { k: '#2a1a14', r: '#c8463a', f: '#e5484d', w: '#f4ead2', b: '#6aa9d8', d: '#8a5a30' }),
+  3: () => sprite([
+    '.......kk.......',
+    '.....kkwwkk.....',
+    '...kkwwwwwwkk...',
+    '.kkwwwwwwwwwwkk.',
+    'kkkkkkkkkkkkkkkk',
+    'krrkwrkwwkrwkrrk',
+    'krrkbrkwwkrbkrrk',
+    'krrkbrkwwkrbkrrk',
+    'krrkbrkwwkrbkrrk',
+    'krrkkrkwwkrkkrrk',
+    'krrrrrkddkrrrrrk',
+    'kkkkkkkddkkkkkkk',
+    'kwwwwwwwwwwwwwwk',
+    'kkkkkkkkkkkkkkkk',
+  ], { k: '#2a1a14', r: '#a5523a', w: '#efe6d2', b: '#6aa9d8', d: '#5a3a22' }),
 };
