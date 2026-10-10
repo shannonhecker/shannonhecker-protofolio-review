@@ -64,7 +64,40 @@ async function boot(level: number, toMap: boolean) {
     if (play) play.disabled = false;
   }
 }
-play?.addEventListener('click', () => boot(chosen, !fromCase));
+// ---- full screen: Play opens it; Escape or the Exit button always leaves.
+// Real full screen where the browser allows it; a fixed overlay otherwise.
+const box = document.querySelector<HTMLElement>('.play');
+const exitBtn = document.getElementById('game-exit') as HTMLButtonElement | null;
+const fullBtn = document.getElementById('game-full') as HTMLButtonElement | null;
+let full = false;
+function setFull(on: boolean) {
+  full = on;
+  box?.classList.toggle('is-full', on);
+  document.documentElement.classList.toggle('game-is-full', on);
+  if (exitBtn) exitBtn.hidden = !on;
+  if (on) canvas?.focus({ preventScroll: true });
+  else { if ((game?.state() as { mode?: string } | undefined)?.mode === 'level') game?.pause(); box?.scrollIntoView({ block: 'center' }); }
+}
+function enterFull() {
+  if (!box || full) return;
+  setFull(true);
+  // must run inside the click that asked for it; a refusal keeps the overlay
+  if (document.fullscreenEnabled && !document.fullscreenElement) box.requestFullscreen?.().catch(() => {});
+}
+function exitFull() {
+  if (!full) return;
+  if (document.fullscreenElement) void document.exitFullscreen().catch(() => {});
+  setFull(false);
+  play?.focus({ preventScroll: true });
+}
+// the browser's own Escape (or its exit gesture) leaves real full screen
+document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && full) setFull(false); });
+// in the overlay, Escape leaves too (capture phase: before the game's own pause key)
+window.addEventListener('keydown', (e) => { if (full && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); exitFull(); } }, true);
+exitBtn?.addEventListener('click', exitFull);
+fullBtn?.addEventListener('click', () => { enterFull(); if (!game) boot(chosen, !fromCase); });
+
+play?.addEventListener('click', () => { enterFull(); boot(chosen, !fromCase); });
 // Choosing a world starts it, before or after Play has been pressed.
 picker?.addEventListener('change', () => { chosen = Number(picker.value); boot(chosen, false); });
 document.querySelectorAll<HTMLButtonElement>('.game-end [data-next]').forEach((b) =>

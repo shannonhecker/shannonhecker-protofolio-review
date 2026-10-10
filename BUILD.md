@@ -255,3 +255,16 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 ### PR 20 · The panel line names AI (Shannon approved)
 
 - **New wording:** the `/panel` hero eyebrow now reads "Portfolio for the Revolut design panel: product design, heading into AI". This puts the job-search direction above the headline, so the panel sees it before anything else.
+
+### PR 21 · Full screen game, with an easy way out (Shannon's request)
+
+- **Play opens full screen:** pressing Play now opens the game full screen. It uses the browser's Fullscreen API where allowed. On iPhone Safari, which doesn't allow it for a canvas, the same layout appears as a fixed overlay.
+- **Three ways out:**
+  - Escape (the browser's own, or ours in the overlay);
+  - a white "Exit full screen ✕" button in the top corner;
+  - re-entry any time with a "Full screen" button under the game.
+- **Leaving full screen:** a level you leave stays paused, so nothing happens while you're away. The map never gets stuck: starting any world clears the pause.
+- **Phones:**
+  - Upright: the game sits above its controls, with a hint to turn the phone.
+  - Sideways: the game fills the height, ← and → sit in the left margin, ↑ in the right, and the exit button shrinks to a ✕ (still announced as "Exit full screen").
+- **Tests:** three new ones cover Escape, the buttons, the map case and the phone overlay. 71 pass.
