@@ -91,6 +91,34 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - Measured the result: Lighthouse is 100 in all four categories on mobile and desktop. Mobile LCP is 1.3–1.5 s, because the pixel poster is 3–6 KB as AVIF where the photo was much larger.
 - Removed a leftover scratch test from the repo.
 
+### PR 7 · The game becomes Shannon's career
+
+**What Shannon decided**
+
+- Turn the game into her career journey.
+- Supplied the facts the CV doesn't have:
+  - She grew up in Kaohsiung, by the sea, in the city by the park, on a motorbike.
+  - She worked as a web and visual designer at 捷元電腦 (B2C).
+  - At J.P. Morgan she joined in June 2016 as an intern, then became Analyst, Senior Analyst and VP, in the UI/UX team. The work was mostly UI and visual at first, then UI and UX together.
+
+**What Claude Code did**
+
+- Read the facts from her CV (`assets/CV_ShannonH.pdf`): Ling Tung 2008–2010, the London Met MA 2015–2016, J.P. Morgan 2016–2025, Barclays 2025 to now, uoaui.ai 2026, and Winking Star 2026. Every card states only these facts.
+- Built the world map with eight worlds:
+  - **Kaohsiung:** you ride a scooter, which comes from her own detail.
+  - **Ling Tung**, **捷元電腦** and **London**, the last one in the rain.
+  - **The J.P. Morgan tower:** a vertical climb, one floor per title. The pickups change from colour swatches (UI) to flow arrows (UX) as you climb.
+  - **Barclays**, with the FX rate line.
+  - **Next: AI:** platforms are drafted until you get close.
+  - **Winking Star**, as a bonus world.
+- Gave the character a different outfit in each era.
+- Made "Next: AI" describe her practice rather than a job search, because she currently works at Barclays and the site is public.
+- Fixed the problems the level bots found:
+  - The first tower layout needed jumps longer than the jump allows.
+  - A low ceiling blocked the climb.
+  - A Ling Tung platform ended right at a pit.
+- Left the 捷元電腦 years off until Shannon confirms them.
+
 **What Shannon changed by hand**
 
 - _To fill in._

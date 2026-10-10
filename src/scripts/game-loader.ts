@@ -1,25 +1,23 @@
 // Loads the game chunk only when someone presses Play. If the chunk fails,
-// the poster stays and the rest of the page is untouched. Between levels it
-// shows that case's card, so the game hands the reader back to the work.
+// the poster stays and the rest of the page is untouched. Pressing Play opens
+// the world map; a case page's "Play this case as a level" link (?level=n)
+// starts that world directly. Between worlds a card states the facts and
+// links to the case.
 const root = document.querySelector<HTMLElement>('.play .game');
 const canvas = document.getElementById('game') as HTMLCanvasElement | null;
 const play = document.getElementById('game-play') as HTMLButtonElement | null;
 const statusEl = document.getElementById('game-status');
-const levelBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.game-level'));
+const picker = document.getElementById('game-world') as HTMLSelectElement | null;
 const ends = Array.from(document.querySelectorAll<HTMLElement>('.game-end'));
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 type Game = ReturnType<typeof import('../game/main').start>;
 let game: Game | null = null;
 let soundOn = false;
-// "Play this level" links from the case pages select a level; they never start it.
-let chosen = Math.max(0, Math.min(2, Number(new URLSearchParams(location.search).get('level') ?? '1') - 1 || 0));
-
-function choose(n: number) {
-  chosen = n;
-  levelBtns.forEach((b, i) => b.setAttribute('aria-pressed', String(i === n)));
-}
-choose(chosen);
+const param = new URLSearchParams(location.search).get('level');
+const fromCase = param !== null;
+let chosen = Math.max(0, Math.min(ends.length - 1, (Number(param ?? '1') || 1) - 1));
+if (picker) picker.value = String(chosen);
 
 function showEnd(n: number | null, shipped = false) {
   ends.forEach((e, i) => {
@@ -30,7 +28,7 @@ function showEnd(n: number | null, shipped = false) {
   if (n !== null) ends[n]?.querySelector<HTMLElement>('[data-next]')?.focus();
 }
 
-async function boot(level: number) {
+async function boot(level: number, toMap: boolean) {
   if (!root || !canvas) return;
   if (play) play.disabled = true;
   try {
@@ -38,14 +36,17 @@ async function boot(level: number) {
     showEnd(null);
     root.dataset.state = 'playing';
     canvas.tabIndex = 0;
-    choose(level);
-    if (game) game.loadLevel(level);
+    chosen = level;
+    if (picker) picker.value = String(level);
+    if (game) (toMap ? game.showMap(level) : game.loadLevel(level));
     else {
       game = mod.start(canvas, {
         level,
+        startOnMap: toMap,
         reduceMotion,
         onStatus: (m) => { if (statusEl) statusEl.textContent = m; },
         onLevelEnd: (s) => { showEnd(s.level, s.collected >= s.total); },
+        onMapSelect: (n) => { chosen = n; if (picker) picker.value = String(n); },
       });
       (window as unknown as { __game?: () => unknown }).__game = () => game?.state();
     }
@@ -56,10 +57,13 @@ async function boot(level: number) {
     if (play) play.disabled = false;
   }
 }
-play?.addEventListener('click', () => boot(chosen));
-levelBtns.forEach((b, i) => b.addEventListener('click', () => { choose(i); if (game) boot(i); }));
+play?.addEventListener('click', () => boot(chosen, !fromCase));
+picker?.addEventListener('change', () => { chosen = Number(picker.value); if (game) boot(chosen, false); });
 document.querySelectorAll<HTMLButtonElement>('.game-end [data-next]').forEach((b) =>
-  b.addEventListener('click', () => boot(Number(b.dataset.next))),
+  b.addEventListener('click', () => boot(Number(b.dataset.next), false)),
+);
+document.querySelectorAll<HTMLButtonElement>('.game-end [data-map]').forEach((b) =>
+  b.addEventListener('click', () => boot(Math.min(ends.length - 1, chosen + 1), true)),
 );
 
 // Sound: off by default, one toggle (brief).
