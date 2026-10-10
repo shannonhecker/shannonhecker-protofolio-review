@@ -214,8 +214,9 @@ test('Kaohsiung: the scooter makes you faster', async ({ page }) => {
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => (await state(page)).riding, { timeout: 6000 }).toBe(true);
-  await page.waitForTimeout(900);
-  expect(Math.abs((await state(page)).vx)).toBeGreaterThan(330);
+  // read the speed as soon as it builds: a fixed wait could land after the
+  // pit at tiles 26 to 28, which a bot holding Right rides straight into
+  await expect.poll(async () => Math.abs((await state(page)).vx), { timeout: 1500, intervals: [50] }).toBeGreaterThan(330);
   await page.keyboard.up('ArrowRight');
 });
 

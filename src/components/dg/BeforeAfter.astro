@@ -1,0 +1,10 @@
+---
+// Two panels side by side: what version one did, and what replaced it. The
+// pictures are slotted SVG schematics, never real screens (NDA-safe).
+interface Props { before: string; after: string; beforeNote: string; afterNote: string; label: string }
+const { before, after, beforeNote, afterNote, label } = Astro.props;
+---
+<figure class="dg dg-ba" aria-label={label}>
+  <div class="dg-ba-panel"><span class="dg-tag">Before</span><div class="dg-pic"><slot name="before" /></div><b>{before}</b><span class="dg-d">{beforeNote}</span></div>
+  <div class="dg-ba-panel after"><span class="dg-tag">After</span><div class="dg-pic"><slot name="after" /></div><b>{after}</b><span class="dg-d">{afterNote}</span></div>
+</figure>

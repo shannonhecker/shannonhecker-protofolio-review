@@ -268,3 +268,19 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
   - Upright: the game sits above its controls, with a hint to turn the phone.
   - Sideways: the game fills the height, ← and → sit in the left margin, ↑ in the right, and the exit button shrinks to a ✕ (still announced as "Exit full screen").
 - **Tests:** three new ones cover Escape, the buttons, the map case and the phone overlay. 71 pass.
+
+### PR 22 · FX case: the diagrams the panel looks for
+
+- **Source:** Shannon's Revolut portfolio deck in Figma. I read all 36 slides, plus the 17-slide intro-call deck and its speaker notes.
+- **Built in the site's style, not as slide images:** the deck's diagrams are dark slides with serif titles, and the brief rules out serif type and dark bands. Each one is rebuilt with the site's type and hairlines, as real text.
+- **New diagram components** (`src/components/dg`): Flow, Layers, Matrix, Stack and BeforeAfter.
+  - Each is real text, so screen readers read it and it stays sharp at any size.
+  - Each stacks on a phone.
+  - The Matrix is a real `<table>` with row headers.
+- **FX now shows:**
+  - **Understanding the data:** five spreadsheets, four kinds of data, one mark each. This is the deck's slide 09, which the site didn't have.
+  - **Reprice flow:** monitoring to action as six steps, with the Cancel branch ("nothing changes"), confirmation and the audit trail.
+  - **Before/after:** schematics of the two version-one debts. State regions became a state lane; a smear of dots became counted clusters. These are schematics, not screens, so they stay NDA-safe.
+  - **State matrix:** the edge and validation states as a table (state, what the screen does, why), replacing a two-column list.
+- **No new claims:** every word comes from the deck or the existing case copy.
+- **Test fix:** "the scooter makes you faster" read the speed after a fixed 900 ms, which sometimes landed after the bot rode into the pit at tiles 26–28. It now reads the speed as soon as it builds. It passes 8 of 8 in a row.
