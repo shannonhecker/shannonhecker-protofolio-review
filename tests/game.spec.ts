@@ -124,6 +124,7 @@ for (const n of [0, 1, 2, 3, 4, 5, 6, 7]) {
     const s = n === 4 ? await climbTower(page) : await runLevel(page, n);
     expect(s.finished, `stopped at tile ${Math.floor(s.x / 32)}, row ${Math.floor((s.y + 44) / 32)}`).toBe(true);
     expect(s.level).toBe(n);
+    expect(s.achievements.length).toBeGreaterThan(0);
     // the card states the facts and, where there is one, links to the case
     const card = page.locator(`.game-end[data-end="${n}"]`);
     await expect(card).toBeVisible({ timeout: 5000 });
@@ -165,9 +166,9 @@ test('small enemies: landing on one clears it and counts toward the mission', as
 
 test('small enemies: walking into one from the side is a hit', async ({ page }) => {
   await startWorld(page, 2);
-  await page.keyboard.down('ArrowRight');
+  // Stay before the optional power star and let the enemy approach.
   let s = await state(page);
-  for (let i = 0; i < 300 && s.hits === 0; i++) { await page.waitForTimeout(20); s = await state(page); }
+  for (let i = 0; i < 900 && s.hits === 0; i++) { await page.waitForTimeout(20); s = await state(page); }
   await page.keyboard.up('ArrowRight');
   // the hit came first; the knockback may then drop her onto it, which is fine
   expect(s.hits).toBeGreaterThan(0);
@@ -191,12 +192,12 @@ test('Play opens the career map; arrows step world by world and Space starts it'
   expect((await state(page)).mode).toBe('map');
   // four choices: Taiwan, London, Next: AI, Bonus. One step lands on London's first stage.
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#game-world')).toHaveValue('3');
+  await expect(page.locator('#game-world')).toHaveAttribute('data-stage','3');
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#game-world')).toHaveValue('6');
+  await expect(page.locator('#game-world')).toHaveAttribute('data-stage','6');
   await page.keyboard.press('ArrowRight');
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#game-world')).toHaveValue('0'); // wraps back to Taiwan
+  await expect(page.locator('#game-world')).toHaveAttribute('data-stage','0'); // wraps back to Taiwan
   await page.keyboard.press('ArrowRight');
   await page.keyboard.press('Space');
   await expect.poll(async () => (await state(page)).mode).toBe('level');
@@ -210,7 +211,7 @@ test('stages of a world play on: the card offers the next stage, then the next w
   await expect(page.locator('.game-end[data-end="5"] [data-next]')).toHaveText('Next world: AI');
   await expect(page.locator('.game-end[data-end="6"] [data-next]')).toHaveText('Bonus: Bedtime');
   await expect(page.locator('.game-end[data-end="1"] .game-kicker')).toContainText('World 1-2');
-  await expect(page.locator('#game-world optgroup')).toHaveCount(4);
+  await expect(page.locator('.game-stages button')).toHaveCount(8);
 });
 
 test('Kaohsiung: the scooter makes you faster', async ({ page }) => {
@@ -246,7 +247,7 @@ test('a case page links to its chapter of the game without starting it', async (
   const link = page.getByRole('link', { name: /Play this chapter in the game/ });
   await expect(link).toHaveAttribute('href', '/panel?level=5#top');
   await link.click();
-  await expect(page.locator('#game-world')).toHaveValue('4');
+  await expect(page.locator('#game-world')).toHaveAttribute('data-stage','4');
   await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
 });
 

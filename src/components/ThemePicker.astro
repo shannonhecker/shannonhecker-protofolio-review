@@ -1,46 +1,20 @@
----
-const choices = [
-  { value: 'project', label: 'Project theme', short: 'Theme', detail: 'Use each project’s palette', path: 'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z' },
-  { value: 'light', label: 'Light', short: 'Light', detail: 'A clear, bright canvas', path: 'M12 3V1m0 22v-2M3 12H1m22 0h-2M5.6 5.6 4.2 4.2m15.6 15.6-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4M17 12a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z' },
-  { value: 'dark', label: 'Dark', short: 'Dark', detail: 'A quieter evening view', path: 'M20.5 14.2A9 9 0 0 1 9.8 3.5 9 9 0 1 0 20.5 14.2Z' },
-  { value: 'system', label: 'System', short: 'System', detail: 'Follow your device', path: 'M3 4h18v13H3zM8 21h8M12 17v4' },
-];
----
 <div class="appearance theme-picker">
-  <button class="theme-trigger" type="button" aria-label="Colour theme" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu">
-    <span class="theme-current-icon" aria-hidden="true">{choices.map(choice => <svg data-theme-icon={choice.value} data-current={String(choice.value === 'project')} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d={choice.path}/></svg>)}</span>
-    <span class="theme-current-label">Theme</span>
-    <svg class="theme-chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="m3 4.5 3 3 3-3" stroke="currentColor" stroke-width="1.5"/></svg>
+  <button class="theme-toggle" type="button" role="switch" aria-label="Dark mode" aria-checked="false" title="Switch light and dark theme">
+    <span class="theme-thumb" aria-hidden="true"></span>
+    <svg class="theme-sun" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+    <svg class="theme-moon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A9 9 0 0 1 9.8 3.5 9 9 0 1 0 20.5 14.2Z"/></svg>
   </button>
-  <div class="theme-menu" id="theme-menu" role="menu" aria-label="Colour theme" hidden>
-    {choices.map(choice => <button type="button" role="menuitemradio" aria-checked={choice.value === 'project' ? 'true' : 'false'} tabindex="-1" data-theme-choice={choice.value} data-theme-label={choice.short}>
-      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d={choice.path}/></svg>
-      <span><span class="theme-option-label">{choice.label}</span><span class="theme-option-detail">{choice.detail}</span></span>
-      <svg class="theme-check" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="m3 8 3 3 7-7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>)}
-  </div>
 </div>
 <style>
-  .theme-picker { position:relative;flex:none; }
-  .theme-trigger { display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 12px;border:1px solid var(--hair);border-radius:6px;background:var(--bg);color:var(--fg);font:500 13px/1.2 var(--body);cursor:pointer; }
-  .theme-current-icon { display:grid;place-items:center; }
-  svg[data-current=false],.theme-menu[hidden] { display:none; }
-  .theme-chevron { transition:transform .18s ease; }
-  .theme-trigger[aria-expanded=true] .theme-chevron { transform:rotate(180deg); }
-  .theme-trigger:hover,.theme-trigger[aria-expanded=true] { background:var(--bg-2);border-color:var(--fg-2); }
-  .theme-menu { position:absolute;right:0;top:calc(100% + 10px);width:244px;padding:6px;background:var(--bg);border:1px solid var(--hair);border-radius:10px;color:var(--fg); }
-  .theme-menu button { width:100%;display:grid;grid-template-columns:20px 1fr 16px;gap:12px;align-items:center;text-align:left;padding:12px;border:0;border-radius:5px;background:transparent;color:var(--fg);font:500 14px/1.4 var(--body);cursor:pointer; }
-  .theme-menu button:hover,.theme-menu button:focus-visible { background:var(--bg-2); }
-  .theme-menu button[aria-checked=true] { background:var(--project-wash,var(--bg-2)); }
-  .theme-menu button:focus-visible,.theme-trigger:focus-visible { outline:2px solid var(--project-ink,var(--fg));outline-offset:2px; }
-  .theme-option-label,.theme-option-detail { display:block; }
-  .theme-option-detail { font-size:11px;font-weight:400;color:var(--fg-2);margin-top:3px; }
-  .theme-check { visibility:hidden; }
-  [aria-checked=true] .theme-check { visibility:visible; }
-  @media(max-width:760px) {
-    .theme-trigger { width:44px;padding:10px; }
-    .theme-current-label,.theme-chevron { display:none; }
-    .theme-menu { position:fixed;right:var(--gutter);top:calc(var(--global-nav-height,78px) - 2px);max-width:calc(100vw - 32px); }
-  }
-  @media(prefers-reduced-motion:reduce) { .theme-chevron { transition:none; } }
+  .theme-picker { flex:none; }
+  .theme-toggle { position:relative;display:flex;align-items:center;justify-content:space-around;width:80px;height:44px;padding:3px;border:1px solid var(--hair);border-radius:24px;background:var(--bg-2);color:var(--fg-2);cursor:pointer; }
+  .theme-thumb { position:absolute;left:3px;top:3px;width:36px;height:36px;border-radius:50%;background:var(--fg);transition:transform .2s ease; }
+  .theme-toggle svg { position:relative;z-index:1; }
+  .theme-sun { color:var(--bg); }
+  :global(html[data-theme=dark]) .theme-thumb { transform:translateX(36px); }
+  :global(html[data-theme=dark]) .theme-sun { color:var(--fg-2); }
+  :global(html[data-theme=dark]) .theme-moon { color:var(--bg); }
+  .theme-toggle:hover { border-color:var(--fg-2); }
+  .theme-toggle:focus-visible { outline:2px solid var(--project-ink,var(--fg));outline-offset:4px; }
+  @media(prefers-reduced-motion:reduce) { .theme-thumb { transition:none; } }
 </style>

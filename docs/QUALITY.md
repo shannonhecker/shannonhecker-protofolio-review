@@ -136,3 +136,23 @@ keyboard selection, focus restoration, Tab/Escape/outside dismissal and saved
 preferences are checked. After deprioritising optional first-load game artwork,
 the local root mobile audit scores 100/100/100/100 with LCP 1.9s. Remote CI remains
 the release gate; these local results do not imply a production deployment.
+
+### 10 October, 20:17 BST · final functional review
+
+The game art is now rendered on a coherent 480×270 pixel grid. Native game
+screenshots reviewed the new world map, Kaohsiung scene and sprite integration;
+all eight levels pass the completion controller. New interaction checks confirm
+a star requires collection, protects against an enemy and expires, and music
+stops when leaving both map and gameplay. Fullscreen requests are serialized to
+prevent a rapid exit/re-entry race. Banner and diagram connector overflow found
+at 320/390/820px were corrected. All 101 browser tests pass (36.0 seconds).
+
+Decorative process sheets have been removed. Responsive, selectable-text diagrams
+now explain the actual tasks, frictions, responses and decision alternatives.
+The exact source FX flow remains primary. Diagrams are schematic explanations,
+not invented production screens or new research evidence. Original wording stays.
+
+The root mobile Lighthouse check is 97/100/100/100, LCP 2.5s, negligible CLS and
+zero blocking time locally. The prior remote audit had 240ms blocking time;
+scroll-reveal measurements now batch reads before writes to avoid layout thrashing.
+Final remote CI and production verification still need to be recorded.

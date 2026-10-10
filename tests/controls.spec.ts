@@ -3,15 +3,16 @@ import { test, expect, type Page } from '@playwright/test';
 const state = (page: Page) => page.evaluate(() => (window as unknown as { __game: () => any }).__game());
 const ready = (page: Page) => page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
 
-test('choosing a world in the dropdown before pressing Play starts that world', async ({ page }) => {
+test('the visual stage chooser starts a stage without a native dropdown', async ({ page }) => {
   await page.goto('/');
-  await page.locator('#game-world').selectOption('2');
+  await page.locator('#game-world').click();
+  await page.locator('.game-stages [data-stage="2"]').click();
   await ready(page);
   await expect.poll(async () => (await state(page)).mode).toBe('level');
   expect((await state(page)).level).toBe(2);
 });
 
-test('clicking a world on the map keeps the dropdown in step', async ({ page }) => {
+test('clicking a world on the map keeps stage selection in step', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Press to play' }).click();
   await ready(page);
@@ -19,7 +20,7 @@ test('clicking a world on the map keeps the dropdown in step', async ({ page }) 
   const box = (await page.locator('#game').boundingBox())!;
   await page.mouse.click(box.x + (226 / 480) * box.width, box.y + (214 / 270) * box.height);
   await expect.poll(async () => (await state(page)).level).toBe(4);
-  await expect(page.locator('#game-world')).toHaveValue('4');
+  await expect(page.locator('#game-world')).toHaveAttribute('data-stage','4');
 });
 
 test("the game's own controls don't pause it", async ({ page }) => {
@@ -95,7 +96,8 @@ test('leaving full screen on the map never leaves the next world stuck', async (
   await page.getByRole('button', { name: 'Press to play' }).click();
   await ready(page);
   await page.keyboard.press('Escape');
-  await page.locator('#game-world').selectOption('3');
+  await page.locator('#game-world').click();
+  await page.locator('.game-stages [data-stage="3"]').click();
   await expect.poll(async () => (await state(page)).mode).toBe('level');
   expect((await state(page)).paused).toBe(false);
 });

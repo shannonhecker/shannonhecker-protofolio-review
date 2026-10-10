@@ -649,3 +649,12 @@ nine pages built, 88 files checked without diagnostics.
 - [x] Nine routes built; 91 files checked without diagnostics; all 98 tests pass in 41.1s. Local root mobile Lighthouse: 100/100/100/100, LCP 1.9s.
 - [ ] Final CI and production release, tracked on PR #25.
 - [ ] Editable desktop/mobile transfer of all nine routes to a separate Figma working file: https://www.figma.com/design/l6noy7onfsRiuBgjqSsKbt . This file is in progress; the original interview deck remains unchanged.
+
+### 10 October, 20:17 BST · pixel game and functional diagrams
+
+- [x] Binary light/dark switch; shallow full-width game banner with full-size play.
+- [x] All eight pixel scenes, map, four-frame avatar, object/enemy sheets regenerated and normalized to the game pixel grid. 13 Nano Banana jobs, 26 credits in this batch, explicitly authorized.
+- [x] Star power, original background music, flat stage navigation and CV-based career achievement reveals.
+- [x] Removed decorative process strips; connected journey schematics for FX/Fusion/uoaui and illustrated choice comparisons for all four cases. Original FX flow preserved.
+- [x] Latest local build and 101 browser tests pass; mobile Lighthouse root 97/100/100/100 before additional layout batching. CI remains the final gate.
+- [ ] Final PR #25 CI, merge, production smoke check and editable Figma section refresh.

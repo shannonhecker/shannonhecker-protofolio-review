@@ -12,10 +12,9 @@ function reveals() {
   const els = Array.from(document.querySelectorAll<HTMLElement>('.rv, .split'));
   if (reduce) return;
   const vh = innerHeight;
-  els.forEach((el) => {
-    if (el.getBoundingClientRect().top > vh * 0.9) el.classList.add('pre');
-    else el.classList.add('in');
-  });
+  // Measure the full batch before changing classes to avoid repeated layout.
+  const positions = els.map(el => el.getBoundingClientRect().top);
+  els.forEach((el, i) => el.classList.add(positions[i] > vh * 0.9 ? 'pre' : 'in'));
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
@@ -33,12 +32,9 @@ function reveals() {
 // Anything a nav jump skipped past still gets revealed.
 function sweep() {
   const lim = scrollY + innerHeight * 1.2;
-  document.querySelectorAll<HTMLElement>('.rv.pre, .split.pre').forEach((el) => {
-    if (el.getBoundingClientRect().top + scrollY < lim) {
-      el.classList.remove('pre');
-      el.classList.add('in');
-    }
-  });
+  const visible = Array.from(document.querySelectorAll<HTMLElement>('.rv.pre, .split.pre'))
+    .filter(el => el.getBoundingClientRect().top + scrollY < lim);
+  visible.forEach(el => { el.classList.remove('pre'); el.classList.add('in'); });
 }
 
 function peek() {

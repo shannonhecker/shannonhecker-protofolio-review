@@ -5,8 +5,8 @@
 // facts from her CV or her own words; nothing here is invented.
 // DECISION: Named "Working Order" (a live order still filling; also "things in
 // working order"). Mario-era pixel style, every noun from her own story.
-import Pic from './Pic.astro';
-import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
+import { ACHIEVEMENTS } from '../lib/achievements';
+import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
 ---
 <div class="play" data-lenis-prevent>
   <button type="button" class="game-exit" id="game-exit" hidden><span class="game-exit-label">Exit full screen</span> <span aria-hidden="true">✕</span></button>
@@ -14,7 +14,7 @@ import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
   <div class="game" data-state="poster">
     <canvas id="game" width="480" height="270" tabindex="-1" role="application" aria-roledescription="game" aria-label="Working Order" aria-describedby="game-desc"></canvas>
     <div class="game-poster">
-      <Pic name="scene-kaohsiung.png" alt="" sizes="(max-width: 760px) 90vw, 420px" widths={[480, 800, 1344]} />
+      <img src="/game/banner.webp" alt="" width="960" height="240" loading="lazy" decoding="async" />
       <button type="button" class="game-play" id="game-play">Press to play</button>
     </div>
     {JOURNEY.map((w, i) => (
@@ -24,6 +24,10 @@ import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
         <p class="game-case">{w.place}</p>
         <p class="game-meta">{w.line}</p>
         <p class="game-mission" hidden></p>
+        <details class="career-achievements">
+          <summary>Career achievements · {ACHIEVEMENTS[i].length} unlocked</summary>
+          <ul>{ACHIEVEMENTS[i].map(reward=><li><strong>{reward.title}</strong><ul>{reward.projects.map(project=><li>{project}</li>)}</ul></li>)}</ul>
+        </details>
         <section class="scoreboard" aria-label={`${w.place} scoreboard`}>
           <p class="score-total"><strong data-score>0</strong> points <span>this stage</span></p>
           <p class="score-rule">100 for finishing + 25 per pickup − 10 per bump. Minimum 100.</p>
@@ -67,22 +71,16 @@ import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
     <button type="button" tabindex="-1" data-k="jump">↑</button>
   </div>
   <div class="game-bar">
-    <label class="game-world">
-      <span class="vh">Choose a world</span>
-      <select id="game-world">
-        {CHAPTERS.map((c, n) => (
-          <optgroup label={'bonus' in c && c.bonus ? `Bonus · ${c.name}` : `World ${n + 1} · ${c.name}`}>
-            {c.stages.map((i) => <option value={i}>{stageCode(i)} · {JOURNEY[i].place}</option>)}
-          </optgroup>
-        ))}
-      </select>
-    </label>
+    <button type="button" class="game-sound" id="game-world">World map</button>
     <span class="game-tools">
       <button type="button" class="game-sound" id="game-full">Full screen</button>
       <button type="button" class="game-sound" id="game-sound" aria-pressed="false">Sound</button>
     </span>
   </div>
+  <nav class="game-stages" aria-label="Choose a stage" hidden>
+    {JOURNEY.map((stage,i)=><button type="button" data-stage={i}><span>{stageCode(i)}</span>{stage.place}</button>)}
+  </nav>
   <p class="game-caption">Working Order · from Kaohsiung to London to what's next</p>
-  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at 捷元電腦), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Each stage has a small enemy you can jump on and an optional mission for a gold star. Pressing Play opens it full screen; Escape or the Exit full screen button returns to the page. Arrow keys or WASD to move, Space or Up to jump, Escape to pause when not full screen. On the map, Left and Right choose a world and Space starts it.</p>
+  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at 捷元電腦), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Collect a power star for eight seconds of extra speed and protection. Each stage has a small enemy you can jump on and an optional mission for a gold star. Pressing Play opens it full screen; Escape or the Exit full screen button returns to the page. Arrow keys or WASD to move, Space or Up to jump, Escape to pause when not full screen. On the map, Left and Right choose a world and Space starts it.</p>
   <p id="game-status" class="vh" aria-live="polite"></p>
 </div>

@@ -2,8 +2,8 @@ import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 async function chooseTheme(page:Page,label:string){
-  await page.getByRole('button',{name:/^Colour theme/}).click();
-  await page.getByRole('menuitemradio',{name:new RegExp('^'+label)}).click();
+  const toggle=page.getByRole('switch',{name:'Dark mode'});
+  if(await toggle.getAttribute('aria-checked')!==String(label==='Dark'))await toggle.click();
 }
 
 for (const width of [390, 1440]) {
@@ -23,18 +23,19 @@ for (const width of [390, 1440]) {
   }
 }
 
-test('theme preference persists across projects and system follows the device',async({page})=>{
+test('light and dark preferences persist across projects',async({page})=>{
   await page.goto('/fx');
   await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
   await chooseTheme(page,'Light');
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme','light');
   await page.goto('/fusion');
-  await expect(page.getByRole('button',{name:'Colour theme: Light'})).toBeVisible();
-  await chooseTheme(page,'System');
-  await page.emulateMedia({colorScheme:'dark'});
+  await expect(page.getByRole('switch',{name:'Dark mode'})).toHaveAttribute('aria-checked','false');
+  await chooseTheme(page,'Dark');
+  await page.goto('/panel');
   await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
-  await page.emulateMedia({colorScheme:'light'});
+  await chooseTheme(page,'Light');
+  await page.goto('/fx');
   await expect(page.locator('html')).toHaveAttribute('data-theme','light');
 });
 
@@ -83,36 +84,43 @@ test('optional game follows the introduction on both landing URLs',async({page})
 });
 
 for(const width of [390,1440]){
-  test(`custom theme menu supports keyboard, dismissal and readable options at ${width}px`,async({page})=>{
+  test(`theme switch is immediate, keyboard accessible and has no menu at ${width}px`,async({page})=>{
     await page.setViewportSize({width,height:900});
     await page.goto('/fx');
-    const trigger=page.getByRole('button',{name:/^Colour theme/});
-    const menu=page.getByRole('menu',{name:'Colour theme'});
-    await trigger.focus();
-    await page.keyboard.press('ArrowDown');
-    await expect(menu).toBeVisible();
-    await expect(page.getByRole('menuitemradio',{name:/^Project theme/})).toBeFocused();
-    await page.keyboard.press('ArrowDown');
-    await page.keyboard.press('Enter');
+    const toggle=page.getByRole('switch',{name:'Dark mode'});
+    await expect(toggle).toHaveAttribute('aria-checked','true');
+    await toggle.focus();
+    await page.keyboard.press('Space');
     await expect(page.locator('html')).toHaveAttribute('data-theme','light');
-    await expect(menu).toBeHidden();
-    await expect(trigger).toBeFocused();
-    await trigger.click();
-    await expect(page.getByRole('menuitemradio',{name:/^Light/})).toHaveAttribute('aria-checked','true');
-    const bounds=(await menu.boundingBox())!;
-    expect(bounds.x).toBeGreaterThanOrEqual(0);
+    await expect(toggle).toHaveAttribute('aria-checked','false');
+    await expect(toggle).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(toggle).toHaveAttribute('aria-checked','true');
+    await expect(page.locator('.theme-picker select, .theme-picker [role="menu"]')).toHaveCount(0);
+    const bounds=(await toggle.boundingBox())!;
+    expect(bounds.height).toBeGreaterThanOrEqual(44);
     expect(bounds.x+bounds.width).toBeLessThanOrEqual(width);
     const {violations}=await new AxeBuilder({page}).include('.theme-picker').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
     expect(violations).toEqual([]);
-    await page.keyboard.press('Escape');
-    await expect(menu).toBeHidden();
-    await expect(trigger).toBeFocused();
-    await trigger.click();
     await page.keyboard.press('Tab');
-    await expect(menu).toBeHidden();
     await expect(page.locator('.nav .cta')).toBeFocused();
-    await trigger.click();
-    await page.mouse.click(8,450);
-    await expect(menu).toBeHidden();
   });
 }
+
+test('game preview spans the content as a shallow banner and opens at its original ratio',async({page})=>{
+  await page.setViewportSize({width:1440,height:1000});
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.goto('/panel');
+  const banner=page.locator('.hero-bonus');
+  const game=page.locator('.play .game');
+  const outer=(await banner.boundingBox())!;
+  const preview=(await game.boundingBox())!;
+  expect(Math.abs(preview.width-outer.width)).toBeLessThan(2);
+  expect(preview.width/preview.height).toBeCloseTo(4,1);
+  await page.locator('#game-play').click();
+  await expect(page.locator('.play')).toHaveClass(/is-full/);
+  const expanded=(await game.boundingBox())!;
+  expect(expanded.width/expanded.height).toBeCloseTo(16/9,1);
+  await page.locator('#game-exit').click();
+  await expect(page.locator('.play')).not.toHaveClass(/is-full/);
+});

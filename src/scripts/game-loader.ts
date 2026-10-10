@@ -9,18 +9,25 @@ const root = document.querySelector<HTMLElement>('.play .game');
 const canvas = document.getElementById('game') as HTMLCanvasElement | null;
 const play = document.getElementById('game-play') as HTMLButtonElement | null;
 const statusEl = document.getElementById('game-status');
-const picker = document.getElementById('game-world') as HTMLSelectElement | null;
+const mapButton = document.getElementById('game-world');
+const stageNav = document.querySelector<HTMLElement>('.game-stages');
+const stageButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-stage]'));
+function syncStage(n:number){
+  stageButtons.forEach(button=>button.setAttribute('aria-current',String(Number(button.dataset.stage)===n)));
+  mapButton?.setAttribute('data-stage',String(n));
+}
 const ends = Array.from(document.querySelectorAll<HTMLElement>('.game-end'));
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 type Game = ReturnType<typeof import('../game/main').start>;
 let game: Game | null = null;
+let musicControl: ((on:boolean)=>void) | undefined;
 let bootSequence = 0;
 let soundOn = false;
 const param = new URLSearchParams(location.search).get('level');
 const fromCase = param !== null;
 let chosen = Math.max(0, Math.min(ends.length - 1, (Number(param ?? '1') || 1) - 1));
-if (picker) picker.value = String(chosen);
+syncStage(chosen);
 
 type Mission = { text: string; have: number; need: number; done: boolean };
 function showEnd(n: number | null, shipped = false, mission?: Mission) {
@@ -45,14 +52,16 @@ async function boot(level: number, toMap: boolean) {
   if (play) play.disabled = true;
   try {
     const mod = await import('../game/main');
+    musicControl=mod.setMusicPlaying;
     if (statusEl) statusEl.textContent = 'Preparing your adventure…';
     await mod.prepareArt();
     if (sequence !== bootSequence) return;
     showEnd(null);
     root.dataset.state = 'playing';
+    if(stageNav)stageNav.hidden=!toMap;
     canvas.tabIndex = 0;
     chosen = level;
-    if (picker) picker.value = String(level);
+    syncStage(level);
     if (game) (toMap ? game.showMap(level) : game.loadLevel(level));
     else {
       game = mod.start(canvas, {
@@ -60,9 +69,9 @@ async function boot(level: number, toMap: boolean) {
         startOnMap: toMap,
         reduceMotion,
         onStatus: (m) => { if (statusEl) statusEl.textContent = m; },
-        onLevelStart: (n) => { showEnd(null); startScore(n); },
+        onLevelStart: (n) => { if(stageNav)stageNav.hidden=true; syncStage(n); showEnd(null); startScore(n); },
         onLevelEnd: (s) => { showEnd(s.level, s.collected >= s.total, s.mission); void endScore(s, ends[s.level]); },
-        onMapSelect: (n) => { chosen = n; if (picker) picker.value = String(n); },
+        onMapSelect: (n) => { chosen = n; syncStage(n); },
       });
       (window as unknown as { __game?: () => unknown }).__game = () => game?.state();
     }
@@ -79,37 +88,43 @@ const box = document.querySelector<HTMLElement>('.play');
 const exitBtn = document.getElementById('game-exit') as HTMLButtonElement | null;
 const fullBtn = document.getElementById('game-full') as HTMLButtonElement | null;
 let full = false;
+let fullscreenChanges=0;
+let fullscreenQueue=Promise.resolve();
+function changeNativeFullscreen(action:()=>Promise<void>){
+  fullscreenChanges++;
+  fullscreenQueue=fullscreenQueue.then(action).catch(()=>{}).finally(()=>{fullscreenChanges--;});
+}
 function setFull(on: boolean) {
   full = on;
   box?.classList.toggle('is-full', on);
   document.documentElement.classList.toggle('game-is-full', on);
   if (exitBtn) exitBtn.hidden = !on;
-  if (on) canvas?.focus({ preventScroll: true });
-  else { if ((game?.state() as { mode?: string } | undefined)?.mode === 'level') game?.pause(); box?.scrollIntoView({ block: 'center' }); }
+  if (on) { canvas?.focus({ preventScroll: true }); game?.resume(); musicControl?.(true); }
+  else { musicControl?.(false); if ((game?.state() as { mode?: string } | undefined)?.mode === 'level') game?.pause(); box?.scrollIntoView({ block: 'center' }); }
 }
 function enterFull() {
   if (!box || full) return;
   setFull(true);
   // must run inside the click that asked for it; a refusal keeps the overlay
-  if (document.fullscreenEnabled && !document.fullscreenElement) box.requestFullscreen?.().catch(() => {});
+  if (document.fullscreenEnabled) changeNativeFullscreen(async()=>{if(!document.fullscreenElement && full) await box.requestFullscreen?.();});
 }
 function exitFull() {
   if (!full) return;
-  if (document.fullscreenElement) void document.exitFullscreen().catch(() => {});
+  changeNativeFullscreen(async()=>{if(document.fullscreenElement) await document.exitFullscreen();});
   track('game_exit', { stage: game?.state().level ?? chosen });
   setFull(false);
   play?.focus({ preventScroll: true });
 }
 // the browser's own Escape (or its exit gesture) leaves real full screen
-document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && full) setFull(false); });
+document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && full && fullscreenChanges===0) setFull(false); });
 // in the overlay, Escape leaves too (capture phase: before the game's own pause key)
 window.addEventListener('keydown', (e) => { if (full && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); exitFull(); } }, true);
 exitBtn?.addEventListener('click', exitFull);
 fullBtn?.addEventListener('click', () => { enterFull(); if (!game) boot(chosen, !fromCase); });
 
 play?.addEventListener('click', () => { track('game_start'); enterFull(); boot(chosen, !fromCase); });
-// Choosing a world starts it, before or after Play has been pressed.
-picker?.addEventListener('change', () => { chosen = Number(picker.value); boot(chosen, false); });
+mapButton?.addEventListener('click',()=>{enterFull();void boot(chosen,true);});
+stageButtons.forEach(button=>button.addEventListener('click',()=>{enterFull();void boot(Number(button.dataset.stage),false);}));
 document.querySelectorAll<HTMLButtonElement>('.game-end [data-next]').forEach((b) =>
   b.addEventListener('click', () => boot(Number(b.dataset.next), false)),
 );
