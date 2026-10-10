@@ -9,13 +9,15 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? 'github' : 'list',
   use: {
-    baseURL: 'http://localhost:4321',
+    baseURL: 'http://localhost:4329',
     launchOptions: { executablePath },
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], launchOptions: { executablePath } } }],
+  // Always a fresh server on its own port, so tests can never hit a stale
+  // preview left running from another build.
   webServer: {
-    command: 'npm run preview',
-    url: 'http://localhost:4321',
-    reuseExistingServer: !process.env.CI,
+    command: 'npx astro preview --port 4329 --ignore-lock',
+    url: 'http://localhost:4329',
+    reuseExistingServer: false,
   },
 });

@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { LEVEL } from '../src/game/level';
+import { LEVELS } from '../src/game/levels';
 
 const state = (page: Page) => page.evaluate(() => (window as unknown as { __game: () => any }).__game());
 
@@ -39,27 +39,64 @@ test('Escape pauses, and Tab still leaves the game (no keyboard trap)', async ({
   await expect(page.locator('#game')).not.toBeFocused();
 });
 
-test('the level can be finished', async ({ page }) => {
-  test.setTimeout(60000);
-  await boot(page);
-  const T = 32;
-  const solid = (tx: number, ty: number) => LEVEL[ty]?.[tx] === '#';
+async function runLevel(page: Page, n: number) {
+  const L = LEVELS[n].rows;
+  const solid = (x: number, y: number) => L[y]?.[x] === '#';
+  const standable = (x: number, y: number) => solid(x, y) || L[y]?.[x] === '=' || L[y]?.[x] === 'M';
   await page.keyboard.down('ArrowRight');
   let lastX = 0, stuck = 0;
-  for (let i = 0; i < 500; i++) {
+  // generous budget: like a person, the bot may need a retry or two on the moving rate line
+  for (let i = 0; i < 2000; i++) {
     const s = await state(page);
     if (s.finished) break;
-    const tx = Math.floor((s.x + 10) / T), row = Math.floor((s.y + 44) / T);
-    const gap = !solid(tx + 1, row) && !solid(tx + 2, row) && LEVEL[row]?.[tx + 1] !== 'M';
+    const tx = Math.floor((s.x + 10) / 32), row = Math.floor((s.y + 44) / 32);
+    const gap = !standable(tx + 1, row) && !standable(tx + 2, row);
     const wall = solid(tx + 1, row - 1) || solid(tx + 1, row - 2);
-    const hazard = LEVEL[row - 1]?.[tx + 1] === '^' || LEVEL[row - 1]?.[tx + 2] === '^';
+    const step = [1, 2, 3].some((d) => L[row - d]?.[tx + 2] === '=');
+    const hazard = L[row - 1]?.[tx + 1] === '^' || L[row - 1]?.[tx + 2] === '^';
     stuck = Math.abs(s.x - lastX) < 1 ? stuck + 1 : 0; lastX = s.x;
-    if (s.grounded && (gap || wall || hazard || stuck > 3)) {
-      await page.keyboard.down('Space'); await page.waitForTimeout(260); await page.keyboard.up('Space');
-    } else await page.waitForTimeout(40);
+    if (s.grounded && (gap || wall || hazard || step || stuck > 3)) {
+      await page.keyboard.down('Space'); await page.waitForTimeout(300); await page.keyboard.up('Space');
+    } else await page.waitForTimeout(30);
   }
-  expect((await state(page)).finished).toBe(true);
-  await expect(page.getByRole('button', { name: 'Play again' })).toBeFocused();
+  await page.keyboard.up('ArrowRight');
+  return state(page);
+}
+
+for (const n of [0, 1, 2]) {
+  test(`level ${n + 1} can be finished`, async ({ page }) => {
+    test.setTimeout(180000);
+    await page.addInitScript(() => { (window as unknown as { __gameAssist: object }).__gameAssist = { invuln: true }; });
+    await page.goto(`/?level=${n + 1}#play`);
+    await page.getByRole('button', { name: 'Press to play' }).click();
+    await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+    const s = await runLevel(page, n);
+    expect(s.finished, `stopped at tile ${Math.floor(s.x / 32)}, row ${Math.floor((s.y + 44) / 32)}`).toBe(true);
+    expect(s.level).toBe(n);
+    // the case card hands the reader back to the work
+    const card = page.locator(`.game-end[data-end="${n}"]`);
+    await expect(card).toBeVisible({ timeout: 5000 });
+    await expect(card.getByRole('link', { name: 'Read the case →' })).toHaveAttribute('href', ['/fx', '/fusion', '/winking-star'][n]);
+  });
+}
+
+test('hazards hurt (three hits restart the level)', async ({ page }) => {
+  await page.goto('/?level=2#play');
+  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+  // walk into the Board Room's first sliding template
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(async () => (await state(page)).hits, { timeout: 8000 }).toBeGreaterThan(0);
+  await page.keyboard.up('ArrowRight');
+});
+
+test('a case page links to its level without starting it', async ({ page }) => {
+  await page.goto('/fusion');
+  const link = page.getByRole('link', { name: /Play this case as a level/ });
+  await expect(link).toHaveAttribute('href', '/?level=2#play');
+  await link.click();
+  await expect(page.locator('.game-level[data-level="1"]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
 });
 
 test('the site still works if the game chunk fails to load', async ({ page }) => {

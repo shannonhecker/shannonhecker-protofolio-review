@@ -53,6 +53,30 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - **Placeholders:** replaced with facts the page already states. Nothing is invented.
 - **Game:** concept B, renamed **Working Order**. Platforms ride an FX rate line.
 
+### PR 5 · Shannon's calls: home plus case pages, game concept A, pixel art
+
+**What Shannon decided**
+
+- Keep the home page plus one page per case.
+- Use game concept A, three levels with one per case, so the game is part of the portfolio's story.
+- Make it a 2D pixel-art platformer in the Super Mario style.
+
+**What Claude Code did**
+
+- Looked for a relevant skill or plugin and found SpriteCook, which generates sprites with AI. Offered it as optional. The art in the game is hand-authored as character grids, in line with the brief's "draw the sheet by hand".
+- Kept the style Mario-era and the nouns Shannon's own: no pipes, no ? blocks, no mushrooms, no flagpole, no plumber.
+- Rendered the game at a true 480×270, scaled up with nearest-neighbour, so every pixel stays crisp.
+- Built three worlds:
+  - The Desk: a night trading floor, candlestick platforms, falling spreadsheets and the FX rate line.
+  - The Board Room: the site's own type, data-table rows and sliding "fixed templates".
+  - Bedtime: cream hills, activity cards, the nag-loop cloud and an egg that hatches the week's pet.
+- Tied the game to the story. After each level, a card shows that case with "Read the case". Each case page links to its level, and the link selects the level without starting it.
+- Fixed problems the test bot found:
+  - Checkpoints only triggered on touch, so a jump over one lost progress. They now trigger when you pass.
+  - A spike sat right before a pit, which meant two demands back to back.
+  - A staircase in Bedtime needed precise timing. The cards now overlap.
+- Fixed the test server so tests always run against the current build. One earlier "pass" had been hitting a stale preview.
+
 **What Shannon changed by hand**
 
 - _To fill in._

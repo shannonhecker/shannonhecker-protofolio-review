@@ -1,0 +1,123 @@
+# Builds src/game/levels.ts: three levels, one per case, each in four beats
+# (introduce, develop, twist, conclude), sized for ~45 s for a first-time player.
+# Rows 0 (top) .. 16; ground surface is row 14; items sit on row 13.
+# Legend: # solid  = one-way platform  M rate-line platform  o pickup  ^ spikes
+#         S falling sheet (Desk)  T sliding template (Board)  N nag cloud (Bedtime)
+#         P spawn  C checkpoint  F finish
+import json
+H = 17
+
+def new(w):
+    return [[' '] * w for _ in range(H)]
+
+def lvl_desk():
+    W = 176; g = new(W)
+    def put(x, y, c): g[y][x] = c
+    def ground(a, b, top=14):
+        for x in range(a, b):
+            for y in range(top, H): put(x, y, '#')
+    def plat(a, b, y):
+        for x in range(a, b): put(x, y, '=')
+    # introduce: run, one small gap, first price dots, first falling sheet far ahead
+    ground(0, 16); ground(18, 40); put(2, 13, 'P')
+    for x in (6, 9): put(x, 13, 'o')
+    for x in (16, 17): put(x, 11, 'o')
+    plat(25, 29, 11); put(26, 10, 'o'); put(28, 10, 'o')
+    put(34, 2, 'S')
+    # develop: widening gaps, candlestick steps, sheets over the floor
+    put(40, 13, 'C'); ground(40, 54); ground(57, 68); ground(72, 84); ground(88, 96)
+    put(55, 11, 'o'); put(69, 11, 'o'); put(70, 11, 'o'); put(85, 10, 'o'); put(86, 10, 'o')
+    put(48, 13, '^'); put(78, 13, '^')
+    plat(60, 64, 10); put(61, 9, 'o'); put(63, 9, 'o')
+    put(50, 2, 'S'); put(66, 2, 'S'); put(81, 2, 'S')
+    # twist: climb, then ride the FX rate line across the pit
+    put(90, 13, 'C')
+    for i, x in enumerate(range(96, 112, 4)):
+        ground(x, x + 4, top=13 - i * 2); put(x + 2, 12 - i * 2, 'o')
+    put(110, 6, 'C')
+    for x, top in [(114, 9), (119, 10), (124, 10), (129, 11)]:
+        for xx in range(x, x + 3): put(xx, top, 'M')
+        put(x + 1, top - 3, 'o')
+    ground(135, 148); put(141, 13, '^'); put(144, 2, 'S')
+    # conclude: a clear run to the terminal
+    put(148, 13, 'C'); ground(148, W)
+    for x in range(152, 168, 3): put(x, 13, 'o')
+    put(172, 13, 'F')
+    return g
+
+def lvl_board():
+    W = 170; g = new(W)
+    def put(x, y, c): g[y][x] = c
+    def ground(a, b, top=14):
+        for x in range(a, b):
+            for y in range(top, H): put(x, y, '#')
+    def plat(a, b, y):
+        for x in range(a, b): put(x, y, '=')
+    # introduce: table rows as steps, one template sliding on open floor
+    ground(0, 40); put(2, 13, 'P')
+    for x in (6, 10): put(x, 13, 'o')
+    plat(14, 19, 11); put(16, 10, 'o')
+    plat(21, 26, 9); put(23, 8, 'o')
+    put(32, 13, 'T')
+    # develop: a stack of rows over a gap, two templates
+    put(40, 13, 'C'); ground(40, 50); ground(56, 76); ground(80, 92)
+    for i, y in enumerate((12, 10, 8)):
+        plat(50 + i * 2, 54 + i * 2, y); put(51 + i * 2, y - 1, 'o')
+    put(62, 13, 'T'); put(70, 13, 'T'); put(66, 10, 'o')
+    put(77, 11, 'o'); put(78, 11, 'o')
+    # twist: tall report columns to climb, a template guarding each landing
+    put(86, 13, 'C'); ground(92, 98, top=11); ground(102, 108, top=9); ground(112, 118, top=7)
+    put(95, 10, 'o'); put(105, 8, 'o'); put(115, 6, 'o')
+    put(104, 8, 'T')
+    plat(120, 126, 9); plat(128, 134, 11); put(123, 8, 'o'); put(131, 10, 'o')
+    ground(136, 150); put(143, 13, 'T')
+    # conclude
+    put(150, 13, 'C'); ground(150, W)
+    for x in range(153, 164, 3): put(x, 13, 'o')
+    put(166, 13, 'F')
+    return g
+
+def lvl_bedtime():
+    W = 172; g = new(W)
+    def put(x, y, c): g[y][x] = c
+    def ground(a, b, top=14):
+        for x in range(a, b):
+            for y in range(top, H): put(x, y, '#')
+    def plat(a, b, y):
+        for x in range(a, b): put(x, y, '=')
+    # introduce: activity cards as a gentle staircase
+    ground(0, 30); put(2, 13, 'P')
+    for x in (6, 9, 12): put(x, 13, 'o')
+    plat(16, 20, 11); put(18, 10, 'o'); plat(22, 26, 9); put(24, 8, 'o')
+    ground(32, 48); put(40, 9, 'N')
+    # develop: cards over the gaps, nag clouds circling the stars
+    put(32, 13, 'C')
+    plat(50, 54, 12); plat(57, 61, 10); plat(64, 68, 12); ground(70, 90)
+    put(52, 11, 'o'); put(59, 9, 'o'); put(66, 11, 'o')
+    put(59, 6, 'N'); put(80, 10, 'N'); put(76, 13, 'o'); put(84, 13, 'o'); put(80, 13, '^')
+    # twist: a tall bedtime ladder of cards, cloud at the top
+    put(72, 13, 'C')
+    # cards overlap like a staircase: any jump from one reaches the next
+    for i, y in enumerate((12, 10, 8, 6)):
+        plat(92 + i * 4, 97 + i * 4, y); put(94 + i * 4, y - 1, 'o')
+    put(104, 2, 'N')
+    plat(110, 114, 7); plat(116, 120, 9); plat(122, 126, 11)
+    put(112, 6, 'o'); put(118, 8, 'o'); put(124, 10, 'o')
+    ground(128, 148); put(140, 9, 'N')
+    # conclude: a quiet walk home to the egg
+    put(148, 13, 'C'); ground(148, W)
+    for x in range(151, 165, 3): put(x, 13, 'o')
+    put(168, 13, 'F')
+    return g
+
+levels = [('desk', lvl_desk()), ('board', lvl_board()), ('bedtime', lvl_bedtime())]
+out = ['// Generated by scripts/build-levels.py. Edit that, not this.', '',
+       "export const LEVELS: { theme: 'desk' | 'board' | 'bedtime'; rows: string[] }[] = ["]
+for theme, g in levels:
+    rows = [''.join(r) for r in g]
+    out.append(f"  {{ theme: '{theme}', rows: [")
+    out += [f"    '{r}'," for r in rows]
+    out.append('  ] },')
+    print(theme, len(rows[0]), 'cols,', sum(r.count('o') for r in rows), 'pickups')
+out.append('];')
+open('src/game/levels.ts', 'w').write('\n'.join(out) + '\n')

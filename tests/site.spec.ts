@@ -25,7 +25,7 @@ for (const [label, path, title] of [
     await page.goto('/');
     await page.locator('.nav').getByRole('link', { name: label, exact: true }).click();
     await expect(page).toHaveURL(new RegExp(`${path}$`));
-    await expect(page.getByRole('heading', { level: 2, name: title, exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: title, exact: true })).toBeVisible();
     await expect(page.locator('.nav').getByRole('link', { name: label, exact: true })).toHaveAttribute('aria-current', 'page');
   });
 }
