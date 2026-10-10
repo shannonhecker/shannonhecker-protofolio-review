@@ -1,0 +1,50 @@
+/* A quieter editorial frame for Shannon's product work. Pixel details remain
+   small; display type and complete product images carry the large scale. */
+:root { --display:'Inter Tight','Inter',sans-serif; --space-section:clamp(88px,9vw,144px); }
+.case-page[data-project=winking-star] { --display:'Inter Tight','Inter',sans-serif; }
+h1,h2,h3,h4,.h-giant,.hero .h-giant,.h-chapter,.h-section,.h-sub,
+.case-page .beat .body>.h-sub,#work .row h3,.principle h3,#links .big h2,
+.case-page .dec h3,.ws .dec h3,.process-heading h3,
+.persona-roles h4,.process-journey h4,.decision-map h4,
+.ws .chapter-head h1,.next-case .row h3,.build-log h1 {
+  font-family:var(--display);font-weight:500;letter-spacing:-.025em;
+}
+.adventure-hero>.wrap { grid-template-columns:minmax(0,1.75fr) minmax(260px,1fr);column-gap:clamp(40px,6vw,96px);row-gap:48px; }
+.hero.adventure-hero .h-giant { font-size:clamp(56px,6.5vw,100px);line-height:1.08;letter-spacing:-.02em;max-width:14ch; }
+.adventure-hero .hero-top { margin-top:40px;font-weight:400;font-size:18px;line-height:1.8;max-width:56ch; }
+.adventure-hero .hero-for { font-family:var(--body);font-size:13px;line-height:1.6;color:var(--fg-2); }
+.hero-bonus { margin-top:48px;padding-top:40px; }
+.case-page .chapter-head h1 { font-size:clamp(52px,6.5vw,100px);line-height:1.07;letter-spacing:-.035em; }
+.case-page .chapter-head .lead { font-size:clamp(18px,1.7vw,24px);font-weight:400;line-height:1.65;max-width:45ch; }
+.case-page .chapter-head>.g { row-gap:48px; }
+.case-page .chapter-head .meta { margin-top:16px;padding-top:32px; }
+.h-section { font-size:clamp(32px,3.3vw,52px);line-height:1.18; }
+.case-page .beat .body>.h-sub { font-size:clamp(34px,3.6vw,56px);line-height:1.17;max-width:24ch; }
+.case-page .beat .body { row-gap:48px; }
+.case-page .process-heading { margin-bottom:48px; }
+.process-heading h3 { font-size:clamp(30px,3vw,44px);line-height:1.2; }
+.process-heading p { font-size:16px;line-height:1.8; }
+.persona-roles h4,.process-journey h4,.decision-map h4 { line-height:1.3; }
+.case-page .beat .body>p { max-width:65ch; }
+.project-hero { margin-top:72px; }
+.project-hero .shot { border-radius:3px; }
+/* A little colour at wayfinding moments, while screens keep their own palette. */
+.companion-stage::before { content:'';position:absolute;inset:14% 10% 5%;background:#f8ede8;border-radius:48% 48% 6px 6px;z-index:-2; }
+html[data-theme=dark] .companion-stage::before { background:#302930; }
+.companion-path { background:repeating-linear-gradient(90deg,#cfae9c 0 10px,transparent 10px 18px); }
+#work .row .arrow { transition:translate .25s ease; }
+#work .row:hover .arrow { translate:4px 0; }
+::view-transition-group(*) { animation-duration:.4s;animation-timing-function:cubic-bezier(.22,1,.36,1); }
+@media(max-width:760px) {
+ :root { --space-section:80px; }
+ .adventure-hero>.wrap { grid-template-columns:1fr;gap:32px; }
+ .hero.adventure-hero .h-giant { font-size:clamp(42px,10.8vw,72px);line-height:1.12;letter-spacing:-.02em;max-width:15ch; }
+ .adventure-hero .hero-top { font-size:16px;margin-top:28px; }
+ .adventure-hero .hero-for { font-size:12px; }
+ .hero-bonus { margin-top:16px;padding-top:28px; }
+ .case-page .chapter-head>.g,.case-page .beat .body { row-gap:32px; }
+ .case-page .chapter-head h1 { font-size:clamp(42px,10vw,64px); }
+ .project-hero { margin-top:40px; }
+ .case-page .process-heading { margin-bottom:32px; }
+}
+@media(prefers-reduced-motion:reduce) { #work .row .arrow{transition:none;translate:none!important} }

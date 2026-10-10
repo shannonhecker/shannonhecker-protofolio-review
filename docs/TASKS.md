@@ -3,10 +3,12 @@
 Updated 10 October 2026. Project manager: Codex project-manager agent.
 Implementation owner: main Codex agent.
 
-The four-case implementation was merged in PR 23 at `cee7789` and locally verified.
-Its GitHub CI failed after merge; the next pass must resolve that failure.
-Active branch: `design/game-waterfront-worlds`. Award quality is a review target, not a jury result or self-assigned
-score. The three additional intro-deck projects remain the next separate feature.
+Current release: PR #25 on `feat/game-leaderboard-analytics`. The latest local
+revision passes 95 browser tests, a nine-page build and 90-file Astro check.
+CI and production checks remain pending for the latest revision. Earlier entries
+below are historical checkpoints, not the current release state. Award quality
+is a review target, not an external judging result. The three additional
+intro-deck projects remain a separate future feature.
 
 ## Scope and source rules
 
@@ -624,3 +626,12 @@ optional game before the introduction. Explicit rows now keep the introduction
 and avatar before the compact game on both landing URLs. A regression check
 covers both routes at phone and desktop widths. All 94 tests passed in 45.2s;
 nine pages built, 88 files checked without diagnostics.
+
+### 10 October, 19:05 BST · latest visual review
+
+- [x] Regenerated separate eye/mouth parts and registered them to one stationary avatar; removed keyboard/directional controls; pointer, scroll, pause and reduced-motion checks pass.
+- [x] Adopted the supplied typography/spacing reference: neutral sans-serif headings, wider canvas, large complete product images above aligned labels.
+- [x] Added limited left/right scroll entrances and subtle project tints; kept native scrolling and full screenshot proportions.
+- [x] Restored the original FX Figma decision loop (2068:1768) with source link and accessible transcript.
+- [x] Local build: 9 pages. Astro: 90 files, zero diagnostics. Browser tests: 95 passed in 51.8 seconds.
+- [ ] Latest commit CI and production verification. PR #25 remains the release vehicle; do not mistake earlier green checks for this revision.

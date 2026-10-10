@@ -99,3 +99,16 @@ Read-only exports, visually inspected, saved outside the app for review:
 Further reusable originals are mapped at `30:561` (Fusion logo vector group),
 `29:534` (typography) and `29:560` (brand concept). No historical product screen
 was exported to replace a current live capture, and no Figma node was modified.
+
+### Restored FX decision-loop diagram
+
+The original slide is `2068:1681`, “10 FX · Explorations, the decision loop”.
+Its authored vector diagram is frame `2068:1768` (1019 × 889); the title is
+`2068:1767`. The existing `ui-fx-loop.jpg` reproduces the complete diagram;
+`fx-loop.jpg` includes the full presentation slide and its title. A fresh
+read-only Figma screenshot visually confirmed the branches on 10 October.
+The FX page now uses that existing diagram as its primary decision-map visual,
+with an accessible branch transcript and a link to the original source.
+It replaces the later generic SVG, without replacing the separately labelled
+current public-rebuild product captures. This is design exploration evidence,
+not a confidential bank screenshot or a claim that Enhanced shipped at Barclays.

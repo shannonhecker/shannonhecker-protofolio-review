@@ -33,21 +33,34 @@ test('theme preference persists across projects and system follows the device',a
   await expect(page.locator('html')).toHaveAttribute('data-theme','light');
 });
 
-test('avatar controls are bounded and do not capture page arrow keys',async({page})=>{
+test('avatar follows the pointer gently without movement buttons or keyboard capture',async({page})=>{
   await page.goto('/panel');
   const avatar=page.locator('[data-avatar]');
   const stage=page.locator('.companion-stage');
-  const before=await avatar.boundingBox();
-  await page.getByRole('button',{name:'Move avatar right',exact:true}).click();
-  await expect.poll(async()=> (await avatar.boundingBox())!.x).toBeGreaterThan(before!.x);
-  for(let i=0;i<25;i++)await page.keyboard.press('ArrowRight');
-  await page.waitForTimeout(350);
-  const position=await avatar.boundingBox(),bounds=await stage.boundingBox();
-  expect(position!.x+position!.width).toBeLessThanOrEqual(bounds!.x+bounds!.width);
-  await page.locator('h1').click();
-  const x=await avatar.evaluate(el=>el.style.getPropertyValue('--avatar-x'));
-  await page.keyboard.press('ArrowLeft');
-  expect(await avatar.evaluate(el=>el.style.getPropertyValue('--avatar-x'))).toBe(x);
+  await expect(page.locator('[data-move]')).toHaveCount(0);
+  const bounds=(await stage.boundingBox())!;
+  await page.mouse.move(bounds.x+bounds.width-10,bounds.y+bounds.height/2);
+  await expect.poll(async()=>parseFloat(await avatar.evaluate(el=>el.style.getPropertyValue('--avatar-x')))).toBeGreaterThan(2);
+  const position=(await avatar.boundingBox())!;
+  expect(position.x+position.width).toBeLessThanOrEqual(bounds.x+bounds.width);
+  await page.getByRole('button',{name:'Pause motion',exact:true}).click();
+  await page.keyboard.press('ArrowDown');
+  await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(0);
+  expect(await avatar.evaluate(el=>el.style.getPropertyValue('--avatar-x'))).toBe('0.00px');
+  await page.emulateMedia({reducedMotion:'reduce'});
+  expect(await page.locator('.avatar-rig').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
+});
+
+test('project icons, numbers and reading links share one centre line',async({page})=>{
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.goto('/panel');
+  for(const row of await page.locator('#work .row').all()){
+    const number=(await row.locator('.n').boundingBox())!;
+    const icon=(await row.locator('.n .pixel-object').boundingBox())!;
+    const read=(await row.locator('.arrow').boundingBox())!;
+    expect(Math.abs(number.y+number.height/2-read.y-read.height/2)).toBeLessThan(1);
+    expect(Math.abs(icon.y+icon.height/2-read.y-read.height/2)).toBeLessThan(1);
+  }
 });
 
 test('optional game follows the introduction on both landing URLs',async({page})=>{

@@ -99,3 +99,17 @@ four-banner gallery, with no automatic scrolling or duplicated images.
 The root-URL mobile audit now scores 99/100/100/100 after the landing row-order
 correction (LCP 2.3s). This route is checked separately from `/panel`; the earlier
 CI failure was useful evidence of a real composition error, not a lowered budget.
+
+## Latest reference-led revision · 10 October, 19:05 BST
+
+The current source changes pass a nine-page build, Astro check across 90 files
+with zero diagnostics, and all 95 browser tests (51.8 seconds). New regression
+coverage checks removal of avatar movement buttons, bounded pointer response,
+normal page arrow-key behaviour, and centred project icon/number/reading links.
+The original FX Figma flow is included in the uncropped-image checks.
+
+Desktop, 390px and 320px inspections confirm the wider image-led gallery and new
+type system remain within the viewport. Blink, half-blink and smile parts were
+reviewed as registered composites and in the actual browser at display size.
+The expression changes no longer replace the whole body. Existing evidence
+limits in REVOLUT-CHECKLIST remain unchanged. Latest CI/deployment are pending.

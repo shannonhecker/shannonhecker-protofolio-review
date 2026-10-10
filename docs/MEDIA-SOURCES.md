@@ -184,3 +184,19 @@ previously documented role sheets, not new people or research findings.
 
 Source URLs and local production manifests remain in
 `/private/tmp/portfolio-review/{redraw,nano}` and `winking-appstore.json`.
+
+### Registered avatar facial parts, 10 October 2026
+
+`public/art/avatar-parts/{half,closed,smile}.webp` comes from Nano Banana 2.1
+job `55f053d7-8dae-4689-93a1-61808663198f` (2 credits, authorized by Shannon).
+The reference was the approved avatar-home job `5254ddc4-56a9-4522-b70e-e2f2350343cc`.
+The generated face sheet is separated into eyes and mouth, registered to the
+existing 320×480 stationary body, with the sheet complexion removed around the
+features. `scripts/art/prepare-avatar-parts.mjs` records the component coordinates
+and processing. The old full-body blink/smile swaps are no longer used.
+Source sheet: https://d8j0ntlcm91z4.cloudfront.net/user_3JCYHM4TnfNkPUFQEY6APyXeZf7/hf_20261010_174627_55f053d7-8dae-4689-93a1-61808663198f.png
+
+Design references inspected: https://matthieugivelet.com/ for neutral typography,
+large product frames and generous spacing; https://eddy-naboulet.dev/ for a
+responsive character and coherent playful interaction feedback. No reference
+site assets, copy or code were reused.

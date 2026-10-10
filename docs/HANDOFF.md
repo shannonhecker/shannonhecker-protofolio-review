@@ -97,3 +97,17 @@ readable lighter typography, scroll-led chapters and optional game. These choice
 supersede the earlier white-page-only visual restriction and frozen composition.
 Content accuracy, NDA, original words, complete images and accessibility still
 apply. The redesign is not complete; see `docs/TASKS.md` for remaining work.
+
+### Latest review direction, 10 October evening
+
+Shannon supplied matthieugivelet.com for typography, generous spacing and large
+clean product imagery, and eddy-naboulet.dev for playful responsive interactions.
+The current revision uses neutral sans-serif display type and a wider image-first
+work gallery, preserving the full product images. Subtle project colours return
+in structural accents; game scenery remains within the game. The avatar uses
+registered separate eye/mouth parts, no keyboard/directional controls, gentle
+pointer/scroll response and a pause control. Reduced motion stays still.
+The original Figma FX decision loop is again the primary flowchart, source-linked
+and accompanied by an accessible transcript. Keep authored Figma process work
+alongside current labelled public-rebuild screenshots; do not replace it with a
+generic synthesized diagram. See the latest PR #25 checkpoint in TASKS.

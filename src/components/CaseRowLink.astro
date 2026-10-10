@@ -13,5 +13,5 @@ const { c } = Astro.props;
   <span class="arrow">{c.arrow}</span>
   {c.vt==='winking' ? <div class="project-preview appstore-preview">
     {['home','activity','treasure','progress'].map(screen=><Pic name={`appstore-iphone-${screen}.jpg`} alt={`Winking Star App Store screenshot: ${screen}`} sizes="(max-width:760px) 21vw, 10vw" widths={[240,480]} />)}
-  </div> : c.img && <Pic name={c.img} alt="" sizes="(max-width: 760px) 90vw, 44vw" widths={[480,800,1200]} />}
+  </div> : c.img && <Pic name={c.img} alt="" sizes="(max-width: 760px) 90vw, 44vw" widths={[480,800,1200,1600]} />}
 </a>
