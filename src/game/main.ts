@@ -8,7 +8,7 @@ import { LEVELS } from './levels';
 import { THEMES, playerFrames, helmet, pet, scooter, type Theme } from './art';
 import { FOES, type Foe } from './enemies';
 import { text, textWidth } from './pixel';
-import { mapBase, NODES, labelAt } from './map';
+import { mapBase, NODES, labelAt, BRAND } from './map';
 import { sfx } from './sound';
 export { setSound } from './sound';
 
@@ -17,7 +17,7 @@ export const WORLDS = [
   { short: 'KAOHSIUNG', when: 'GROWING UP' },
   { short: 'LING TUNG', when: '2008-2010' },
   { short: 'WEB DESIGN', when: '2010' },
-  { short: 'LONDON', when: '2015-2016' },
+  { short: 'LONDON MET', when: '2015-2016' },
   { short: 'J.P. MORGAN', when: '2016-2025' },
   { short: 'BARCLAYS', when: '2025-NOW' },
   { short: 'NEXT: AI', when: '2026-NOW' },
@@ -455,7 +455,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     [5, 6].forEach((i) => route(i, '#2b3654', 5));
     NODES.forEach(([x, y], i) => {
       const sel = i === mapSel, done = s.done.includes(i);
-      ctx.fillStyle = sel ? '#e5484d' : '#2b3654'; ctx.fillRect(x - 11, y - 11, 22, 22);
+      const brand = BRAND[i];
+      ctx.fillStyle = sel ? '#e5484d' : brand ? brand.bg : '#2b3654'; ctx.fillRect(x - 11, y - 11, 22, 22);
       ctx.fillStyle = mapIcons[i].sky; ctx.fillRect(x - 9, y - 9, 18, 18);
       const ic = mapIcons[i].pickup[0];
       ctx.drawImage(ic, Math.round(x - ic.width / 2), Math.round(y - ic.height / 2));
@@ -464,6 +465,13 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       const lines = [`${i + 1} ${WORLDS[i].short}`, WORLDS[i].when];
       lines.forEach((l, k) => {
         const [lx, ly] = labelAt(i, l, k);
+        if (brand && k === 0) {
+          // the organisation's badge: its colour, a stripe of its accent, its name
+          ctx.fillStyle = sel ? '#e5484d' : brand.bg; ctx.fillRect(lx - 4, ly - 2, textWidth(l) + 7, 9);
+          ctx.fillStyle = brand.accent; ctx.fillRect(lx - 4, ly - 2, 2, 9);
+          text(ctx, l, lx, ly, brand.fg);
+          return;
+        }
         ctx.globalAlpha = 0.85; ctx.fillStyle = '#fbf7ea'; ctx.fillRect(lx - 2, ly - 1, textWidth(l) + 4, 7); ctx.globalAlpha = 1;
         text(ctx, l, lx, ly, k ? '#5a5a58' : sel ? '#c0392b' : '#161616');
       });

@@ -190,3 +190,11 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - **Pause on blur:** pressing an on-screen arrow, Sound or the dropdown paused the game immediately, because any loss of focus counted as leaving. Now only leaving the game area pauses it. Touch buttons keep focus on the canvas.
 - **Unpausing:** a paused game now carries on with any game key (Escape still pauses and Tab still leaves), not only a click.
 - **Tests:** `tests/controls.spec.ts` covers all five behaviours. Each failed before the fix.
+
+### PR 12 · Flags and brand-colour badges (Shannon's choice)
+
+- **Flags:** pixel flags for Taiwan and the UK, hand-placed at 16×10 above each country's name. They're simplified as pixel art has to be: the Union Jack without its counterchange, and Taiwan's sun as a small disc with eight rays.
+- **Badges:** London Met, J.P. Morgan and Barclays get brand-colour badges. Each one has a plate in the organisation's colour, a stripe of its accent colour, and its name in the pixel font. Each node's tile frame uses that colour too.
+- **Why not logos:** these are badges, not logos. Shannon picked this over official logo files, so the site uses no trademarked artwork, and her current employer's mark isn't on a job-search site.
+- **Colours:** they are close matches and live in `BRAND` in `src/game/map.ts`, so they're easy to correct.
+- **Label:** world 4's map label now reads "London Met", which names the organisation like the other two badges.
