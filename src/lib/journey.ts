@@ -9,7 +9,7 @@ export const JOURNEY = [
   { place: 'London Metropolitan University', when: '2015 to 2016', line: 'MA in Digital Media. The move to the UK.', href: null },
   { place: 'J.P. Morgan, London', when: 'June 2016 to 2025', line: 'Intern, Analyst, Senior Analyst, then Vice President, Product Design. UI and visual first, then UI and UX together. Fusion at the top.', href: '/fusion' },
   { place: 'Barclays, London', when: '2025 to now', line: 'Senior Product Designer, FX and MarketsOne.', href: '/fx' },
-  { place: 'Next: AI', when: '2026 to now', line: 'uoaui.ai, an AI-native product I design and build. The model drafts, I decide.', href: '/uoaui' },
+  { place: 'Next: AI', when: '2026 to now', line: "Where I'm heading next: designing AI products. uoaui.ai is the AI-native product I design and build to get there. The model drafts, I decide.", href: '/uoaui' },
   { place: 'Winking Star', when: 'Bonus · 2026', line: 'A family routine app, designed and shipped solo on the App Store.', href: '/winking-star' },
 ] as const;
 
