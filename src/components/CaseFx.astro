@@ -9,6 +9,10 @@ const HL = top ? 'h2' : 'h3';
 const HD = top ? 'h3' : 'h4'; // decision titles
 import Pic from './Pic.astro';
 import Split from './Split.astro';
+import Flow from './dg/Flow.astro';
+import Layers from './dg/Layers.astro';
+import Matrix from './dg/Matrix.astro';
+import BeforeAfter from './dg/BeforeAfter.astro';
 ---
 <section id="fx" data-tone="dark" class="band">
   <div class="wrap">
@@ -48,6 +52,18 @@ import Split from './Split.astro';
           <li><b>The limit price log was the clue</b><p>Orders were being changed mid-flight, several times each. So repricing is a core action, not an edge case, and it had to live on the chart.</p></li>
           <li><b>Watching people decide</b><p>I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.</p></li>
         </ul>
+        <Layers
+          label="Understanding the data: five spreadsheets, four kinds of data, one mark each"
+          cols={[
+            { from: ['Market data'], kind: 'Market context', note: 'The world around the order', enc: 'Ticks become lines', encNote: 'Streaming quotes drawn as continuous lines', glyph: 'line' },
+            { from: ['Limit price log'], kind: 'Order intent', note: 'What the trader asked for', enc: 'Events become steps', encNote: 'Each amendment holds until the next', glyph: 'steps' },
+            { from: ['Order states'], kind: 'Order intent', note: 'Working, suspended, outside limit', enc: 'States become ranges', encNote: 'Each state holds from start to end', glyph: 'range' },
+            { from: ['Fills'], kind: 'Execution results', note: 'What the algo actually did', enc: 'Fills become sized dots', encNote: 'Dot size is volume, colour is venue', glyph: 'dots' },
+            { from: ['Arrival price', 'Risk transfer price'], kind: 'Benchmarks', note: 'How the outcome is judged', enc: 'Constants become references', encNote: 'Fixed lines every fill is judged against', glyph: 'dash' },
+          ]}
+          result="Each kind of data gets its own shape. Nothing on the chart is decorative."
+          caption="Understanding the data. Redrawn from my working diagram for the spec."
+        />
       </div>
     </div>
 
@@ -93,12 +109,46 @@ import Split from './Split.astro';
         <div class="shot para"><Pic name="fx-flow.jpg" alt="Twenty screens of the full flow: default view, legend, filters, date picker, order ticket, compare orders, hover tooltips, venue analysis, light and dark" /></div>
         <div class="shot para"><Pic name="ui-fx-action.jpg" alt="Hover a fill, right-click to act, drag the limit line and a pre-filled order ticket opens on the chart" /></div>
         <p class="lead muted">Hover a fill to see the detail. Right-click to act. Drag a price line to reprice, and it opens a filled-in order ticket. Each step commits you a little more, so you can't reprice by accident. We turned a chart you watch into a chart you can trade from.</p>
+        <Flow
+          label="Monitoring to action, step by step"
+          steps={[
+            { t: 'Hover a fill', d: 'See the detail for that clip' },
+            { t: 'Right-click', d: 'Act on the exact time and price under the cursor' },
+            { t: 'Drag the limit line', d: 'Reprice where the decision was made' },
+            { t: 'Pre-filled ticket', d: 'What changes, before anything does', branch: { t: 'Cancel', d: 'Nothing changes' } },
+            { t: 'Confirm', d: 'The compliance step, still on the chart' },
+            { t: 'Audit trail', d: 'Every change to the order is recorded' },
+          ]}
+          caption="Each step commits you a little more. Confirmation and audit never mean leaving the chart."
+        />
         <ul class="rows">
           <li><b>Built in six phases</b><p>Theming and data integration first, then display, then interaction, and order submission last. Each phase reduced the risk of the next, and the desk got something usable early.</p></li>
           <li><b>Too much on the axis, by design, for now</b><p>Phase one puts every attribute on screen on purpose, so the desk can tell us what matters instead of us guessing. Phase two adds entitlement-based templates per user type and a preference panel to hide attributes. Start wide, then narrow with evidence.</p></li>
           <li><b>Two version-one debts I paid in the rebuild</b><p>Patterned state regions tiled the canvas, so the exceptional read as normal. States now sit in a lane under the time axis. And volume-sized fill dots were honest at twenty clips and a smear at three hundred. Fills now group into counted clusters that expand on zoom.</p></li>
           <li><b>A compare view, because quality is relative</b><p>Execution quality only means something against a benchmark or another order, so I put a patient working order beside an urgent completed one, with the benchmark metrics in one table.</p></li>
         </ul>
+        <BeforeAfter label="Version-one debt: order states" before="States tiled the canvas" beforeNote="Patterned regions sat behind the prices, so the exceptional read as normal." after="States in their own lane" afterNote="A lane under the time axis. The price field stays quiet.">
+          <svg slot="before" viewBox="0 0 320 120" role="img" aria-label="Schematic: hatched state regions behind the price line">
+            <defs><pattern id="ba-h" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0 V8" stroke="currentColor" stroke-width="2" opacity=".25" /></pattern></defs>
+            <rect x="60" y="10" width="70" height="90" fill="url(#ba-h)" /><rect x="178" y="10" width="74" height="90" fill="url(#ba-h)" />
+            <path d="M10 70 L50 52 L90 64 L130 38 L170 48 L210 30 L250 44 L310 26" fill="none" stroke="currentColor" stroke-width="2" />
+            <path d="M10 100 H310" stroke="currentColor" opacity=".4" />
+          </svg>
+          <svg slot="after" viewBox="0 0 320 120" role="img" aria-label="Schematic: a clean price line with states in a labelled lane under the axis">
+            <path d="M10 60 L50 42 L90 54 L130 28 L170 38 L210 20 L250 34 L310 16" fill="none" stroke="currentColor" stroke-width="2" />
+            <path d="M10 86 H310" stroke="currentColor" opacity=".4" />
+            <rect x="60" y="94" width="70" height="14" rx="2" fill="currentColor" opacity=".85" /><rect x="178" y="94" width="74" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.5" />
+            <text x="95" y="104.5" font-size="9" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif">Suspended</text><text x="215" y="104.5" font-size="9" text-anchor="middle" fill="currentColor" font-family="Inter, sans-serif">Outside limit</text>
+          </svg>
+        </BeforeAfter>
+        <BeforeAfter label="Version-one debt: fills at scale" before="A dot per fill" beforeNote="Volume-sized dots were honest at twenty clips and a smear at three hundred." after="Counted clusters" afterNote="Fills group into clusters with a count, and expand on zoom.">
+          <svg slot="before" viewBox="0 0 320 120" role="img" aria-label="Schematic: hundreds of overlapping fill dots forming a smear">
+            <g fill="currentColor" opacity=".35">{Array.from({ length: 160 }, (_, i) => <circle cx={12 + ((i * 37) % 296)} cy={30 + ((i * 53) % 60) + Math.sin(i) * 6} r={2 + (i % 4)} />)}</g>
+          </svg>
+          <svg slot="after" viewBox="0 0 320 120" role="img" aria-label="Schematic: five counted clusters of fills">
+            {[[40, 70, 48], [100, 50, 112], [165, 64, 31], [228, 40, 87], [286, 58, 22]].map(([x, y, n]) => <g><circle cx={x} cy={y} r={10 + n / 10} fill="currentColor" /><text x={x} y={y + 3.5} font-size="10" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-weight="600">{n}</text></g>)}
+          </svg>
+        </BeforeAfter>
       </div>
     </div>
 
@@ -106,12 +156,18 @@ import Split from './Split.astro';
       <div class="label"><HL class="k"><b>07</b> Edge and validation states</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="The states a trader hits when things are not normal." />
-        <ul class="rows two">
-          <li><b>Order can't trade</b><p>Suspended, delayed start and outside limit each get their own lane under the time axis, so the price field stays quiet and the state is readable at a glance.</p></li>
-          <li><b>Colour never carries meaning alone</b><p>Every series has its own shape and dash as well as a colour. Favourable and adverse values say so in words, not just in green and red.</p></li>
-          <li><b>Repricing by accident</b><p>Drag opens a pre-filled ticket. Nothing changes until it's confirmed.</p></li>
-          <li><b>No data yet, light or dark, hundreds of fills</b><p>Empty and loading states for a new order. Both themes, because traders run dark rooms and sales run bright ones. Clusters at scale.</p></li>
-        </ul>
+        <Matrix
+          caption="Edge and validation states, and what the chart does in each."
+          cols={['State', 'What the screen does', 'Why']}
+          rows={[
+            ['Suspended, delayed start, outside limit', 'Each gets its own labelled band in a lane under the time axis.', 'The price field stays quiet, and the state is readable at a glance.'],
+            ['Drag to reprice', 'Opens a pre-filled ticket. Nothing changes until it is confirmed.', 'You cannot reprice by accident. Each step commits you a little more.'],
+            ['Colour-blind trader, washed-out screen', 'Bid, ask, mid, limit and fills each have their own shape and dash. Favourable and adverse say so in words.', 'Colour never carries meaning alone.'],
+            ['Hundreds of fills', 'Fills group into counted clusters that expand on zoom.', 'Honest at twenty clips and at three hundred.'],
+            ['A new order, no data yet', 'Empty, then loading, states in place of an empty chart.', 'The screen never looks broken while data arrives.'],
+            ['Dark room or bright room', 'Full light and dark themes.', 'Traders run dark rooms and sales run bright ones.'],
+          ]}
+        />
       </div>
     </div>
 

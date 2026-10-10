@@ -239,3 +239,66 @@ html.game-is-full{overflow:hidden}
   .play.is-full .game-exit{padding:0;width:44px;justify-content:center;top:8px;right:max(8px,env(safe-area-inset-right))}
   .play.is-full .game-exit-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 }
+
+/* ---------- Diagrams (src/components/dg): the site's own style. White, hairlines,
+   one grey, type does the work. Every diagram is real text, readable by screen
+   readers and sharp at any size; on a phone each one stacks. */
+.dg{margin:8px 0 0;display:grid;gap:16px}
+.dg figcaption,.dg caption{font-size:14px;color:var(--fg-2);text-align:left;caption-side:bottom;padding-top:12px}
+.dg b{font-family:var(--display);font-weight:600;letter-spacing:-.02em;font-size:16px;line-height:1.25;color:var(--fg)}
+.dg .dg-d{display:block;font-size:14px;line-height:1.45;color:var(--fg-2);margin-top:4px}
+.dg-i{display:block;font-size:12px;font-weight:600;color:var(--fg-3);margin-bottom:10px;font-variant-numeric:tabular-nums}
+/* flow */
+.dg-flow ol{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));border-top:2px solid var(--fg)}
+.dg-flow li{position:relative;padding:18px 18px 18px 0}
+.dg-flow li+li{padding-left:18px;border-left:1px solid var(--hair)}
+.dg-flow li:not(:last-child)::after{content:"";position:absolute;top:-6px;right:-6px;width:10px;height:10px;border-top:2px solid var(--fg);border-right:2px solid var(--fg);transform:rotate(45deg);background:var(--bg);z-index:1}
+.dg-branch{display:block;margin-top:14px;padding:10px 12px;border:1px dashed var(--fg-3);border-radius:6px}
+.dg-branch b{font-size:14px}
+@media (max-width:760px){
+  .dg-flow ol{grid-template-columns:1fr;border-top:0;border-left:2px solid var(--fg)}
+  .dg-flow li,.dg-flow li+li{padding:14px 0 14px 20px;border-left:0;border-top:1px solid var(--hair)}
+  .dg-flow li:first-child{border-top:0}
+  .dg-flow li:not(:last-child)::after{top:auto;bottom:-6px;right:auto;left:-7px;transform:rotate(135deg)}
+}
+/* layers: data to encoding */
+.dg-layers ol{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:12px}
+@media (max-width:1000px){.dg-layers ol{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}}
+.dg-layers li{display:grid;grid-template-rows:auto auto 1fr;border-top:2px solid var(--fg)}
+.dg-from{display:flex;flex-wrap:wrap;gap:6px;padding:12px 0}
+.dg-from span{font-size:12px;font-weight:500;color:var(--fg-2);border:1px solid var(--hair);border-radius:999px;padding:4px 10px}
+.dg-kind{padding:12px 0;border-top:1px solid var(--hair)}
+.dg-enc{padding:12px 14px 14px;background:var(--bg-2);border-radius:6px;color:var(--fg)}
+.dg-enc svg{display:block;width:64px;height:16px;margin-bottom:10px}
+.dg-result{padding:14px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);text-align:center}
+/* matrix */
+.dg-matrix{overflow-x:auto}
+.dg-matrix table{width:100%;border-collapse:collapse;font-size:15px}
+.dg-matrix th,.dg-matrix td{text-align:left;vertical-align:top;padding:14px 16px 14px 0;border-bottom:1px solid var(--hair)}
+.dg-matrix thead th{font-size:13px;font-weight:500;color:var(--fg-2);border-bottom:2px solid var(--fg)}
+.dg-matrix tbody th{font-family:var(--display);font-weight:600;letter-spacing:-.02em;width:24%}
+.dg-matrix td{color:var(--fg-2)}
+@media (max-width:760px){
+  .dg-matrix thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .dg-matrix tr{display:grid;padding:12px 0;border-bottom:1px solid var(--hair)}
+  .dg-matrix th,.dg-matrix td{border:0;padding:4px 0;width:auto}
+  .dg-matrix tbody th{width:auto}
+  .dg-matrix td::before{content:attr(data-col);display:block;font-size:12px;font-weight:500;color:var(--fg-3)}
+}
+/* stack */
+.dg-stack ol{display:grid;gap:6px}
+.dg-stack li{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr) minmax(0,1fr);gap:4px 24px;align-items:baseline;padding:16px 18px;border:1px solid var(--hair);border-radius:6px}
+.dg-stack li .dg-d{margin:0}
+.dg-stack li.mine{border:2px solid var(--fg)}
+.dg-side{font-size:13px;color:var(--fg-3);text-align:right}
+.dg-legend{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--fg-2)}
+.dg-legend i{width:18px;height:12px;border:2px solid var(--fg);border-radius:3px}
+@media (max-width:760px){.dg-stack li{grid-template-columns:1fr}.dg-side{text-align:left}}
+/* before / after */
+.dg-ba{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.dg-ba-panel{display:grid;align-content:start;gap:4px;padding:16px;border:1px solid var(--hair);border-radius:6px}
+.dg-ba-panel.after{border:2px solid var(--fg)}
+.dg-tag{font-size:12px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em}
+.dg-pic{margin:8px 0 10px;background:var(--bg-2);border-radius:4px;color:var(--fg)}
+.dg-pic svg{display:block;width:100%;height:auto}
+@media (max-width:760px){.dg-ba{grid-template-columns:1fr}}

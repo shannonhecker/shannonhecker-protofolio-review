@@ -1,0 +1,30 @@
+---
+// Data to encoding: each column is a kind of data, from its source files to
+// the mark it becomes on the chart. The glyph draws that mark.
+type Glyph = 'line' | 'steps' | 'range' | 'dots' | 'dash';
+interface Col { from: string[]; kind: string; note: string; enc: string; encNote: string; glyph: Glyph }
+interface Props { cols: Col[]; result: string; caption?: string; label: string }
+const { cols, result, caption, label } = Astro.props;
+---
+<figure class="dg dg-layers" aria-label={label}>
+  <ol style={`--n:${cols.length}`}>
+    {cols.map((c) => (
+      <li>
+        <span class="dg-from">{c.from.map((f) => <span>{f}</span>)}</span>
+        <span class="dg-kind"><b>{c.kind}</b><span class="dg-d">{c.note}</span></span>
+        <span class="dg-enc">
+          <svg viewBox="0 0 64 16" aria-hidden="true">
+            {c.glyph === 'line' && <path d="M2 12 L12 6 L22 9 L32 3 L42 8 L52 5 L62 9" fill="none" stroke="currentColor" stroke-width="1.6" />}
+            {c.glyph === 'steps' && <path d="M2 13 H18 V9 H34 V5 H62" fill="none" stroke="currentColor" stroke-width="1.6" />}
+            {c.glyph === 'range' && <g><rect x="2" y="4" width="26" height="8" fill="none" stroke="currentColor" stroke-width="1.2" /><path d="M4 12 L10 4 M10 12 L16 4 M16 12 L22 4 M22 12 L28 4" stroke="currentColor" stroke-width="1" /><rect x="36" y="4" width="26" height="8" fill="currentColor" opacity=".18" /></g>}
+            {c.glyph === 'dots' && <g fill="currentColor"><circle cx="8" cy="8" r="2" /><circle cx="22" cy="8" r="3.2" /><circle cx="40" cy="8" r="4.4" /><circle cx="56" cy="8" r="2.6" /></g>}
+            {c.glyph === 'dash' && <path d="M2 8 H62" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 4" />}
+          </svg>
+          <b>{c.enc}</b><span class="dg-d">{c.encNote}</span>
+        </span>
+      </li>
+    ))}
+  </ol>
+  <p class="dg-result"><b>{result}</b></p>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
