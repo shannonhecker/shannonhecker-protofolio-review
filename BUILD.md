@@ -295,3 +295,12 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
   - The configuration panels, beside the tier decision. They aren't captioned as before or after the cut, because I can't tell which version they show.
 - **System diagram:** "The system underneath" is now a Stack diagram: pages, widgets, the Fusion layer (outlined as hers), Salt, then FactSet. Entitlements and adoption are noted on the side.
 - **No new claims:** nothing beyond the deck and the existing copy. I removed one line I'd written that went beyond the source.
+
+### PR 24 · uoaui.ai: real screens, a demo clip, and the live links on every case
+
+- **Screens, at last:** the uoaui.ai case had no images. It now shows the prompt screen (dark and light) and the design hub with the chart set, both already public on shannonhecker.com.
+- **A demo clip:** the 30-second builder walkthrough from shannonhecker.com, re-encoded from 4.5 MB to 0.9 MB at 1280 px. It loads nothing until it nears the screen, plays only while visible, and stays a still poster with controls under reduced motion. The caption carries the content for anyone who can't watch.
+- **Diagrams:** the five-step builder flow, and a Stack showing how a screen is built: person, model, token mapping (hers), official components, export.
+- **"What it isn't":** added from the deck, because the honest line belongs on the page.
+- **Live links where the panel reads them:** each case head now links to its live thing, not only the footer. FX and Fusion link to the public rebuilds, uoaui.ai to uoaui.ai. The footer's "uoaui.ai on request" is now a link.
+- **Fixed in review:** the first image was the logo card, not the prompt screen; and the Stack's side notes overflowed on long text.
