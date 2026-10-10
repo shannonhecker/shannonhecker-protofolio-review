@@ -284,3 +284,14 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
   - **State matrix:** the edge and validation states as a table (state, what the screen does, why), replacing a two-column list.
 - **No new claims:** every word comes from the deck or the existing case copy.
 - **Test fix:** "the scooter makes you faster" read the speed after a fixed 900 ms, which sometimes landed after the bot rode into the pit at tiles 26–28. It now reads the speed as soon as it builds. It passes 8 of 8 in a row.
+
+### PR 23 · Fusion case: a real problem, and the system made visible
+
+- **Problem beat fixed:** beat 01 was labelled "Problem" but listed only constraints. It now states the problem in Shannon's deck words: "Their real need was trust in the numbers, not more features". It also covers the users, the job, and where it started (the legacy RaaS layout).
+- **Constraints beat:** constraints have their own beat, now with her role (she led the design; the UX designer was shared; a product owner set requirements).
+- **Workflow:** the four-step workflow is a Flow diagram. "What testing changed" (deck slide 20) is added.
+- **Design beat:** two images that were already public on shannonhecker.com.
+  - The widget grid: one shell, five uses. This is the proof of "one widget, many cubes".
+  - The configuration panels, beside the tier decision. They aren't captioned as before or after the cut, because I can't tell which version they show.
+- **System diagram:** "The system underneath" is now a Stack diagram: pages, widgets, the Fusion layer (outlined as hers), Salt, then FactSet. Entitlements and adoption are noted on the side.
+- **No new claims:** nothing beyond the deck and the existing copy. I removed one line I'd written that went beyond the source.
