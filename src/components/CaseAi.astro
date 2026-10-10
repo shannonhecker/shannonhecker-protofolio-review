@@ -35,10 +35,9 @@ import Split from './Split.astro';
       <div class="label"><HL class="k"><b>02</b> The flow</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Prompt to production screen." />
-        <div class="screens">
-          <div class="screen">1 · Prompt</div><div class="screen">2 · Generate</div><div class="screen">3 · Compare systems</div><div class="screen">4 · Tune a chart</div><div class="screen">5 · Export React</div>
-        </div>
-        <p class="muted"><span class="todo">Screens to add</span> One run through the builder, captured from the alpha.</p>
+        <ol class="chain" aria-label="The builder flow">
+          <li>Prompt</li><li>Generate</li><li>Compare systems</li><li>Tune a chart</li><li>Export React</li>
+        </ol>
       </div>
     </div>
 

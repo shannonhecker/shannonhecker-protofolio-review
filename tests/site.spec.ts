@@ -46,8 +46,8 @@ test('Winking Star tick demo reaches 6 of 6', async ({ page }) => {
   await expect(group.getByRole('button', { pressed: true })).toHaveCount(6);
 });
 
-test('/revolut carries the panel line and stays out of the index', async ({ page }) => {
-  await page.goto('/revolut');
+test('/panel carries the panel line and stays out of the index', async ({ page }) => {
+  await page.goto('/panel');
   await expect(page.getByText('Portfolio for the Revolut design panel')).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://shannonhecker.com/');
@@ -172,4 +172,12 @@ test('structured data names the person', async ({ page }) => {
   await page.goto('/');
   const ld = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent()) ?? '{}');
   expect(ld).toMatchObject({ '@type': 'Person', name: 'Shannon Hecker' });
+});
+
+test('no visible placeholders on any page', async ({ page }) => {
+  for (const p of ['/', '/fx', '/fusion', '/winking-star', '/uoaui']) {
+    await page.goto(p);
+    await expect(page.locator('.todo, .screen')).toHaveCount(0);
+    expect(await page.locator('main').innerText()).not.toMatch(/\bTODO\b|__/);
+  }
 });

@@ -149,3 +149,11 @@ html:not(.has-js) .game-sound{display:none}
    prototype's forced 16:9, so no UI is cut off; the hero centres on the UI. */
 .shot img{aspect-ratio:auto}
 .hero-art img{object-position:center}
+
+/* uoaui.ai flow as a numbered chain until real captures exist (no empty boxes). */
+.chain{display:flex;flex-wrap:wrap;gap:10px;align-items:center;counter-reset:c}
+.chain li{counter-increment:c;display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:var(--bg-2);font-size:15px;font-weight:500}
+.chain li::before{content:counter(c);font-size:13px;color:var(--fg-2);font-variant-numeric:tabular-nums}
+.chain li:not(:last-child)::after{content:"→";margin-left:6px;color:var(--fg-2)}
+.chain li:last-child{background:var(--fg);color:var(--bg)}
+.chain li:last-child::before{color:var(--bg)}

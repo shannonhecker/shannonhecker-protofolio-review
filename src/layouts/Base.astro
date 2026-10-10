@@ -16,8 +16,9 @@ const {
   description = "Hi, I'm Shannon Hecker, a product designer in London. Lead design for FX and MarketsOne at Barclays, VP of Product Design at J.P. Morgan before that. I build what I design.",
   noindex = false,
 } = Astro.props;
-// DECISION: /revolut is the same page, so its canonical points at / and it is
-// kept out of the index. Search engines see one page, the panel gets its URL.
+// DECISION: /panel is the home page with the panel line. Its canonical points
+// at / and it is kept out of the index. The path is neutral on purpose: Shannon
+// works at Barclays, so no employer-visible URL names another company.
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
 const canonical = new URL(noindex ? '/' : path, Astro.site).href;
 const og = new URL('/og.jpg', Astro.site).href;
