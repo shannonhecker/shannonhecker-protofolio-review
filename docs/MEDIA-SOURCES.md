@@ -211,3 +211,16 @@ content was generated or rewritten. It replaces the low-resolution
 `ui-fx-loop.jpg` usage; the authored flow remains separate from current public
 rebuild screenshots. Display uses a dark #111418 backing for the original light
 labels, native image proportions, and a link to the full-resolution image.
+
+### Registered landing greeting, 10 October 2026
+
+`public/art/avatar-greeting/{lift,wave}.webp` uses the arm poses from Higgsfield
+GPT Image 2.5 job `bda9c842-5328-4317-99f2-666d269906af`, referenced to Shannon's
+supplied avatar screenshot. The original avatar's face, torso and legs stay fixed;
+only the arm region changes. `scripts/art/prepare-greeting.mjs` records alpha
+cleanup, head-anchor registration and arm masks. Both web images are lossless.
+Source: https://d8j0ntlcm91z4.cloudfront.net/user_3JCYHM4TnfNkPUFQEY6APyXeZf7/hf_20261010_205614_bda9c842-5328-4317-99f2-666d269906af.png
+Nano Banana drafts `d25f64da-77e8-43ad-b7a3-3ffebabdf75d`,
+`98bd69f2-7d9f-4192-9227-f77495bb92a6` and
+`375dad52-ad3c-4a09-9172-65e6f3d577b5` were rejected for character or pose drift
+and are not used in the site. Generation was authorized by Shannon.

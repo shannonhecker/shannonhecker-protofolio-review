@@ -38,6 +38,18 @@ if(companion){
  const toggle=companion.querySelector<HTMLButtonElement>('.companion-motion')!;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  let paused=false,visible=false,x=0,y=0,targetX=0,targetY=0,frame=0,last=0;
+ let greeted=false,greetingTimer=0;
+ const finishGreeting=()=>{clearTimeout(greetingTimer);delete companion.dataset.intro;delete companion.dataset.pose;};
+ const greet=async()=>{
+  if(greeted||!enabled())return;
+  greeted=true;
+  await Promise.all(Array.from(companion.querySelectorAll<HTMLImageElement>('.greeting-frame')).map(image=>image.decode().catch(()=>{})));
+  if(!enabled())return;
+  companion.dataset.intro='true';
+  const sequence:[string,number][]=[['rest',600],['lift',160],['wave',1400],['lift',160],['rest',250]];
+  const next=()=>{if(!enabled()){finishGreeting();return;}const step=sequence.shift();if(!step){finishGreeting();return;}companion.dataset.pose=step[0];greetingTimer=window.setTimeout(next,step[1]);};
+  next();
+ };
  const enabled=()=>!paused&&!reduced.matches&&visible&&!document.hidden;
  const render=()=>{avatar.style.setProperty('--avatar-x',`${x.toFixed(2)}px`);avatar.style.setProperty('--avatar-y',`${y.toFixed(2)}px`);};
  const tick=(time:number)=>{
@@ -52,7 +64,7 @@ if(companion){
   toggle.disabled=reduced.matches;
   toggle.setAttribute('aria-pressed',String(paused||reduced.matches));
   toggle.textContent=reduced.matches?'Reduced motion':paused?'Resume motion':'Pause motion';
-  if(stopped){cancelAnimationFrame(frame);frame=0;x=0;y=0;targetX=0;targetY=0;render();}else schedule();
+  if(stopped){finishGreeting();cancelAnimationFrame(frame);frame=0;x=0;y=0;targetX=0;targetY=0;render();}else {schedule();void greet();}
  };
  stage.addEventListener('pointermove',e=>{
   if(e.pointerType!=='mouse'||!enabled())return;

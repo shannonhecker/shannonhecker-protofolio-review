@@ -127,7 +127,6 @@ test('map hover previews a stage, keyboard changes selection and ambient motion 
   expect((await state(page)).mapSelected).toBe(1);
   const time=(await state(page)).mapTime;
   await expect.poll(async()=>(await state(page)).mapTime).toBeGreaterThan(time);
-  await page.screenshot({path:'/private/tmp/portfolio-review/interactive-map.png'});
   await page.getByRole('button',{name:'Exit full screen'}).click();
   await page.locator('footer').scrollIntoViewIfNeeded();
   await page.waitForTimeout(100);

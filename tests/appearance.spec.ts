@@ -57,15 +57,22 @@ test('avatar follows the pointer gently without movement buttons or keyboard cap
   expect(await page.locator('.avatar-rig').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
 });
 
-test('project labels and reading links share one centre line without game icons',async({page})=>{
+test('project arrows sit beside the title and appear on hover and focus',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.goto('/panel');
   for(const row of await page.locator('#work .row').all()){
+    await page.locator('.nav .brand').focus();
     const number=(await row.locator('.n').boundingBox())!;
     await expect(row.locator('.pixel-object')).toHaveCount(0);
-    const read=(await row.locator('.arrow').boundingBox())!;
-    expect(Math.abs(number.y+number.height/2-read.y-read.height/2)).toBeLessThan(1);
-
+    const title=(await row.locator('h3').boundingBox())!;
+    expect(Math.abs(number.y+number.height/2-title.y-title.height/2)).toBeLessThan(1);
+    await expect(row.locator('h3 .arrow')).toHaveCSS('opacity','0');
+    await row.hover();
+    await expect(row.locator('h3 .arrow')).toHaveCSS('opacity','1');
+    await page.mouse.move(0,0);
+    await page.keyboard.press('Tab');
+    await row.focus();
+    await expect(row.locator('h3 .arrow')).toHaveCSS('opacity','1');
   }
 });
 

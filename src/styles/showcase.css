@@ -132,11 +132,11 @@ html[data-theme=dark] #work .row[data-chapter=ai] { --work-surface:#302940; }
  #work .row:hover>picture img { translate:0 -8px; }
  #work .row:hover>.appstore-preview picture:nth-child(odd) img { translate:0 -10px; }
  #work .row:hover>.appstore-preview picture:nth-child(even) img { translate:0 10px; }
- @keyframes case-title-enter { from{opacity:0;translate:0 24px}to{opacity:1;translate:0 0} }
+ @keyframes case-title-enter { from{opacity:0;translate:-50% 24px}to{opacity:1;translate:-50% 0} }
  @keyframes case-gallery-enter { from{opacity:.5;translate:0 64px}to{opacity:1;translate:0 0} }
 }
 .case-page .strip-wrap { margin-inline:0;max-width:100%; }
-.case-page .beat .label { background:var(--bg);padding-block:12px;z-index:2;isolation:isolate; }
+.case-page .beat .label { width:fit-content;max-width:100%;justify-self:start;background:var(--bg);padding:10px 18px;border-radius:999px;z-index:2;isolation:isolate; }
 /* More air on case pages without weakening the tight home image pairs. */
 .case-page .chapter-head { margin-bottom:clamp(112px,10vw,176px); }
 .case-page .chapter-head>.g { row-gap:48px!important; }
@@ -163,3 +163,34 @@ html[data-theme=dark] #work .row[data-chapter=ai] { --work-surface:#302940; }
 .play:not(.is-full) .game-poster { border-radius:4px; }
 .play:not(.is-full) .game-play { border-radius:4px;border-color:var(--hair);font-family:var(--body); }
 .case-page .dg-i,.case-page .process-step,.case-page .decision-map .decision-number { font-family:var(--body); }
+
+/* The project arrow belongs to its title, with room reserved before hover. */
+.row h3 .arrow,#work .row h3 .arrow { display:inline-block;min-height:0;padding:0;margin-left:.4em;font:inherit;line-height:inherit;color:inherit;vertical-align:baseline;opacity:0;transform:translateX(-6px);translate:none;transition:opacity .2s ease,transform .3s cubic-bezier(.16,1,.3,1); }
+.row:hover h3 .arrow,.row:focus-visible h3 .arrow,#work .row:hover h3 .arrow,#work .row:focus-visible h3 .arrow { opacity:1;transform:translateX(0);translate:none; }
+@media(hover:none),(pointer:coarse){.row h3 .arrow,#work .row h3 .arrow{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.row h3 .arrow,#work .row h3 .arrow{transition:none}}
+
+.avatar-cursor { position:fixed;inset:0;pointer-events:none;z-index:10000;visibility:hidden;contain:layout style; }
+.avatar-cursor[data-visible=true] { visibility:visible; }
+.avatar-cursor-hotspot { position:absolute;top:-3px;left:-3px;width:6px;height:6px;border-radius:50%;background:var(--fg);box-shadow:0 0 0 1.5px var(--bg); }
+.avatar-cursor-follower { position:absolute;left:0;top:0;width:34px;height:48px; }
+.avatar-cursor-follower img { position:absolute;inset:0;width:34px;height:48px;image-rendering:pixelated;transform:scaleX(var(--cursor-facing,1));filter:drop-shadow(1px 0 0 #fff8) drop-shadow(-1px 0 0 #fff8); }
+.avatar-cursor-follower img[hidden] { display:none; }
+.avatar-cursor[data-visible=true][data-moving=false] .avatar-cursor-follower img { animation:cursor-idle 2.4s ease-in-out infinite; }
+.avatar-cursor[data-hover=true] .avatar-cursor-hotspot { width:10px;height:10px;top:-5px;left:-5px;background:var(--accent,var(--fg)); }
+.avatar-cursor[data-hover=true] .avatar-cursor-follower img { translate:0 -4px; }
+.avatar-cursor[data-pressed=true] .avatar-cursor-follower img { translate:0 2px; }
+[data-avatar-cursor-toggle] { font:inherit;color:inherit;background:none;border:0;text-decoration:underline;cursor:pointer; }
+@keyframes cursor-idle { 0%,100%{translate:0 0}50%{translate:0 -2px} }
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){html.avatar-cursor-active,html.avatar-cursor-active *{cursor:none!important}}
+@media(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.avatar-cursor,[data-avatar-cursor-toggle]{display:none!important}}
+
+/* Registered arm poses: facial expression layers stay on the original body. */
+.greeting-frame{visibility:hidden}
+.landing-companion[data-pose=lift] .greeting-lift,
+.landing-companion[data-pose=wave] .greeting-wave{visibility:visible}
+.landing-companion:is([data-pose=lift],[data-pose=wave]) .idle-open{visibility:hidden}
+.landing-companion[data-intro=true] .companion-avatar{animation:companion-arrive .8s cubic-bezier(.22,1,.36,1) both}
+.landing-companion[data-pose=wave] .idle-smile{visibility:visible;animation:none!important}
+@keyframes companion-arrive{from{opacity:0;translate:-50% 24px}to{opacity:1;translate:-50% 0}}
+@media(prefers-reduced-motion:reduce){.greeting-frame{visibility:hidden!important}.idle-open{visibility:visible!important}.companion-avatar{animation:none!important}}

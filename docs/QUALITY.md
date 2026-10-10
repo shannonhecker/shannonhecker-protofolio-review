@@ -156,3 +156,20 @@ The root mobile Lighthouse check is 97/100/100/100, LCP 2.5s, negligible CLS and
 zero blocking time locally. The prior remote audit had 240ms blocking time;
 scroll-reveal measurements now batch reads before writes to avoid layout thrashing.
 Final remote CI and production verification still need to be recorded.
+
+### 10 October, 22:10 BST · editorial layout and motion release
+
+All 108 browser tests pass locally (38.8s). Nine routes build; Astro checks 99
+files with zero errors and warnings, plus one pre-existing unused-parameter hint.
+The greeting test found an entrance animation overriding horizontal centering;
+the animation now retains the -50% anchor, and visual review confirms alignment.
+New checks cover adjacent hover/focus arrows, page-specific avatar cursors, saved
+cursor preference, native keyboard/reduced-motion behaviour, page transition
+completion/history and greeting interruption. Cursor assets load on first mouse
+use; both arm pose images total about 156KB. Motion stops offscreen or hidden.
+
+The editable Figma working file now contains all eighteen desktop/mobile route
+layouts. Twelve product/home layouts received the latest editorial refresh;
+Build, Privacy and 404 retain their exports. Text, image fills and vectors remain
+editable. Inter is the documented Figma-only fallback; motion remains in code.
+Exact-head CI and production verification are recorded on PR #25.

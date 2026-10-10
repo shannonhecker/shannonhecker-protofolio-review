@@ -10,6 +10,7 @@ import '../styles/scroll-depth.css';
 import '../styles/typography-layout.css';
 import '../styles/type-rhythm.css';
 import '../styles/showcase.css';
+import '../styles/page-transitions.css';
 import displayFont from '@fontsource/inter-tight/files/inter-tight-latin-500-normal.woff2?url';
 import bodyFont from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
 
@@ -50,6 +51,14 @@ const og = new URL(ogImage.src, Astro.site).href;
         let choice='project';try{choice=localStorage.getItem('portfolio-theme')||'project';}catch{}
         const dark=choice==='dark'||(choice==='system'&&matchMedia('(prefers-color-scheme:dark)').matches)||(choice==='project'&&d.dataset.project==='fx');
         d.dataset.theme=dark?'dark':'light';d.dataset.appearance=choice;
+        // Capture the outgoing document as one unscaled sheet. The incoming
+        // document separates title, copy and media for staggered entrances.
+        addEventListener('pageswap',event=>{
+          if(!event.viewTransition)return;
+          d.classList.add('page-departing');
+          event.viewTransition.finished.finally(()=>d.classList.remove('page-departing'));
+        });
+        addEventListener('pageshow',()=>d.classList.remove('page-departing'));
       })();
     </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -93,5 +102,6 @@ const og = new URL(ogImage.src, Astro.site).href;
     <AnalyticsConsent />
     <script>import '../scripts/adventure.ts';</script>
     <script>import '../scripts/appearance.ts';</script>
+    <script>import '../scripts/avatar-cursor.ts';</script>
   </body>
 </html>

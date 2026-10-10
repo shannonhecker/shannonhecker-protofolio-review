@@ -658,3 +658,14 @@ nine pages built, 88 files checked without diagnostics.
 - [x] Removed decorative process strips; connected journey schematics for FX/Fusion/uoaui and illustrated choice comparisons for all four cases. Original FX flow preserved.
 - [x] Latest local build and 101 browser tests pass; mobile Lighthouse root 97/100/100/100 before additional layout batching. CI remains the final gate.
 - [ ] Final PR #25 CI, merge, production smoke check and editable Figma section refresh.
+
+### 10 October, 22:10 BST · final interaction pass
+
+- [x] Two-column large product gallery, 40/60 case introduction, generous case spacing and compact Sections control.
+- [x] Title-adjacent hover/focus arrows; touch-visible arrows; rounded opaque section labels.
+- [x] Native staggered page transitions with browser-history and reduced-motion checks.
+- [x] Page-specific animated avatar cursor with saved opt-out and native-control fallbacks.
+- [x] New registered landing greeting arm poses, fixed face/body, pause and reduced motion.
+- [x] Editable Figma desktop/mobile pages, separate image fills and documented font fallback.
+- [x] Nine-route build, zero Astro errors/warnings, 108 browser tests passed in 38.8s.
+- [ ] Exact-head CI and production verification: PR #25.
