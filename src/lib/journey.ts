@@ -1,7 +1,7 @@
 // Shannon's career, world by world. Sources: her CV (assets/CV_ShannonH.pdf on
 // shannonhecker.com) and her own words in the build conversation. Keep these
 // matching LinkedIn: the panel checks dates.
-// 捷元電腦: 2010 (Shannon, "maybe it's 2010"; earlier she said 2012). Check LinkedIn.
+// 捷元電腦: 2010, in north Taiwan. Shannon confirmed both against LinkedIn.
 export const JOURNEY = [
   { place: 'Kaohsiung 高雄', when: 'Growing up', line: 'Grew up by the sea in Kaohsiung, in the city by the park, on a motorbike most days.', href: null },
   { place: 'Ling Tung University', when: '2008 to 2010', line: 'BA in Digital Media Arts and Management, Taiwan.', href: null },

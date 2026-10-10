@@ -181,4 +181,12 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - **AI island:** Next: AI is an island with a dashed, still-drafting coast. Bedtime is a small island beside it.
 - **Map furniture:** a graticule, a compass, and "Not to scale".
 - **Character:** she stands on the selected world in that era's look.
-- **Date:** 捷元電腦 now shows 2010 (Shannon: "maybe it's 2010"). Check it against LinkedIn before the interview.
+- **Date:** 捷元電腦 now shows 2010. Shannon later confirmed both the year and the north-Taiwan location.
+
+### PR 11 · Controls that don't get in the way (Shannon's report)
+
+- **Dropdown before Play:** choosing a world in the dropdown before pressing Play did nothing. Now it starts that world, before or after Play.
+- **Map clicks:** clicking a world on the map now updates the dropdown too.
+- **Pause on blur:** pressing an on-screen arrow, Sound or the dropdown paused the game immediately, because any loss of focus counted as leaving. Now only leaving the game area pauses it. Touch buttons keep focus on the canvas.
+- **Unpausing:** a paused game now carries on with any game key (Escape still pauses and Tab still leaves), not only a click.
+- **Tests:** `tests/controls.spec.ts` covers all five behaviours. Each failed before the fix.
