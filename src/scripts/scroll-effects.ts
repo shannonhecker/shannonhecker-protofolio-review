@@ -10,29 +10,22 @@ export function initScrollEffects() {
   // reduced motion is enabled or the viewport/pointer no longer qualifies.
   const media = gsap.matchMedia();
   media.add('(min-width: 901px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)', () => {
-    // Paired gallery images meet at the centre as their row enters the page.
-    // Animate the complete frame so no product pixels are clipped or enlarged.
+    // The image and its caption move at different depths, then settle together.
+    // Transform complete frames: the product UI is never cropped for the effect.
     document.querySelectorAll<HTMLElement>('#work .row > picture, #work .row > .project-preview').forEach((picture,index)=>{
-      gsap.fromTo(picture,{x:index%2?18:-18},{x:0,duration:.75,ease:'power2.out',clearProps:'transform',immediateRender:false,
-        scrollTrigger:{trigger:picture,start:'top 92%',once:true}});
+      gsap.fromTo(picture,{x:index%2?64:-64,y:48,scale:.96},{x:0,y:0,scale:1,ease:'none',immediateRender:false,
+        scrollTrigger:{trigger:picture,start:'top 95%',end:'top 28%',scrub:.6}});
     });
-    const pairs: { text: HTMLElement; picture: HTMLElement }[] = [];
-    document.querySelectorAll<HTMLElement>('.case-page .beat').forEach(beat => {
-      const text = beat.querySelector<HTMLElement>('.body > .h-sub');
-      const picture = beat.querySelector<HTMLElement>('.body > .product-capture, .body > .shot');
-      if (text && picture && pairs.length < 3) pairs.push({ text, picture });
+    document.querySelectorAll<HTMLElement>('.case-page .beat .body > .h-sub').forEach((heading,index) => {
+      gsap.fromTo(heading, { x: index % 2 ? 48 : -48 }, { x: 0, ease:'none', immediateRender:false,
+        scrollTrigger:{trigger:heading,start:'top 95%',end:'top 60%',scrub:.5}});
     });
-    // Only major evidence moments, not every paragraph or card. No opacity
-    // changes: text is readable before, during and without the effect.
-    pairs.forEach(({ text, picture }, index) => {
-      const direction = index % 2 ? 1 : -1;
-      for (const [element, offset] of [[text, direction * 24], [picture, -direction * 24]] as const) {
-        gsap.fromTo(element, { x: offset }, {
-          x: 0, duration: .65, ease: 'power2.out', clearProps: 'transform',
-          immediateRender: false,
-          scrollTrigger: { trigger: element, start: 'top 92%', once: true },
-        });
-      }
+    document.querySelectorAll<HTMLElement>('.case-page .body > .product-capture, .case-page .screen-sequence > .product-capture').forEach((frame,index) => {
+      gsap.fromTo(frame, { x:index%2 ? 56 : -56, y:56, scale:.97 }, { x:0,y:0,scale:1,ease:'none',immediateRender:false,
+        scrollTrigger:{trigger:frame,start:'top 100%',end:'top 24%',scrub:.65}});
+    });
+    document.querySelectorAll<HTMLElement>('.case-page .project-hero').forEach(frame => {
+      gsap.to(frame,{y:-36,ease:'none',scrollTrigger:{trigger:frame,start:'top 25%',end:'bottom top',scrub:.7}});
     });
     // Move a complete decorative setting, never the pixels inside a screenshot.
     document.querySelectorAll<HTMLElement>('.chapter-scene .scene-setting').forEach(scene => {

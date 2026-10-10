@@ -69,6 +69,17 @@ test('project icons, numbers and reading links share one centre line',async({pag
   }
 });
 
+test('touch devices show all heading words without waiting for desktop motion', async ({ browser }) => {
+  const context = await browser.newContext({ baseURL: 'http://localhost:4329', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const page = await context.newPage();
+  await page.goto('/panel');
+  await expect(page.locator('html')).toHaveAttribute('data-ready', '1');
+  const hiddenWords = await page.locator('.split .wd').evaluateAll(words =>
+    words.filter(word => getComputedStyle(word).opacity === '0').length);
+  expect(hiddenWords).toBe(0);
+  await context.close();
+});
+
 test('optional game follows the introduction on both landing URLs',async({page})=>{
   for(const width of [390,1440]){
     await page.setViewportSize({width,height:900});

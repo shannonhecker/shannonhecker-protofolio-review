@@ -550,7 +550,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     // the character stands on the selected world, dressed for that era
     const [sx, sy] = NODES[mapSel];
     const era = playerFrames(mapIcons[mapSel].id);
-    if (!drawIllustration(ctx, 'walk-1', sx, sy - 13, 34, 34)) ctx.drawImage(era.right.idle[0], sx - 8, sy - 37);
+    if (!drawIllustration(ctx, `hero-${mapIcons[mapSel].id}-1`, sx, sy - 13, 34, 34)) ctx.drawImage(era.right.idle[0], sx - 8, sy - 37);
     // footer: the selected world, then how to move
     const c = chapterOf(mapSel), ch = CHAPTERS[c];
     const name = 'bonus' in ch && ch.bonus ? `BONUS · ${ch.name}` : `WORLD ${c + 1} · ${ch.name}`;
@@ -581,6 +581,10 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       ctx.drawImage(plate, (VIEW_W - width) / 2, (VIEW_H - height) / 2, width, height);
       ctx.imageSmoothingEnabled = false;
     } else { par(theme.far, 0.2); par(theme.near, 0.5); }
+    // Quiet the scenery only. Platforms, pickups and the outlined player stay crisp.
+    ctx.fillStyle = theme.id === 'bedtime' || theme.id === 'ai'
+      ? 'rgba(88,105,139,.28)' : 'rgba(222,231,226,.30)';
+    ctx.fillRect(0, 0, VIEW_W, VIEW_H);
 
     const sx = shake ? (Math.random() - 0.5) * shake : 0;
     ctx.translate(snap(-cam + sx), snap(-camY));
@@ -675,11 +679,12 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     if (!(p.invuln > 0 && p.hurtT === 0 && Math.floor(p.invuln * 12) % 2)) {
       const sq = p.squash, w = 32 * (1 + sq), hh = 48 * (1 - sq);
       const lift = p.ride ? 14 : 0;
-      const frame = p.grounded && Math.abs(p.vx) > 20 && !opts.reduceMotion ? Math.floor(p.run) % 4 + 1 : 1;
-      if (!drawIllustration(ctx, `walk-${frame}`, p.x + PW / 2, p.y + PH - lift, 60, 60, p.face < 0))
+      const running = p.grounded && Math.abs(p.vx) > 20 && !opts.reduceMotion;
+      const frame = !p.grounded || s.finished ? 4 : running ? [2, 1, 3, 1][Math.floor(p.run) % 4] : 1;
+      if (!drawIllustration(ctx, `hero-${theme.id}-${frame}`, p.x + PW / 2, p.y + PH - lift, 60, 60, p.face < 0))
         ctx.drawImage(p.hurtT > 0.25 ? hero.flash : im, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift), snap(w), snap(hh));
       // Kaohsiung: a half-helmet whenever she rides
-      if (p.ride && !illustrated('walk-1')) ctx.drawImage(lid, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift - 2), snap(w), snap(10 * (1 - sq)));
+      if (p.ride && !illustrated(`hero-${theme.id}-1`)) ctx.drawImage(lid, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift - 2), snap(w), snap(10 * (1 - sq)));
       if (p.ride) {
         ctx.save(); ctx.translate(snap(p.x + PW / 2), snap(p.y + PH - bike.height / ART)); ctx.scale(p.face >= 0 ? 1 : -1, 1);
         if (!drawIllustration(ctx, 'scooter', 0, bike.height / ART, 52, 34)) ctx.drawImage(bike, -bike.width / ART / 2, 0, bike.width / ART, bike.height / ART); ctx.restore();

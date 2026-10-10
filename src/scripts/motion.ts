@@ -10,15 +10,16 @@ const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 function reveals() {
   const els = Array.from(document.querySelectorAll<HTMLElement>('.rv, .split'));
-  if (reduce) return;
-  const vh = innerHeight;
-  // Measure the full batch before changing classes to avoid repeated layout.
-  const positions = els.map(el => el.getBoundingClientRect().top);
-  els.forEach((el, i) => el.classList.add(positions[i] > vh * 0.9 ? 'pre' : 'in'));
+  if (reduce || !fine) {
+    els.forEach(el => el.classList.add('in'));
+    return;
+  }
+  // The observer supplies visibility after layout; avoid measuring the entire
+  // document synchronously during startup, especially on small touch devices.
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
-        if (!e.isIntersecting) return;
+        if (!e.isIntersecting) { e.target.classList.add('pre'); return; }
         e.target.classList.remove('pre');
         e.target.classList.add('in');
         io.unobserve(e.target);
@@ -31,6 +32,7 @@ function reveals() {
 
 // Anything a nav jump skipped past still gets revealed.
 function sweep() {
+  if (reduce || !fine) return;
   const lim = scrollY + innerHeight * 1.2;
   const visible = Array.from(document.querySelectorAll<HTMLElement>('.rv.pre, .split.pre'))
     .filter(el => el.getBoundingClientRect().top + scrollY < lim);

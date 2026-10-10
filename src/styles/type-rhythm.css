@@ -90,3 +90,31 @@ html[data-theme=dark] .companion-stage::before { background:#302930; }
 .play.is-full .game{flex-shrink:0}
 /* Leave room for the map's flat stage chooser without squeezing its canvas. */
 .play.is-full:has(.game-stages:not([hidden])) .game{width:min(100%,calc((100dvh - 260px) * 16 / 9))}
+
+/* Results belong to the same navy/cyan/gold pixel world as the map and HUD. */
+.play .game[data-result=true]{border:4px solid #90dce8;border-radius:0;background:#172b3b}
+.play .game-end{background:#172b3b;color:#f4f7ea;gap:16px;padding:28px clamp(20px,5vw,64px);place-content:start center}
+.play .game-result-emblem{display:flex;align-items:center;gap:12px;font:24px/1 var(--pixel);color:#ffe28c}
+.game-result-emblem img{image-rendering:pixelated;width:48px;height:48px}
+.play .game-end .game-kicker{font:18px/1.4 var(--pixel);color:#bce8ef}
+.play .game-end .game-case{font:400 clamp(30px,4vw,48px)/1.2 var(--pixel);letter-spacing:0;color:#fff}
+.play .game-end .game-meta{font:16px/1.6 var(--body);color:#d1e3e9;margin:0;max-width:48ch}
+.play .game-end .game-mission{font:18px/1.5 var(--pixel);color:#ffe28c;border:2px solid #456574;padding:10px 16px;background:#213e50}
+.play .game-end .career-achievements{margin:0;width:min(100%,560px);max-width:none;text-align:left;border:2px solid #456574;padding:0 16px;background:#1d3547}
+.play .game-end .career-achievements summary{font:18px/1.5 var(--pixel);color:#e8f4ee;padding:10px 0}
+.play .game-end .career-achievements ul{font:14px/1.6 var(--body);color:#d1e3e9}
+.play .game-end .scoreboard{width:min(100%,560px);border-top:2px solid #456574;padding-top:16px}
+.play .game-end .score-total{font:24px/1.4 var(--pixel);color:#f4f7ea}
+.play .game-end .score-total strong{font:40px/1 var(--pixel);color:#ffe28c}
+.play .game-end .score-total span,.play .game-end .score-rule,.play .game-end .score-note,.play .game-end .scoreboard label span{color:#b9d0da}
+.play .game-end .scoreboard summary{font:18px/1.5 var(--pixel);color:#e8f4ee}
+.play .game-end .scoreboard li{border-color:#456574;color:#f4f7ea}
+.play .game-end .scoreboard input{border:2px solid #90dce8;border-radius:0;background:#102330;color:#fff}
+.play .game-end .game-play,.play .game-end .game-map,.play .game-end .game-read,.play .game-end .scoreboard button{font:20px/1.3 var(--pixel);border:2px solid #90dce8;border-radius:0;padding:12px 20px;background:#213e50;color:#f4f7ea;min-height:48px;box-shadow:4px 4px 0 #081823;transition:transform .1s;}
+.play .game-end .game-play,.play .game-end .scoreboard button{background:#ffe28c;color:#172b3b;border-color:#ffeeb6}
+.play .game-end .game-links a{color:#bce8ef}
+.play .game-end :is(button,a,input,summary):focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:0}
+.play .game-end :is(button,a):active{transform:translate(2px,2px);box-shadow:2px 2px 0 #081823}
+.play .game-end .game-actions{gap:16px;margin:6px 0}
+.play .game-end .game-badge{font:18px/1.4 var(--pixel);color:#a9efb4;background:#213e50;border:2px solid #7cab8a;border-radius:0}
+@media(max-width:600px){.play .game-end{padding:20px 16px;gap:12px}.play .game-end .game-case{font-size:30px}.play .game-end .game-meta{font-size:14px}.play .game-end .game-actions{width:100%;display:grid;grid-template-columns:1fr}.play .game-end .score-total span{font-size:12px}}

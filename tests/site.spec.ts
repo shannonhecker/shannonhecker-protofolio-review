@@ -6,7 +6,7 @@ const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-prac
 test('hero renders', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/I design tools\s*where mistakes\s*cost money\./);
-  await expect(page.locator('.hero-art img')).toBeVisible();
+  await expect(page.locator('.hero-art .game-poster img')).toBeVisible();
 });
 
 for (const [label, id] of [['Work', 'work'], ['How I work', 'how']]) {

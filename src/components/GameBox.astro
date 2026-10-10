@@ -19,6 +19,7 @@ import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
     </div>
     {JOURNEY.map((w, i) => (
       <div class="game-end" data-end={i} hidden>
+        <div class="game-result-emblem" aria-hidden="true"><img src="/game/star.webp" alt="" width="48" height="48" loading="lazy" /><span>Stage clear</span></div>
         <p class="game-badge" hidden>Shipped</p>
         <p class="game-kicker">{stageCode(i) === 'Bonus' ? 'Bonus' : `World ${stageCode(i)}`} · {w.when}</p>
         <p class="game-case">{w.place}</p>

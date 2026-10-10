@@ -23,7 +23,8 @@ function load(name: string, path = `/game/${name}.webp`) {
 export function prepareIllustrations() {
   return Promise.all([
     ...['world-map','star','journal','arrow','gem','stone','wood','desk','glass','clock','bug','cloud','moon','flag','finish','scooter','heart'].map((name) => load(name)),
-    ...[1,2,3,4].map((n) => load(`walk-${n}`, `/game/avatar-walk/0${n}.png`)),
+    ...['kaohsiung','lingtung','web','london','tower','desk','ai','bedtime'].flatMap(era =>
+      [1,2,3,4].map(frame => load(`hero-${era}-${frame}`, `/game/eras/${era}/${frame}.png`))),
     ...['mosquito','deadline','beetle','pigeon','meeting','change','hallucination','screen'].map((name) => load(`foe-${name}`)),
   ]);
 }
