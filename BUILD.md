@@ -244,3 +244,10 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - **Coastline outline:** the selected world is now outlined by its own shape, not a box. A red line runs 2 px outside the real coastline of Taiwan, of the AI island and of the bonus island. For London it goes around the inset frame.
 - **How:** each outline is computed once from the land pixels when the map is drawn (`SELECT_RINGS` in `src/game/map.ts`).
 - **Why solid:** I tried a dotted version first. At this size it broke up into noise along the curved coast, so the line is solid.
+
+### PR 19 · Every way home leads to /panel; Next: AI says it plainly
+
+- **Links home:** the panel gets the `/panel` link, so every link back home now goes there too: the logo, Work and How I work in the nav, the 404 and build pages, and each case page's "Play this chapter" link (`/panel?level=n`). The panel line never drops away while they browse.
+- **Next: AI copy:** Shannon confirmed that AI is the focus of her job search, so the end card now says it: "Where I'm heading next: designing AI products. uoaui.ai is the AI-native product I design and build to get there. The model drafts, I decide."
+- **Why it's safe to say:** the earlier "practice, not a job search" framing was for a public site. This one is a private link for one panel.
+- **Kept as is:** the uoaui case still calls it a private alpha, not a shipped product, because that's true.
