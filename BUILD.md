@@ -117,7 +117,7 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
   - The first tower layout needed jumps longer than the jump allows.
   - A low ceiling blocked the climb.
   - A Ling Tung platform ended right at a pit.
-- Left the 捷元電腦 years off until Shannon confirmed them (2012, added in PR 9).
+- Left the 捷元電腦 years off until Shannon confirmed them (2012, added in PR 8).
 
 **What Shannon changed by hand**
 
@@ -127,7 +127,7 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 
 - _To fill in._
 
-## PR 9: Shannon's own character
+### PR 8 · Shannon's own character
 
 - Shannon sent two pixel-art references of herself. I redrew the 16×24 sprite by hand from them:
   - Long wavy dark-brown hair with a fringe, big eyes with a highlight, blush, and a pearl earring.
