@@ -31,6 +31,7 @@ function tone(freq: number, dur: number, type: OscillatorType, vol: number, slid
 export const sfx = {
   jump: () => tone(392, 0.12, 'square', 0.05, 587),
   collect: () => { tone(1175, 0.06, 'triangle', 0.07); tone(1568, 0.09, 'triangle', 0.07, undefined, 0.06); },
+  stomp: () => tone(523, 0.1, 'square', 0.05, 196),
   hit: () => tone(220, 0.22, 'sawtooth', 0.05, 110),
   finish: () => [587, 740, 880, 1175].forEach((f, i) => tone(f, i === 3 ? 0.36 : 0.12, 'square', 0.05, undefined, i * 0.11)),
 };

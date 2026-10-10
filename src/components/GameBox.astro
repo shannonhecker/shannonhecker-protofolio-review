@@ -21,6 +21,7 @@ import { JOURNEY } from '../lib/journey';
         <p class="game-kicker">World {i + 1} · {w.when}</p>
         <p class="game-case">{w.place}</p>
         <p class="game-meta">{w.line}</p>
+        <p class="game-mission" hidden></p>
         {w.href && <a class="game-read" href={w.href}>Read the case →</a>}
         {i < JOURNEY.length - 1 ? (
           <div class="game-actions">
@@ -58,6 +59,6 @@ import { JOURNEY } from '../lib/journey';
     <button type="button" class="game-sound" id="game-sound" aria-pressed="false">Sound</button>
   </div>
   <p class="game-caption">Working Order · from Kaohsiung to London to what's next</p>
-  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in eight short worlds: Kaohsiung, Ling Tung University, web design at 捷元電腦, London, J.P. Morgan, Barclays, Next: AI, and a bonus world for Winking Star. Arrow keys or WASD to move, Space or Up to jump, Escape to pause. On the map, Left and Right choose a world and Space starts it.</p>
+  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in eight short worlds: Kaohsiung, Ling Tung University, web design at 捷元電腦, London, J.P. Morgan, Barclays, Next: AI, and a bonus world for Winking Star. Each world has a small enemy you can jump on and an optional mission for a gold star. Arrow keys or WASD to move, Space or Up to jump, Escape to pause. On the map, Left and Right choose a world and Space starts it.</p>
   <p id="game-status" class="vh" aria-live="polite"></p>
 </div>

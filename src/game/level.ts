@@ -11,6 +11,7 @@ export function parse(rows: string[]) {
   const items: { x: number; y: number; kind: 'o' | 'u' | '^' | 'C' | 'F' | 'B' }[] = [];
   const hazards: { x: number; y: number; kind: HazardKind; i: number }[] = [];
   const movers: Mover[] = [];
+  const foes: { x: number; y: number; i: number }[] = [];
   let spawn = { x: 0, y: 0 };
   for (let y = 0; y < h; y++) {
     tiles[y] = [];
@@ -20,6 +21,7 @@ export function parse(rows: string[]) {
       if (c === 'P') spawn = { x, y };
       if (c === 'o' || c === 'u' || c === '^' || c === 'C' || c === 'F' || c === 'B') items.push({ x, y, kind: c });
       if (c === 'S' || c === 'T' || c === 'N') hazards.push({ x, y, kind: c, i: hazards.length });
+      if (c === 'E') foes.push({ x, y, i: foes.length }); // a small enemy, the world's own kind
       // A run of M tiles is one rate-line platform.
       if (c === 'M' && rows[y][x - 1] !== 'M') {
         let n = 0;
@@ -28,5 +30,5 @@ export function parse(rows: string[]) {
       }
     }
   }
-  return { w, h, tiles, items, hazards, spawn, movers };
+  return { w, h, tiles, items, hazards, spawn, movers, foes };
 }

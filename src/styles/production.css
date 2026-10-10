@@ -119,6 +119,9 @@ html:not(.has-js) .game-play{display:none}
 .game-meta{font-size:15px;color:var(--fg-2);max-width:52ch}
 .game-read{font-weight:500;text-underline-offset:3px}
 .game-end[hidden]{display:none}
+.game-mission{font-size:14px;font-weight:500;color:var(--fg-2)}
+.game-mission[data-done="true"]{color:var(--fg)}
+.game-mission[hidden]{display:none}
 .game-badge{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,56px);letter-spacing:-.04em}
 .game-links{display:grid;gap:8px}
 .game-links a{font-weight:500;text-underline-offset:3px}

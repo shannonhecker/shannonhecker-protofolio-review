@@ -19,11 +19,18 @@ const fromCase = param !== null;
 let chosen = Math.max(0, Math.min(ends.length - 1, (Number(param ?? '1') || 1) - 1));
 if (picker) picker.value = String(chosen);
 
-function showEnd(n: number | null, shipped = false) {
+type Mission = { text: string; have: number; need: number; done: boolean };
+function showEnd(n: number | null, shipped = false, mission?: Mission) {
   ends.forEach((e, i) => {
     e.hidden = i !== n;
     const badge = e.querySelector<HTMLElement>('.game-badge');
     if (badge) badge.hidden = !(i === n && shipped);
+    const m = e.querySelector<HTMLElement>('.game-mission');
+    if (m && i === n && mission) {
+      m.hidden = false;
+      m.dataset.done = String(mission.done);
+      m.textContent = mission.done ? `★ Mission complete: ${mission.text}.` : `Mission: ${mission.text}. ${mission.need > 1 ? `${mission.have} of ${mission.need} this time.` : 'Not this time.'}`;
+    }
   });
   if (n !== null) ends[n]?.querySelector<HTMLElement>('[data-next]')?.focus();
 }
@@ -45,7 +52,7 @@ async function boot(level: number, toMap: boolean) {
         startOnMap: toMap,
         reduceMotion,
         onStatus: (m) => { if (statusEl) statusEl.textContent = m; },
-        onLevelEnd: (s) => { showEnd(s.level, s.collected >= s.total); },
+        onLevelEnd: (s) => { showEnd(s.level, s.collected >= s.total, s.mission); },
         onMapSelect: (n) => { chosen = n; if (picker) picker.value = String(n); },
       });
       (window as unknown as { __game?: () => unknown }).__game = () => game?.state();

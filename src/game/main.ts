@@ -5,7 +5,8 @@
 import { T, TILE, VIEW_W, VIEW_H } from './tuning';
 import { parse } from './level';
 import { LEVELS } from './levels';
-import { THEMES, playerFrames, pet, scooter, type Theme } from './art';
+import { THEMES, playerFrames, helmet, pet, scooter, type Theme } from './art';
+import { FOES, type Foe } from './enemies';
 import { text, textWidth } from './pixel';
 import { sfx } from './sound';
 export { setSound } from './sound';
@@ -22,11 +23,29 @@ export const WORLDS = [
   { short: 'BEDTIME', when: 'BONUS' },
 ] as const;
 
+// One optional mission per world, worth a gold star on the map. Finishing a
+// world never depends on it. 'stomp' counts enemies cleared, 'all' every
+// pickup, 'arrows' the tower's flow arrows, 'ride' reaching the end on the scooter.
+type MissionKind = 'ride' | 'stomp' | 'all' | 'arrows';
+export const MISSIONS: { text: string; kind: MissionKind; need: number }[] = [
+  { text: 'Ride the scooter to the sea', kind: 'ride', need: 1 },
+  { text: 'Beat 3 deadlines', kind: 'stomp', need: 3 },
+  { text: 'Squash 4 bugs', kind: 'stomp', need: 4 },
+  { text: 'Find every book', kind: 'all', need: 0 },
+  { text: 'Collect every flow arrow', kind: 'arrows', need: 0 },
+  { text: 'Catch 3 late changes', kind: 'stomp', need: 3 },
+  { text: 'Verify 3 hallucinations', kind: 'stomp', need: 3 },
+  { text: 'Put 3 screens to sleep', kind: 'stomp', need: 3 },
+];
+
 export type GameState = {
   mode: 'map' | 'level';
   level: number; x: number; y: number; vx: number; vy: number; grounded: boolean; riding: boolean;
   hits: number; collected: number; total: number; finished: boolean; paused: boolean; jumps: number;
   done: number[];
+  stomped: number; foes: number;
+  mission: { text: string; have: number; need: number; done: boolean };
+  missions: number[]; // worlds whose mission is complete
 };
 type Opts = {
   level?: number;
@@ -54,16 +73,20 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   // Player hitbox is narrower than the 32×48 sprite cell.
   const PW = 20, PH = 44;
   const p = { x: 0, y: 0, vx: 0, vy: 0, grounded: false, face: 1, heldFor: 0, coyote: 0, buffer: 0, jumpHeld: false, rising: false, invuln: 0, squash: 0, run: 0, hurtT: 0, ride: false };
-  const s: GameState = { mode: 'map', level: 0, x: 0, y: 0, vx: 0, vy: 0, grounded: false, riding: false, hits: 0, collected: 0, total: 0, finished: false, paused: false, jumps: 0, done: [] };
+  const s: GameState = { mode: 'map', level: 0, x: 0, y: 0, vx: 0, vy: 0, grounded: false, riding: false, hits: 0, collected: 0, total: 0, finished: false, paused: false, jumps: 0, done: [], stomped: 0, foes: 0, mission: { text: '', have: 0, need: 0, done: false }, missions: [] };
 
   // ---- per-level state
   let lvl = parse(LEVELS[0].rows);
   let theme: Theme = THEMES.kaohsiung();
-  let hero = playerFrames(theme.outfit);
+  let hero = playerFrames(theme.id);
   let items: { x: number; y: number; kind: 'o' | 'u' | '^' | 'C' | 'F' | 'B'; taken?: boolean }[] = [];
   let checkpoint = { x: 0, y: 0 };
   let movers: { x: number; w: number; baseY: number; i: number; px: number; pw: number; y: number; prevY: number }[] = [];
   let hazards: { kind: 'S' | 'T' | 'N'; i: number; ox: number; oy: number; x: number; y: number; w: number; h: number; t: number }[] = [];
+  let foe: Foe = FOES.kaohsiung();
+  let foes: { x: number; y: number; ox: number; oy: number; vx: number; t: number; alive: boolean; deadT: number }[] = [];
+  let arrows = 0, arrowsGot = 0;
+  const lid = helmet();
   let revealed = new Set<string>(); // drafted platforms that have become real
   let riding: (typeof movers)[number] | null = null;
   let clock = 0, cam = 0, camY = 0, shake = 0, endT = 0;
@@ -76,10 +99,16 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     s.level = n;
     lvl = parse(LEVELS[n].rows);
     theme = THEMES[LEVELS[n].theme]();
-    hero = playerFrames(theme.outfit);
+    hero = playerFrames(theme.id);
     items = lvl.items.map((i) => ({ ...i }));
     s.total = items.filter((i) => i.kind === 'o' || i.kind === 'u').length;
+    arrows = items.filter((i) => i.kind === 'u').length; arrowsGot = 0;
     s.collected = 0; s.hits = 0; s.finished = false; endT = 0; clock = 0; p.ride = false;
+    foe = FOES[theme.id]();
+    foes = lvl.foes.map((f) => ({ x: f.x * TILE + 4, y: (f.y + 1) * TILE - 20, ox: f.x * TILE + 4, oy: (f.y + 1) * TILE - 20, vx: -46, t: f.i * 1.3, alive: true, deadT: 0 }));
+    s.stomped = 0; s.foes = foes.length;
+    const m = MISSIONS[n];
+    s.mission = { text: m.text, have: 0, need: m.kind === 'all' ? s.total : m.kind === 'arrows' ? arrows : m.need, done: false };
     revealed = new Set();
     movers = lvl.movers.map((m) => ({ ...m, px: m.x * TILE, pw: m.w * TILE, y: m.baseY * TILE, prevY: m.baseY * TILE }));
     hazards = lvl.hazards.map((h) => {
@@ -90,7 +119,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     respawn(); p.invuln = 0;
     cam = 0;
     camY = Math.max(0, lvl.h * TILE - VIEW_H);
-    opts.onStatus(`World ${n + 1}: ${WORLDS[n].short.toLowerCase()}.`);
+    opts.onStatus(`World ${n + 1}: ${WORLDS[n].short.toLowerCase()}. Mission: ${m.text}.`);
     resume();
   }
 
@@ -211,6 +240,16 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       loadLevel(s.level);
     }
   }
+  // mission progress; announces once when it completes
+  function progress(add = 0) {
+    const m = MISSIONS[s.level];
+    s.mission.have = m.kind === 'stomp' ? s.stomped : m.kind === 'all' ? s.collected : m.kind === 'arrows' ? arrowsGot : s.mission.have + add;
+    if (!s.mission.done && s.mission.have >= s.mission.need) {
+      s.mission.done = true;
+      if (!s.missions.includes(s.level)) s.missions.push(s.level);
+      opts.onStatus(`Mission complete: ${m.text.toLowerCase()}.`);
+    }
+  }
   function respawn() { p.x = checkpoint.x; p.y = checkpoint.y; p.vx = 0; p.vy = 0; p.invuln = 0.6; riding = null; }
 
   function step(dt: number) {
@@ -309,14 +348,16 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       if (it.kind === 'C') { if (p.x >= ix && Math.abs(p.y + PH - (iy + TILE)) < TILE * 3 && (checkpoint.y !== iy + TILE - PH || checkpoint.x < ix)) checkpoint = { x: ix + (TILE - PW) / 2, y: iy + TILE - PH }; continue; }
       const pad = it.kind === '^' ? 6 : 0;
       if (!overlap(ix + pad, iy + pad * 2, TILE - pad * 2, TILE - pad * 2)) continue;
-      if (it.kind === 'o' || it.kind === 'u') { it.taken = true; s.collected++; sfx.collect(); puff(ix + TILE / 2, iy + TILE / 2, 8, '#f3a414', 140); }
+      if (it.kind === 'o' || it.kind === 'u') { it.taken = true; s.collected++; if (it.kind === 'u') arrowsGot++; sfx.collect(); puff(ix + TILE / 2, iy + TILE / 2, 8, '#f3a414', 140); progress(); }
       else if (it.kind === 'B') { it.taken = true; p.ride = true; sfx.collect(); opts.onStatus('On the scooter.'); }
       else if (it.kind === '^') hurt(ix + TILE / 2);
       else if (it.kind === 'F' && !s.finished) {
         s.finished = true; endT = 0; sfx.finish();
+        if (MISSIONS[s.level].kind === 'ride' && p.ride) progress(1);
         if (!s.done.includes(s.level)) s.done.push(s.level);
-        opts.onStatus(s.collected >= s.total ? `World ${s.level + 1} done, with everything collected. Shipped.` : `World ${s.level + 1} done, ${s.collected} of ${s.total} collected.`);
-        const done = { ...s, done: [...s.done] };
+        const ms = s.mission.done ? ' Mission complete: gold star.' : ` Mission: ${s.mission.have} of ${s.mission.need}.`;
+        opts.onStatus((s.collected >= s.total ? `World ${s.level + 1} done, with everything collected. Shipped.` : `World ${s.level + 1} done, ${s.collected} of ${s.total} collected.`) + ms);
+        const done = { ...s, done: [...s.done], missions: [...s.missions], mission: { ...s.mission } };
         setTimeout(() => opts.onLevelEnd(done), opts.reduceMotion ? 200 : 1300);
       }
     }
@@ -334,6 +375,29 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
         h.x = h.ox + Math.cos(h.t * 1.8) * 44 - 2; h.y = h.oy + Math.sin(h.t * 1.8) * 30;
       }
       if (overlap(h.x + 3, h.y + 3, h.w - 6, h.h - 6)) hurt(h.x + h.w / 2);
+    }
+
+    // small enemies: walkers turn at walls and ledges; fliers hover on a beat.
+    // Landing on one from above clears it (and bounces you); touching it from
+    // the side is a hit, like any hazard.
+    for (const e of foes) {
+      e.t += dt;
+      if (!e.alive) { e.deadT += dt; if (foe.flee) { e.y -= 160 * dt; e.x += 60 * dt; } continue; }
+      if (foe.fly) { e.x = e.ox + Math.sin(e.t * 0.9) * 64; e.y = e.oy - 34 + Math.sin(e.t * 5) * 5; }
+      else {
+        const nx = e.x + e.vx * dt, lead = e.vx < 0 ? nx : nx + 24;
+        const tx = Math.floor(lead / TILE), ty = Math.floor((e.y + 19) / TILE);
+        const ledge = !solidAt(tx, ty + 1) && !oneWayAt(tx, ty + 1);
+        if (solidAt(tx, ty) || ledge || tx < 0) e.vx = -e.vx; else e.x = nx;
+      }
+      if (!overlap(e.x + 2, e.y + 2, 20, 18)) continue;
+      const feetBefore = p.y + PH - p.vy * dt;
+      if (p.vy > 0 && feetBefore <= e.y + 10) {
+        e.alive = false; e.deadT = 0; s.stomped++;
+        p.vy = -T.jumpSpeed * (p.jumpHeld ? 0.85 : 0.55); p.rising = p.jumpHeld; p.grounded = false;
+        sfx.stomp(); puff(e.x + 12, e.y + 10, 8, theme.ink, 120);
+        if (MISSIONS[s.level].kind === 'stomp') progress();
+      } else hurt(e.x + 12);
     }
 
     for (let i = parts.length - 1; i >= 0; i--) {
@@ -390,14 +454,15 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       ctx.fillStyle = mapIcons[i].sky; ctx.fillRect(x - 14, y - 14, 28, 28);
       const ic = mapIcons[i].pickup[0];
       ctx.drawImage(ic, Math.round(x - ic.width / 2), Math.round(y - ic.height / 2));
-      if (done) text(ctx, '★', x + 10, y - 20, '#f3a414');
+      // a star for finishing; gold once the world's mission is done too
+      if (done) text(ctx, '★', x + 10, y - 20, s.missions.includes(i) ? '#f3a414' : '#9a8f78');
       const label = `${i + 1} ${WORLDS[i].short}`;
       text(ctx, label, Math.round(x - textWidth(label) / 2), y + 20, sel ? '#161616' : '#4a4a48');
       text(ctx, WORLDS[i].when, Math.round(x - textWidth(WORLDS[i].when) / 2), y + 28, '#6b6b6b');
     });
     // the character waits by the selected world, in that era's outfit
     const [sx, sy] = NODES[mapSel];
-    const era = playerFrames(mapIcons[mapSel].outfit);
+    const era = playerFrames(mapIcons[mapSel].id);
     ctx.drawImage(era.right.idle[0], sx - 26, sy - 22);
     text(ctx, 'ARROWS TO CHOOSE · SPACE TO PLAY', 16, 256, '#2b3654');
   }
@@ -462,6 +527,17 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       }
     }
     for (const h of hazards) if (h.y > -60 && h.y < lvl.h * TILE) W(theme.hazard, h.x, h.y);
+    for (const e of foes) {
+      const fr = foe.frames[Math.floor(e.t * (foe.fly ? 10 : 5)) % 2];
+      if (e.alive) {
+        // walkers face the way they walk
+        if (!foe.fly && e.vx > 0) { ctx.save(); ctx.translate(snap(e.x + 24), snap(e.y)); ctx.scale(-1, 1); ctx.drawImage(fr, 0, 0, 24, 20); ctx.restore(); }
+        else W(fr, e.x, e.y);
+      } else if (foe.flee ? e.deadT < 1.2 : e.deadT < 0.35) {
+        if (foe.flee) W(fr, e.x, e.y);
+        else ctx.drawImage(fr, snap(e.x - 2), snap(e.y + 12), 28, 8); // flattened, then gone
+      }
+    }
     // player (on the scooter in Kaohsiung)
     const fr = p.face >= 0 ? hero.right : hero.left;
     let im = fr.idle[Math.floor(clock * 2) % 2];
@@ -474,6 +550,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       const sq = p.squash, w = 32 * (1 + sq), hh = 48 * (1 - sq);
       const lift = p.ride ? 14 : 0;
       ctx.drawImage(p.hurtT > 0.25 ? hero.flash : im, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift), snap(w), snap(hh));
+      // Kaohsiung: a half-helmet whenever she rides
+      if (p.ride) ctx.drawImage(lid, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift - 2), snap(w), snap(10 * (1 - sq)));
       if (p.ride) {
         ctx.save(); ctx.translate(snap(p.x + PW / 2), snap(p.y + PH - bike.height / ART)); ctx.scale(p.face >= 0 ? 1 : -1, 1);
         ctx.drawImage(bike, -bike.width / ART / 2, 0, bike.width / ART, bike.height / ART); ctx.restore();
@@ -495,6 +573,10 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     for (let i = 0; i < T.maxHits; i++) { ctx.fillStyle = i < T.maxHits - s.hits ? theme.hud : 'rgba(127,127,127,.35)'; ctx.fillRect(canvas.width - 14 - i * 10, 8, 6, 6); }
     const head = `${s.level + 1} ${WORLDS[s.level].short} · ${WORLDS[s.level].when}`;
     text(ctx, head, Math.round(canvas.width / 2 - textWidth(head) / 2), 10, theme.hud);
+    // the mission, under the strip
+    const ms = s.mission.done ? `★ ${s.mission.text} · DONE` : MISSIONS[s.level].kind === 'ride' ? `★ ${s.mission.text}` : `★ ${s.mission.text} · ${s.mission.have}/${s.mission.need}`;
+    ctx.globalAlpha = 0.82; ctx.fillStyle = theme.sky; ctx.fillRect(0, 22, textWidth(ms) + 16, 12); ctx.globalAlpha = 1;
+    text(ctx, ms, 8, 25, s.mission.done ? '#f3a414' : theme.hud);
     if (s.paused) {
       ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
       text(ctx, 'PAUSED', canvas.width / 2 - 36, canvas.height / 2 - 8, '#ffffff', 3);
@@ -522,7 +604,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   canvas.focus();
 
   return {
-    state: () => ({ ...s, done: [...s.done] }),
+    state: () => ({ ...s, done: [...s.done], missions: [...s.missions], mission: { ...s.mission } }),
     touch,
     levels: LEVELS.length,
     loadLevel: (n: number) => { canvas.focus(); mapSel = n; loadLevel(n); },
