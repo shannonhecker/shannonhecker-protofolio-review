@@ -9,6 +9,10 @@ const HL = top ? 'h2' : 'h3';
 const HD = top ? 'h3' : 'h4'; // decision titles
 import Pic from './Pic.astro';
 import Split from './Split.astro';
+import CaseContents from './CaseContents.astro';
+import DecisionMap from './dg/DecisionMap.astro';
+import CoParent from './dg/CoParent.astro';
+
 ---
 <section id="winking" data-tone="light" class="ws band">
   <div class="wrap">
@@ -21,6 +25,7 @@ import Split from './Split.astro';
         <p class="lead muted" style="grid-column:1/9">A warm, ad-free routine app for families. Every check earns a star, and every week those stars grow a Mystery Pet. I designed and built it on my own, so the visual decisions, the copy and the code are all mine.</p>
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designer and builder, one of one</span><span><b>Stack</b> · React Native, Expo, Firebase</span><span><b>Status</b> · Live, v1.0.4, iPhone and iPad</span><span><b>Languages</b> · EN, FR, ES, DE, 繁體中文</span></div>
       </div>
+      <CaseContents project="winking" />
     </header>
 
     <div class="beat wide rv" id="ws-hero">
@@ -146,6 +151,7 @@ import Split from './Split.astro';
             </div>
           </div>
         </div>
+        <DecisionMap project="winking" />
         <ol class="dec">
           <li><span class="n">01</span><div><HD>Stars and a pet, not a checklist</HD><p>Explored a plain tick list. Research on five to seven year olds said big icons, stickers and celebration win. The checklist lost in our own house within a week.</p></div></li>
           <li><span class="n">02</span><div><HD>A weekly pet with four stages, not a daily score</HD><p>Daily stars count up and never down. The pet grows across the week on what was done, so one missed bath doesn't end the week, and Monday always brings a new egg.</p></div></li>
@@ -179,6 +185,7 @@ import Split from './Split.astro';
           <li><b>Split homes and birthdays</b><p>A custody label, "at Mum's this week", so the board reads right in both houses. A birthday banner for the whole birthday week.</p></li>
           <li><b>Accessibility</b><p>VoiceOver on every tab, Dynamic Type with a scaling cap so nothing clips, Reduce Motion respected, and Calm Mode turns confetti off for families who want quieter feedback. Colour never marks state alone.</p></li>
         </ul>
+        <CoParent />
       </div>
     </div>
 

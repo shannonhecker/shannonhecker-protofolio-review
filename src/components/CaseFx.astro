@@ -7,8 +7,14 @@ const { top = false } = Astro.props;
 const HT = top ? 'h1' : 'h2';
 const HL = top ? 'h2' : 'h3';
 const HD = top ? 'h3' : 'h4'; // decision titles
-import Pic from './Pic.astro';
+import Demo from './Demo.astro';
+import ProductCapture from './ProductCapture.astro';
 import Split from './Split.astro';
+import CaseContents from './CaseContents.astro';
+import DecisionMap from './dg/DecisionMap.astro';
+import Personas from './dg/Personas.astro';
+import Journey from './dg/Journey.astro';
+
 import Flow from './dg/Flow.astro';
 import Layers from './dg/Layers.astro';
 import Matrix from './dg/Matrix.astro';
@@ -25,17 +31,18 @@ import BeforeAfter from './dg/BeforeAfter.astro';
         <p class="lead muted" style="grid-column:1/9">A trader works a large FX order over hours and keeps deciding whether to step in or leave it. The desk did that across a static chart, five spreadsheets and a separate execution tool.</p>
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Lead designer, one of one</span><span><b>Team</b> · ~20 engineers, business, charting vendor</span><span><b>Status</b> · Beta with internal users</span><span><b>Platform</b> · Web, light and dark</span><span><b>Live</b> · <a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener">My public rebuild<span class="vh"> (opens in new tab)</span> →</a></span></div>
       </div>
+      <CaseContents project="fx" />
     </header>
 
     <div class="beat rv" id="fx-problem">
       <div class="label"><HL class="k"><b>01</b> Problem</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Keep the trader in one place, and cut the time from seeing a price move to acting on it." />
+        <ProductCapture name="live-fx.png" alt="The current Enhanced FX interface, with execution chart, order tabs and venue analysis" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Enhanced view · simulated data" />
         <ul class="rows">
           <li><b>Users</b><p>The sales and trading desk, and the institutional clients executing through the same platform with different entitlements.</p></li>
           <li><b>Where we started</b><p>One static Execution Over Time chart from the desk. Five spreadsheets covering trades, market data per order, price limit logs and reference prices. A twelve-item wishlist. No design, no interaction model, no visual language.</p></li>
         </ul>
-        <div class="shot para"><Pic name="ui-fx-before.jpg" alt="The starting point: a static execution-over-time chart, a limit price log, arrival and risk transfer prices in spreadsheets" /></div>
         <p class="note"><i></i>In beta with internal users at Barclays. Under NDA, so every screen here is my public rebuild with sample data, built from the production spec.</p>
       </div>
     </div>
@@ -44,8 +51,6 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="label"><HL class="k"><b>02</b> Users and research</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="A trader who acts, a desk head who defends, and a quant who tunes." />
-        <div class="shot para"><Pic name="ui-fx-users.jpg" alt="Three user profiles: Dana Chen, senior execution trader; Marcus Webb, head of trading; Priya Nair, execution quant. Goals, frictions and what the app gives each" /></div>
-        <div class="shot para"><Pic name="ui-fx-journey.jpg" alt="Dana's order lifecycle journey map from pre-trade to post-trade review, with thoughts, emotional experience, effort, tool switching and a product answer at each pain point" /></div>
         <ul class="rows">
           <li><b>Professionals whose job is the tool</b><p>A trader will tolerate density because power is worth the learning curve. So the problem is hierarchy under pressure, not simplification.</p></li>
           <li><b>Five spreadsheets, read line by line</b><p>Fills, market data, limit price changes, arrival price, risk transfer price. I grouped them into four kinds of data and that grouping became the layers of the chart. Every mark maps to a data type. Nothing is decorative.</p></li>
@@ -64,6 +69,8 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           result="Each kind of data gets its own shape. Nothing on the chart is decorative."
           caption="Understanding the data. Redrawn from my working diagram for the spec."
         />
+        <Personas project="fx" />
+        <Journey project="fx" />
       </div>
     </div>
 
@@ -84,8 +91,6 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="label"><HL class="k"><b>04</b> Explorations</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Watch, assess, step in. Every branch lands on a screen." />
-        <div class="shot para"><Pic name="ui-fx-loop.jpg" alt="The decision loop flowchart: working order live, watch the canvas, percent done on schedule, average fill inside benchmarks, how to intervene, reprice, stage an order, fill now, cross-filter venues" /></div>
-        <div class="shot para"><Pic name="ui-fx-problem.jpg" alt="The core design problem: two questions on one screen, how far along is my order and am I getting a good price, shown on the dual-axis chart with a pinned tooltip" /></div>
         <p class="lead muted">Two questions, one screen. How far along is my order, and am I getting a good price. Show them apart and the trader flicks between charts under pressure. Mash them together and it's noise. The working principle: readable in two seconds, actionable in one click.</p>
       </div>
     </div>
@@ -94,6 +99,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="label"><HL class="k"><b>05</b> Decisions and trade-offs</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Three calls that defined the product. Each one had a real alternative." />
+        <DecisionMap project="fx" />
         <ol class="dec">
           <li><span class="n">01</span><div><HD>Progress and price on one canvas, not two panels</HD><p>We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.</p><p class="verdict">One canvas with a dual axis won, at the cost of a denser screen that needed careful hierarchy.</p></div></li>
           <li><span class="n">02</span><div><HD>Reprice on the chart, not in a settings menu</HD><p>The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line.</p><p class="verdict">Drag won because the decision and the action sit in the same place, with a pre-filled ticket as the safety step.</p></div></li>
@@ -106,8 +112,8 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="label"><HL class="k"><b>06</b> The full flow</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="From monitoring to action, without leaving the chart." />
-        <div class="shot para"><Pic name="fx-flow.jpg" alt="Twenty screens of the full flow: default view, legend, filters, date picker, order ticket, compare orders, hover tooltips, venue analysis, light and dark" /></div>
-        <div class="shot para"><Pic name="ui-fx-action.jpg" alt="Hover a fill, right-click to act, drag the limit line and a pre-filled order ticket opens on the chart" /></div>
+        <ProductCapture name="live-fx-compare.png" alt="Two simulated FX orders compared side by side in the current public rebuild" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Compare orders" />
+        <ProductCapture name="live-fx-ticket.png" alt="The current FX order ticket opened from Fill now, before confirmation" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Order ticket · simulated data" />
         <p class="lead muted">Hover a fill to see the detail. Right-click to act. Drag a price line to reprice, and it opens a filled-in order ticket. Each step commits you a little more, so you can't reprice by accident. We turned a chart you watch into a chart you can trade from.</p>
         <Flow
           label="Monitoring to action, step by step"
@@ -124,7 +130,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
         <ul class="rows">
           <li><b>Built in six phases</b><p>Theming and data integration first, then display, then interaction, and order submission last. Each phase reduced the risk of the next, and the desk got something usable early.</p></li>
           <li><b>Too much on the axis, by design, for now</b><p>Phase one puts every attribute on screen on purpose, so the desk can tell us what matters instead of us guessing. Phase two adds entitlement-based templates per user type and a preference panel to hide attributes. Start wide, then narrow with evidence.</p></li>
-          <li><b>Two version-one debts I paid in the rebuild</b><p>Patterned state regions tiled the canvas, so the exceptional read as normal. States now sit in a lane under the time axis. And volume-sized fill dots were honest at twenty clips and a smear at three hundred. Fills now group into counted clusters that expand on zoom.</p></li>
+          <li><b>Two version-one debts and the next iteration</b><p>My public rebuild still uses patterned state regions and individual fill dots. The diagrams below show the refinements I designed: a separate state lane and counted clusters that expand on zoom. Patterned regions make the exceptional read as normal, and volume-sized dots become a smear at three hundred fills.</p></li>
           <li><b>A compare view, because quality is relative</b><p>Execution quality only means something against a benchmark or another order, so I put a patient working order beside an urgent completed one, with the benchmark metrics in one table.</p></li>
         </ul>
         <BeforeAfter label="Version-one debt: order states" before="States tiled the canvas" beforeNote="Patterned regions sat behind the prices, so the exceptional read as normal." after="States in their own lane" afterNote="A lane under the time axis. The price field stays quiet.">
@@ -157,7 +163,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="The states a trader hits when things are not normal." />
         <Matrix
-          caption="Edge and validation states, and what the chart does in each."
+          caption="Designed edge and validation states. The current public rebuild demonstrates a subset; the state lane and counted clusters are shown as design schematics above."
           cols={['State', 'What the screen does', 'Why']}
           rows={[
             ['Suspended, delayed start, outside limit', 'Each gets its own labelled band in a lane under the time axis.', 'The price field stays quiet, and the state is readable at a glance.'],
@@ -180,7 +186,8 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <div class="metric"><span class="big w">Beta</span><span>in use with internal users at Barclays today</span></div>
           <div class="metric"><span class="big" data-count="3">3</span><span>measures agreed for rollout. Price move to action, tool switches per order, usage per feature</span></div>
         </div>
-        <div class="shot para"><Pic name="ui-fx-outcomes.jpg" alt="The rebuilt FX chart for a working order: fills against benchmarks over the session, with the order panel and the passive and aggressive gauge" /></div>
+        <Demo src="/media/fx-current.webm" poster="live-fx.png" width={1600} height={1000} label="Enhanced view, filter controls, comparison and the order ticket. All data is simulated." />
+        <ProductCapture name="live-fx-filters.png" alt="The current FX filters for venue, fill side and execution states" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Filter controls" />
         <p class="muted measure">No adoption numbers are claimed before rollout. I hold my designs to the same standard as the data. What I'd do differently: direct trader access earlier, instead of going through the business first. And the vendor's engine limits discovered in week one, not mid-spec.</p>
       </div>
     </div>

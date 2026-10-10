@@ -1,0 +1,10 @@
+---
+import Pic from './Pic.astro';
+import { img } from '../lib/img';
+interface Props { name: string; alt: string; href: string; label: string }
+const { name, alt, href, label } = Astro.props;
+---
+<figure class="product-capture">
+  <div class="shot evidence"><Pic name={name} alt={alt} sizes="90vw" /></div>
+  <figcaption><span>{label} · Captured 10 October 2026</span><a href={img(name).src} target="_blank" rel="noopener">View full size<span class="vh">: {label} (opens in new tab)</span></a><a href={href} target="_blank" rel="noopener">Open live product<span class="vh"> (opens in new tab)</span> →</a></figcaption>
+</figure>

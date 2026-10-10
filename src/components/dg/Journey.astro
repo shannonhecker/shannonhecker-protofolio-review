@@ -1,0 +1,10 @@
+---
+import { journeys, type Project } from '../../lib/process';
+interface Props { project: Project }
+const { project } = Astro.props;
+const items = journeys[project] ?? [];
+---
+<section class="process-journey" aria-labelledby={`${project}-journey-title`} id={`${project}-journey`}>
+  <header class="process-heading"><h3 id={`${project}-journey-title`}>User journey</h3><p>{project === 'ai' ? 'I have mapped the intended journey through the alpha, with the person deciding before export.' : 'I have mapped the task, friction and design response described in this case.'}</p></header>
+  <ol>{items.map((s, i) => <li><header><span aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><h4>{s.stage}</h4></header><dl><dt>Task</dt><dd>{s.action}</dd><dt>Friction</dt><dd>{s.friction}</dd><dt>Design response</dt><dd>{s.response}</dd></dl></li>)}</ol>
+</section>

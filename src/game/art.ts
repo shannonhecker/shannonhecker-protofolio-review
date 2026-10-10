@@ -3,7 +3,7 @@
 // Style: Mario-era 16-bit platformer (chunky outlines, bright pickups, tiled
 // ground) with every noun from Shannon's three cases. No pipes, no ? blocks,
 // no mushrooms, no flagpole.
-import { sprite, canvas, flip, tint, text, type Palette } from './pixel';
+import { sprite, canvas, text } from './pixel';
 
 // The player lives in looks.ts: one look per era.
 export { playerFrames, helmet } from './looks';
@@ -188,7 +188,7 @@ export const pet = () => sprite([
 // ---------------------------------------------------------------- the journey
 // World 1 · Kaohsiung 高雄: the city by the park, by the sea. You ride a scooter.
 function kaohsiung(): Theme {
-  const sky = '#ffe1b3';
+  const sky = '#ffe1d2';
   const ground = tile((px) => { px(0, 0, '#d8d2c4', 16, 2); px(0, 2, '#4a4e57', 16, 14); px(2, 8, '#f2e3a0', 6, 1); px(0, 15, '#3a3d45', 16, 1); });
   const fill = tile((px) => { px(0, 0, '#3a3d45', 16, 16); px(0, 7, '#454952', 16, 1); px(7, 0, '#454952', 1, 7); });
   // Platforms are shop awnings, red and white.
@@ -228,15 +228,31 @@ function kaohsiung(): Theme {
     '...kkkkkkkkkk...',
   ], { k: '#3a2216', y: '#f3a414', w: '#fff6ea', r: '#e5484d' });
   const far = canvas(480, 270);
-  far.px(330, 60, '#ffd08a', 34, 34); far.px(326, 66, '#ffd08a', 42, 22); // late sun
+  far.px(330, 60, '#f3b591', 34, 34); far.px(326, 66, '#f3b591', 42, 22); // late sun
+  // Quiet stepped clouds and distant roofs echo the illustrated game cover.
+  for (const [x, y] of [[28, 64], [138, 40], [390, 98]]) {
+    far.px(x, y, '#fff2e6', 38, 4); far.px(x + 8, y - 4, '#fff2e6', 22, 4);
+    far.px(x + 14, y - 7, '#fff2e6', 10, 3);
+  }
   // city blocks and a tall two-legged tower on the skyline
-  for (let x = 0, i = 0; x < 480; i++) { const w = 16 + ((i * 29) % 22), h = 40 + ((i * 47) % 70); far.px(x, 200 - h, '#f2c48c', w, h + 70); x += w + 3; }
+  for (let x = 0, i = 0; x < 480; i++) {
+    const w = 16 + ((i * 29) % 22), h = 40 + ((i * 47) % 70);
+    far.px(x, 200 - h, '#e8b7a0', w, h + 70);
+    far.px(x, 200 - h, '#d79e8c', w, 2);
+    for (let wy = 207 - h; wy < 210; wy += 11) for (let wx = x + 4; wx < x + w - 4; wx += 7) far.px(wx, wy, '#f7d6bc', 3, 5);
+    x += w + 3;
+  }
   far.px(196, 70, '#e8ac6c', 6, 130); far.px(214, 70, '#e8ac6c', 6, 130); far.px(196, 70, '#e8ac6c', 24, 10); far.px(205, 46, '#e8ac6c', 6, 24);
   // the sea, a strip of blue at the bottom
   far.px(0, 236, '#7fb7d9', 480, 34); for (let x = 0; x < 480; x += 9) far.px(x, 240 + (x % 3) * 4, '#b9dcef', 5, 1);
   const near = canvas(480, 270);
   // park trees: round canopies on trunks
-  for (const x of [20, 110, 230, 330, 430]) { near.px(x + 8, 196, '#6b4a2b', 4, 24); near.px(x, 172, '#4f9a5a', 20, 24); near.px(x - 4, 180, '#4f9a5a', 28, 12); near.px(x + 4, 168, '#6fbf73', 10, 6); }
+  for (const x of [20, 110, 230, 330, 430]) {
+    near.px(x + 8, 196, '#6b4a2b', 4, 24);
+    near.px(x, 172, '#628e70', 20, 24); near.px(x - 4, 180, '#628e70', 28, 12);
+    near.px(x + 4, 168, '#8fb58f', 10, 6); near.px(x, 177, '#8fb58f', 8, 4);
+    near.px(x + 13, 184, '#4f775e', 8, 7); near.px(x + 9, 202, '#9b7752', 1, 16);
+  }
   return { id: 'kaohsiung', sky, ground, fill, platform, pickup: [tea, tea], hazard: cone, finish, check: post('#e5484d'), spike: cone, far: far.c, near: near.c, ink: '#3a2a22', hud: '#5a3a1e' };
 }
 

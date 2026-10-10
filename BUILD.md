@@ -304,3 +304,13 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - **"What it isn't":** added from the deck, because the honest line belongs on the page.
 - **Live links where the panel reads them:** each case head now links to its live thing, not only the footer. FX and Fusion link to the public rebuilds, uoaui.ai to uoaui.ai. The footer's "uoaui.ai on request" is now a link.
 - **Fixed in review:** the first image was the logo card, not the prompt screen; and the Stack's side notes overflowed on long text.
+
+### PR 25 · More room, current product evidence, and a little more me
+
+- I gave the home page and every case more space between ideas. Screens use the full case width and keep their original proportions, with a full-size link for the dense details.
+- My two pixel avatars now appear in the introduction and the AI case. Peach details connect them to the game. The game has a gentler map palette and more considered Kaohsiung scenery, plus a short Higgsfield waterfront animation on its cover.
+- I replaced the old FX, Fusion and uoaui screenshots with captures of their current live products, including the signed-in uoaui builder. FX and Fusion have new real walkthroughs; uoaui uses the current clip from its own site. Product videos have native controls and wait for Play.
+- Every case has direct links to its problem, personas, journey, flow and decision map. New diagrams are real responsive text, based on the case copy and Figma sources. Assumptions are labelled. Winking Star also shows the shared-board journey for a second adult.
+- I checked all seven Figma pages. Older drafts and unconfirmed details stay out. Classic is the Barclays design; Enhanced is my public rebuild. No private bank screens or data were used.
+- My existing story stays intact except for two corrections against the current products: compare and tune is my practice, not an enforced uoaui export gate; FX's state lane and counted clusters are shown as design refinements, not current live UI.
+- I checked desktop and mobile layouts, uncropped images, playback, keyboard controls, reduced motion and the game. Current verification is recorded in `docs/QUALITY.md`; asset provenance is in `docs/MEDIA-SOURCES.md`.

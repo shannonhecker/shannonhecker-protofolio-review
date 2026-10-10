@@ -1,0 +1,16 @@
+---
+interface Props { project: 'fx' | 'fusion' | 'ai' | 'winking' }
+const { project } = Astro.props;
+const links = {
+  fx: ['fx-problem', 'fx-personas', 'fx-journey', 'fx-flow', 'fx-decision-map', 'fx-edge', 'fx-outcome'],
+  fusion: ['fu-problem', 'fusion-personas', 'fusion-journey', 'fu-workflow', 'fusion-decision-map', 'fu-design', 'fu-outcome'],
+  ai: ['ai-what', 'ai-personas', 'ai-journey', 'ai-flow', 'ai-decision-map', 'ai-decisions', 'ai-judgement'],
+  winking: ['ws-problem', 'ws-personas', 'ws-journey', 'ws-flow', 'winking-decision-map', 'ws-edge', 'ws-outcome'],
+};
+const names = ['Problem statement', 'Personas', 'User journey', 'User flow', 'Decision map', 'Edge states', 'Outcome'];
+if (project === 'fusion' || project === 'ai') names[5] = 'System';
+if (project === 'ai') names[6] = 'AI at work';
+---
+<nav class="case-contents" aria-label="Case study sections">
+  {links[project].map((id, i) => <a href={`#${id}`}>{names[i]}</a>)}
+</nav>

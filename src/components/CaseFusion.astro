@@ -7,8 +7,14 @@ const { top = false } = Astro.props;
 const HT = top ? 'h1' : 'h2';
 const HL = top ? 'h2' : 'h3';
 const HD = top ? 'h3' : 'h4'; // decision titles
-import Pic from './Pic.astro';
+import Demo from './Demo.astro';
+import ProductCapture from './ProductCapture.astro';
 import Split from './Split.astro';
+import CaseContents from './CaseContents.astro';
+import DecisionMap from './dg/DecisionMap.astro';
+import Personas from './dg/Personas.astro';
+import Journey from './dg/Journey.astro';
+
 import Flow from './dg/Flow.astro';
 import Stack from './dg/Stack.astro';
 ---
@@ -23,18 +29,20 @@ import Stack from './dg/Stack.astro';
         <p class="lead muted" style="grid-column:1/9">Portfolio managers and analysts were drowning in fragmented data. Their real need was trust in the numbers, not more features. Performance, attribution and risk they could take into a board meeting.</p>
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · VP, Product Design. Led the design</span><span><b>System</b> · Salt, plus a Fusion layer I built</span><span><b>Status</b> · Shipped, opened to clients</span><span><b>Live</b> · <a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener">My public rebuild<span class="vh"> (opens in new tab)</span> →</a></span></div>
       </div>
+      <CaseContents project="fusion" />
     </header>
 
     <div class="beat rv" id="fu-problem">
       <div class="label"><HL class="k"><b>01</b> Problem</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Their real need was trust in the numbers, not more features." />
-        <div class="shot para"><Pic name="ui-fusion-cover.jpg" alt="Fusion analytics dashboard screens laid out at an angle: performance tables, returns charts, allocation and risk views" /></div>
+        <ProductCapture name="live-fusion.png" alt="The live Fusion public rebuild with report discovery, featured dashboards and the report table" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild" />
         <ul class="rows">
           <li><b>Users</b><p>Portfolio managers and analysts at asset managers, and in phase two their clients, who'd had no training. Expert users under time pressure, often presenting the screen live.</p></li>
           <li><b>The job</b><p>Performance, attribution and risk they could take into a board meeting, from live and historical data, with heavy filtering.</p></li>
           <li><b>Where it started</b><p>The existing RaaS interface was a legacy layout that couldn't flex to different data or roles.</p></li>
         </ul>
+        <Personas project="fusion" />
       </div>
     </div>
 
@@ -71,6 +79,7 @@ import Stack from './dg/Stack.astro';
           <li><b>The review cycle</b><p>Requirements with the product owner, iteration with UX, review with product, engineering and the accessibility specialist, then pixel-level work with developers in daily stand-ups. Accessibility was a review step, not a final check.</p></li>
           <li><b>What testing changed</b><p>The customisation tier I cut came from watching people use the configuration options. The middle tier added choices without changing what they built. Removing it made the first useful view faster to reach.</p></li>
         </ul>
+        <Journey project="fusion" />
       </div>
     </div>
 
@@ -78,13 +87,14 @@ import Stack from './dg/Stack.astro';
       <div class="label"><HL class="k"><b>04</b> Decisions and trade-offs</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="What I tried, what I dropped, and why." />
+        <DecisionMap project="fusion" />
         <ol class="dec">
           <li><span class="n">01</span><div><HD>Modular widgets over fixed page templates</HD><p>Fixed layouts were faster to ship, but every new data cube would have needed a new page.</p><p class="verdict">The grid won because one widget serves many cubes and permission levels.</p></div></li>
           <li><span class="n">02</span><div><HD>Cut a customisation tier</HD><p>Early versions had three levels of configuration. Testing showed the middle tier added cognitive load without changing what people built.</p><p class="verdict">I removed it. The test I use for what not to design: is this serving a real workflow contradiction, or one team's preference?</p></div></li>
           <li><span class="n">03</span><div><HD>Same screens for internal and external users</HD><p>Phase two brought in clients who'd had no training.</p><p class="verdict">One product with entitlement-based views over a simplified client version, so patterns stayed consistent and the team kept one codebase.</p></div></li>
           <li><span class="n">04</span><div><HD>What I'd do differently</HD><p>Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules.</p><p class="verdict">And bring the accessibility specialist in from week one, not mid-flow.</p></div></li>
         </ol>
-        <div class="shot para"><Pic name="fu-config.jpg" alt="The configuration panels: choosing dimensions and measures, then grouping rows, step by step from left to right" /></div>
+        <ProductCapture name="live-fusion-config.png" alt="The current Fusion performance table beside its configuration panel" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Configure performance" />
       </div>
     </div>
 
@@ -92,8 +102,8 @@ import Stack from './dg/Stack.astro';
       <div class="label"><HL class="k"><b>05</b> Design and system</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Configurable pages built from modular widgets, on a layer I made on top of Salt." />
-        <div class="shot para"><Pic name="fu-widgets.jpg" alt="One widget shell, five uses: a performance table, returns bars, a tracker donut, a history area chart and a trend combination chart, each with its own view menu" /></div>
-        <div class="shot para"><Pic name="ui-fusion-design.jpg" alt="Fusion performance results table with a configuration panel, and a sustainable investment portfolio report with a clustered column chart and a date range picker" /></div>
+        <Demo src="/media/fusion-current.webm" poster="live-fusion.png" width={1600} height={1000} label="Report discovery, Performance, its configuration panel and Sustainable Investment." />
+        <ProductCapture name="live-fusion-performance.png" alt="The current Fusion Performance workspace with performance results and analytical widgets" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Performance workspace" />
         <ul class="rows">
           <li><b>One widget, many cubes</b><p>The same widget works across different data cubes and permission levels. One design serves a portfolio manager and a client who can only see part of the book. Users build their own views and import and export through FactSet.</p></li>
           <li><b>What I built</b><p>Tokens, components and patterns for Fusion on top of Salt. Data tables, chart frames, filter bars, widget shells, the accessibility layers. Where Salt had a gap, I built it and contributed it back upstream.</p></li>
@@ -124,7 +134,7 @@ import Stack from './dg/Stack.astro';
           <div class="metric"><span class="big w">Adopted</span><span>widget and filtering patterns reused across other Fusion modules</span></div>
           <div class="metric"><span class="big w">Phase 2</span><span>opened the product to external clients, and several signed after that launch</span></div>
         </div>
-        <div class="shot para"><Pic name="ui-fusion-outcome.jpg" alt="Outcome screens: the ID exceptions studio table with summary cards, a configuration panel, and the component picker that other teams build on" /></div>
+        <ProductCapture name="live-fusion-sustainable.png" alt="The current Fusion Sustainable Investment workspace" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Sustainable Investment" />
       </div>
     </div>
   </div>
