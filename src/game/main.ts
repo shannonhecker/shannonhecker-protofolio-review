@@ -34,6 +34,15 @@ export function start(canvas: HTMLCanvasElement, opts: { reduceMotion: boolean; 
   const p = { x: checkpoint.x, y: checkpoint.y, vx: 0, vy: 0, grounded: false, face: 1, heldFor: 0, coyote: 0, buffer: 0, jumpHeld: false, rising: false, invuln: 0, squash: 0 };
   const s: GameState = { x: 0, y: 0, vx: 0, vy: 0, grounded: false, hits: 0, collected: 0, total, finished: false, paused: false, jumps: 0 };
   let cam = 0;
+  // Juice (off under reduced motion): landing dust and a burst on collect.
+  const parts: { x: number; y: number; vx: number; vy: number; life: number; c: string }[] = [];
+  const puff = (x: number, y: number, n: number, c: string, spread: number) => {
+    if (opts.reduceMotion) return;
+    for (let i = 0; i < n; i++) {
+      const a = (Math.PI * 2 * i) / n + Math.random() * 0.4;
+      parts.push({ x, y, vx: Math.cos(a) * spread, vy: Math.sin(a) * spread - spread * 0.3, life: 0.35, c });
+    }
+  };
   let shake = 0;
   let last = 0, acc = 0, raf = 0;
 
@@ -178,7 +187,7 @@ export function start(canvas: HTMLCanvasElement, opts: { reduceMotion: boolean; 
       }
       if (land) {
         p.y = row * TILE - PH; p.vy = 0; p.grounded = true;
-        if (!wasGrounded && !opts.reduceMotion) p.squash = 0.12;
+        if (!wasGrounded && !opts.reduceMotion) { p.squash = 0.12; puff(p.x + PW / 2, p.y + PH, 6, col.hair, 70); }
       } else p.y = ny;
     } else p.y = ny;
 
@@ -193,12 +202,17 @@ export function start(canvas: HTMLCanvasElement, opts: { reduceMotion: boolean; 
       const pad = it.kind === '^' ? 6 : 0;
       const over = p.x < ix + TILE - pad && p.x + PW > ix + pad && p.y < iy + TILE && p.y + PH > iy + pad * 2;
       if (!over) continue;
-      if (it.kind === 'o') { it.taken = true; s.collected++; sfx.collect(); }
+      if (it.kind === 'o') { it.taken = true; s.collected++; sfx.collect(); puff(ix + TILE / 2, iy + TILE / 2, 8, col.star, 140); }
       else if (it.kind === '^') hurt(ix + TILE / 2);
       else if (it.kind === 'C') { checkpoint = { x: ix + (TILE - PW) / 2, y: iy + TILE - PH }; }
       else if (it.kind === 'F' && !s.finished) { s.finished = true; sfx.finish(); opts.onFinish({ ...s }); }
     }
 
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const q = parts[i];
+      q.life -= dt; q.x += q.vx * dt; q.y += q.vy * dt; q.vy += 600 * dt;
+      if (q.life <= 0) parts.splice(i, 1);
+    }
     p.squash *= Math.pow(0.0001, dt); // ease back to 0 in ~100ms
     shake = Math.max(0, shake - dt * 30);
 
@@ -245,6 +259,11 @@ export function start(canvas: HTMLCanvasElement, opts: { reduceMotion: boolean; 
       else if (it.kind === 'C') { ctx.fillStyle = col.hair; ctx.fillRect(cx - 1, it.y * TILE - 16, 2, TILE + 16); }
       else if (it.kind === 'F') { ctx.fillStyle = col.ink; ctx.fillRect(it.x * TILE + 4, it.y * TILE - 24, TILE - 8, TILE + 24); }
     }
+    for (const q of parts) {
+      ctx.globalAlpha = Math.max(0, q.life / 0.35);
+      ctx.fillStyle = q.c; ctx.fillRect(q.x - 2, q.y - 2, 4, 4);
+    }
+    ctx.globalAlpha = 1;
     // player: 32×48 cell, stand-in shape until the sprite sheet exists
     if (!(p.invuln > 0 && Math.floor(p.invuln * 12) % 2)) {
       const sq = p.squash, w = 32 * (1 + sq), h = 48 * (1 - sq);
