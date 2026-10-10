@@ -14,7 +14,7 @@ export { setSound } from './sound';
 export const WORLDS = [
   { short: 'KAOHSIUNG', when: 'GROWING UP' },
   { short: 'LING TUNG', when: '2008-2010' },
-  { short: 'WEB DESIGN', when: 'B2C' },
+  { short: 'WEB DESIGN', when: '2012' },
   { short: 'LONDON', when: '2015-2016' },
   { short: 'J.P. MORGAN', when: '2016-2025' },
   { short: 'BARCLAYS', when: '2025-NOW' },
