@@ -185,7 +185,7 @@ export function flagTaiwan() {
  * colours are close matches, kept here so they are easy to correct. */
 export const BRAND: Record<number, { bg: string; accent: string; fg: string }> = {
   3: { bg: '#231f20', accent: '#e4007c', fg: '#ffffff' }, // London Met
-  4: { bg: '#5c4632', accent: '#c9a96e', fg: '#ffffff' }, // J.P. Morgan
+  4: { bg: '#331207', accent: '#2c5aae', fg: '#ffffff' }, // J.P. Morgan: wordmark brown, octagon blue (sampled from Shannon's file)
   5: { bg: '#00395d', accent: '#00aeef', fg: '#ffffff' }, // Barclays
 };
 
@@ -232,7 +232,31 @@ export const SCHOOL_ICONS: Record<number, () => HTMLCanvasElement> = {
 // to 15×16 (not redrawn, so the shape stays the brand's own). Cyan on white,
 // as the mark appears. Shannon chose to show it; remove this entry to go back
 // to the plain brand-colour tile.
+// J.P. Morgan: the octagon from the logo file Shannon supplied, downsampled to
+// 16×16. At that size its four white seams vanish, so they are put back at
+// 1 px each, where the logo has them (the pinwheel around the square hole).
 export const LOGO_ICONS: Record<number, { icon: () => HTMLCanvasElement; bg: string }> = {
+  4: {
+    bg: '#ffffff',
+    icon: () => sprite([
+      '....b.bbbbbb....',
+      '...bb.bbbbbbb...',
+      '..bbb.bbbbbbbb..',
+      '.bbbb.bbbbbbbbb.',
+      'bbbbb.bbbbbbbbbb',
+      'bbbbb...........',
+      'bbbbb......bbbbb',
+      'bbbbb......bbbbb',
+      'bbbbb......bbbbb',
+      'bbbbb......bbbbb',
+      '...........bbbbb',
+      'bbbbbbbbbb.bbbbb',
+      '.bbbbbbbbb.bbbb.',
+      '..bbbbbbbb.bbb..',
+      '...bbbbbbb.bb...',
+      '....bbbbbb.b....',
+    ], { b: '#2c5aae' }),
+  },
   5: {
     bg: '#ffffff',
     icon: () => sprite([

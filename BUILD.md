@@ -212,3 +212,9 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - **Not redrawn:** the eagle was box-downsampled from her file to 15×16 rather than redrawn, so the shape stays the brand's own.
 - **Easy to remove:** the icon lives in `LOGO_ICONS` in `src/game/map.ts`. Deleting that entry brings back the plain brand-colour tile.
 - **Flagged to Shannon:** Barclays is her current employer and the site is part of a job search, so she should check Barclays' brand and social-media policy before the link goes out.
+
+### PR 15 · The J.P. Morgan octagon (Shannon's request)
+
+- **Octagon icon:** the J.P. Morgan tile shows the octagon from the logo file Shannon sent, blue on white. The wordmark is left off: at 16 px it can't be read, and the badge already names the company.
+- **Seams restored:** downsampling closed the octagon's four white seams, which turned it into a plain ring. I put them back at 1 px each, where the logo has them, so the pinwheel around the square hole still reads.
+- **Exact colours:** the J.P. Morgan badge now uses the wordmark brown and octagon blue sampled from her file, replacing my earlier close match.
