@@ -567,3 +567,11 @@ I moved the horizontal workflow arrows from the middle of each card to the title
 I also replaced the four state-lane and fill-cluster schematics with the exact current SVG graphics from Figma. Their outer card borders and padding are gone, with the same cleanup in the desktop and mobile Figma frames. The original artwork and explanatory copy stay intact.
 
 Validation: production build and all 148 Playwright tests passed. Chrome visual checks confirmed the arrow alignment and the exact four graphics.
+
+### 11 October · Current FX screenshots and a readable journey
+
+I synced all nine updated screenshot sources from my working Figma FX page, using the original uploaded PNGs. The full flow now includes the hover tooltip, candlestick view and pre-filled ticket. The outcome recording uses the updated comparison screenshot as its poster, and the tablet and phone captures match Figma. The source node mapping is in docs/figma-fx-screenshot-sync.json.
+
+I separated the journey's persona, scenario, goal and phase descriptions from the tiny vector lettering. They now use 16px body text, wider two-column stage descriptions and a single column on phones. The thoughts, feelings and approach chart still uses my exact original SVG, unchanged. I added matching readable text layouts in Figma, kept its original vector artwork, and preserved the existing mobile stage descriptions.
+
+Validation: production build and all 148 Playwright tests passed. I checked the desktop and phone journey layouts in Chrome and the revised Figma journey composition.
