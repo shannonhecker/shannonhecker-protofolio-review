@@ -1,0 +1,22 @@
+---
+import Pic from './Pic.astro';
+import { img } from '../lib/img';
+const screens=['home','activity','treasure','progress'];
+---
+<section class="screen-sequence" aria-labelledby="ws-appstore-screens">
+ <h2 id="ws-appstore-screens">The app, from first routine to weekly progress</h2>
+ <p class="muted">The four published iPhone screenshots from Winking Star v1.0.4 on the App Store.</p>
+ <div class="store-screen-grid">
+  {screens.map(screen=><figure><a href={img(`appstore-iphone-${screen}.jpg`).src} target="_blank" rel="noopener" aria-label={`View full-size ${screen} App Store screenshot (opens in new tab)`}><Pic name={`appstore-iphone-${screen}.jpg`} alt={`Published Winking Star iPhone ${screen} screenshot`} sizes="(max-width:760px) 42vw, 280px" /></a><figcaption>{screen.charAt(0).toUpperCase()+screen.slice(1)}</figcaption></figure>)}
+ </div>
+ <h3>Room for the family on iPad</h3>
+ <div class="tablet-screen-grid">
+  {['home','activity'].map(screen=><figure><a href={img(`appstore-ipad-${screen}.png`).src} target="_blank" rel="noopener" aria-label={`View full-size iPad ${screen} screenshot (opens in new tab)`}><Pic name={`appstore-ipad-${screen}.png`} alt={`Published Winking Star iPad ${screen} screenshot`} sizes="(max-width:760px) 90vw, 580px" /></a><figcaption>iPad · {screen}</figcaption></figure>)}
+ </div>
+ <h3>English and French</h3>
+ <p class="muted">Localized App Store artwork from my app project. These are marketing compositions, shown separately from direct in-app captures.</p>
+ <div class="localised-screen-grid">
+  {[['appstore-iphone-activity.jpg','English'],['ws-fr-iphone-02-activity.png','French']].map(([file,label])=><figure><a href={img(file).src} target="_blank" rel="noopener" aria-label={`View full-size ${label} artwork (opens in new tab)`}><Pic name={file} alt={`${label} Winking Star activity artwork`} sizes="(max-width:760px) 42vw, 320px" /></a><figcaption>{label} · App Store artwork</figcaption></figure>)}
+ </div>
+ <p class="source-link"><a href="https://apps.apple.com/app/id6765767262" target="_blank" rel="noopener">View Winking Star on the App Store<span class="vh"> (opens in new tab)</span></a></p>
+</section>

@@ -9,6 +9,8 @@ export default defineConfig({
   site: 'https://shannonhecker.com',
   output: 'static',
   trailingSlash: 'never',
-  build: { format: 'file', inlineStylesheets: 'always' },
+  // Cache the shared stylesheet across cases instead of embedding the full
+  // design system into every HTML document; tiny component styles stay inline.
+  build: { format: 'file', inlineStylesheets: 'auto' },
   image: { responsiveStyles: false },
 });

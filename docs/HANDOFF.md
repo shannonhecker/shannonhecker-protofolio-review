@@ -23,7 +23,7 @@ Repo: `shannonhecker/shannonhecker-protofolio-review`. The brief is in
 - Keep Shannon's words. She said no to cutting the case copy (10 Oct 2026).
   Add images, spacing and diagrams around it instead.
 - Game: no Nintendo characters, sprites, sounds, items or names.
-- Footer line: "Built in code with Claude Code, art directed by me." linking to /build.
+- Footer: Shannon requested removal of the build credit on 10 October 2026. Keep the build log at `/build`, without the credit line in the footer.
 - Branch per change, PR to main, merge. Run `npx playwright test` first
   (`PW_CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome` in the cloud sandbox).
 - Ask Shannon one question at a time.
@@ -97,3 +97,31 @@ readable lighter typography, scroll-led chapters and optional game. These choice
 supersede the earlier white-page-only visual restriction and frozen composition.
 Content accuracy, NDA, original words, complete images and accessibility still
 apply. The redesign is not complete; see `docs/TASKS.md` for remaining work.
+
+### Latest review direction, 10 October evening
+
+Shannon supplied matthieugivelet.com for typography, generous spacing and large
+clean product imagery, and eddy-naboulet.dev for playful responsive interactions.
+The current revision uses neutral sans-serif display type and a wider image-first
+work gallery, preserving the full product images. Subtle project colours return
+in structural accents; game scenery remains within the game. The avatar uses
+registered separate eye/mouth parts, no keyboard/directional controls, gentle
+pointer/scroll response and a pause control. Reduced motion stays still.
+The original Figma FX decision loop is again the primary flowchart, source-linked
+and accompanied by an accessible transcript. Keep authored Figma process work
+alongside current labelled public-rebuild screenshots; do not replace it with a
+generic synthesized diagram. See the latest PR #25 checkpoint in TASKS.
+
+### Latest confirmed personal timeline, 10 October late evening
+
+Shannon confirmed babies in 2018 and 2021, arrival in the UK in 2013 for a working holiday and study, art/craft/digital media study in Taiwan, and Digital Media at London Met focused on game and UX design. The existing London Met degree dates remain 2015–2016; they must not be described as the UK arrival dates. These details appear in the optional game's journal, education cards and achievements. Source-linked world news is context, not her personal experience or a scored achievement.
+
+Interface corners now use a shared 4px token. Keep circular art/dots intentional. The game has eight distinct original soundtracks plus a map tune, a separate death cue, seated scooter pose, Taiwan→UK flight and a final Scrollkeeper/castle/flag sequence. Functional browser storage `working-order-progress-v2` remembers completed stages and mission stars; it is separate from analytics and scoreboard data.
+
+Late FX sync: user confirmed BOTH website and Figma mobile frame. Portfolio file FX desktop `32:9` and mobile `32:10` now contain original personas/journey, and mobile adapts newly authored desktop chart/compare/ticket/data-layer vectors. Source UI file is preserved. Final level 7 (eighth stage) is locked until done includes all 0–6; enforce in engine, DOM chooser and map, including direct links. Optional mission stars are not prerequisites.
+
+Finale weapon: starlight wand is equipped in stage 7. X/J, gamepad button 2, or contextual touch Cast fires a wall-blocked projectile in the facing direction; 0.5s cooldown, three boss hits, pause freezes shots. Original pixel art and synthesized casting sound. No weapon in earlier levels.
+
+Latest instruction: finish the website changes and push them all live; Claude is independently improving Figma, so do not overwrite those frames. Website scroll motion uses the existing GSAP ScrollTrigger plugin, loaded on first scroll. Reversible masked words and staggered image/caption timelines use shorter touch movement and matchMedia cleanup for reduced motion. Keep product screenshots complete. The home intro uses a ~1.3s sequence; derive elapsed time from document.timeline and animation.startTime, because finished animation.currentTime is clamped.
+
+Music scores live in `src/game/music-score.ts`: eight stage songs plus a map waltz, each with original phrasing, metre, bass and percussion. Stage switching stops all old music voices and resets the score; tests observe Web Audio scheduling rather than only track names. Baby milestones are **2018 and 2021**, per Shannon's correction on 11 October.

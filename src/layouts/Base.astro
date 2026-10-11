@@ -1,12 +1,18 @@
 ---
+import AnalyticsConsent from '../components/AnalyticsConsent.astro';
 import { getImage } from 'astro:assets';
 import { img } from '../lib/img';
 import '../styles/fonts.css';
 import '../styles/prototype.css';
 import '../styles/production.css';
 import '../styles/editorial.css';
-import displayFont from '@fontsource/nunito/files/nunito-latin-600-normal.woff2?url';
-import bodyFont from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
+import '../styles/scroll-depth.css';
+import '../styles/typography-layout.css';
+import '../styles/type-rhythm.css';
+import '../styles/showcase.css';
+import '../styles/page-transitions.css';
+import displayFont from '@fontsource/inter-tight/files/inter-tight-latin-500-normal.woff2?url';
+import bodyFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 
 interface Props {
   title?: string;
@@ -28,7 +34,7 @@ const ogImage = await getImage({ src: img('live-fx.png'), width: 1200, format: '
 const og = new URL(ogImage.src, Astro.site).href;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-project={path.slice(1)} data-theme={path==='/fx'?'dark':'light'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -39,6 +45,22 @@ const og = new URL(ogImage.src, Astro.site).href;
         vercel.json X-Robots-Tag header says the same for every file. */}
     <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#ffffff" />
+    <script is:inline>
+      (() => {
+        const d=document.documentElement;
+        let choice='project';try{choice=localStorage.getItem('portfolio-theme')||'project';}catch{}
+        const dark=choice==='dark'||(choice==='system'&&matchMedia('(prefers-color-scheme:dark)').matches)||(choice==='project'&&d.dataset.project==='fx');
+        d.dataset.theme=dark?'dark':'light';d.dataset.appearance=choice;
+        // Capture the outgoing document as one unscaled sheet. The incoming
+        // document separates title, copy and media for staggered entrances.
+        addEventListener('pageswap',event=>{
+          if(!event.viewTransition)return;
+          d.classList.add('page-departing');
+          event.viewTransition.finished.finally(()=>d.classList.remove('page-departing'));
+        });
+        addEventListener('pageshow',()=>d.classList.remove('page-departing'));
+      })();
+    </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -61,7 +83,11 @@ const og = new URL(ogImage.src, Astro.site).href;
       url: 'https://shannonhecker.com',
       sameAs: ['https://www.linkedin.com/in/shannonhecker/'],
     })} />
-    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    {['/', '/panel'].includes(Astro.url.pathname) && <>
+      <link rel="preload" as="image" href="/art/avatar-idle-0.webp" fetchpriority="high" />
+      <link rel="preload" as="image" href="/art/avatar-greeting/wave.webp" fetchpriority="high" />
+    </>}
+    {!(['/', '/panel'].includes(Astro.url.pathname)) && <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />}
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
     <script is:inline>
       // Motion gate. Hidden-until-revealed states only apply under html.js, and
@@ -77,6 +103,9 @@ const og = new URL(ogImage.src, Astro.site).href;
   </head>
   <body>
     <slot />
+    <AnalyticsConsent />
     <script>import '../scripts/adventure.ts';</script>
+    <script>import '../scripts/appearance.ts';</script>
+    <script>import '../scripts/avatar-cursor.ts';</script>
   </body>
 </html>

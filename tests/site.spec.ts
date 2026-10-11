@@ -6,7 +6,36 @@ const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-prac
 test('hero renders', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/I design tools\s*where mistakes\s*cost money\./);
-  await expect(page.locator('.hero-art img')).toBeVisible();
+  await expect(page.locator('.hero-art .game-poster img')).toBeVisible();
+});
+
+test('header glass follows scrolling in both themes and keeps links usable', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/panel');
+  const nav = page.locator('.nav');
+  const filter = () => nav.evaluate(el => getComputedStyle(el).backdropFilter);
+  for (const dark of [false, true]) {
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(nav).not.toHaveClass(/solid/);
+    if (dark) await page.getByRole('switch', { name: 'Dark mode' }).click();
+    expect(await filter()).toBe('none');
+    const contact = nav.getByRole('link', { name: 'Contact', exact: true });
+    await contact.hover();
+    expect((await new AxeBuilder({ page }).include('.nav .cta').withTags(WCAG).analyze()).violations).toEqual([]);
+    await contact.focus();
+    expect((await new AxeBuilder({ page }).include('.nav .cta').withTags(WCAG).analyze()).violations).toEqual([]);
+    await page.mouse.move(0, 300);
+
+    await page.evaluate(() => window.scrollTo(0, 200));
+    await expect(nav).toHaveClass(/solid/);
+    expect(await filter()).toContain('blur(16px)');
+    expect(await nav.evaluate(el => getComputedStyle(el).backgroundColor)).toContain('0.78');
+    await expect(nav.getByRole('link', { name: 'FX', exact: true })).toBeInViewport();
+    await contact.hover();
+    expect((await new AxeBuilder({ page }).include('.nav').withTags(WCAG).analyze()).violations).toEqual([]);
+  }
+  await nav.getByRole('link', { name: 'FX', exact: true }).click();
+  await expect(page).toHaveURL(/\/fx$/);
 });
 
 for (const [label, id] of [['Work', 'work'], ['How I work', 'how']]) {
@@ -69,11 +98,8 @@ test('/panel carries the panel line and stays out of the index', async ({ page }
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://shannonhecker.com/');
 });
 
-test('footer carries the build line and links to the log', async ({ page }) => {
-  await page.goto('/');
-  const line = page.getByRole('link', { name: 'Built in code with Claude Code, art directed by me.' });
-  await expect(line).toHaveAttribute('href', '/build');
-  await line.click();
+test('build log remains directly available', async ({ page }) => {
+  await page.goto('/build');
   await expect(page.getByRole('heading', { level: 1, name: 'Build log' })).toBeVisible();
 });
 
@@ -115,9 +141,10 @@ test.describe('reduced motion', () => {
       [...document.querySelectorAll('.rv, .split .wd, .hero h1 .ln span')].filter((el) => getComputedStyle(el).opacity !== '1').length,
     );
     expect(hidden).toBe(0);
-    expect(await page.locator('.ticker-track').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+    expect(await page.locator('.idle-blink').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
     await page.goto('/winking-star');
-    expect(await page.locator('.themes-track').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+    await expect(page.locator('.theme-gallery img')).toHaveCount(4);
+    expect(await page.locator('.theme-gallery').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
   });
 });
 
@@ -156,16 +183,15 @@ test.describe('mobile nav', () => {
   });
 });
 
-test('marquees have a real pause control (WCAG 2.2.2)', async ({ page }) => {
+test('avatar ambient motion has a persistent pause control', async ({ page }) => {
   await page.goto('/');
-  const btn = page.locator('.ticker .mq-toggle');
-  await btn.focus();
-  await page.keyboard.press('Enter');
+  const btn = page.locator('.companion-motion');
+  await btn.click();
   await expect(btn).toHaveAttribute('aria-pressed', 'true');
-  await expect(btn).toHaveAccessibleName('Pause scrolling');
-  // Stays paused after focus leaves, unlike hover/focus-only pausing.
+  await expect(btn).toHaveAccessibleName('Resume motion');
   await page.locator('body').click({ position: { x: 5, y: 5 } });
-  expect(await page.locator('.ticker-track').evaluate((el) => getComputedStyle(el).animationPlayState)).toBe('paused');
+  await expect(page.locator('.landing-companion')).toHaveAttribute('data-paused', 'true');
+  expect(await page.locator('.idle-blink').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
 });
 
 test('print output shows every section with nothing hidden', async ({ page }) => {

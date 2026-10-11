@@ -11,7 +11,6 @@ import Demo from './Demo.astro';
 import ProductCapture from './ProductCapture.astro';
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
-import ChapterScene from './ChapterScene.astro';
 import ResponsiveEvidence from './ResponsiveEvidence.astro';
 import DecisionMap from './dg/DecisionMap.astro';
 import Personas from './dg/Personas.astro';
@@ -31,7 +30,10 @@ import Stack from './dg/Stack.astro';
         <p class="lead muted" style="grid-column:1/9">Portfolio managers and analysts were drowning in fragmented data. Their real need was trust in the numbers, not more features. Performance, attribution and risk they could take into a board meeting.</p>
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · VP, Product Design. Led the design</span><span><b>System</b> · Salt, plus a Fusion layer I built</span><span><b>Status</b> · Shipped, opened to clients</span><span><b>Live</b> · <a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener">My public rebuild<span class="vh"> (opens in new tab)</span> →</a></span></div>
       </div>
-      <ChapterScene project="fusion" />
+      <div class="project-hero">
+<ProductCapture name="live-fusion.png" alt="The live Fusion public rebuild with report discovery, featured dashboards and the report table" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" eager label="My public rebuild" />
+<ProductCapture name="live-fusion-performance.png" alt="The Fusion public rebuild showing the complete Performance workspace" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Performance workspace" />
+      </div>
     </header>
     <CaseContents project="fusion" />
 
@@ -39,7 +41,6 @@ import Stack from './dg/Stack.astro';
       <div class="label"><HL class="k"><b>01</b> Problem</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Their real need was trust in the numbers, not more features." />
-        <ProductCapture name="live-fusion.png" alt="The live Fusion public rebuild with report discovery, featured dashboards and the report table" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild" />
         <ul class="rows">
           <li><b>Users</b><p>Portfolio managers and analysts at asset managers, and in phase two their clients, who'd had no training. Expert users under time pressure, often presenting the screen live.</p></li>
           <li><b>The job</b><p>Performance, attribution and risk they could take into a board meeting, from live and historical data, with heavy filtering.</p></li>
@@ -107,6 +108,7 @@ import Stack from './dg/Stack.astro';
         <Split as="h3" class="h-sub" text="Configurable pages built from modular widgets, on a layer I made on top of Salt." />
         <Demo src="/media/fusion-current.webm" poster="live-fusion.png" width={1600} height={1000} label="Report discovery, Performance, its configuration panel and Sustainable Investment." />
         <ProductCapture name="live-fusion-performance.png" alt="The current Fusion Performance workspace with performance results and analytical widgets" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Performance workspace" />
+        <ProductCapture name="live-fusion-risk.png" alt="The current Fusion Risk workspace with portfolio risk charts, tables and analytical widgets" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Risk workspace" />
         <ul class="rows">
           <li><b>One widget, many cubes</b><p>The same widget works across different data cubes and permission levels. One design serves a portfolio manager and a client who can only see part of the book. Users build their own views and import and export through FactSet.</p></li>
           <li><b>What I built</b><p>Tokens, components and patterns for Fusion on top of Salt. Data tables, chart frames, filter bars, widget shells, the accessibility layers. Where Salt had a gap, I built it and contributed it back upstream.</p></li>

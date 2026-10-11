@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import ThemePicker from './ThemePicker.astro';
 ---
 <nav class="nav" aria-label="Sections">
   <a class="brand" href="/panel" aria-label="Shannon Hecker, home"><span class="full">Shannon Hecker</span><span class="short"><Logo size={34} /></span></a>
@@ -11,5 +12,8 @@ import Logo from './Logo.astro';
     <li><a class="l" href="/uoaui">uoaui.ai</a></li>
     <li><a class="l" href="/panel#how">How I work</a></li>
   </ul>
-  <a class="cta" href="#links">Contact</a>
+  <div class="nav-actions">
+    <ThemePicker />
+    <a class="cta" href="#links">Contact</a>
+  </div>
 </nav>

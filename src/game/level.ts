@@ -8,7 +8,7 @@ export function parse(rows: string[]) {
   const h = rows.length;
   const w = Math.max(...rows.map((r) => r.length));
   const tiles: Tile[][] = [];
-  const items: { x: number; y: number; kind: 'o' | 'u' | '^' | 'C' | 'F' | 'B' }[] = [];
+  const items: { x: number; y: number; kind: 'o' | 'u' | '^' | 'C' | 'F' | 'B' | '*' }[] = [];
   const hazards: { x: number; y: number; kind: HazardKind; i: number }[] = [];
   const movers: Mover[] = [];
   const foes: { x: number; y: number; i: number }[] = [];
@@ -19,7 +19,7 @@ export function parse(rows: string[]) {
       const c = rows[y][x] ?? ' ';
       tiles[y][x] = c === '#' || c === '=' || c === 'D' ? c : ' ';
       if (c === 'P') spawn = { x, y };
-      if (c === 'o' || c === 'u' || c === '^' || c === 'C' || c === 'F' || c === 'B') items.push({ x, y, kind: c });
+      if (c === 'o' || c === 'u' || c === '^' || c === 'C' || c === 'F' || c === 'B' || c === '*') items.push({ x, y, kind: c });
       if (c === 'S' || c === 'T' || c === 'N') hazards.push({ x, y, kind: c, i: hazards.length });
       if (c === 'E') foes.push({ x, y, i: foes.length }); // a small enemy, the world's own kind
       // A run of M tiles is one rate-line platform.

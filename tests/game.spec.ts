@@ -6,12 +6,28 @@ const state = (page: Page) => page.evaluate(() => (window as unknown as { __game
 // Press Play (which opens the career map), then Space to start the first world.
 async function boot(page: Page) {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   await page.keyboard.press('Space');
   await expect.poll(async () => (await state(page)).mode).toBe('level');
   await expect.poll(async () => (await state(page)).grounded).toBe(true);
 }
+
+test('large-screen HUD keeps hard pixel edges', async ({ page }) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
+  await boot(page);
+  const game = page.locator('#game');
+  await expect(game).toHaveCSS('image-rendering', 'pixelated');
+  const shades = await game.evaluate((el) => {
+    const pixels = (el as HTMLCanvasElement).getContext('2d')!.getImageData(8, 6, 48, 10).data;
+    const colours = new Set<string>();
+    for (let i = 0; i < pixels.length; i += 4) colours.add([...pixels.slice(i, i + 4)].join(','));
+    return [...colours];
+  });
+  // Text and strip only: interpolated edges introduce extra colours.
+  expect(shades).toHaveLength(2);
+  expect(shades).toContain('48,72,90,255');
+});
 
 test('nothing runs until Play is pressed', async ({ page }) => {
   const chunks: string[] = [];
@@ -48,11 +64,19 @@ async function runLevel(page: Page, n: number) {
   const solid = (x: number, y: number) => L[y]?.[x] === '#';
   const standable = (x: number, y: number) => solid(x, y) || ['=', 'M', 'D'].includes(L[y]?.[x] ?? ' ');
   await page.keyboard.down('ArrowRight');
-  let lastX = 0, stuck = 0;
+  let lastX = 0, stuck = 0, capturedWand = false;
   // generous budget: like a person, the bot may need a retry or two on moving platforms
   for (let i = 0; i < 2000; i++) {
     const s = await state(page);
     if (s.finished) break;
+    if(n===7&&s.boss?.hp>0&&s.x>s.boss.home-220){
+      await page.keyboard.up('ArrowRight');await page.keyboard.up('ArrowLeft');await page.keyboard.up('Space');
+      await page.keyboard.down('x');
+      if(!capturedWand&&s.wandHits===1){await page.screenshot({path:test.info().outputPath('wand-boss.png')});capturedWand=true;}
+      await page.waitForTimeout(60);
+      continue;
+    }
+    if(n===7&&s.boss?.hp===0){await page.keyboard.up('x');await page.keyboard.up('ArrowLeft');await page.keyboard.down('ArrowRight');if(s.x>165*32)await page.keyboard.down('Space');}
     const tx = Math.floor((s.x + 10) / 32), row = Math.floor((s.y + 44) / 32);
     // a pit is a column with no floor anywhere below; a raised platform's edge just drops you down
     const pit = (x: number) => { for (let y = row; y < L.length; y++) if (standable(x, y)) return false; return true; };
@@ -66,6 +90,7 @@ async function runLevel(page: Page, n: number) {
     } else await page.waitForTimeout(30);
   }
   await page.keyboard.up('ArrowRight');
+  await page.keyboard.up('ArrowLeft');await page.keyboard.up('Space');
   return state(page);
 }
 
@@ -118,12 +143,14 @@ for (const n of [0, 1, 2, 3, 4, 5, 6, 7]) {
   test(`world ${n + 1} (${LEVELS[n].theme}) can be finished`, async ({ page }) => {
     test.setTimeout(180000);
     await page.addInitScript(() => { (window as unknown as { __gameAssist: object }).__gameAssist = { invuln: true }; });
+    if(n===7)await page.addInitScript(()=>{if(!localStorage.getItem('working-order-progress-v2'))localStorage.setItem('working-order-progress-v2',JSON.stringify({done:[0,1,2,3,4,5,6],missions:[]}));});
     await page.goto(`/?level=${n + 1}#top`);
-    await page.getByRole('button', { name: 'Press to play' }).click();
+    await page.getByRole('button', { name: 'Start adventure' }).click();
     await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
     const s = n === 4 ? await climbTower(page) : await runLevel(page, n);
     expect(s.finished, `stopped at tile ${Math.floor(s.x / 32)}, row ${Math.floor((s.y + 44) / 32)}`).toBe(true);
     expect(s.level).toBe(n);
+    expect(s.achievements.length).toBeGreaterThan(0);
     // the card states the facts and, where there is one, links to the case
     const card = page.locator(`.game-end[data-end="${n}"]`);
     await expect(card).toBeVisible({ timeout: 5000 });
@@ -132,13 +159,15 @@ for (const n of [0, 1, 2, 3, 4, 5, 6, 7]) {
     await expect(card.locator('.game-mission')).toContainText('Mission');
     // the bot picks up the scooter and rides it to the sea: Kaohsiung's mission
     if (n === 0) { expect(s.missions).toContain(0); await expect(card.locator('.game-mission')).toContainText('Mission complete'); }
+    if(n===2){await card.locator('[data-next="3"]').click();await expect(page.locator('.game-flight')).toBeVisible();await expect(page.locator('.game-flight')).toContainText('2013');await page.getByRole('button',{name:'Skip flight'}).click();await expect.poll(async()=>(await state(page)).level).toBe(3);}
+    if(n===7){expect(s.wandHits).toBe(3);expect(s.weapon).toBe('starlight-wand');expect(s.boss.hp).toBe(0);expect((await state(page)).flagRaised).toBe(true);await page.reload();await page.getByRole('button',{name:'Start adventure'}).click();await page.locator('#game-world').click();await expect(page.locator('.game-stages [data-stage="7"]')).toHaveAttribute('data-completed','true');expect((await state(page)).done).toContain(7);}
   });
 }
 
 async function startWorld(page: Page, n: number, invuln = false) {
   if (invuln) await page.addInitScript(() => { (window as unknown as { __gameAssist: object }).__gameAssist = { invuln: true }; });
   await page.goto(`/?level=${n + 1}#top`);
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   await expect.poll(async () => (await state(page)).grounded).toBe(true);
 }
@@ -165,9 +194,9 @@ test('small enemies: landing on one clears it and counts toward the mission', as
 
 test('small enemies: walking into one from the side is a hit', async ({ page }) => {
   await startWorld(page, 2);
-  await page.keyboard.down('ArrowRight');
+  // Stay before the optional power star and let the enemy approach.
   let s = await state(page);
-  for (let i = 0; i < 300 && s.hits === 0; i++) { await page.waitForTimeout(20); s = await state(page); }
+  for (let i = 0; i < 900 && s.hits === 0; i++) { await page.waitForTimeout(20); s = await state(page); }
   await page.keyboard.up('ArrowRight');
   // the hit came first; the knockback may then drop her onto it, which is fine
   expect(s.hits).toBeGreaterThan(0);
@@ -175,6 +204,7 @@ test('small enemies: walking into one from the side is a hit', async ({ page }) 
 });
 
 test('every world has a mission, shown in the HUD state', async ({ page }) => {
+  await page.addInitScript(()=>localStorage.setItem('working-order-progress-v2',JSON.stringify({done:[0,1,2,3,4,5,6],missions:[]})));
   for (const n of [1, 3, 4, 5, 6, 7]) {
     await startWorld(page, n);
     const s = await state(page);
@@ -186,17 +216,17 @@ test('every world has a mission, shown in the HUD state', async ({ page }) => {
 
 test('Play opens the career map; arrows step world by world and Space starts it', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   expect((await state(page)).mode).toBe('map');
   // four choices: Taiwan, London, Next: AI, Bonus. One step lands on London's first stage.
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#game-world')).toHaveValue('3');
+  await expect(page.locator('#game-world')).toHaveAttribute('data-stage','3');
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#game-world')).toHaveValue('6');
+  await expect(page.locator('#game-world')).toHaveAttribute('data-stage','6');
   await page.keyboard.press('ArrowRight');
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#game-world')).toHaveValue('0'); // wraps back to Taiwan
+  await expect(page.locator('#game-world')).toHaveAttribute('data-stage','0'); // wraps back to Taiwan
   await page.keyboard.press('ArrowRight');
   await page.keyboard.press('Space');
   await expect.poll(async () => (await state(page)).mode).toBe('level');
@@ -210,12 +240,12 @@ test('stages of a world play on: the card offers the next stage, then the next w
   await expect(page.locator('.game-end[data-end="5"] [data-next]')).toHaveText('Next world: AI');
   await expect(page.locator('.game-end[data-end="6"] [data-next]')).toHaveText('Bonus: Bedtime');
   await expect(page.locator('.game-end[data-end="1"] .game-kicker')).toContainText('World 1-2');
-  await expect(page.locator('#game-world optgroup')).toHaveCount(4);
+  await expect(page.locator('.game-stages button')).toHaveCount(8);
 });
 
 test('Kaohsiung: the scooter makes you faster', async ({ page }) => {
   await page.goto('/?level=1#top');
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => (await state(page)).riding, { timeout: 6000 }).toBe(true);
@@ -223,11 +253,12 @@ test('Kaohsiung: the scooter makes you faster', async ({ page }) => {
   // pit at tiles 26 to 28, which a bot holding Right rides straight into
   await expect.poll(async () => Math.abs((await state(page)).vx), { timeout: 1500, intervals: [50] }).toBeGreaterThan(330);
   await page.keyboard.up('ArrowRight');
+  await page.screenshot({ path: test.info().outputPath('opaque-scooter.png') });
 });
 
 test('hazards hurt (three hits restart the level)', async ({ page }) => {
   await page.goto('/?level=5#top');
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   // stand in the tower's falling-sheet lane on the ground floor and wait
   // nudge into the lane (x 440 to 468) with short taps
@@ -238,6 +269,9 @@ test('hazards hurt (three hits restart the level)', async ({ page }) => {
     await page.keyboard.down(k); await page.waitForTimeout(x < 380 || x > 520 ? 200 : 40); await page.keyboard.up(k);
     await page.waitForTimeout(120);
   }
+  // The walk crosses the optional star. First let its protection expire,
+  // then allow complete falling-sheet cycles rather than combining both waits.
+  await expect.poll(async () => (await state(page)).powerSeconds, { timeout: 10000 }).toBe(0);
   await expect.poll(async () => (await state(page)).hits, { timeout: 8000 }).toBeGreaterThan(0);
 });
 
@@ -246,16 +280,16 @@ test('a case page links to its chapter of the game without starting it', async (
   const link = page.getByRole('link', { name: /Play this chapter in the game/ });
   await expect(link).toHaveAttribute('href', '/panel?level=5#top');
   await link.click();
-  await expect(page.locator('#game-world')).toHaveValue('4');
+  await expect(page.locator('#game-world')).toHaveAttribute('data-stage','4');
   await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
 });
 
 test('the site still works if the game chunk fails to load', async ({ page }) => {
   await page.route(/\/_astro\/main\.[^/]+\.js$/, (r) => r.abort());
   await page.goto('/');
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
-  await expect(page.getByRole('button', { name: 'Press to play' })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Start adventure' })).toBeEnabled();
   await expect(page.locator('#links h2')).toBeVisible();
 });
 
@@ -264,7 +298,7 @@ test.describe('JavaScript off', () => {
   test('the game shows a static poster and no dead Play button', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('.game-poster img')).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Press to play' })).toBeHidden();
+    await expect(page.getByRole('button', { name: 'Start adventure' })).toBeHidden();
   });
 });
 
@@ -274,6 +308,47 @@ test('sound is off by default and has one toggle', async ({ page }) => {
   await expect(btn).toHaveAttribute('aria-pressed', 'false');
   await btn.click();
   await expect(btn).toHaveAttribute('aria-pressed', 'true');
-  await page.getByRole('button', { name: 'Press to play' }).click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+});
+
+
+test('the final level stays locked until all seven earlier stages are complete',async({page})=>{
+ for(const done of [[],[0,1,2,3,4,5]]){
+  await page.goto('/');await page.evaluate(done=>localStorage.setItem('working-order-progress-v2',JSON.stringify({done,missions:[]})),done);
+  await page.goto('/?level=8');await page.getByRole('button',{name:'Start adventure'}).click();await page.waitForFunction(() => (window as any).__game?.());
+  await expect.poll(async()=>(await state(page)).mode).toBe('map');
+  await expect(page.locator('.game-stages [data-stage="7"]')).toBeDisabled();
+  await page.locator('#game').press('Space');expect((await state(page)).mode).toBe('map');
+  await expect(page.locator('#game-status')).toContainText('Final level locked');
+  await page.keyboard.press('Escape');
+ }
+ await page.evaluate(()=>localStorage.setItem('working-order-progress-v2',JSON.stringify({done:[0,1,2,3,4,5,6],missions:[]})));
+ await page.goto('/?level=8');await page.getByRole('button',{name:'Start adventure'}).click();await page.waitForFunction(() => (window as any).__game?.());
+ await expect.poll(async()=>(await state(page)).mode).toBe('level');expect((await state(page)).level).toBe(7);
+});
+
+
+test('starlight wand supports touch, cooldown and pause, and stays out of earlier levels', async ({ page }) => {
+  await page.emulateMedia({ media: 'screen' });
+  await page.addInitScript(()=>localStorage.setItem('working-order-progress-v2',JSON.stringify({done:[0,1,2,3,4,5,6],missions:[]})));
+  await startWorld(page,7,true);
+  expect((await state(page)).weapon).toBe('starlight-wand');
+  const cast=page.locator('[data-k="cast"]');
+  await expect(cast).not.toHaveAttribute('hidden');
+  await cast.dispatchEvent('pointerdown');
+  await expect.poll(async()=>(await state(page)).bolts.length).toBe(1);
+  await cast.dispatchEvent('pointerup');
+  expect((await state(page)).castCooldown).toBeGreaterThan(0);
+  await page.getByRole('button',{name:'Timeline',exact:true}).click();
+  const paused=await state(page);
+  await page.waitForTimeout(250);
+  expect((await state(page)).bolts).toEqual(paused.bolts);
+  await page.locator('#game-timeline button').first().click();
+  await page.locator('#game-world').click();
+  await expect(cast).toHaveAttribute('hidden');
+  await page.locator('[data-stage="0"]').click();
+  await expect.poll(async()=>(await state(page)).weapon).toBeNull();
+  await page.keyboard.press('x');
+  expect((await state(page)).bolts).toHaveLength(0);
 });

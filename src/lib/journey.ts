@@ -1,12 +1,12 @@
 // Shannon's career, world by world. Sources: her CV (assets/CV_ShannonH.pdf on
 // shannonhecker.com) and her own words in the build conversation. Keep these
 // matching LinkedIn: the panel checks dates.
-// 捷元電腦: 2010, Taipei. Shannon confirmed both.
+// Genuine C&C Inc.: 2010, Taipei. Shannon confirmed both.
 export const JOURNEY = [
-  { place: 'Kaohsiung 高雄', when: 'Growing up', line: 'Grew up by the sea in Kaohsiung, in the city by the park, on a motorbike most days.', href: null },
-  { place: 'Ling Tung University', when: '2008 to 2010', line: 'BA in Digital Media Arts and Management, Taiwan.', href: null },
-  { place: '捷元電腦', when: '2010', line: 'Web and visual designer, B2C.', href: null },
-  { place: 'London Metropolitan University', when: '2015 to 2016', line: 'MA in Digital Media. The move to the UK.', href: null },
+  { place: 'Kaohsiung', when: 'Growing up', line: 'Grew up by the sea in Kaohsiung, in the city by the park, on a motorbike most days.', href: null },
+  { place: 'Ling Tung University', when: '2008 to 2010', line: 'I studied art, craft and digital media in Taiwan. BA in Digital Media Arts and Management.', href: null },
+  { place: 'Genuine C&C Inc.', when: '2010', line: 'Web and visual designer, B2C.', href: null },
+  { place: 'London Metropolitan University', when: '2015 to 2016', line: 'I came to the UK in 2013 for a working holiday and study. At London Met, I studied Digital Media with a focus on game and UX design.', href: null },
   { place: 'J.P. Morgan, London', when: 'June 2016 to 2025', line: 'Intern, Analyst, Senior Analyst, then Vice President, Product Design. UI and visual first, then UI and UX together. Fusion at the top.', href: '/fusion' },
   { place: 'Barclays, London', when: '2025 to now', line: 'Senior Product Designer, FX and MarketsOne.', href: '/fx' },
   { place: 'Next: AI', when: '2026 to now', line: "Where I'm heading next: designing AI products. uoaui.ai is the AI-native product I design and build to get there. The model drafts, I decide.", href: '/uoaui' },
@@ -21,7 +21,7 @@ export const CASE_WORLD: Record<string, number> = { '/fusion': 4, '/fx': 5, '/uo
 // its own story card in between.
 export const CHAPTERS = [
   { name: 'Taiwan', when: 'Growing up to 2010', stages: [0, 1, 2] },
-  { name: 'London', when: '2015 to now', stages: [3, 4, 5] },
+  { name: 'London', when: '2013 to now', stages: [3, 4, 5] },
   { name: 'Next: AI', short: 'AI', when: '2026 to now', stages: [6] },
   { name: 'Bedtime', when: 'Bonus', stages: [7], bonus: true },
 ] as const;

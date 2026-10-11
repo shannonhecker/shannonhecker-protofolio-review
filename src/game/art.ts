@@ -186,7 +186,7 @@ export const pet = () => sprite([
 ], { k: '#12351f', a: '#f3a414', p: '#d98c78' });
 
 // ---------------------------------------------------------------- the journey
-// World 1 · Kaohsiung 高雄: the city by the park, by the sea. You ride a scooter.
+// World 1 · Kaohsiung: the city by the park, by the sea. You ride a scooter.
 function kaohsiung(): Theme {
   const sky = '#ffe1d2';
   const ground = tile((px) => { px(0, 0, '#d8d2c4', 16, 2); px(0, 2, '#4a4e57', 16, 14); px(2, 8, '#f2e3a0', 6, 1); px(0, 15, '#3a3d45', 16, 1); });
@@ -292,7 +292,7 @@ function lingtung(): Theme {
   return { id: 'lingtung', sky, ground, fill, platform, pickup: [swatch, swatch], hazard: paper, finish, check: post('#4a90d9'), spike: pencils, far: far.c, near: near.c, ink: '#3a2a22', hud: '#3a4a5a' };
 }
 
-// World 3 · 捷元電腦: web and visual designer, B2C.
+// World 3 · Genuine C&C Inc.: web and visual designer, B2C.
 function web(): Theme {
   const sky = '#e9ecf2';
   const ground = tile((px) => { px(0, 0, '#6b7280', 16, 2); px(0, 2, '#b8bfcc', 16, 14); px(0, 8, '#a6aebd', 16, 1); px(8, 2, '#a6aebd', 1, 6); });
@@ -422,19 +422,26 @@ function ai(): Theme {
   return { id: 'ai', sky, ground, fill, platform, draft, pickup: [spark, spark], hazard: noise, finish: door.c, check: post('#a78bfa'), spike: spike('#5b4f86', '#a78bfa'), far: far.c, near: near.c, ink: '#c4b5fd', hud: '#c4b5fd' };
 }
 
-/** The scooter for World 1: mint body, two wheels. Drawn under the rider. */
+/** Solid rose scooter: enclosed panels, dark chassis and opaque tyres.
+ * Drawn on the same art grid as the rider, facing right. */
 export const scooter = () => sprite([
-  '..............kk......',
-  '.............kmk......',
-  '............kmk.......',
-  '.kkkkkkkkkkkmmk.......',
-  'kmmmmmmmmmmmmmmkkkk...',
-  'kmmmmmmmmmmmmmmmmmmk..',
-  '.kkkkkkkkkkkkkkkkkkk..',
-  '..kkk..........kkk....',
-  '.kwwwk........kwwwk...',
-  '.kwkwk........kwkwk...',
-  '..kkk..........kkk....',
-], { k: '#161616', m: '#8fd3c1', w: '#9aa3ad' });
+  '...................kkkk...',
+  '...................kwwk...',
+  '...................kppk...',
+  '..kkkkkkkk.........kppk...',
+  '..knnnnnnk.........kppk...',
+  '..kkkkkkkkk........kppk...',
+  '.kpppppppppk.......kpppk..',
+  'kphhhhhppppk.......kphppk.',
+  'kppppppppppk.......kphppk.',
+  'kppppppppppk.......kppppk.',
+  'kppppppppppkkkkkkkkkppppk.',
+  '.kppppppppppppppppppppppk.',
+  '..kkkkkkkkkkkkkkkkkkkkkk..',
+  '..kknnk............kknnk..',
+  '..knwwnk..........knwwnk..',
+  '..knwwnk..........knwwnk..',
+  '...kkkk............kkkk...',
+], { k:'#172239', p:'#cf6e85', h:'#f4b3bf', n:'#34445f', w:'#fff0d7' });
 
 export const THEMES: Record<ThemeId, () => Theme> = { kaohsiung, lingtung, web, london, tower, desk, ai, bedtime };

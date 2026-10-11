@@ -326,3 +326,103 @@ How this site was made, kept honest. Shannon writes the entries marked **Shannon
 - I made my end-to-end ownership visible in Winking Star and uoaui: original logos, current palettes, typography, spacing and component foundations. Winking uses the original 1024px app icon; uoaui uses my original lockup and a fresh capture of my own live system. Current product tokens take precedence over older portfolio swatches.
 - I fixed the narrow-screen hero overflow and updated the enemy-landing check to approach an enemy and jump deliberately, rather than jump blindly on a timer. The test reads enemy positions; gameplay physics are unchanged.
 - Final local verification: eight routes built, 73 files checked with zero diagnostics, all 78 tests passed in 42.0 seconds, and all ten Lighthouse runs met the 95-point category budget. Mobile performance is 96–99. Optional desktop effects now load on scroll. Release CI and deployment are tracked separately.
+
+### PR 27 · Optional scores and private visit reports
+
+- I added a stage scoreboard with an optional made-up nickname. Sharing is a deliberate choice at the end of a stage, and each stage has its own top ten. The score rewards finishing and pickups, with a small deduction for bumps.
+- I connected a free London database with paid auto-upgrades disabled. The server checks score bounds, signs short-lived run receipts and saves repeat submissions only once. These are friendly, client-reported game scores, not a cheat-proof tournament.
+- I connected my existing Google Analytics stream for visits, reading depth and stage starts/completions. Analytics loads only after consent, with advertising features off. Nicknames are never sent to Google. Footer settings and a privacy page explain the choice.
+- I reset jump counts per attempt and prevent an old delayed finish from showing over a new stage. Network failures leave the game playable.
+- Local checks: nine routes built, 81 files checked without diagnostics, 83 tests passed. A real database concurrency check saved one result from two simultaneous submissions, then removed the test entry. Release and visual checks are tracked in docs/TASKS.md.
+
+- Following my visual review, I removed the illustrated landscape headers from all four cases and kept scenery in the game. The pages are white again, with stronger 700-weight headings, medium-weight introductions and more generous chapter, row and diagram spacing.
+- Each case now opens with its own product UI: the current public FX and Fusion rebuilds, the current uoaui builder, and a three-screen Winking Star flow. Screens keep their full proportions.
+- I removed the build credit from the footer after my review. The build log remains available at its existing address.
+
+- I made the introduction and optional game feel like my own small adventure: my pixel SH mark, a larger avatar with blink and smile frames, bounded arrow controls and a pause button. The game preview stays compact and the four projects share equal space.
+- I brought the game map, walk cycle, objects, obstacles and HUD closer to the detailed scenery. Artwork is prepared before play, with the original renderer as a connection fallback. Keyboard, touch and physics stay intact.
+- I gave each project its own accent and added light, dark, system and project theme choices. FX starts dark. The main navigation slips away while reading and returns on upward scroll; Contact and the theme selector remain on one row.
+- I put role portraits inside persona cards, added project-specific process illustrations, and removed repetitive filled boxes from journey and flow diagrams. All diagram text stays selectable and responsive. Decorative art is labelled separately from research evidence.
+- I added more current public FX, Fusion and uoaui screens, plus Winking Star's published iPhone and iPad artwork and labelled French and Traditional Chinese store compositions. Screens retain their proportions and full-size links.
+- The current local release candidate passes 94 browser tests, including all eight game stages, theme persistence, system preference changes, bounded avatar controls, accessibility and analytics consent. Ten Lighthouse runs meet the 95-point gate: mobile performance 96–99, desktop 100, and accessibility/best practices/SEO 100. CI and live deployment remain separate gates in the tracker.
+- Preview verification caught TypeScript source extensions surviving Vercel's server compilation. I changed the server imports to emitted JavaScript paths and added a compiled-runtime CI check, so an import that only works in the source test runner cannot pass unnoticed.
+- I replaced Winking Star's remaining automatic theme strip with a quiet, responsive gallery of four complete banners. There are no repeated copies or cropped scrolling artwork.
+- CI's root-page performance check exposed an empty-grid-row bug: without the panel eyebrow, the optional game could appear ahead of the introduction. I assigned the landing rows explicitly and added a layout-order regression check for both URLs on phone and desktop.
+- After reviewing the animation, I replaced the full-body expression swaps with separately generated and registered eye and mouth layers. The body stays fixed through each blink. My avatar now follows the pointer and responds gently to scrolling, with no arrow controls, a pause option, and a still version for reduced motion.
+- I used Matthieu Givelet's generous typography and image-led spacing as a reference for a wider, cleaner gallery. The complete product images now lead each project, with aligned icons and labels beneath. A neutral sans-serif carries the case stories, with small project-coloured details and gentle left/right entrances. Native scrolling stays in place.
+- I restored my original FX decision-loop graphic from the interview deck as the primary flow diagram, with a full-size link and a readable branch transcript. The current product rebuild remains labelled separately.
+- I re-exported the original FX loop directly from its 69 Figma vector nodes at 3× resolution, so the full diagram stays sharp at case-page width. The source link and readable transcript stay alongside it.
+- I fixed a lazy-image layout shift caught by release CI: screenshots now reserve their exact source proportions before loading, so a chapter link does not jump away when images appear above it. A delayed-image regression check covers the behaviour.
+- I replaced the browser-native theme dropdown with a custom appearance menu: project, light, dark and system choices, with icons, a selected marker and a compact mobile trigger. Keyboard arrows, Escape, Tab, outside-click dismissal and saved preferences are covered by tests.
+- I stopped the optional game cover and avatar competing with the heading at first load, and matched the consent heading to the site typography. The cover uses sizes appropriate to its compact preview.
+- I simplified appearance to one keyboard-accessible light/dark switch and made the optional game a full-width shallow banner that opens at its original playing ratio.
+- I replaced the realistic game scenery with a consistent chunky pixel palette across all eight stages, the map, avatar cycle, objects and enemies. The generated source jobs and preparation pipeline are recorded in docs/game-art-generation.json.
+- I added an eight-second collectible power star, extra speed and protection, and an original quiet chiptune that follows the Sound toggle and stops on exit. Career achievements reveal verified project names from my CV, including the JPMM, DXD and Fusion work; the next stage continues the story.
+- I removed the decorative process illustration strips. The journeys now connect interaction schematics to friction and design responses; decision branches show the chosen approach beside its alternative. My existing words and original FX Figma flow remain intact.
+- I fixed rapid fullscreen exit/re-entry, narrow banner sizing and diagram connector overflow found during testing. Scroll reveals now batch layout reads before writes to reduce initial work on slower phones.
+- My final preview check sharpened the map labels with the bitmap font, improved the game caption contrast, and corrected the home introduction to say four cases.
+- Release CI caught the map chooser squeezing its canvas vertically. I reserved room for the chooser and kept the playing surface at 16:9. The hazard check now waits for collected star protection to expire before checking damage.
+- I brought the stage results into the game's pixel palette, with a star emblem, square controls and compact achievement and score panels. Touch devices no longer perform the optional desktop reveal measurements on first load.
+- I rebuilt the project index as large editorial rows and opened each case with a compact summary beside complete product screens. The composition follows the scale and spacing I liked in Matthieu Givelet's portfolio, with my own project colours, words and imagery. I kept the design work local.
+- I made the scroll depth more visible: screens and headings approach the centre separately, and settle together without cropping the product. Touch devices and reduced-motion readers see all heading words immediately.
+- I gave all eight game stages their own generated outfit and hairstyle, registered to a shared pixel grid with dark silhouette outlines. A flat wash quiets the scenery behind the character while leaving platforms and pickups sharp.
+- I rebuilt the work index as two large image tiles with a narrow gutter and quiet labels underneath, following my supplied reference more closely. Case introductions now use a 40/60 summary and gallery, with context beside role details and the description below. I preserved my words and complete product screens.
+- I replaced the full-width numbered chapter bar with one compact Sections control. It closes after a jump, on Escape, or when I click outside. I added coordinated title/gallery entrances, paired scroll depth and gentle product hover movement; reduced motion and touch keep content immediately readable.
+- I made the world map react to hovering, with distinct selected and hovered markers. My character travels to the keyboard-selected stage; water glints and route lights animate gently. Up and Down select individual stages, while Left and Right still change worlds. Motion stops offscreen, when hidden, and under reduced motion.
+- I gave project pages more space between sections, diagrams and screenshots. Small section headings have an opaque theme background, and portfolio labels share the same reading typeface. Pixel lettering stays in the game.
+- I changed Mandarin interface labels to English, including Kaohsiung and Genuine C&C Inc. The employer name is verified in Taiwan's company register (23134543). Winking Star now compares English and French store artwork; its five supported languages remain accurately listed in English.
+- I removed game objects from project titles, reading links and process steps. Project wayfinding is now simple text, numbers and arrows; the pixel objects remain with my avatar and the optional game.
+- I made the section labels compact opaque pills, with rounded ends and less space after the text. Project arrows sit directly beside the title and appear on hover or keyboard focus; touch keeps them visible.
+- I studied the archive transition in sequence and replaced the page crossfade with a lifting background, then a masked title entrance, then copy and product screens. Links, history and reduced motion keep their native behaviour.
+- I added a small avatar cursor that changes outfit by project, walks with the pointer and rests when it stops. A precise dot marks the click point. Text fields, video, the game, keyboard use and reduced motion restore the native cursor; the footer has a saved on/off choice.
+- I added a short landing greeting using new, registered arm poses. My original face and body stay fixed while the arm lifts and waves, with a gentle entrance and smile. It plays once when visible, stops when paused or hidden, and skips motion when requested.
+- I staged the landing entrance: headline, introduction and links arrive in sequence, then my avatar appears after two seconds. Her separate hand now waves at the wrist, repeats after a short rest and greets mouse/touch visits. Pause, hidden/offscreen states and reduced motion stop it.
+
+- I synced my revised Figma home gallery, including the FX tablet mockup, Fusion composition, Winking Star phone artwork and uoaui desktop. My home headings use the revised Inter type; project-page imagery stays unchanged.
+- I moved the arch, book and star entrance after the copy and before my avatar. The game banner now has its own pixel title screen and Start adventure prompt. Decorative motion stops outside the viewport.
+- I added a gold pixel umbrella to the rainy London stage, anchored to my character as she turns and jumps. I fixed a heading entrance that left case titles shifted offscreen, and cleared the navigation and avatar cursor from the full-screen game overlay.
+
+### PR 25 · Final review: the reading experience and the journey
+
+- I replaced the section popup with a closable side panel and made the FX status note plain text. My new FX personas, journey map and two interaction frames now come from my supplied Figma file, with source links and responsive text. The sample-data labels distinguish designs from the public rebuild.
+- I removed the coloured gaps around the home artwork, set interface corners to 4px and kept desktop product statuses on one row. The introduction now flows from text to scenery to my avatar with a much shorter pause.
+- I added my 2018 and 2021 family milestones, my 2013 move to the UK for a working holiday and study, and my art, craft, digital media, game and UX education details to the game. A few source-linked world events provide context.
+- Every stage has an original tune. Losing a run or falling has its own cue. My scooter uses a seated pose, and a short skippable flight connects Taiwan to the UK.
+- Winking Star now ends with an original Scrollkeeper villain, a storybook castle, a flag I raise and a celebration. Completed stages have check marks, optional missions have stars, and progress stays in the browser between visits.
+- The combined build passes all 120 browser checks, including the final boss, flag, travel, saved completion, distinct stage music, timeline pause/resume, responsive artwork and title-label clearance. CI and live release are recorded separately.
+
+### Final review: FX Figma sync and finale unlock
+
+I brought my revised FX desktop artwork into the case introduction and carried it into the mobile layout: the chart, compare detail, order ticket and original data-layer diagram. The portfolio Figma desktop and mobile frames now also contain my three authored personas and five-stage journey; mobile keeps the copy at a readable size. The final game stage stays locked until all seven earlier stages are finished, including when someone follows a direct level link. The map explains the lock and saved progress unlocks it on later visits.
+
+I added an original starlight wand to the finale. I can face the Scrollkeeper and cast with X or J, gamepad X or the touch Cast button. Gold sparks, a short hand pose, a casting sound and a cooldown make each attack visible. Three wand hits defeat the boss before I raise the flag. I also fixed a heading that clipped when a desktop window became mobile and tightened the greeting timing.
+
+### Scroll motion and page-load rhythm
+
+I made the work gallery move in layers: images arrive first, then titles and captions catch up. Section words reveal through masks that follow scrolling in both directions, and the intro's book, star and backdrop travel at different speeds. Touch uses smaller movements; reduced motion restores static, fully readable content. Case metadata and descriptions enter in a short sequence. I tightened the text-to-scene-to-avatar entrance and load the first greeting poses eagerly, so the choreography does not add a long wait. This pass changes website code only while Claude improves the Figma file.
+
+I corrected my baby milestone from 2011 to 2021, keeping 2018 unchanged. The game journal now lists both family milestones in chronological order.
+
+I gave every stage a different song arrangement: swung harbour melody, campus waltz, clipped workshop groove, slow London rain, rising city theme, fast market rhythm, spacious AI theme and a driving storybook finale. Each has its own note lengths, bass pattern and instrumentation. The browser test observes actual Web Audio notes and checks that changing stages stops the previous song. I embedded the small original journey vectors to avoid twenty competing image requests while the FX hero loads, and defer offscreen video posters with native lazy loading.
+
+I removed the redundant Figma-design caption under the FX hero after my final review. The main project-status explanation and detailed source links remain in the case study.
+
+I reduced the body font from three weight downloads to one local variable file while keeping the same type and supported weights. Phone entrances use small opacity and position changes, with a slightly quicker avatar arrival; desktop title masks and scroll masks stay in place. This reduces startup work on slower phones.
+
+### Home motion, image detail and map markers
+
+I made my home title and introduction respond from the first scroll, with staggered words and separate copy depth that reverse when I scroll back. The work captions now animate as the captions enter view, rather than finishing below the screen. My avatar scene has more visible depth, and reduced motion restores a still page.
+
+I aligned Selected work and its gallery with the introduction and exported sharper original FX panels and Winking Star cover compositions from Figma without editing the file. Responsive images now retain source detail for large and Retina displays. The FX overview, ticket and comparison have clear space between them. My first company stage uses a computer-work badge, while universities show their own buildings and completed stages retain their ticks.
+
+I made the shared stylesheet cacheable between pages instead of embedding the entire design system in every HTML response. The home document is now about 64KB rather than 194KB before compression, and the intro flows a little faster from words to scene to greeting.
+
+I softened the navigation and reading-section dividers with a subtle, theme-aware neutral line. They now sit closer to the page background, especially in dark mode, while controls and focus indicators keep their contrast.
+
+My fixed header now becomes frosted glass after scrolling: a translucent page tint, restrained blur and a soft inner highlight. It works in both themes and returns to an opaque surface for reduced transparency or browsers without backdrop-filter. I used the MDN and WebKit backdrop-filter examples as references, with no extra library.
+
+I moved the avatar's blink and smile frames to stepped opacity animations, preserving the poses while allowing the browser to composite them without continuous visibility changes. Phones also avoid stacking individual word masks inside the title entrance. Lighthouse no longer reports non-composited avatar animations; the local mobile check scores 96 for performance and 100 in the other three categories.
+
+I fixed my Contact button's hover and keyboard-focus colours in both themes. My scooter now has a solid rose body, dark chassis and opaque tyres. The game HUD uses the same hand-drawn bitmap lettering as the map, with crisp canvas scaling so its labels stay sharp on large screens.
+
+I corrected the two remaining pale lines around How I work. They were using a fixed light colour; they now share the subtle theme-aware divider, as do the case-section and ticker rules.

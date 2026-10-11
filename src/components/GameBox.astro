@@ -5,8 +5,9 @@
 // facts from her CV or her own words; nothing here is invented.
 // DECISION: Named "Working Order" (a live order still filling; also "things in
 // working order"). Mario-era pixel style, every noun from her own story.
-import Pic from './Pic.astro';
-import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
+import { ACHIEVEMENTS } from '../lib/achievements';
+import GameTimeline from './GameTimeline.astro';
+import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
 ---
 <div class="play" data-lenis-prevent>
   <button type="button" class="game-exit" id="game-exit" hidden><span class="game-exit-label">Exit full screen</span> <span aria-hidden="true">✕</span></button>
@@ -14,16 +15,50 @@ import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
   <div class="game" data-state="poster">
     <canvas id="game" width="480" height="270" tabindex="-1" role="application" aria-roledescription="game" aria-label="Working Order" aria-describedby="game-desc"></canvas>
     <div class="game-poster">
-      <Pic name="scene-kaohsiung.png" alt="" sizes="(max-width: 760px) 90vw, 1152px" widths={[480, 960, 1344]} eager />
-      <button type="button" class="game-play" id="game-play">Press to play</button>
+      <img src="/game/banner.webp" alt="" width="960" height="240" loading="lazy" decoding="async" />
+      <div class="title-hud" aria-hidden="true"><span>SHANNON<br />000000</span><span>WORLD<br />1–1</span><span>ADVENTURE<br />START</span></div>
+      <div class="title-plaque" aria-hidden="true"><span>WORKING</span><span>ORDER</span></div>
+      <span class="title-traveller" aria-hidden="true"></span>
+      <span class="title-ground" aria-hidden="true"></span>
+      <button type="button" class="game-play game-title-start" id="game-play" aria-label="Start adventure" disabled><span><span class="title-pointer" aria-hidden="true">▶</span> START ADVENTURE</span></button>
+      <span class="title-credit" aria-hidden="true">A SHANNON HECKER ADVENTURE</span>
+    </div>
+    <div class="game-flight" hidden aria-labelledby="flight-title">
+      <p class="flight-year">A new chapter · 2013</p><h2 id="flight-title">Taiwan → United Kingdom</h2>
+      <p class="flight-story">I came to the UK for a working holiday and study.</p>
+      <div class="flight-route" aria-hidden="true"><span>Taiwan</span><i></i><span>UK</span>
+        <svg class="flight-plane" viewBox="0 0 40 32"><path d="M0 14H8V10H18V2H24V12H32V16H40V20H32V24H24V30H18V22H8V18H0Z" fill="#182640"/><path d="M4 14H12V12H20V4H22V14H30V16H36V18H30V20H22V28H20V20H12V18H4Z" fill="#fff0ce"/><path d="M12 14H28V18H12Z" fill="#d87890"/></svg>
+      </div>
+      <p class="flight-next">Next stop: London Met · Digital Media · 2015–2016</p>
+      <button type="button" data-skip-flight>Skip flight →</button>
     </div>
     {JOURNEY.map((w, i) => (
       <div class="game-end" data-end={i} hidden>
+        <div class="game-result-emblem" aria-hidden="true"><img src="/game/star.webp" alt="" width="48" height="48" loading="lazy" /><span>{i===7?'Castle clear · Flag raised':'Stage clear'}</span></div>
         <p class="game-badge" hidden>Shipped</p>
         <p class="game-kicker">{stageCode(i) === 'Bonus' ? 'Bonus' : `World ${stageCode(i)}`} · {w.when}</p>
         <p class="game-case">{w.place}</p>
         <p class="game-meta">{w.line}</p>
         <p class="game-mission" hidden></p>
+        <details class="career-achievements">
+          <summary>Career achievements · {ACHIEVEMENTS[i].length} unlocked</summary>
+          <ul>{ACHIEVEMENTS[i].map(reward=><li><strong>{reward.title}</strong><ul>{reward.projects.map(project=><li>{project}</li>)}</ul></li>)}</ul>
+        </details>
+        <section class="scoreboard" aria-label={`${w.place} scoreboard`}>
+          <p class="score-total"><strong data-score>0</strong> points <span>this stage</span></p>
+          <p class="score-rule">100 for finishing + 25 per pickup − 10 per bump. Minimum 100.</p>
+          <details>
+            <summary>Stage scoreboard · share your score</summary>
+            <ol aria-label="Top ten scores"></ol>
+            <form>
+              <label for={`score-name-${i}`}>Nickname <span>(optional)</span></label>
+              <input id={`score-name-${i}`} name="nickname" maxlength="20" autocomplete="off" placeholder="Explorer" aria-describedby={`score-note-${i}`} />
+              <p id={`score-note-${i}`} class="score-note">Your nickname and score will be public. Use a made-up name.</p>
+              <button type="submit">Share my score</button>
+            </form>
+            <p role="status"></p>
+          </details>
+        </section>
         {w.href && <a class="game-read" href={w.href}>Read the case →</a>}
         {i < JOURNEY.length - 1 ? (
           <div class="game-actions">
@@ -50,55 +85,21 @@ import { JOURNEY, CHAPTERS, stageCode, nextLabel } from '../lib/journey';
     <button type="button" tabindex="-1" data-k="left">←</button>
     <button type="button" tabindex="-1" data-k="right">→</button>
     <button type="button" tabindex="-1" data-k="jump">↑</button>
+    <button type="button" tabindex="-1" data-k="cast" aria-label="Cast starlight wand" hidden>Cast</button>
   </div>
   <div class="game-bar">
-    <label class="game-world">
-      <span class="vh">Choose a world</span>
-      <select id="game-world">
-        {CHAPTERS.map((c, n) => (
-          <optgroup label={'bonus' in c && c.bonus ? `Bonus · ${c.name}` : `World ${n + 1} · ${c.name}`}>
-            {c.stages.map((i) => <option value={i}>{stageCode(i)} · {JOURNEY[i].place}</option>)}
-          </optgroup>
-        ))}
-      </select>
-    </label>
+    <button type="button" class="game-sound" id="game-world">World map</button>
     <span class="game-tools">
+      <button type="button" class="game-sound" id="game-timeline-open" aria-haspopup="dialog" aria-controls="game-timeline">Timeline</button>
       <button type="button" class="game-sound" id="game-full">Full screen</button>
       <button type="button" class="game-sound" id="game-sound" aria-pressed="false">Sound</button>
     </span>
   </div>
+  <GameTimeline />
+  <nav class="game-stages" aria-label="Choose a stage" hidden>
+    {JOURNEY.map((stage,i)=><button type="button" data-stage={i}><span>{stageCode(i)}</span>{stage.place}</button>)}
+  </nav>
   <p class="game-caption">Working Order · from Kaohsiung to London to what's next</p>
-  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at 捷元電腦), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Each stage has a small enemy you can jump on and an optional mission for a gold star. Pressing Play opens it full screen; Escape or the Exit full screen button returns to the page. Arrow keys or WASD to move, Space or Up to jump, Escape to pause when not full screen. On the map, Left and Right choose a world and Space starts it.</p>
+  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at Genuine C&C Inc.), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Collect a power star for eight seconds of extra speed and protection. Each stage has a small enemy you can jump on and an optional mission for a gold star. Choosing Start adventure opens it full screen; Escape or the Exit full screen button returns to the page. Arrow keys or WASD to move, Space or Up to jump, Escape to pause when not full screen. In the final stage, face the boss and press X or J, gamepad X, or tap Cast to fire your starlight wand. On the map, Left and Right choose a world, Up and Down choose a stage, and Space starts it. Hover a marker to preview it, or click or tap it to play.</p>
   <p id="game-status" class="vh" aria-live="polite"></p>
 </div>
-<script>
-  // A four-second response to hover/focus, never a perpetual background loop.
-  // No video bytes are requested on load, touch or under reduced motion.
-  const poster = document.querySelector<HTMLElement>('.game-poster');
-  const video = poster?.querySelector<HTMLVideoElement>('.game-cover-motion');
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  const fine = matchMedia('(hover: hover)');
-  if (poster && video) {
-    let intent = 0;
-    const stop = () => { intent++; video.pause(); video.classList.remove('is-visible'); };
-    const preview = () => {
-      if (reduce.matches || !fine.matches || document.hidden) return;
-      const request = ++intent;
-      if (!video.src) video.src = video.dataset.src!;
-      video.currentTime = 0;
-      void video.play().then(() => {
-        if (request === intent) video.classList.add('is-visible');
-
-      }).catch(() => { if (request === intent) stop(); });
-    };
-    poster.addEventListener('pointerenter', preview);
-    poster.addEventListener('focusin', preview);
-    poster.addEventListener('pointerleave', stop);
-    poster.addEventListener('focusout', stop);
-    poster.addEventListener('click', stop);
-    video.addEventListener('ended', stop);
-    reduce.addEventListener('change', stop);
-    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
-    new IntersectionObserver(([e]) => { if (!e.isIntersecting) stop(); }).observe(poster);
-  }
-</script>

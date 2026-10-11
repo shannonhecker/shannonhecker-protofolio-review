@@ -6,6 +6,28 @@
 // hard pixel edges; the game draws nodes and the character on top.
 import { canvas, sprite, text, textWidth } from './pixel';
 
+/** Original computer-company badge for the first professional design stage. */
+export function workIcon() {
+  return sprite([
+    '................',
+    '.kkkkkkkkkkkkkk.',
+    '.kbbbbbbbbbbbbk.',
+    '.kbwwbbbbbbbwbk.',
+    '.kbwbbbbbbwwbbk.',
+    '.kbbbbbbbwwbbbk.',
+    '.kbbbbbbwwbbbbk.',
+    '.kbbbbbwwbbbbbk.',
+    '.kbbbbwwbbbbbbk.',
+    '.kkkkkkkkkkkkkk.',
+    '......kkkk......',
+    '....kkkkkkkk....',
+    '................',
+    '..kkkkkkkkkkkk..',
+    '..kwwwwwwwwwwk..',
+    '..kkkkkkkkkkkk..',
+  ],{k:'#17283f',b:'#55bbcb',w:'#fff3d5'});
+}
+
 type LL = [number, number]; // [lon, lat]
 
 // Simplified coastlines, clockwise.
@@ -40,7 +62,7 @@ export const INSET = { x: 140, y: 150, w: 172, h: 96 };
 export const NODES: [number, number][] = [
   [Math.round(kh[0]) + 4, Math.round(kh[1])], // 1 Kaohsiung
   [Math.round(tc[0]) + 6, Math.round(tc[1])], // 2 Ling Tung, Taichung
-  [Math.round(tp[0]), Math.round(tp[1]) + 4], // 3 捷元電腦, Taipei (confirmed by Shannon)
+  [Math.round(tp[0]), Math.round(tp[1]) + 4], // 3 Genuine C&C Inc., Taipei (confirmed by Shannon)
   [170, 174], // 4 London (in the inset)
   [226, 214], // 5 J.P. Morgan
   [282, 174], // 6 Barclays

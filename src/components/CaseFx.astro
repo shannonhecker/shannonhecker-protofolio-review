@@ -8,14 +8,19 @@ const HT = top ? 'h1' : 'h2';
 const HL = top ? 'h2' : 'h3';
 const HD = top ? 'h3' : 'h4'; // decision titles
 import Demo from './Demo.astro';
+import FxHero from './FxHero.astro';
+import { Picture } from 'astro:assets';
+import { imageWidths } from '../lib/image-widths';
+import dataLayers from '../assets/img/fx-figma/data-layers.png';
 import ProductCapture from './ProductCapture.astro';
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
-import ChapterScene from './ChapterScene.astro';
 import ResponsiveEvidence from './ResponsiveEvidence.astro';
 import DecisionMap from './dg/DecisionMap.astro';
-import Personas from './dg/Personas.astro';
-import Journey from './dg/Journey.astro';
+import FxOriginalFlow from './dg/FxOriginalFlow.astro';
+import FxPersonas from './dg/FxPersonas.astro';
+import FxDesignEvidence from './FxDesignEvidence.astro';
+import FxJourney from './dg/FxJourney.astro';
 
 import Flow from './dg/Flow.astro';
 import Layers from './dg/Layers.astro';
@@ -33,20 +38,20 @@ import BeforeAfter from './dg/BeforeAfter.astro';
         <p class="lead muted" style="grid-column:1/9">A trader works a large FX order over hours and keeps deciding whether to step in or leave it. The desk did that across a static chart, five spreadsheets and a separate execution tool.</p>
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Lead designer, one of one</span><span><b>Team</b> · ~20 engineers, business, charting vendor</span><span><b>Status</b> · Beta with internal users</span><span><b>Platform</b> · Web, light and dark</span><span><b>Live</b> · <a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener">My public rebuild<span class="vh"> (opens in new tab)</span> →</a></span></div>
       </div>
-      <ChapterScene project="fx" />
+      <FxHero />
     </header>
     <CaseContents project="fx" />
+
 
     <div class="beat rv" id="fx-problem">
       <div class="label"><HL class="k"><b>01</b> Problem</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Keep the trader in one place, and cut the time from seeing a price move to acting on it." />
-        <ProductCapture name="live-fx.png" alt="The current Enhanced FX interface, with execution chart, order tabs and venue analysis" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Enhanced view · simulated data" />
         <ul class="rows">
           <li><b>Users</b><p>The sales and trading desk, and the institutional clients executing through the same platform with different entitlements.</p></li>
           <li><b>Where we started</b><p>One static Execution Over Time chart from the desk. Five spreadsheets covering trades, market data per order, price limit logs and reference prices. A twelve-item wishlist. No design, no interaction model, no visual language.</p></li>
         </ul>
-        <p class="note"><i></i>In beta with internal users at Barclays. Under NDA, so every screen here is my public rebuild with sample data, built from the production spec.</p>
+        <div class="project-status"><span class="project-status-label">Project status</span><p>In beta with internal users at Barclays. Under NDA, so the screens here are my public rebuild and Figma designs, using sample data and based on the production spec.</p></div>
       </div>
     </div>
 
@@ -60,6 +65,11 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <li><b>The limit price log was the clue</b><p>Orders were being changed mid-flight, several times each. So repricing is a core action, not an edge case, and it had to live on the chart.</p></li>
           <li><b>Watching people decide</b><p>I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.</p></li>
         </ul>
+        <figure class="fx-source-layers">
+          <a href={dataLayers.src} target="_blank" rel="noopener" aria-label="View full size: FX data-to-encoding diagram (opens in new tab)"><Picture src={dataLayers} quality={85} widths={imageWidths(dataLayers.width)} sizes="90vw" formats={['avif','webp']} alt="Market data becomes continuous lines; limit-price changes become steps; states become ranges; fills become sized dots; benchmarks become fixed reference lines. Each shape gets its own encoding." loading="lazy" /></a>
+          <figcaption>My data-to-encoding diagram, from the updated desktop design.</figcaption>
+        </figure>
+        <details class="fx-layer-transcript"><summary>Explore each data layer</summary>
         <Layers
           label="Understanding the data: five spreadsheets, four kinds of data, one mark each"
           cols={[
@@ -71,11 +81,13 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           ]}
           result="Each kind of data gets its own shape. Nothing on the chart is decorative."
           caption="Understanding the data. Redrawn from my working diagram for the spec."
-        />
-        <Personas project="fx" />
-        <Journey project="fx" />
+        />        </details>
+
+        <FxPersonas />
       </div>
     </div>
+
+    <FxJourney />
 
     <div class="beat rv" id="fx-constraints">
       <div class="label"><HL class="k"><b>03</b> Constraints</HL></div>
@@ -102,7 +114,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="label"><HL class="k"><b>05</b> Decisions and trade-offs</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Three calls that defined the product. Each one had a real alternative." />
-        <DecisionMap project="fx" />
+        <DecisionMap project="fx"><FxOriginalFlow slot="flow" /></DecisionMap>
         <ol class="dec">
           <li><span class="n">01</span><div><HD>Progress and price on one canvas, not two panels</HD><p>We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.</p><p class="verdict">One canvas with a dual axis won, at the cost of a denser screen that needed careful hierarchy.</p></div></li>
           <li><span class="n">02</span><div><HD>Reprice on the chart, not in a settings menu</HD><p>The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line.</p><p class="verdict">Drag won because the decision and the action sit in the same place, with a pre-filled ticket as the safety step.</p></div></li>
@@ -115,8 +127,15 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="label"><HL class="k"><b>06</b> The full flow</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="From monitoring to action, without leaving the chart." />
+    <section class="screen-sequence" aria-labelledby="fx-live-modes">
+      <h3 id="fx-live-modes">One workflow, two presentations</h3>
+      <p class="muted">Classic represents my Barclays design. These are captures of my public rebuild with simulated data, not private bank screens.</p>
+      <ProductCapture name="live-fx-classic.png" alt="Classic FX public rebuild in dark mode, showing the complete order and execution chart" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Classic · Dark mode · Simulated data" />
+      <ProductCapture name="live-fx-classic-light.png" alt="The same Classic FX workspace in light mode" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Classic · Light mode · Simulated data" />
+      <ProductCapture name="live-fx-table.png" alt="Enhanced FX public rebuild with its table view selected" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Enhanced · Table view · Simulated data" />
+    </section>
         <ProductCapture name="live-fx-compare.png" alt="Two simulated FX orders compared side by side in the current public rebuild" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Compare orders" />
-        <ProductCapture name="live-fx-ticket.png" alt="The current FX order ticket opened from Fill now, before confirmation" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Order ticket · simulated data" />
+        <FxDesignEvidence />
         <p class="lead muted">Hover a fill to see the detail. Right-click to act. Drag a price line to reprice, and it opens a filled-in order ticket. Each step commits you a little more, so you can't reprice by accident. We turned a chart you watch into a chart you can trade from.</p>
         <Flow
           label="Monitoring to action, step by step"
@@ -197,3 +216,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
     <ResponsiveEvidence project="fx" />
   </div>
 </section>
+
+<style>
+.fx-source-layers{margin:40px 0 16px;min-width:0}.fx-source-layers img{display:block;width:100%;height:auto;border-radius:var(--radius)}.fx-source-layers figcaption{font-size:13px;color:var(--fg-2);line-height:1.6;margin-top:12px}.fx-layer-transcript{margin:16px 0 48px}.fx-layer-transcript summary{cursor:pointer;padding-block:12px;color:var(--fg);font-size:15px}
+</style>

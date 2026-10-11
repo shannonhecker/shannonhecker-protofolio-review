@@ -10,16 +10,16 @@ const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 function reveals() {
   const els = Array.from(document.querySelectorAll<HTMLElement>('.rv, .split'));
-  if (reduce) return;
-  const vh = innerHeight;
-  els.forEach((el) => {
-    if (el.getBoundingClientRect().top > vh * 0.9) el.classList.add('pre');
-    else el.classList.add('in');
-  });
+  if (reduce || !fine) {
+    els.forEach(el => el.classList.add('in'));
+    return;
+  }
+  // The observer supplies visibility after layout; avoid measuring the entire
+  // document synchronously during startup, especially on small touch devices.
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
-        if (!e.isIntersecting) return;
+        if (!e.isIntersecting) { e.target.classList.add('pre'); return; }
         e.target.classList.remove('pre');
         e.target.classList.add('in');
         io.unobserve(e.target);
@@ -32,13 +32,11 @@ function reveals() {
 
 // Anything a nav jump skipped past still gets revealed.
 function sweep() {
+  if (reduce || !fine) return;
   const lim = scrollY + innerHeight * 1.2;
-  document.querySelectorAll<HTMLElement>('.rv.pre, .split.pre').forEach((el) => {
-    if (el.getBoundingClientRect().top + scrollY < lim) {
-      el.classList.remove('pre');
-      el.classList.add('in');
-    }
-  });
+  const visible = Array.from(document.querySelectorAll<HTMLElement>('.rv.pre, .split.pre'))
+    .filter(el => el.getBoundingClientRect().top + scrollY < lim);
+  visible.forEach(el => { el.classList.remove('pre'); el.classList.add('in'); });
 }
 
 function peek() {
@@ -115,7 +113,7 @@ function chrome() {
     t = requestAnimationFrame(() => { upd(); t = 0; });
   }, { passive: true });
   addEventListener('resize', upd);
-  upd();
+  requestAnimationFrame(upd);
 }
 
 reveals();
@@ -123,9 +121,9 @@ peek();
 chrome();
 root.dataset.ready = '1';
 
-// Optional desktop effects load after browsing begins. Initial content and
-// touch scrolling need no animation framework or smooth-scroll runtime.
-if (!reduce && fine) {
+// Optional scroll effects load only after browsing begins. Initial paint uses
+// CSS; desktop gets layered depth and touch gets shorter masked entrances.
+if (!reduce) {
   const loadEffects = () => {
     removeEventListener('scroll', loadEffects);
     import('./scroll-effects').then(({ initScrollEffects }) => initScrollEffects());
