@@ -627,3 +627,5 @@ I synced my updated uoaui.ai builder, comparison, UI Kit, charts, forms, house-s
 I removed the vertical colour bars beside journey phase headings across the case studies. Larger gaps separate the phases, while the horizontal rules above individual steps remain.
 
 Validation: type check and production build, desktop and mobile visual checks, and the browser suite. The persona check now expects my revised uoaui.ai card colour.
+
+I repaired the uoaui.ai desktop and mobile Figma spacing using content columns with consistent gaps. Empty caption space and legacy duplicate mobile persona content are hidden. The artwork, image fills and copy remain intact. I checked the resulting section bounds and both persona layouts.
