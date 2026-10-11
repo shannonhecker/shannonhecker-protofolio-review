@@ -1,5 +1,19 @@
 import { test, expect } from '@playwright/test';
 
+test('FX data layers preserve the four authored branches at every width',async({page})=>{
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.goto('/fx');
+  await page.getByRole('button',{name:'No thanks'}).click();
+  await page.getByText('Explore each data layer',{exact:true}).click();
+  await expect(page.locator('.fx-data-layers ol>li')).toHaveCount(4);
+  await expect(page.locator('.fx-data-layers .intent .layer-mark')).toHaveCount(2);
+  for(const width of [320,390,820,1440]){
+    await page.setViewportSize({width,height:900});
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    expect(await page.locator('.layer-mark').evaluateAll(nodes=>nodes.every(n=>n.scrollWidth<=n.clientWidth+1))).toBe(true);
+  }
+});
+
 test('FX comparisons use the authored charts and stay readable on phones', async ({page}) => {
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.goto('/fx');

@@ -451,3 +451,9 @@ The cloud mobile homepage audit scored 94, just below my 95 budget. I shortened 
 I replaced the six generic FX decision sketches with my finished Figma chart comparisons: combined versus split views, chart repricing versus a settings menu, and market-price studies versus incomplete fill data. The six exports are 1748 pixels wide, with responsive delivery and original-size links. I gave the comparisons more room and stack them on phones. I also placed the authored comparison graphics on white surfaces so their dark illustration text stays readable in dark mode.
 
 I audited the other case graphics alongside the product screenshots, personas, journey maps and decision flows. The prior source-backed assets remain; this pass fills the six missing FX vector drawings without substituting generated product evidence.
+
+### 11 October · Match the expanded data-layer diagram
+
+I brought the expanded FX data-layer view into line with my finished Figma diagram. Market context, order intent, execution results and benchmarks now keep their four branches, with price changes and order states together. The connected diagram keeps selectable text and stacks on phones; the original full-size design remains available above it.
+
+I also removed the separate colour blocks from the FX personas. Each card now uses a continuous illustration-matched background behind the identity and supporting text, with dark type for contrast. The planned shared avatar pass will replace the remaining baked-in image backgrounds.
