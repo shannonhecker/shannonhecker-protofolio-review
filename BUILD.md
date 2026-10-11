@@ -457,3 +457,9 @@ I audited the other case graphics alongside the product screenshots, personas, j
 I brought the expanded FX data-layer view into line with my finished Figma diagram. Market context, order intent, execution results and benchmarks now keep their four branches, with price changes and order states together. The connected diagram keeps selectable text and stacks on phones; the original full-size design remains available above it.
 
 I also removed the separate colour blocks from the FX personas. Each card now uses a continuous illustration-matched background behind the identity and supporting text, with dark type for contrast. The planned shared avatar pass will replace the remaining baked-in image backgrounds.
+
+### 11 October · Consistent comparisons and a complete game entrance
+
+I aligned my FX comparisons with the case reading column, keeping the diagrams smaller and their full explanations directly underneath. The original high-resolution images remain available to open. I removed the second repeated decision layout without cutting its wording, and kept the chosen and alternative views stacked on phones.
+
+I removed the three-project status strip now that Selected work includes five projects. The game now shows an original pixel compass while its map loads and fullscreen settles, replacing the stretched poster flash. The loading scene remains until the canvas has painted, respects reduced motion, and allows retry after a loading failure.

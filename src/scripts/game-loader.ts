@@ -68,6 +68,11 @@ async function boot(level: number, toMap: boolean) {
   const sequence = ++bootSequence;
   cancelFlight?.();
   if (play) play.disabled = true;
+  if (!game) {
+    root.dataset.state = 'loading';
+    root.setAttribute('aria-busy','true');
+    if (statusEl) statusEl.textContent = 'Preparing your adventure…';
+  }
   try {
     const mod = await import('../game/main');
     musicControl=mod.setMusicPlaying;
@@ -76,7 +81,6 @@ async function boot(level: number, toMap: boolean) {
     if (sequence !== bootSequence) return;
     showEnd(null);
     if(crossingToUK){await flyToUK();if(sequence!==bootSequence)return;}
-    root.dataset.state = 'playing';
     if(stageNav)stageNav.hidden=!toMap;
     canvas.tabIndex = 0;
     chosen = level;
@@ -96,10 +100,15 @@ async function boot(level: number, toMap: boolean) {
     }
     mod.setSound(soundOn);
     syncCompleted();
+    // Keep the fullscreen resize and first canvas paint behind the loading scene.
+    await new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve())));
+    if (sequence !== bootSequence) return;
+    root.dataset.state = 'playing';
   } catch {
     root.dataset.state = 'poster';
+    if(statusEl)statusEl.textContent='The adventure could not load. Please try again.';
   } finally {
-    if (play && sequence === bootSequence) play.disabled = false;
+    if(sequence === bootSequence){root.removeAttribute('aria-busy');if(play)play.disabled=false;}
   }
 }
 // ---- full screen: Play opens it; Escape or the Exit button always leaves.
