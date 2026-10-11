@@ -7,7 +7,7 @@ interface Props { project: keyof typeof content; id?: string }
 const {project,id=`${Astro.props.project}-journey`}=Astro.props;
 const data=content[project].journey;
 const persona=content[project].personas.items.find(p=>p.name===data.persona) ?? content[project].personas.items[0];
-const portraitIndex=content[project].personas.items.indexOf(persona);
+const portraitIndex=content[project].personas.items.findIndex(p=>p.name===persona.name);
 const portrait=portraits[`../../assets/img/personas/${project}-${portraitIndex}.png`].default;
 const groups:Record<string,number[]>={fusion:[3,2],ai:[2,2,1],winking:[4,2],deal:[3,2]};
 const counts=groups[project] ?? [data.steps.length];
@@ -15,7 +15,7 @@ const counts=groups[project] ?? [data.steps.length];
 <section id={id} class="authored-journey" aria-labelledby={`${id}-title`}>
  <header class="process-heading"><h3 id={`${id}-title`}>User journey</h3><p>{data.line}</p></header>
  <div class="experience-context"><div><h4>Persona</h4><div class="experience-identity"><Image src={portrait} width={64} height={64} alt=""/><div><strong>{data.persona}</strong><p>{persona.role}</p></div></div></div><div><h4>Scenario</h4><p>{data.scenario}</p></div><div><h4>Goal</h4><p>{data.goal}</p></div></div>
- <div class="experience-scroll" tabindex="0" role="region" aria-label="Original thoughts, feelings and approach graphics. Scroll horizontally to explore on smaller screens."><div class="experience-artwork"><img src={`/art/${project}-experience.svg`} loading="lazy" alt={`Qualitative thoughts, feelings, effort and tool switching across ${data.persona}'s journey`}/><img src={`/art/${project}-approach.svg`} loading="lazy" alt={data.approachText.join('. ')}/></div></div>
+ <div class="experience-scroll" tabindex="0" role="region" aria-label="Original thoughts, feelings and approach graphics. Scroll horizontally to explore on smaller screens."><div class="experience-artwork"><img src={`/art/${project}-experience.svg`} width={985} height={project === "winking" ? 470 : 357} loading="lazy" alt={`Qualitative thoughts, feelings, effort and tool switching across ${data.persona}'s journey`}/><img src={`/art/${project}-approach.svg`} width={project === "winking" ? 873 : 872} height={project === "winking" ? 112 : 84} loading="lazy" alt={data.approachText.join('. ')}/></div></div>
  <section class="experience-transcript"><h4>Thoughts and turning points</h4><ol>{data.quotes.map(q=><li>{q}</li>)}</ol></section>
  <section class="experience-phases"><h4>Journey phases</h4>{data.phases.map((phase,pi)=>{const start=counts.slice(0,pi).reduce((a,b)=>a+b,0);return <section class="experience-phase"><header><h5>{phase.title}</h5><p>{phase.description}</p></header><ol class="experience-steps" start={start+1}>{data.steps.slice(start,start+counts[pi]).map((s,i)=><li><h6><span>{String(start+i+1).padStart(2,'0')}</span>{s.title}</h6><p>{s.description}</p><strong class="recommendation-label">Recommendation</strong><ul>{s.recommendations.map(r=><li>{r}</li>)}</ul><div class="experience-backstage"><strong class="recommendation-label">What the system does</strong><p>{s.backstage}</p></div></li>)}</ol></section>})}</section>
  <div class="experience-takeaways">{data.takeaways.map(t=><div><h4>{t.label}</h4><p>{t.text}</p></div>)}</div>

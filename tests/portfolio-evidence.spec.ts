@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-test('chapter jumps stay in place while deferred product screenshots load', async ({ page }) => {
+for (const path of ['/uoaui', '/fusion']) {
+test(`${path}: chapter jumps stay in place while deferred product screenshots load`, async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   let release!: () => void;
   const held = new Promise<void>(resolve => { release = resolve; });
@@ -9,7 +10,7 @@ test('chapter jumps stay in place while deferred product screenshots load', asyn
     await route.continue();
   });
   try {
-    await page.goto('/uoaui', { waitUntil: 'domcontentloaded' });
+    await page.goto(path, { waitUntil: 'domcontentloaded' });
     await page.evaluate(() => document.fonts.ready);
     const images = page.locator('.product-capture .shot img');
     const unreserved = await images.evaluateAll(elements => elements.filter(el => {
@@ -37,6 +38,8 @@ test('chapter jumps stay in place while deferred product screenshots load', asyn
     release();
   }
 });
+
+}
 
 for (const path of ['/fx', '/fusion', '/winking-star', '/deal-model', '/uoaui']) {
   test(`${path}: every case navigation target exists and evidence remains readable`, async ({ page }) => {

@@ -611,3 +611,11 @@ I removed the added outer shadows from the lower product captures and tablet/pho
 I checked the current Figma sources: these lower screens are raster image fills, so I retained their original image data rather than wrapping the same pixels in SVG.
 
 Validation: production build and all 148 browser tests passed. I checked the screenshot edges and confirmed the video border is zero in Chrome.
+
+### 11 October · Updated Fusion screen artwork
+
+I synced the latest Fusion screen artwork from my portfolio Figma file. Performance, Risk, widget configuration, screening and entity comparison now use the exact vector exports. The M3 configuration screen supports the design-system section; the M1 entity comparison supports the outcome section. I kept the internal UI details and removed only the export's outer canvas and shadow margins.
+
+I refreshed the configuration, tablet and phone captures from their original uploaded image data, preserving my Figma crops. I also reserved space for lazy-loaded SVG screens and journey graphics so section links do not shift as artwork loads.
+
+Validation: production build, desktop and mobile visual checks, and the full browser suite, including delayed-image navigation on Fusion and uoaui.ai.
