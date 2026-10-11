@@ -712,3 +712,15 @@ nine pages built, 88 files checked without diagnostics.
 - [x] Retain sharper product originals where content matches; export 68 new authored assets.
 - [x] Fix home tile crop; pass build, Astro checks and all 140 browser checks.
 - [ ] Exact-head CI and production verification for the Figma refresh.
+
+### 11 October · Audit, footer, FX port and Deal Model screens
+
+- [x] PR #32 voice pass, PR #33 focus fix, PR #34 audit nits, PR #35 footer, PR #36 FX on the shared blocks, PR #37 sanitised Deal Model screens: all merged and live.
+- [x] Lighthouse, axe, keyboard and security audits run on the built site; results in `BUILD.md` and `docs/HANDOFF.md`.
+- [ ] Shannon: Winking Star App Store Connect numbers and the Fusion audit release.
+- [ ] Deal Model hero and index tile from the pricing or compare grid.
+- [ ] One display face for titles on the home page.
+- [ ] One hero framing across the five cases.
+- [ ] Deal Model eyebrow dates, once confirmed.
+- [ ] Record the dark default in the visual direction docs.
+- [ ] Game bot test on game ticks, not wall time.

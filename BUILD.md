@@ -528,3 +528,7 @@ FX now uses the same persona, journey and decision blocks as Fusion, Winking Sta
 The thirteen Deal Model screens under `src/assets/img/figma-sync/` are re-exported from the working Figma file, where the client and colleague names were replaced with the sample names the page already uses. Same nodes, same 2200 pixel width, same pipeline. The cloud environment can reach figma.com again, which is what had held this back.
 
 - Checks: build passes; the Deal Model, figma-sync and chapter-jump tests pass. Spot-checked the deals landing and the pricing grid at full size: Northwind, Acme and the sample owners, no real names.
+
+### 11 October · Handoff for the next session
+
+A short handoff in `docs/HANDOFF.md` and `docs/TASKS.md` for whoever picks this up next: what went live today, the open items in priority order, and the things that trip a new session (the Figma network setting, the 20 KB plugin return cap, the sandbox-only test failures, the change-log conflicts between open PRs, and the sixteen-minute CI).
