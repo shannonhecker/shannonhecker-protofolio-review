@@ -9,6 +9,26 @@ test('hero renders', async ({ page }) => {
   await expect(page.locator('.hero-art .game-poster img')).toBeVisible();
 });
 
+test('header glass follows scrolling in both themes and keeps links usable', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/panel');
+  const nav = page.locator('.nav');
+  const filter = () => nav.evaluate(el => getComputedStyle(el).backdropFilter);
+  for (const dark of [false, true]) {
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(nav).not.toHaveClass(/solid/);
+    if (dark) await page.getByRole('switch', { name: 'Dark mode' }).click();
+    expect(await filter()).toBe('none');
+    await page.evaluate(() => window.scrollTo(0, 200));
+    await expect(nav).toHaveClass(/solid/);
+    expect(await filter()).toContain('blur(16px)');
+    expect(await nav.evaluate(el => getComputedStyle(el).backgroundColor)).toContain('0.78');
+    await expect(nav.getByRole('link', { name: 'FX', exact: true })).toBeInViewport();
+  }
+  await nav.getByRole('link', { name: 'FX', exact: true }).click();
+  await expect(page).toHaveURL(/\/fx$/);
+});
+
 for (const [label, id] of [['Work', 'work'], ['How I work', 'how']]) {
   test(`nav link "${label}" scrolls to #${id}`, async ({ page }) => {
     await page.goto('/');

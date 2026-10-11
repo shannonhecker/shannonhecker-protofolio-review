@@ -416,3 +416,9 @@ I made my home title and introduction respond from the first scroll, with stagge
 I aligned Selected work and its gallery with the introduction and exported sharper original FX panels and Winking Star cover compositions from Figma without editing the file. Responsive images now retain source detail for large and Retina displays. The FX overview, ticket and comparison have clear space between them. My first company stage uses a computer-work badge, while universities show their own buildings and completed stages retain their ticks.
 
 I made the shared stylesheet cacheable between pages instead of embedding the entire design system in every HTML response. The home document is now about 64KB rather than 194KB before compression, and the intro flows a little faster from words to scene to greeting.
+
+I softened the navigation and reading-section dividers with a subtle, theme-aware neutral line. They now sit closer to the page background, especially in dark mode, while controls and focus indicators keep their contrast.
+
+My fixed header now becomes frosted glass after scrolling: a translucent page tint, restrained blur and a soft inner highlight. It works in both themes and returns to an opaque surface for reduced transparency or browsers without backdrop-filter. I used the MDN and WebKit backdrop-filter examples as references, with no extra library.
+
+I moved the avatar's blink and smile frames to stepped opacity animations, preserving the poses while allowing the browser to composite them without continuous visibility changes. Phones also avoid stacking individual word masks inside the title entrance. Lighthouse no longer reports non-composited avatar animations; the local mobile check scores 96 for performance and 100 in the other three categories.

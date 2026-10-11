@@ -611,16 +611,16 @@ html.nav-away .case-contents { top:0; }
 @media(prefers-reduced-motion:reduce){.nav,.case-contents,.companion-avatar{transition:none!important}.companion-avatar{transform:none!important}}
 .idle-frame { position:absolute;inset:0;image-rendering:auto; }
 .avatar-rig { position:absolute;inset:0;transform-origin:50% 98%; }
-.idle-half,.idle-blink,.idle-smile { visibility:hidden; }
+.idle-half,.idle-blink,.idle-smile { opacity:0; }
 .landing-companion[data-visible=true]:not([data-paused=true]) .avatar-rig { animation:avatar-sway 6s ease-in-out infinite; }
 .landing-companion[data-visible=true]:not([data-paused=true]) .idle-half { animation:avatar-half 7s step-end infinite; }
 .landing-companion[data-visible=true]:not([data-paused=true]) .idle-blink { animation:avatar-blink 7s step-end infinite; }
 .landing-companion[data-visible=true]:not([data-paused=true]) .idle-smile { animation:avatar-smile 13s step-end infinite; }
-@keyframes avatar-half { 0%,44%,49%,100%{visibility:hidden}45%,48%{visibility:visible} }
-@keyframes avatar-blink { 0%,45%,48%,100%{visibility:hidden}46%,47%{visibility:visible} }
+@keyframes avatar-half { 0%,44%,49%,100%{opacity:0}45%,48%{opacity:1} }
+@keyframes avatar-blink { 0%,45%,48%,100%{opacity:0}46%,47%{opacity:1} }
 @keyframes avatar-sway { 0%,100%{transform:rotate(-.45deg)}50%{transform:rotate(.45deg)} }
-.landing-companion[data-greeting=true]:not([data-paused=true]) .idle-smile { visibility:visible;animation:none; }
-@keyframes avatar-smile { 0%,70%,82%,100%{visibility:hidden}71%,81%{visibility:visible} }
+.landing-companion[data-greeting=true]:not([data-paused=true]) .idle-smile { opacity:1;animation:none; }
+@keyframes avatar-smile { 0%,70%,82%,100%{opacity:0}71%,81%{opacity:1} }
 .adventure-hero .play.is-full .game-bar{display:flex}.adventure-hero .play.is-full .game-caption{display:block}
 #work .row>.appstore-preview { display:flex;gap:10px;align-items:start;justify-content:center; }
 .appstore-preview picture { display:block;flex:1;min-width:0; }
@@ -635,7 +635,7 @@ html.nav-away .case-contents { top:0; }
 .screen-sequence figure img { width:100%;height:auto;object-fit:contain; }
 .screen-sequence figcaption { margin-top:16px;font-size:13px;color:var(--fg-2); }
 @media(max-width:760px){.store-screen-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}.tablet-screen-grid{grid-template-columns:1fr;gap:32px}.localised-screen-grid{gap:16px}.localised-screen-grid figure{width:50%}.screen-sequence{margin-block:48px 64px}}
-@media(prefers-reduced-motion:reduce){.idle-half,.idle-blink,.idle-smile{animation:none!important;visibility:hidden!important}.avatar-rig{animation:none!important;transform:none!important}}
+@media(prefers-reduced-motion:reduce){.idle-half,.idle-blink,.idle-smile{animation:none!important;opacity:0!important}.avatar-rig{animation:none!important;transform:none!important}}
 /* Role artwork belongs with the role's actual needs, never as an anonymous banner. */
 .persona-roles article { background:#fff;border:1px solid var(--hair);border-top:3px solid var(--project-ink);padding:28px; }
 .persona-identity { display:flex;align-items:center;gap:20px;min-height:200px;margin-bottom:24px; }
