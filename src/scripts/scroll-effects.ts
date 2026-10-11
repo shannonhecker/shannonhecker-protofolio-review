@@ -26,11 +26,12 @@ export function initScrollEffects() {
 
     // The artwork leads, followed by its title and description. A single
     // timeline follows native scrolling in both directions without pinning.
+    const rowMotion=new WeakMap<Element,gsap.core.Animation[]>();
     document.querySelectorAll<HTMLElement>('#work .row').forEach((row,index)=>{
       const artwork=row.querySelector(':scope > picture, :scope > .project-preview');
       if(!artwork)return;
       row.dataset.scrollMotion='true';marked.push(row);
-      gsap.fromTo(artwork,{y:desktop?(index%2?88:56):20,scale:desktop?.97:1},{y:0,scale:1,ease:'none',scrollTrigger:{...enter(row),end:'top 30%'}});
+      const motions:gsap.core.Animation[]=[gsap.fromTo(artwork,{y:desktop?(index%2?88:56):20,scale:desktop?.97:1},{y:0,scale:1,ease:'none',scrollTrigger:{...enter(row),end:'top 30%'}})];
       // Captions sit below a tall image. Their own trigger keeps their motion
       // visible instead of completing while they are still below the screen.
       const title=row.querySelector('h3');
@@ -38,7 +39,9 @@ export function initScrollEffects() {
         const timeline=gsap.timeline({scrollTrigger:enter(title)});
         timeline.fromTo(row.querySelectorAll(':scope > .n, :scope > h3'),{y:desktop?40:14,opacity:.25},{y:0,opacity:1,duration:.7,ease:'none'},0);
         timeline.fromTo(row.querySelector(':scope > .meta'),{y:desktop?28:10,opacity:.3},{y:0,opacity:1,duration:.7,ease:'none'},.15);
+        motions.push(timeline);
       }
+      rowMotion.set(row,motions);
     });
 
     // Existing selectable words reveal through masks; no duplicate reading
@@ -75,9 +78,13 @@ export function initScrollEffects() {
       });
     }
     // Keyboard focus always exposes the complete linked tile immediately.
+    // Focusing a link also scrolls it into view, which would hand the tile
+    // straight back to its scrubbed scroll tweens, so those end here first.
     const revealFocus=(event:FocusEvent)=>{
       const row=(event.target as Element).closest('#work .row');
-      if(row)gsap.set(row.querySelectorAll(':scope > *'),{y:0,scale:1,opacity:1});
+      if(!row)return;
+      rowMotion.get(row)?.forEach(motion=>motion.scrollTrigger?.kill(false));rowMotion.delete(row);
+      gsap.set(row.querySelectorAll(':scope > *'),{y:0,scale:1,opacity:1});
     };
     document.addEventListener('focusin',revealFocus);
     return ()=>{marked.forEach(el=>delete el.dataset.scrollMotion);document.removeEventListener('focusin',revealFocus);};
