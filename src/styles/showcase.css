@@ -328,6 +328,7 @@ html.game-is-full :is(.nav,.progress,.avatar-cursor){visibility:hidden!important
 /* Frosted glass appears only once content scrolls beneath the fixed header.
    The opaque base is also the fallback for reduced transparency and old browsers. */
 html .nav,html[data-theme=dark] .nav{background:var(--bg)!important;-webkit-backdrop-filter:none;backdrop-filter:none;transition:transform .3s ease,background-color .24s ease,box-shadow .24s ease}
+.nav.solid a.l{color:var(--fg)}
 @supports ((backdrop-filter:blur(16px)) or (-webkit-backdrop-filter:blur(16px))){
  html .nav.solid,html[data-theme=dark] .nav.solid{
   background:color-mix(in srgb,var(--bg) 78%,transparent)!important;

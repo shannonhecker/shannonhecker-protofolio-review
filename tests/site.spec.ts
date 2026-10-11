@@ -24,6 +24,7 @@ test('header glass follows scrolling in both themes and keeps links usable', asy
     expect(await filter()).toContain('blur(16px)');
     expect(await nav.evaluate(el => getComputedStyle(el).backgroundColor)).toContain('0.78');
     await expect(nav.getByRole('link', { name: 'FX', exact: true })).toBeInViewport();
+    expect((await new AxeBuilder({ page }).include('.nav').withTags(WCAG).analyze()).violations).toEqual([]);
   }
   await nav.getByRole('link', { name: 'FX', exact: true }).click();
   await expect(page).toHaveURL(/\/fx$/);
