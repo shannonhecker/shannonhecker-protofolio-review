@@ -36,7 +36,7 @@ test('updated authored evidence loads without clipping and mobile identities sta
       if (width===390 || width===1440) {
         const persona=page.locator('.authored-persona, .fx-persona').first();
         await persona.evaluate(el=>el.scrollIntoView({block:"start"}));
-        await testInfo.attach(`${route.slice(1)}-persona-${width}`, { body:await page.screenshot({path:`/private/tmp/portfolio-review/${route.slice(1)}-persona-${width}.png`}),contentType:'image/png' });
+        await testInfo.attach(`${route.slice(1)}-persona-${width}`, { body:await page.screenshot({path:testInfo.outputPath(`${route.slice(1)}-persona-${width}.png`)}),contentType:'image/png' });
       }
     }
   }
