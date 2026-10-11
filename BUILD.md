@@ -445,3 +445,9 @@ I checked desktop composition, mobile reflow, image loading, section navigation,
 The visual pass then caught two source-flow labels extending beyond their boxes and connector labels that were difficult to read against dark mode. I rebuilt the four small flow diagrams as theme-aware vectors, keeping their wording and relationships. I also increased chapter-jump clearance to account for the entrance motion, with a regression for the sticky header. All 141 local browser checks pass. I corrected the screenshot test to use Playwright's output directory so the same evidence can be saved on the Linux release runner.
 
 The cloud mobile homepage audit scored 94, just below my 95 budget. I shortened the introductory paragraph's phone entrance and stopped the navigation from measuring the full gallery while the page is at the top. The title, avatar greeting and scroll motion remain. All 141 browser checks pass after this refinement.
+
+### 11 October · Complete the graphic sync
+
+I replaced the six generic FX decision sketches with my finished Figma chart comparisons: combined versus split views, chart repricing versus a settings menu, and market-price studies versus incomplete fill data. The six exports are 1748 pixels wide, with responsive delivery and original-size links. I gave the comparisons more room and stack them on phones. I also placed the authored comparison graphics on white surfaces so their dark illustration text stays readable in dark mode.
+
+I audited the other case graphics alongside the product screenshots, personas, journey maps and decision flows. The prior source-backed assets remain; this pass fills the six missing FX vector drawings without substituting generated product evidence.

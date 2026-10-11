@@ -143,3 +143,18 @@ Image comparison checked forty existing product placements. Most normalized pixe
 No Nano Banana generation was needed: the required source artwork was available. No portfolio material was sent to 12ui or another design-generation service.
 
 Visual exception: the four decision-flow exports are retained as source references, but rendered as inline SVG on the website. This corrects overflowing Deal Model labels and weak outlined connector labels in the other exports, adds dark-theme pairing and applies the site's 4px corner treatment. The original graph structure and text remain intact.
+
+### 11 October · Finished-file vector audit
+
+The screenshot-only comparison missed six native FX chart drawings. They are now mapped explicitly, in reading order:
+
+| Figma node | Website asset |
+| --- | --- |
+| 140:5074 | fx-decision-1-chosen.png |
+| 140:5087 | fx-decision-1-alternative.png |
+| 140:5114 | fx-decision-2-chosen.png |
+| 140:5128 | fx-decision-2-alternative.png |
+| 140:5155 | fx-decision-3-chosen.png |
+| 140:5168 | fx-decision-3-alternative.png |
+
+Each asset is a direct 6× render of the editable source, delivered through AuthoredImage. The re-audit covers Home, Panel and all five case pages, including native vector containers as well as image fills. FX's data-layer chart, journey, original decision loop, hero details and before/after states are retained. Fusion, uoaui.ai, Winking Star and Deal Model's authored comparisons, qualitative plots and product images were already present. Their transparent comparison artwork now sits on a white surface to preserve its dark embedded labels in either page theme.
