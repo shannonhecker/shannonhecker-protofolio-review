@@ -1,5 +1,21 @@
 import { test, expect } from '@playwright/test';
 
+test('FX comparisons use the authored charts and stay readable on phones', async ({page}) => {
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.goto('/fx');
+  const charts=page.locator('#fx-decision-map .authored-image-link img');
+  await expect(charts).toHaveCount(6);
+  for (const width of [390,1440]) {
+    await page.setViewportSize({width,height:900});
+    await charts.evaluateAll(async images=>{await Promise.all(images.map(async el=>{const im=el as HTMLImageElement;im.loading='eager';await im.decode();}));});
+    const sizes=await charts.evaluateAll(images=>images.map(el=>({width:el.getBoundingClientRect().width,loaded:(el as HTMLImageElement).naturalWidth>0})));
+    expect(sizes.every(s=>s.loaded && s.width>=300)).toBe(true);
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+  }
+  await page.goto('/winking-star');
+  await expect(page.locator('.authored-choice-pair .authored-image-link').first()).toHaveCSS('background-color','rgb(255, 255, 255)');
+});
+
 test('Deal Model is reachable from selected work and retains its evidence on mobile', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/panel');
