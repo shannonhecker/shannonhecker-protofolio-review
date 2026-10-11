@@ -504,3 +504,9 @@ A Lighthouse, axe, keyboard and security pass on the live site found no violatio
 - The FX chart legend and the brand palette blocks had a label on a plain container, which ARIA does not allow. They are groups now, so the label has something to attach to.
 - Phones get an 800 pixel image candidate for the hero and authored images instead of jumping from 640 to 960 or 1280. Lighthouse had flagged 20 to 30 KB per hero as oversized on mobile and no longer does. The largest paint time itself did not move measurably in the sandbox, so this is bytes saved, not a faster score.
 - Checks: build and Astro check pass. The axe, evidence, Figma-sync and polish suites pass apart from the product-recording playback check, which fails the same way on main here. Lighthouse mobile on the four hero pages stays in the 95 to 98 band it was in, with FX on the line at 94 to 96 across runs.
+
+### 11 October · Deal Model screens re-synced with sample names
+
+The thirteen Deal Model screens under `src/assets/img/figma-sync/` are re-exported from the working Figma file, where the client and colleague names were replaced with the sample names the page already uses. Same nodes, same 2200 pixel width, same pipeline. The cloud environment can reach figma.com again, which is what had held this back.
+
+- Checks: build passes; the Deal Model, figma-sync and chapter-jump tests pass. Spot-checked the deals landing and the pricing grid at full size: Northwind, Acme and the sample owners, no real names.
