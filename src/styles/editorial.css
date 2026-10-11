@@ -116,6 +116,7 @@
 .product-capture { margin: 16px 0; }
 .product-capture .shot { border: 1px solid var(--hair); }
 .product-capture figcaption { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; font-size: 13px; color: var(--fg-2); line-height: 1.6; }
+.product-capture figcaption .demo-description { flex-basis: 100%; }
 .product-capture a { text-underline-offset: 4px; }
 .principles { column-gap: 40px; }
 .principle { padding-block: 48px; padding-right: 12px; gap: 20px; }

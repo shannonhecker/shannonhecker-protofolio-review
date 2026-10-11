@@ -495,3 +495,12 @@ I read every case against my interview notes and the working Figma file, then ch
 The home scroll-motion check had been red on main. When a work tile takes keyboard focus the browser also scrolls it into view, and that scroll handed the artwork straight back to its scrubbed scroll tween, so the tile lifted again a frame after the focus reset. A tile's scroll triggers now pause while it holds focus, so the reset holds, and they pick up from the live scroll position when focus leaves. The test now checks both halves: still while focused, moving again after blur.
 
 - Checks: production build and Astro check pass. The home scroll-motion test passes six times in a row locally. Full browser suite: 143 of 145 pass; the product-recording playback check still fails here as it does on main, and the chapter-jump image check timed out once in three runs on an unrelated page, under reduced motion, where this script does nothing.
+
+### 11 October · Three small fixes from the audit pass
+
+A Lighthouse, axe, keyboard and security pass on the live site found no violations and scores of 95 or better everywhere. Three small things came out of reading its "needs review" items, and this closes them.
+
+- The three silent product recordings now carry a visible one-line description under the caption, so the text alternative says what the recording shows and that it has no sound.
+- The FX chart legend and the brand palette blocks had a label on a plain container, which ARIA does not allow. They are groups now, so the label has something to attach to.
+- Phones get an 800 pixel image candidate for the hero and authored images instead of jumping from 640 to 960 or 1280. Lighthouse had flagged 20 to 30 KB per hero as oversized on mobile and no longer does. The largest paint time itself did not move measurably in the sandbox, so this is bytes saved, not a faster score.
+- Checks: build and Astro check pass. The axe, evidence, Figma-sync and polish suites pass apart from the product-recording playback check, which fails the same way on main here. Lighthouse mobile on the four hero pages stays in the 95 to 98 band it was in, with FX on the line at 94 to 96 across runs.

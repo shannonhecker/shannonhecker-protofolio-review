@@ -6,7 +6,7 @@ interface Props { name: string; alt: string; eager?: boolean; sizes?: string; li
 const { name, alt, eager=false, sizes='(max-width:760px) 90vw, 70vw', link=true } = Astro.props;
 const source = images[`../assets/img/figma-sync/${name}`]?.default;
 if (!source) throw new Error(`Missing authored image: ${name}`);
-const widths = [...new Set([640,1280,2200].map(w=>Math.min(w,source.width)))];
+const widths = [...new Set([640,800,1280,2200].map(w=>Math.min(w,source.width)))];
 ---
 {link ? <a class="authored-image-link" href={source.src} target="_blank" rel="noopener" aria-label={`View full size: ${alt} (opens in new tab)`}>
   <Picture src={source} alt={alt} formats={['webp']} widths={widths} sizes={sizes} quality={90} loading={eager?'eager':'lazy'} decoding="async" fetchpriority={eager?'high':undefined} />
