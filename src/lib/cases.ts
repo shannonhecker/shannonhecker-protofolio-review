@@ -24,7 +24,7 @@ export const CASES = [
     "n": "03",
     "vt": "winking",
     "title": "Winking Star",
-    "meta": "Solo · live on the App Store · v1.0.4. A warm, ad-free routine app for families. Designed, built and shipped by me.",
+    "meta": "Solo · live on web and iOS. A shared routine board for families. Designed, built and shipped by me.",
     "arrow": "Read →",
     "img": "ws-marketing.jpg"
   },

@@ -26,11 +26,11 @@ import Stack from './dg/Stack.astro';
     <header class="chapter-head">
       <div class="g" style="row-gap:28px;align-items:end">
         <div style="grid-column:1/9;display:grid;gap:24px">
-          <p class="eyebrow">Case five · Private alpha · practice, not a shipped product</p>
+          <p class="eyebrow">Case five · Solo · Private alpha</p>
           <BrandMark project="ai" />
           <HT class="h-chapter" style="view-transition-name:t-ai">uoaui.ai</HT>
         </div>
-        <div class="avatar-practice" style="grid-column:1/13"><Pic name="shannon-building.png" alt="My pixel-art avatar holding a laptop" sizes="320px" widths={[320, 640]} /><p class="lead muted">A design platform I'm building on Claude. It turns a prompt into a working screen built from real design systems, Salt, Material, Fluent and Carbon among them, with their official React components. Switch system, density or theme and the screen rebuilds.</p></div>
+        <div class="avatar-practice" style="grid-column:1/13"><Pic name="shannon-building.png" alt="My pixel-art avatar holding a laptop" sizes="320px" widths={[320, 640]} /><p class="lead muted">A design platform I'm building on Claude. It turns a prompt into a working screen built from real design systems, Salt, Material, Fluent and Carbon among them, using native components where the mapping supports them, with explicit fallbacks for missing equivalents. Switch system, density or theme and the screen rebuilds.</p></div>
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designed and built it, solo</span><span><b>Status</b> · Private alpha</span><span><b>Live</b> · <a href="https://uoaui.ai/" target="_blank" rel="noopener">uoaui.ai<span class="vh"> (opens in new tab)</span> →</a></span><span><b>UI Kit</b> · <a href="https://uoaui.ai/ui-kit?ds=salt" target="_blank" rel="noopener">Salt component library<span class="vh"> (opens in new tab)</span> →</a></span></div>
       </div>
       <div class="project-hero">
@@ -57,17 +57,17 @@ import Stack from './dg/Stack.astro';
     <div class="beat rv" id="ai-flow">
       <div class="label"><HL class="k"><b>02</b> The flow</HL></div>
       <div class="body">
-        <Split as="h3" class="h-sub" text="Prompt to production screen." />
+        <Split as="h3" class="h-sub" text="From a prompt to a screen a developer can inspect." />
         <Flow
           label="The builder flow, prompt to export"
           steps={[
             { t: 'Prompt', d: 'Describe the screen in words' },
-            { t: 'Generate', d: "Built from a system's official React components" },
+            { t: 'Generate', d: "Mapped to native components, with fallbacks where needed" },
             { t: 'Compare systems', d: 'The same screen in Salt, Material, Fluent and Carbon' },
             { t: 'Tune', d: 'Density, theme and charts. The person decides here' },
             { t: 'Export React', d: 'Code a developer recognises' },
           ]}
-          caption="The model drafts. Compare and tune are where I decide, before anything exports."
+          caption="The model drafts. Compare and tune are where I decide, before I export."
         />
         <Demo src="/media/uoaui-current.mp4" poster="/media/uoaui-current-poster.webp" width={1280} height={800} label="The current uoaui walkthrough: choose a template, edit a card and present the screen across five systems." description="Silent recording. It picks a template, edits one card, then presents the same screen across the five design systems." />
         <ProductCapture name="live-uoaui-kit.png" alt="The current uoaui Salt UI Kit with foundations, components, patterns and system controls" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · Salt UI Kit · Component library" />
@@ -85,10 +85,10 @@ import Stack from './dg/Stack.astro';
         <Stack
           label="How a screen is built, from the person to the exported code"
           layers={[
-            { t: 'The person', d: 'Writes the prompt, then compares and tunes before anything exports.', side: 'Where decisions happen' },
+            { t: 'The person', d: 'Writes the prompt, then compares and tunes before I export.', side: 'Where decisions happen' },
             { t: 'The model', d: 'Claude drafts the screen. A draft, never the final answer.' },
-            { t: 'Token mapping', d: 'Tokens, density scales and theming for five systems in one structure. Where they disagree, the strictest definition wins.', mine: true, side: 'The part I designed' },
-            { t: 'Official components', d: "Each system's published React components, never overridden.", side: 'Salt · Material · Fluent · Carbon · my own' },
+            { t: 'Token mapping', d: 'Tokens, density scales and theming for five systems in one structure. The mapping resolves system-specific props and uses fallbacks where an equivalent is missing.', mine: true, side: 'The part I designed' },
+            { t: 'Component mapping', d: "Published React components where available; explicit markup fallbacks and a class-based in-house system.", side: 'Salt · Material · Fluent · Carbon · my own' },
             { t: 'Export', d: 'React a developer can inspect.' },
           ]}
           legend="The layer I designed"
@@ -106,7 +106,7 @@ import Stack from './dg/Stack.astro';
         <ul class="rows">
           <li><b>Figma for foundations</b><p>The better the design file, the better the AI output. At Barclays I'm matching Figma naming to the code so there's no gap in either direction. When the model can't get the spacing right, I point it at the file. Everything after that, I'd rather iterate in code.</p></li>
           <li><b>Built from the terminal</b><p>Both public rebuilds in this portfolio were made with Claude Code and Codex, in days, to test decisions with real-shaped data. Winking Star shipped the same way.</p></li>
-          <li><b>Where a designer still matters</b><p>A colleague brought me a screen made with AI. It looked fine, used none of our components, and nobody had tested it with a user. I rebuilt it in our system, showed both, and we could ship in two weeks instead of months. A generated screen still needs someone who watched how people work.</p></li>
+          <li><b>Where a designer still matters</b><p>A colleague brought me a screen made with AI. It looked fine, used none of our components, and nobody had tested it with a user. I rebuilt it in our own components and showed both. The existing components made it faster to build and kept it consistent with the platform. A generated screen still needs someone who watched how people work.</p></li>
         </ul>
       </div>
     </div>

@@ -78,6 +78,33 @@ original graphics as source material. Do not invent observations or measured emo
 | Winking Star | Parent/child/caregiver handoffs across first use, daily and weekly loops | Source reviewed; implementation open |
 | Deal Model | Shared deal object, pricing iterations, approval gate and return path | Original-source inspection underway |
 
+Latest checkpoint: journey agent reports distinct layouts implemented locally;
+root visual/source inspection is pending. This is not yet acceptance or release
+of the five journey rows above.
+
+## Decision maps: additional required detail
+
+All five projects need substantive, project-specific decision maps. The current
+maps do not yet satisfy the user's request for detail. The voice-review agent
+owns `AuthoredDecisions`, `decision-evidence.json` and `DECISION-AUDIT` work.
+
+For each decision, identify the actual problem/constraint, alternatives,
+supporting source or testing, choice and rationale, consequences/tradeoff, and
+implementation status. Show real branches and return paths where supported.
+Mark absent evidence unverified; do not turn plausible alternatives into
+historical claims. Root review, responsive rendering and release remain open.
+
+Specific source correction: Deal Model's original source describes an
+owner-written description. An automatic summary is not supported by that source;
+verify implementation separately before retaining any auto-summary claim.
+
+Root source checkpoint: Deal pricing nodes `1:19575` and `1:19659` support
+iteration-creation success/error, an empty iteration and SK/TXN rate mismatch.
+Local edge/validation copy now removes unsupported 15%-Tier-B legal routing,
+missing-rate-card blocking and unmapped-column blocking. CaseDeal labels the
+explanatory text as a summary rather than claiming a same-words redraw. Broader
+authored-content/source-art reconciliation and final rendered checks remain open.
+
 ## Figma, game and voice
 
 | Request | Status | Evidence / remaining check |
@@ -85,15 +112,24 @@ original graphics as source material. Do not invent observations or measured emo
 | Fix Figma padding and gaps after content sync, preserve updated graphics | Open final pass | uoaui spacing previously repaired; audit all desktop/mobile frames and exact asset fills |
 | Sync readable journey treatment across projects in Figma | Earlier pass live; new revision open | Latest distinct-journey brief supersedes generic shared presentation |
 | Mobile fullscreen game map fills available space with readable details | Live, recheck | Re-run real fullscreen/map interaction at phone sizes; source/test evidence required |
-| Interview voice/content review from eight LSEG prep files | Queued | Read local Downloads files supplied 11 October; private reference only, never publish prep text wholesale |
+| Interview voice/content review from eight LSEG prep files | Reviewed; correction verification open | `VOICE-REVIEW.md` records scoped findings; root applying corrections. Private reference only, never publish prep text wholesale |
 | Verify entire site after edits | Open | Production build, Astro check, full browser suite, desktop/mobile inspection, links/assets and current release gates |
 | Publish and verify live | Open | Current branch design/winking-product-refresh is not deployed |
 
 ## Current verification
 
 - Local branch: `design/winking-product-refresh`, based on `982ff55` (PR #48).
-  Worktree changes are not committed or deployed. No PR for this branch was
-  present in the latest GitHub PR inventory.
+  Root reports commit `7d6c6bc` includes only the tested asset/persona changes.
+  New journey and decision scope remains local and under review.
+  [PR #49](https://github.com/shannonhecker/shannonhecker-protofolio-review/pull/49)
+  covers the tested asset/persona checkpoint at `7d6c6bc`. Its CI run
+  [38182499828](https://github.com/shannonhecker/shannonhecker-protofolio-review/actions/runs/38182499828)
+  completed with build/check/API/browser/link gates passing, but FX mobile
+  Lighthouse still **84**, LCP **4.510s**, TBT **0ms**. Other categories are 100.
+  Root/Panel performance scores were 96–99; later cases were not measured because
+  the gate stopped at FX. Artifact:
+  `/private/tmp/portfolio-ci-pr49-38182499828/lh.json`.
+  Later local changes are not included in that exact head yet.
 - Astro check: root reports 0 errors, 0 warnings, 4 unused-symbol hints.
   Production build passes according to the root's current run.
 - Previous browser run: 148 passed, 1 failed on a removed Winking carousel.
@@ -124,7 +160,8 @@ original graphics as source material. Do not invent observations or measured emo
    artwork or narrative changes are needed. Prior repaired pairs are not proof
    that the newly supplied source has been incorporated.
 3. Complete the eight-file private voice review below. All eight files were
-   confirmed present locally; content review remains queued. Publish only
+   confirmed present locally; `VOICE-REVIEW.md` now contains the review.
+   Verify each resulting correction against current source before closure. Publish only
    approved case corrections, never private prep files or interview transcripts.
 4. Reconcile final Figma layout/asset states after content changes. Preserve
    independently updated original artwork; no blanket replacement of frames.
@@ -138,6 +175,18 @@ rebuilds; uoaui.ai is private alpha; Fusion production work is distinguished fro
 its public rebuild; Winking web component captures use fictional sample data
 and do not prove backend sync. Keep unsupported KPI/testing counts open in the
 Revolut evidence audit rather than inventing values to fill the checklist.
+
+Local audit drafts now available: `JOURNEY-RESEARCH.md`, `DECISION-AUDIT.md` and
+`VOICE-REVIEW.md`. Decision coverage is 21 choices (3 FX, 3 Fusion, 3 uoaui.ai,
+6 Winking, 6 Deal). These documents explicitly require rendered/source/release
+verification. Original image text still needs reconciliation where it claims
+automatic Deal summaries, enforced AI export review, unmeasured timing or broad
+behavioral conclusions; adjacent caveats do not make the source graphic verified.
+
+Latest root checkpoint: 15 source-graphic exports corrected locally; actual Deal
+owner/approver captures are being integrated. Root's latest browser run passed
+149 tests in 57.1s before those final art changes. Rebuild/rerun after the new
+assets remains required. No new commit or production result is implied here.
 
 ## Private voice-review queue
 
@@ -174,3 +223,47 @@ not only as a test runner. Iterate on findings before closing delivery.
 Awwwards, Webby and FWA are the requested craft benchmark. No award, jury approval
 or external validation is claimed. Keep this item open until recorded visual
 inspection and release evidence cover all requirements and remaining defects.
+
+## Final performance review: after content and design
+
+Explicit latest feedback: images visibly lag while scrolling. Review actual
+desktop and mobile scroll sessions across all product pages after the content
+and design pass. Inspect image request timing, lazy-load distance, decoding,
+SVG complexity, effects/shadows and scroll animation together. Preserve original
+source quality, aspect ratios and required vector fidelity; do not hide the lag
+by removing meaningful content or substituting blurry captures.
+
+- Record visible late paints or blank media, request/decoding evidence and the
+  before/after result at normal scrolling speeds and through section jumps.
+- Check resource dependency/network queues, not just aggregate Lighthouse scores.
+  Root's local FX baseline also scores 84 (LCP about 4.5s), but its simulated
+  render-delay attribution differs markedly from the real trace (about 165ms).
+  `/private/tmp/fx-current-lh.json` is the diagnostic reference. Filters and
+  entrance effects are hypotheses, not an established root cause.
+- Confirm the final commit meets the existing 95-category CI budget and retains
+  responsive images, accessibility and reduced-motion behavior. Record deployed
+  desktop/mobile spot checks separately from local results.
+
+Status: **Open**. This sits after content/source corrections and the design review;
+it must be completed before final release acceptance.
+
+Local optimization checkpoint: exact-source hero dimensions/decoding and low
+priority for secondary hero artwork improved FX mobile from 84 to 86 and LCP
+from about 4.5s to 4.1s. This remains below the 95 gate; it is progress, not
+acceptance or justification to weaken the budget.
+
+Subsequent root checkpoint: SVG compaction at eight-decimal precision improved
+FX mobile to 92, LCP about 3.2s. Hero compressed transfer fell from about 391KB
+to 191KB; high-resolution render comparison mean difference was at most
+0.00055/255. Data-layer SVG was separately compacted from about 125KB to 48KB
+with zero pixel difference in the root's comparison. These retain vectors and
+original geometry; no rasterization or redraw.
+
+Latest local FX result: **95 mobile performance, LCP 2.7s** in
+`/private/tmp/fx-final-vectors-lh.json`. Hero precision-three compaction retains
+SVG, with root's high-resolution render mean channel difference below
+0.005/255 at density 192; data-layer precision-eight output is pixel-identical.
+The full batch check/build/browser rerun is active in
+`/private/tmp/portfolio-final-*.log`. Updated PR CI and production verification
+remain pending. The separate real desktop/mobile **scroll-performance review
+remains open**; this local page-load result does not close it.

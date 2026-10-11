@@ -85,7 +85,7 @@ test('updated authored evidence loads without clipping and mobile identities sta
     });
     for (const width of [320, 390, 820, 1440]) {
       await page.setViewportSize({ width, height: 900 });
-      const clipped = await page.locator('.persona-copy, .authored-persona-needs, .authored-decision-reason, .experience-steps>li').evaluateAll(elements => elements.filter(el => el.scrollWidth > el.clientWidth+1).map(el => el.textContent?.slice(0,80)));
+      const clipped = await page.locator('.persona-copy, .authored-persona-needs, .authored-decision-reason, .product-journey .journey-detail, .blueprint-system').evaluateAll(elements => elements.filter(el => el.scrollWidth > el.clientWidth+1).map(el => el.textContent?.slice(0,80)));
       expect(clipped).toEqual([]);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
       if (width===390 || width===1440) {
@@ -109,5 +109,6 @@ test('animated chapter jumps clear the sticky header', async ({page}) => {
   const heading=(await page.getByRole('heading',{name:'Decision map',exact:true}).boundingBox())!;
   const nav=(await page.locator('.nav').boundingBox())!;
   expect(heading.y).toBeGreaterThanOrEqual(nav.y+nav.height);
-  await expect(page.locator('.deal-flow-vector')).toBeVisible();
+  await expect(page.locator('.decision-index a')).toHaveCount(6);
+  await expect(page.locator('#deal-decision-map')).toBeVisible();
 });

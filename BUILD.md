@@ -637,3 +637,30 @@ I brought in my updated Winking Star iPhone screens and original theme artwork, 
 I tightened the type and spacing in all fifteen persona cards and kept my updated portraits and colours. Fusion's opening Performance image now uses the current Figma screenshot; its detailed vector screens remain in the design section. The Fusion and Winking portraits now match the latest Figma assets.
 
 I also created a current completion checklist. Distinct project journeys, the newly supplied Deal Model images, interview voice review and final whole-site design audit remain queued; this release does not claim those are finished.
+
+## 12 October 2026 · Project-specific evidence and decisions
+
+Replaced repeated journey structures with a trading intervention loop, analytical
+workspace journey, AI review loop, family routine cycle, and Deal owner/system
+blueprint. Expanded 21 decisions with alternatives, rationale, trade-offs, evidence
+and delivery status. Cross-checked public product repositories and original Deal
+Figma frames; corrected automatic Sample Family, component-only/export-gate,
+auto-written approval and rebuild-versus-specification claims. Updated exact
+Figma exports, including the original Deal owner and approver workflows.
+
+Kept FX artwork as SVG and compacted exported paths and unused metadata. Hero
+assets use three-decimal precision; high-resolution raster comparisons show mean
+channel differences under 0.005/255. The data-encoding diagram is pixel-identical
+in the comparison. Combined compressed hero bytes fell from 391,343 to 129,158;
+the data diagram fell from 124,689 to 48,241. Explicit dimensions and image priority
+protect the main image. Local mobile Lighthouse improved from 84 to 95, with LCP from 4.5s to 2.7s.
+This loading result does not close the separate final scroll-smoothness review.
+
+Verification logs: `/private/tmp/portfolio-final-check.log`,
+`/private/tmp/portfolio-final-build.log`, `/private/tmp/portfolio-final-tests.log`.
+See `docs/DELIVERY-CHECKLIST.md`, `docs/DECISION-AUDIT.md` and
+`docs/IMPLEMENTATION-CROSSCHECK.md` for remaining scope and evidence boundaries.
+
+Final local validation: Astro check returned 0 errors and 0 warnings (4 existing
+unused-variable hints); the production build passed; all 149 Playwright tests
+passed in 59.9 seconds. Source-art updates are included in this run.

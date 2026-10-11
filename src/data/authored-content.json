@@ -638,7 +638,7 @@
               "items": [
                 "A compare step across systems",
                 "Tune density, theme and charts",
-                "Official components only, never overridden"
+                "Mapped system components, with explicit fallbacks"
               ]
             }
           ]
@@ -653,7 +653,7 @@
               "label": "Goals",
               "items": [
                 "Inspect the exported React",
-                "Recognise each system's official components",
+                "Recognise mapped components and inspect the fallbacks",
                 "Close the gap between a Figma file and code"
               ]
             },
@@ -669,7 +669,7 @@
               "label": "In this app",
               "items": [
                 "Export React a developer recognises",
-                "Each system's published React components",
+                "Native component mappings and explicit export fallbacks",
                 "Token mapping underneath, mapped not generated"
               ]
             }
@@ -680,7 +680,7 @@
     "journey": {
       "line": "Mei Lin · Product Designer · Works inside a design system · One screen in Salt, a Material version due, one afternoon",
       "persona": "Mei Lin",
-      "scenario": "Mei has a screen to design in Salt by Friday and a Material version due for a sister team. She describes the screen, lets the model draft it from official components, compares the systems, tunes density and theme, and exports React a developer can inspect.",
+      "scenario": "Mei has a screen to design in Salt by Friday and a Material version due for a sister team. She describes the screen, reviews the generated canvas, compares the systems, tunes density and theme, and chooses when to export React for a developer to inspect.",
       "goal": "Reach a useful, inspectable screen in a real design system without rebuilding it by hand for every system.",
       "plot": "ai-experience.png",
       "approach": "ai-approach.png",
@@ -702,7 +702,7 @@
       "phases": [
         {
           "title": "Draft",
-          "description": "Prompt and generate from official components"
+          "description": "Prompt and generate a structured canvas"
         },
         {
           "title": "Decide",
@@ -725,28 +725,28 @@
         },
         {
           "title": "Generate",
-          "description": "The model drafts the screen from the system's official React components. Free-form UI looked impressive and was unusable.",
+          "description": "The model adds structured blocks to the canvas. Supported combinations render real system components; other combinations use explicit fallbacks.",
           "recommendations": [
-            "Official components only, never overridden",
+            "Map supported blocks to native components",
             "The first answer is a draft"
           ],
-          "backstage": "Claude drafts the screen from the system's official React components. Free-form drawing is never allowed."
+          "backstage": "Claude uses the builder’s block catalogue and canvas tools. Component mappings and fallback renderers turn that structure into the screen."
         },
         {
           "title": "Compare systems",
           "description": "The same screen in Salt, Material, Fluent and Carbon. The hard part is where the systems disagree.",
           "recommendations": [
             "Side-by-side compare across systems",
-            "Strictest definition wins on a disagreement"
+            "Inspect where the systems differ"
           ],
-          "backstage": "Token mapping holds five systems in one structure. Where two systems disagree, the strictest definition wins."
+          "backstage": "The same canvas maps to five systems. Each mapping uses the system’s component and layout APIs where available, with CSS or generic output for unsupported combinations."
         },
         {
           "title": "Tune",
           "description": "Density, theme and charts. This is where the person decides, and where Mei corrects the model most often.",
           "recommendations": [
             "Density, theme and chart controls",
-            "Compare and tune before anything exports"
+            "Compare and tune before choosing to export"
           ],
           "backstage": "Density, theme and chart props re-render the same component tree. Nothing is redrawn by hand."
         },
@@ -757,7 +757,7 @@
             "Export React",
             "Inspectable component tree and tokens"
           ],
-          "backstage": "React export with the component tree and tokens a developer can inspect. It does not ship the product."
+          "backstage": "React export includes component mappings and styles, with fallbacks where needed. Export is available directly; the product does not enforce a compare-and-tune gate."
         }
       ],
       "takeaways": [
@@ -767,7 +767,7 @@
         },
         {
           "label": "Insight",
-          "text": "Free-form generated UI looked impressive and was unusable. Official components only, never overridden, gave output a developer recognises at the cost of the model having fewer moves."
+          "text": "A structured canvas gives the model defined blocks to work with. Supported blocks map to native system components, while explicit fallbacks cover the gaps. The designer still needs to inspect what comes out."
         },
         {
           "label": "Who was in the room",
@@ -784,7 +784,7 @@
         "title": "Generation",
         "choices": [
           {
-            "label": "Official components only, never overridden",
+            "label": "Mapped components with explicit fallbacks",
             "image": "ai-decision-0-0.png",
             "transcript": [
               "uoaui.ai · Screen builder",
@@ -799,7 +799,7 @@
               "Orders · generated",
               "Primary",
               "Search",
-              "Every element maps to a published component"
+              "Supported blocks map to native components; uncovered combinations use fallbacks"
             ]
           },
           {
@@ -817,8 +817,8 @@
             ]
           }
         ],
-        "reason": "We explored letting the model draw free-form UI and restricting it to each system's published React components. Free-form looked impressive and was unusable. Official-only won. The output is something a developer recognises, at the cost of the model having fewer moves.",
-        "tradeoff": "The model has fewer moves, so some layouts it could draw are off the table.",
+        "reason": "I chose a structured block model rather than arbitrary generated UI. Supported blocks map to native system components. The renderer and exporter use explicit fallbacks where a system has no equivalent.",
+        "tradeoff": "Mappings need maintenance, and fallback output still needs inspection before handover.",
         "outcome": "The output is something a developer recognises and can inspect."
       },
       {
@@ -843,7 +843,7 @@
               "Density scale",
               "Theme",
               "Components",
-              "Strictest definition wins",
+              "Per-system mappings, with explicit fallbacks",
               "Switch system, density or theme without a hand rebuild"
             ]
           },
@@ -860,12 +860,12 @@
               "Search",
               "→",
               "Orders · M3 (rebuilt)",
-              "Rebuilt by hand · 2 days"
+              "Separate screen rebuilt by hand"
             ]
           }
         ],
-        "reason": "I mapped their tokens, density scales and theming into one structure so a screen can switch system without being rebuilt by hand. The hard part was where the systems disagree, and I chose the strictest definition each time.",
-        "tradeoff": "The strictest definition wins, so a looser system loses some of its own defaults.",
+        "reason": "I mapped the same canvas to the supported systems, each with its own components, density and theme rules. Switching systems preserves the structure so the designer can inspect the differences.",
+        "tradeoff": "The systems do not map one to one. Unsupported combinations need a fallback and a design decision.",
         "outcome": "Switch system, density or theme and the screen rebuilds without a hand rebuild."
       },
       {
@@ -910,30 +910,25 @@
               "Export React",
               "No compare step",
               "No tune step",
-              "The model's guess ships as it came, and the person corrects it in code"
+              "A first draft can be exported directly; review remains the designer’s responsibility"
             ]
           }
         ],
-        "reason": "The model's first answer is a draft. The flow forces a compare step across systems and a tune step on the screen before anything exports. That's where the person decides, and where I correct the model most often.",
-        "tradeoff": "Nothing exports from the first answer. The flow is slower by design.",
+        "reason": "I treat the first answer as a draft. Comparing systems and tuning the screen helps me review it before handover. The product leaves export available, so the person chooses when to use it.",
+        "tradeoff": "Review takes time, and keeping export available means the person can also export without reviewing.",
         "outcome": "The compare and tune steps are where the person decides, and where I correct the model most often."
       }
     ],
     "decisionFlow": "ai-decision-flow.png",
     "decisionFlowText": [
-      "Ready to hand over",
-      "Review again",
       "Describe the screen",
-      "Generate a draft",
-      "Official components",
-      "The person decides",
-      "Compare systems",
-      "Tune density,",
-      "theme and charts",
-      "Export React",
-      "Developer handover",
-      "The model drafts",
-      "I decide"
+      "Generate structured canvas blocks",
+      "Map supported blocks to native components",
+      "Use explicit fallbacks where needed",
+      "Compare systems and inspect differences",
+      "Tune density, theme and charts",
+      "Choose when to export React",
+      "Export is available directly; review is not an enforced gate"
     ]
   },
   "winking": {
@@ -999,7 +994,7 @@
             {
               "label": "Design answer",
               "items": [
-                "A sample family on first open, so value shows before any setup",
+                "Optional Sample Family to try before personal setup",
                 "Kid Mode and a parental gate",
                 "Custom activities, so Mandarin sits next to teeth"
               ]
@@ -1041,7 +1036,7 @@
     "journey": {
       "line": "The parent · Sets it up · Two children, two adults · From a bad bedtime to week two, with Leo, 6, underneath",
       "persona": "The parent",
-      "scenario": "After another bad bedtime the parent downloads Winking Star, finds the Sample Family already set up, hands the phone to Leo for the first tick, and by the end of the week a Mystery Pet has grown and grandma has joined the board.",
+      "scenario": "After another bad bedtime the parent downloads Winking Star and chooses Try the Sample Family. After exploring the example, they create their own family board and hand the phone to Leo for the first tick. The scenario follows their first week and a second adult joining.",
       "goal": "Routines done without nagging, a child who asks to tick his own stars, and a second adult on the same board.",
       "plot": "winking-experience.png",
       "approach": "winking-approach.png",
@@ -1081,12 +1076,12 @@
         },
         {
           "title": "First open",
-          "description": "Opens the app and finds the Sample Family already set up. Child feels curious.",
+          "description": "Chooses Try the Sample Family on the welcome screen to inspect the routines and pet, then starts their own family setup.",
           "recommendations": [
             "A working sample board first",
             "Add your own family when you like it"
           ],
-          "backstage": "Sample Family seeded on first open. No account, no tour, no permission prompt."
+          "backstage": "The optional demo route loads a predefined Sample Family. Create Family is a separate route; the demo is not automatically seeded into a new board."
         },
         {
           "title": "First tick",
@@ -1203,7 +1198,7 @@
         "title": "First open",
         "choices": [
           {
-            "label": "A sample family before any setup",
+            "label": "Optional Sample Family before personal setup",
             "image": "winking-decision-1-0.png",
             "transcript": [
               "The Sample Family",
@@ -1212,9 +1207,9 @@
               "Leo",
               "Mia",
               "Sam",
-              "Replace with your family",
-              "Value before any setup",
-              "The first screen is a full week for a family that already exists. You see what the app does, then swap in your own kids.",
+              "Create your own family",
+              "An example before personal setup",
+              "The welcome screen offers a Sample Family to try, or a direct route to create your own family.",
               "What is already filled in",
               "Three children with themes",
               "A week of routines and stars",
@@ -1240,9 +1235,9 @@
             ]
           }
         ],
-        "reason": "Explored a tour and an empty state. Both asked parents to invest before they'd seen the loop. The Sample Family shows a full week on first open, and you replace it when you're ready.",
-        "tradeoff": "First-run sample data has to be replaced, so there is a clear swap step.",
-        "outcome": "Value shows before any setup."
+        "reason": "I offer the Sample Family before personal setup so a parent can inspect the loop. Trying it is optional: the welcome screen also lets them create their family directly.",
+        "tradeoff": "The example and the family’s own board are separate. The transition needs to make clear which actions will save real progress.",
+        "outcome": "The welcome screen offers both a sample experience and direct family creation."
       },
       {
         "title": "Access and trust",
@@ -1444,8 +1439,8 @@
       "Next week",
       "Open the app",
       "A shared family board",
-      "First open",
-      "Sample Family",
+      "Welcome screen",
+      "Optional Sample Family, or create your own family",
       "Your own family",
       "Second adult",
       "joins by invitation",
@@ -1515,22 +1510,22 @@
               "items": [
                 "No audit trail outside an inbox",
                 "Reviewing the full sheet for one change",
-                "Tolerance breaches found late"
+                "Pricing differences that need explanation"
               ]
             },
             {
               "label": "In this app",
               "items": [
                 "Iteration list with what changed",
-                "Checks as you go, before approval",
-                "Step five writes the sign-off summary"
+                "Comparison and comments alongside the chosen iteration",
+                "Owner-written winning-bid reason before publishing"
               ]
             }
           ]
         },
         {
           "name": "The legal reviewer",
-          "role": "Legal\nChecks terms and tolerances",
+          "role": "Legal\nReviews terms and the deal record",
           "quote": "“Which rate card is this on, and who changed it?”",
           "image": null,
           "groups": [
@@ -1538,7 +1533,7 @@
               "label": "Goals",
               "items": [
                 "Trace every rate to a card and a person",
-                "Catch out-of-tolerance pricing early",
+                "Understand the terms behind the selected price",
                 "Keep the terms consistent across deals"
               ]
             },
@@ -1554,7 +1549,7 @@
               "label": "In this app",
               "items": [
                 "Benchmark rate cards in the flow",
-                "Validation states on tolerance rules",
+                "Pricing warnings and the iteration history",
                 "History per iteration"
               ]
             }
@@ -1598,7 +1593,7 @@
       "line": "The deal owner · Custody sales · London · Global custody deal, four teams, one platform",
       "persona": "The deal owner",
       "scenario": "A client asks for a reprice before a call. The deal owner opens the deal, loads the portfolio, builds a new iteration on the benchmark rate card, compares it with the last two, and sends it for approval.",
-      "goal": "Price the deal in one sitting, know it is within tolerance, and get sign-off with a trail that survives an audit.",
+      "goal": "Price the deal, explain the selected iteration, and get a recorded approval with the comparison and comments in view.",
       "plot": "deal-experience.png",
       "approach": "deal-approach.png",
       "approachText": [
@@ -1610,10 +1605,10 @@
         "“Which version is the current one?”",
         "“Will product recognise this as a deal?”",
         "“Do I have to key all this in again?”",
-        "“Is this out of tolerance?”",
+        "“Why does this transaction rate differ?”",
         "“Which iteration actually wins?”",
         "“Three versions, so I can say what is wrong.”",
-        "“The summary wrote itself.”",
+        "“My reason stays with this iteration.”",
         "“Audit can have this as it is.”"
       ],
       "phases": [
@@ -1647,12 +1642,12 @@
         },
         {
           "title": "Price and iterate",
-          "description": "Builds iterations on benchmark rate cards. Tolerance checks run as each field changes, not at approval.",
+          "description": "Builds iterations from rate cards. The original design warns when the transaction rate differs from the SK rate, so the owner can review that difference.",
           "recommendations": [
-            "Validation states at the field",
-            "Rate cards in the flow"
+            "Review the rate difference",
+            "Confirm which iterations were created"
           ],
-          "backstage": "Tolerance rules and benchmark rate cards run on every change."
+          "backstage": "Iteration creation reports success or failure. The pricing design includes a warning when TXN rate differs from SK rate."
         },
         {
           "title": "Compare and tier",
@@ -1665,18 +1660,18 @@
         },
         {
           "title": "Approve and sign off",
-          "description": "Sends for approval. The approver sees what changed. Step five writes the sign-off summary.",
+          "description": "Writes a short winning-bid reason and publishes the selected iteration. The approver reviews the comparison and comments, then records a decision.",
           "recommendations": [
-            "Iteration list with what changed",
-            "Summary written for you"
+            "Comparison and comments visible during review",
+            "Owner-written reason kept with the iteration"
           ],
-          "backstage": "Approver workflow routes by role. History written per iteration."
+          "backstage": "The published iteration carries the owner’s reason. The approver reviews the comparison and comments; the product records the approval decision."
         }
       ],
       "takeaways": [
         {
           "label": "Opportunities",
-          "text": "Catch tolerance breaches at the field, not at approval. Make the comparison a view, not a rebuild. Let the tool write the sign-off."
+          "text": "Keep pricing warnings close to the work. Make comparison a view, not a rebuild. Keep the owner’s reason with the iteration the approver reviews."
         },
         {
           "label": "Insight",
@@ -1853,56 +1848,36 @@
         "outcome": "The last people came across. If asked about adoption, the template is the answer."
       },
       {
-        "title": "Checks as you go, and the tool writes the sign-off",
+        "title": "Pricing feedback and an owner-written reason",
         "choices": [
           {
-            "label": "Validation at the field, summary written for you",
+            "label": "Owner: publish the proposal with a reason",
             "image": "deal-decision-4-0.png",
             "transcript": [
-              "Securities Services",
-              "Pricing · New iteration",
-              "Step 3 of 5",
-              "Rate card",
-              "Benchmark 2024 · Tier B",
-              "Final bid",
-              "5.00 %",
-              "Reduction",
-              "18 %",
-              "Outside tolerance for Tier B (max 15 %). Needs legal sign-off.",
-              "Trans rate (sec)",
-              "0.85 bps",
-              "Sign-off summary · written for you",
-              "Iteration 3 lowers the final bid to 5.00 % on Benchmark 2024 Tier B. Reduction 18 % exceeds tolerance (15 %), flagged for legal review. Change by R. Mensah.",
-              "Send for approval",
-              "Checks at the field. Nothing waits for approval to be found."
-            ]
+              "Publish the deal",
+              "Select the proposed pricing iteration",
+              "Review the financial summary and approval level",
+              "Add comments and publish"
+            ],
+            "alt": "Original Deal Model owner screen selecting an iteration and publishing the proposal for approval."
           },
           {
-            "label": "Validate at approval",
+            "label": "Approver: review the proposal and comments",
             "image": "deal-decision-4-1.png",
             "transcript": [
-              "Securities Services",
-              "Pricing · New iteration",
-              "Validate at end",
-              "Rate card",
-              "Benchmark 2024 · Tier B",
-              "Final bid",
-              "5.00 %",
-              "Reduction",
-              "18 %",
-              "Trans rate (sec)",
-              "0.85 bps",
-              "Submit",
-              "Returned by approver",
-              "\"Reduction out of tolerance. Please correct and resubmit.\" Three days later.",
-              "Sign-off summary",
-              "Written by hand, in email."
-            ]
+              "Approve the deal",
+              "Comments",
+              "Quick overview",
+              "Proposed bid",
+              "Owner-written winning-bid reason",
+              "Cancel or approve"
+            ],
+            "alt": "Original Deal Model approver dialog showing comments, a quick overview, the proposed bid and the owner-written winning-bid reason."
           }
         ],
-        "reason": "Tolerance breaches used to be found at approval, days later, by email. The flow checks each field as it changes against the rate card and tolerance rules, and step five writes the sign-off summary from what changed.",
-        "tradeoff": "The tolerance rules had to live in the product, so they changed whenever the rate cards did.",
-        "outcome": "Breaches surfaced at the field. Legal got a trail that comes out of the tool."
+        "reason": "I kept pricing feedback close to the work and the owner’s explanation with the selected iteration. The original flow has the owner write the winning-bid reason and publish it; the approver sees the comparison and comments before deciding.",
+        "tradeoff": "The owner still has to explain the choice. Pricing warnings, creation errors and approval need distinct states so one is not mistaken for another.",
+        "outcome": "The original design keeps the owner’s reason and iteration comparison available to the approver. It does not automatically write the sign-off narrative."
       },
       {
         "title": "Smart pricing, explored",
@@ -1959,9 +1934,9 @@
       "Load the portfolio",
       "Start from a default\nportfolio",
       "Price and iterate\nChecks as you go",
-      "Out of tolerance\nFix at the field, not at approval",
+      "Rate difference\nReview the TXN rate against SK rate",
       "Compare and tier\nGrid, column chooser",
-      "Approve and sign off\nThe tool writes the summary",
+      "Publish and approve\nOwner writes the reason; approver reviews comparison and comments",
       "Smart pricing (explored)\nModel suggests, person decides"
     ]
   }
