@@ -7,7 +7,7 @@ interface Props { project: keyof typeof content; id?: string }
 const {project,id=`${Astro.props.project}-journey`}=Astro.props;
 const data=content[project].journey;
 const persona=content[project].personas.items.find(p=>p.name===data.persona) ?? content[project].personas.items[0];
-const portraitIndex=content[project].personas.items.indexOf(persona);
+const portraitIndex=content[project].personas.items.findIndex(p=>p.name===persona.name);
 const portrait=portraits[`../../assets/img/personas/${project}-${portraitIndex}.png`].default;
 const groups:Record<string,number[]>={fusion:[3,2],ai:[2,2,1],winking:[4,2],deal:[3,2]};
 const counts=groups[project] ?? [data.steps.length];
