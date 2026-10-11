@@ -23,6 +23,17 @@ import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
       <button type="button" class="game-play game-title-start" id="game-play" aria-label="Start adventure" disabled><span><span class="title-pointer" aria-hidden="true">▶</span> START ADVENTURE</span></button>
       <span class="title-credit" aria-hidden="true">A SHANNON HECKER ADVENTURE</span>
     </div>
+    <div class="game-loading" role="status" aria-live="polite">
+      <svg class="loading-compass" viewBox="0 0 80 80" width="80" height="80" aria-hidden="true">
+        <path d="M32 4H48V16H64V32H76V48H64V64H48V76H32V64H16V48H4V32H16V16H32Z" fill="none" stroke="#9dccef" stroke-width="2"/>
+        <path d="M40 16L48 32L64 40L48 48L40 64L32 48L16 40L32 32Z" fill="#fff0ce"/>
+        <path d="M40 16V40H64L48 32Z" fill="#d87890"/>
+        <path d="M36 36H44V44H36Z" fill="#172b3b"/>
+      </svg>
+      <p class="loading-title">Charting the route</p>
+      <p class="loading-caption">Kaohsiung → London → What’s next</p>
+      <span class="loading-route" aria-hidden="true"><i></i><i></i><i></i></span>
+    </div>
     <div class="game-flight" hidden aria-labelledby="flight-title">
       <p class="flight-year">A new chapter · 2013</p><h2 id="flight-title">Taiwan → United Kingdom</h2>
       <p class="flight-story">I came to the UK for a working holiday and study.</p>

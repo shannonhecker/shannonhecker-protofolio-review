@@ -11,11 +11,6 @@ import PixelObject from './PixelObject.astro';
     <div class="hero-story">
       <h1 class="h-giant">{['I', 'design', 'tools', 'where', 'mistakes', 'cost', 'money.'].map((word, index) => <><span class="hero-word-window" style={`--word-index:${index}`}><span class="hero-word">{word}</span></span>{index < 6 ? ' ' : ''}</>)}</h1>
       <p class="hero-top"><span class="hero-copy-depth">Hi, I'm Shannon Hecker, a product designer in London. Lead design for FX and MarketsOne at Barclays, VP of Product Design at J.P. Morgan before that. I build what I design.</span></p>
-      <div class="status-row" role="group" aria-label="Status">
-        <span><i></i>Winking Star · live on the App Store</span>
-        <span><i class="amber"></i>FX analytics · beta at Barclays</span>
-        <span><i class="amber"></i>uoaui.ai · private alpha</span>
-      </div>
       <a class="explore-work" href="#work">Explore my work<span aria-hidden="true">↓</span></a>
     </div>
     <LandingCompanion />

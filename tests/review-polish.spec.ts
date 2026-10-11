@@ -10,7 +10,7 @@ test('game title does not obscure the world label or start prompt',async({page})
  }
 });
 
-test('home artwork covers its frame and desktop statuses stay on one line',async({page})=>{
+test('home artwork covers its frame and follows the hero alignment',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
  for(const width of [390,1280,1512]){
   await page.setViewportSize({width,height:900});await page.goto('/panel');await page.evaluate(()=>document.fonts.ready);
@@ -25,7 +25,6 @@ test('home artwork covers its frame and desktop statuses stay on one line',async
   });
   expect(alignment,`${width}px shared content alignment`).toBeLessThan(1);
   for(const edges of geometry){expect(edges.top).toBeLessThanOrEqual(.1);expect(edges.left).toBeLessThanOrEqual(.1);expect(edges.right).toBeGreaterThanOrEqual(-.1);expect(edges.bottom).toBeGreaterThanOrEqual(-.1);}
-  if(width>760){const positions=await page.locator('.status-row>span').evaluateAll(items=>items.map(el=>el.getBoundingClientRect().top));expect(Math.max(...positions)-Math.min(...positions)).toBeLessThan(1);}
  }
 });
 

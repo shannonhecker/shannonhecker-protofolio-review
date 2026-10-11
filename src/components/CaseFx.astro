@@ -115,11 +115,6 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="Three calls that defined the product. Each one had a real alternative." />
         <DecisionMap project="fx"><FxOriginalFlow slot="flow" /></DecisionMap>
-        <ol class="dec">
-          <li><span class="n">01</span><div><HD>Progress and price on one canvas, not two panels</HD><p>We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.</p><p class="verdict">One canvas with a dual axis won, at the cost of a denser screen that needed careful hierarchy.</p></div></li>
-          <li><span class="n">02</span><div><HD>Reprice on the chart, not in a settings menu</HD><p>The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line.</p><p class="verdict">Drag won because the decision and the action sit in the same place, with a pre-filled ticket as the safety step.</p></div></li>
-          <li><span class="n">03</span><div><HD>Studies on market prices only. A decision I reversed</HD><p>My spec let analytics studies run on any series, including the order's own fills. The vendor showed that order data has gaps, so a study on it looks confident and is wrong.</p><p class="verdict">I reversed it. Studies run on bid, ask and mid only, and the picker says why. Flexibility that produces plausible but wrong output isn't a feature.</p></div></li>
-        </ol>
       </div>
     </div>
 

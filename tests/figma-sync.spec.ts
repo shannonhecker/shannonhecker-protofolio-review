@@ -1,5 +1,20 @@
 import { test, expect } from '@playwright/test';
 
+test('all fifteen personas share portrait framing and one card surface',async({page})=>{
+  await page.emulateMedia({reducedMotion:'reduce'});
+  for(const [route,count] of [['/fx',3],['/fusion',3],['/uoaui',2],['/winking-star',3],['/deal-model',4]] as const){
+    await page.goto(route);
+    await expect(page.locator('.persona-card')).toHaveCount(count);
+    await expect(page.locator('.persona-card .persona-art img')).toHaveCount(count);
+    for(const width of [390,1440]){
+      await page.setViewportSize({width,height:900});
+      const frames=await page.locator('.persona-art').evaluateAll(nodes=>nodes.map(n=>({w:n.clientWidth,h:n.clientHeight})));
+      for(const f of frames){expect(f.w).toBe(300);expect(f.h).toBe(400);}
+      await expect(page.locator('.persona-card').first()).toHaveCSS('background-color','rgb(245, 228, 220)');
+    }
+  }
+});
+
 test('FX data layers preserve the four authored branches at every width',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.goto('/fx');
@@ -19,13 +34,21 @@ test('FX comparisons use the authored charts and stay readable on phones', async
   await page.goto('/fx');
   const charts=page.locator('#fx-decision-map .authored-image-link img');
   await expect(charts).toHaveCount(6);
-  for (const width of [390,1440]) {
+  for (const width of [390,1440,1920]) {
     await page.setViewportSize({width,height:900});
     await charts.evaluateAll(async images=>{await Promise.all(images.map(async el=>{const im=el as HTMLImageElement;im.loading='eager';await im.decode();}));});
-    const sizes=await charts.evaluateAll(images=>images.map(el=>({width:el.getBoundingClientRect().width,loaded:(el as HTMLImageElement).naturalWidth>0})));
-    expect(sizes.every(s=>s.loaded && s.width>=300)).toBe(true);
+    await expect.poll(()=>charts.evaluateAll(images=>images.every(el=>el.getBoundingClientRect().width>=300&&(el as HTMLImageElement).naturalWidth>0))).toBe(true);
+    const sizes=await charts.evaluateAll(images=>images.map(el=>({width:el.getBoundingClientRect().width})));
+    if(width>=1440){
+      expect(sizes.every(s=>s.width<width*.36)).toBe(true);
+      const chart=(await charts.first().boundingBox())!;
+      const explanation=(await page.locator('.choice-narrative').first().boundingBox())!;
+      expect(Math.abs(chart.x-explanation.x)).toBeLessThan(1);
+    }
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
   }
+  await expect(page.locator('#fx-decisions .choice-narrative')).toHaveCount(3);
+  await expect(page.locator('#fx-decisions .dec')).toHaveCount(0);
   await page.goto('/winking-star');
   await expect(page.locator('.authored-choice-pair .authored-image-link').first()).toHaveCSS('background-color','rgb(255, 255, 255)');
 });

@@ -3,6 +3,21 @@ import { LEVELS } from '../src/game/levels';
 
 const state = (page: Page) => page.evaluate(() => (window as unknown as { __game: () => any }).__game());
 
+test('slow game artwork stays behind the loading scene until the map is ready', async({page})=>{
+  let release!:()=>void;
+  const gate=new Promise<void>(resolve=>{release=resolve;});
+  await page.route('**/game/world-map.webp',async route=>{await gate;await route.continue();});
+  await page.goto('/');
+  await page.getByRole('button',{name:'Start adventure'}).click();
+  await expect(page.locator('.game-loading')).toBeVisible();
+  await expect(page.locator('.game-poster')).toBeHidden();
+  await expect(page.locator('.play .game')).toHaveAttribute('aria-busy','true');
+  release();
+  await expect(page.locator('.play .game')).toHaveAttribute('data-state','playing');
+  await expect(page.locator('.game-loading')).toBeHidden();
+  await expect.poll(async()=> (await state(page)).mode).toBe('map');
+});
+
 // Press Play (which opens the career map), then Space to start the first world.
 async function boot(page: Page) {
   await page.goto('/');

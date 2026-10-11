@@ -237,6 +237,16 @@ html:not(.has-js) .case-contents { display:none; }
 }
 
 /* An original cartridge-era title screen, using the game's own harbour art. */
+.game-loading{display:none;position:absolute;inset:0;z-index:8;background:#17202c;color:#edf1f5;align-content:center;justify-items:center;gap:16px;text-align:center;padding:24px}
+.game[data-state=loading] .game-loading{display:grid}
+.game[data-state=loading] .game-poster{visibility:hidden}
+.game-loading .loading-title{margin:0;font:clamp(24px,3vw,40px)/1.2 var(--pixel)}
+.game-loading .loading-caption{margin:0;font:14px/1.6 var(--body);color:#b7c1ce}
+.loading-compass{width:clamp(48px,7vw,80px);height:auto;animation:route-compass 2s ease-in-out infinite}
+.loading-route{display:flex;gap:12px;margin-top:8px}.loading-route i{width:6px;height:6px;background:#9dccef;animation:route-dot 1.2s ease-in-out infinite}.loading-route i:nth-child(2){animation-delay:.15s}.loading-route i:nth-child(3){animation-delay:.3s}
+@keyframes route-compass{50%{transform:translateY(-5px) rotate(8deg)}}
+@keyframes route-dot{50%{opacity:.25;transform:translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){.loading-compass,.loading-route i{animation:none}}
 .play .game-poster{--title-ink:#172b3b;--title-paper:#fff2cf;--title-sign:#a34b29;overflow:hidden;color:var(--title-paper);font-family:var(--pixel);isolation:isolate}
 .adventure-hero .play:not(.is-full) .game[data-state=poster]{min-height:290px}
 .play .title-hud{position:absolute;inset:16px 5% auto;display:flex;justify-content:space-between;z-index:1;font:clamp(12px,1.2vw,18px)/1.1 var(--pixel);letter-spacing:.04em;color:#172b3b}
@@ -347,7 +357,7 @@ html .nav,html[data-theme=dark] .nav{background:var(--bg)!important;-webkit-back
  .has-js .hero-story>:is(h1,.hero-top,.status-row,.explore-work){animation-name:hero-phone-enter}
  /* Settle the reading copy promptly on phones while the remaining intro
     continues. This paragraph is the largest initial content on narrow screens. */
- .has-js .hero-story>.hero-top{animation-duration:.28s;animation-delay:.04s}
+ .has-js .hero-story>.hero-top{animation:none}
  .has-js .hero-word-window{animation:none}
  .landing-companion[data-intro=true] .companion-avatar{animation-duration:.35s}
  @keyframes hero-phone-enter{from{transform:translateY(12px)}to{transform:none}}
@@ -364,3 +374,6 @@ html[data-theme=dark] .nav .cta:hover,html[data-theme=dark] .nav .cta:focus-visi
 html[data-theme=dark] .case-page[data-project=deal-model]{--project-ink:#e5a8b4;--project-wash:#33262f}
 #work .home-artwork-deal{background:#f3f4f6}
 #work .home-artwork-deal img{object-position:top center}
+
+/* Touch reveals are visible in CSS without a page-wide startup mutation. */
+@media (hover:none),(pointer:coarse){.js .rv.pre,.js .split .wd{opacity:1;transform:none;transition:none}}

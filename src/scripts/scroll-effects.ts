@@ -21,8 +21,7 @@ export function initScrollEffects() {
       story.dataset.scrollMotion='true';marked.push(story);
       const timeline=gsap.timeline({scrollTrigger:{trigger:story,start:0,end:'bottom 12%',scrub:desktop?.65:.25}});
       timeline.to(story.querySelectorAll('.hero-word'),{yPercent:desktop?-68:-28,stagger:.02,duration:1,ease:'none'},0)
-        .to(story.querySelector('.hero-copy-depth'),{y:desktop?-64:-24,duration:1.25,ease:'none'},0)
-        .to(story.querySelectorAll('.status-row>span'),{y:desktop?-30:-10,stagger:.08,duration:1.1,ease:'none'},.1);
+        .to(story.querySelector('.hero-copy-depth'),{y:desktop?-64:-24,duration:1.25,ease:'none'},0);
     }
 
     // The artwork leads, followed by its title and description. A single
