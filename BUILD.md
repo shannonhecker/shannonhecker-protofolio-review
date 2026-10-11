@@ -504,3 +504,12 @@ A Lighthouse, axe, keyboard and security pass on the live site found no violatio
 - The FX chart legend and the brand palette blocks had a label on a plain container, which ARIA does not allow. They are groups now, so the label has something to attach to.
 - Phones get an 800 pixel image candidate for the hero and authored images instead of jumping from 640 to 960 or 1280. Lighthouse had flagged 20 to 30 KB per hero as oversized on mobile and no longer does. The largest paint time itself did not move measurably in the sandbox, so this is bytes saved, not a faster score.
 - Checks: build and Astro check pass. The axe, evidence, Figma-sync and polish suites pass apart from the product-recording playback check, which fails the same way on main here. Lighthouse mobile on the four hero pages stays in the 95 to 98 band it was in, with FX on the line at 94 to 96 across runs.
+
+### 11 October · The footer stands up straight
+
+The footer read as loose. Three CSS causes, no content change. The headline column was bottom-aligned to the taller link list, so "Live links" floated 250px below the top of the block. Both bottom rows carried the same 120px top margin, stacking 240px of air between the links and the privacy line. And the privacy row was a three-way justify, with the analytics status sitting alone on the right.
+
+- The two columns top-align, the signature row sits closer under the links, and the privacy row groups Privacy and Analytics settings with the status beside them. Desktop footer height drops from about 940px to 800px.
+- The FX link label is "FX analytics, rebuild", so its destination no longer wraps onto a second line on phones while the other five stay on one.
+- The floating Sections opener now steps aside once the footer is in view, so it no longer covers the live links on phones or the legal row on desktop.
+- Checks: build and Astro check pass; the scoreboard, controls and polish suites pass. Footer checked visually at 1440 and 390.
