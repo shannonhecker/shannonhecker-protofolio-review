@@ -347,7 +347,7 @@ html .nav,html[data-theme=dark] .nav{background:var(--bg)!important;-webkit-back
  .has-js .hero-story>:is(h1,.hero-top,.status-row,.explore-work){animation-name:hero-phone-enter}
  .has-js .hero-word-window{animation:none}
  .landing-companion[data-intro=true] .companion-avatar{animation-duration:.35s}
- @keyframes hero-phone-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+ @keyframes hero-phone-enter{from{transform:translateY(12px)}to{transform:none}}
 }
 
 /* Pair foreground and surface in every interactive state and both themes. */

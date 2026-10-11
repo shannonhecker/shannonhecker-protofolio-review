@@ -430,3 +430,4 @@ I corrected the two remaining pale lines around How I work. They were using a fi
 ## 11 October · dark by default
 
 I made dark mode the starting appearance across my site, including the first HTML paint and browser theme colour. A visitor's saved light or dark choice still takes precedence. I also kept the missing-page link readable on hover against the dark background.
+- The dark-default release check caught a slow mobile first paint. I kept the phone introduction's movement but let its text paint immediately, so the entrance does not delay reading. All 130 browser tests still pass.
