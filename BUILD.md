@@ -603,3 +603,11 @@ I exported the three original vector panels for the overlapping FX hero. I remov
 I repaired all six chosen/alternative comparison pairs in Deal Model's desktop and mobile Figma layouts using the exact assets on the live page. The broken editable copies are preserved but hidden. The current graphics and other uploaded screenshots stay intact.
 
 Validation: production build and all 148 Playwright tests passed. I checked the transparent SVG hero, readable desktop journey, mobile page width and scrolling, and the repaired Figma comparison graphics.
+
+### 11 October · Clean screenshot and video edges
+
+I removed the added outer shadows from the lower product captures and tablet/phone screenshot groups. Their original image framing stays intact, and the overlapping FX hero keeps its separate soft shadow. I also removed the video element's one-pixel border, which showed as a pale line along its top edge.
+
+I checked the current Figma sources: these lower screens are raster image fills, so I retained their original image data rather than wrapping the same pixels in SVG.
+
+Validation: production build and all 148 browser tests passed. I checked the screenshot edges and confirmed the video border is zero in Chrome.
