@@ -13,6 +13,22 @@ async function boot(page: Page) {
   await expect.poll(async () => (await state(page)).grounded).toBe(true);
 }
 
+test('large-screen HUD keeps hard pixel edges', async ({ page }) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
+  await boot(page);
+  const game = page.locator('#game');
+  await expect(game).toHaveCSS('image-rendering', 'pixelated');
+  const shades = await game.evaluate((el) => {
+    const pixels = (el as HTMLCanvasElement).getContext('2d')!.getImageData(8, 6, 48, 10).data;
+    const colours = new Set<string>();
+    for (let i = 0; i < pixels.length; i += 4) colours.add([...pixels.slice(i, i + 4)].join(','));
+    return [...colours];
+  });
+  // Text and strip only: interpolated edges introduce extra colours.
+  expect(shades).toHaveLength(2);
+  expect(shades).toContain('48,72,90,255');
+});
+
 test('nothing runs until Play is pressed', async ({ page }) => {
   const chunks: string[] = [];
   page.on('request', (r) => { if (/\/_astro\/main\.[^/]+\.js$/.test(r.url())) chunks.push(r.url()); });
@@ -237,6 +253,7 @@ test('Kaohsiung: the scooter makes you faster', async ({ page }) => {
   // pit at tiles 26 to 28, which a bot holding Right rides straight into
   await expect.poll(async () => Math.abs((await state(page)).vx), { timeout: 1500, intervals: [50] }).toBeGreaterThan(330);
   await page.keyboard.up('ArrowRight');
+  await page.screenshot({ path: test.info().outputPath('opaque-scooter.png') });
 });
 
 test('hazards hurt (three hits restart the level)', async ({ page }) => {

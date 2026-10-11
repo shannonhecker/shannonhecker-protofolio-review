@@ -320,7 +320,7 @@ html.game-is-full :is(.nav,.progress,.avatar-cursor){visibility:hidden!important
 /* Decorative rules sit quietly between sections in either theme. Controls,
    focus rings and diagram encodings retain their separate contrast tokens. */
 :root{--divider:color-mix(in srgb,var(--fg) 10%,var(--bg))}
-.nav,.nav.solid,.hero-bonus,.ticker,.index,.beat,.rows,.rows>li,.rows.two>li,
+.nav,.nav.solid,.hero-bonus,.hero .ticker,#how,.index,.case-page .beat,.beat,.rows,.rows>li,.rows.two>li,
 .dec>li,.metrics,.metric,.steps,.step,.principles,.principle,.links,.links a,
 .next-case,.responsive-evidence,.brand-rules,
 .case-contents .section-panel .all-projects{border-color:var(--divider)}
@@ -348,4 +348,10 @@ html .nav,html[data-theme=dark] .nav{background:var(--bg)!important;-webkit-back
  .has-js .hero-word-window{animation:none}
  .landing-companion[data-intro=true] .companion-avatar{animation-duration:.35s}
  @keyframes hero-phone-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+}
+
+/* Pair foreground and surface in every interactive state and both themes. */
+html .nav .cta:hover,html .nav .cta:focus-visible,
+html[data-theme=dark] .nav .cta:hover,html[data-theme=dark] .nav .cta:focus-visible{
+ background:var(--fg);color:var(--bg);border-color:var(--fg)
 }

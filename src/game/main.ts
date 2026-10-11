@@ -731,7 +731,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
         if (!drawIllustration(ctx, name, ix + TILE / 2, iy + TILE - 4 + bob, 24, 24)) { const im = it.kind === 'u' && theme.pickup2 ? theme.pickup2 : theme.pickup[0]; W(im, ix + TILE / 2 - im.width, iy + TILE / 2 - im.height + bob); }
       }
       else if (it.kind === '*') { if(!drawIllustration(ctx,'star',ix+TILE/2,iy+TILE+bob,32,32)){ctx.fillStyle='#ffcf38';ctx.fillRect(ix+6,iy+6,20,20);} }
-      else if (it.kind === 'B') { if (!drawIllustration(ctx, 'scooter', ix + TILE / 2, iy + TILE + bob, 50, 34)) W(bike, ix + TILE / 2 - bike.width, iy + TILE - bike.height / ART + bob); }
+      else if (it.kind === 'B') { W(bike, ix + TILE / 2 - bike.width, iy + TILE - bike.height / ART + bob); }
       else if (it.kind === '^') W(theme.spike, ix, iy + TILE - theme.spike.height / ART);
       else if (it.kind === 'C') { if (!drawIllustration(ctx, 'flag', ix + TILE / 2, iy + TILE, 26, 38)) W(theme.check, ix + TILE / 2 - theme.check.width, iy + TILE - theme.check.height / ART); }
       else if (it.kind === 'F') {
@@ -789,7 +789,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       if (p.ride && !illustrated(`hero-${theme.id}-1`)) ctx.drawImage(lid, snap(p.x + PW / 2 - w / 2), snap(p.y + PH - hh - lift - 2), snap(w), snap(10 * (1 - sq)));
       if (p.ride) {
         ctx.save(); ctx.translate(snap(p.x + PW / 2), snap(p.y + PH - bike.height / ART)); ctx.scale(p.face >= 0 ? 1 : -1, 1);
-        if (!drawIllustration(ctx, 'scooter', 0, bike.height / ART, 52, 34)) ctx.drawImage(bike, -bike.width / ART / 2, 0, bike.width / ART, bike.height / ART); ctx.restore();
+        ctx.drawImage(bike, -bike.width / ART / 2, 0, bike.width / ART, bike.height / ART); ctx.restore();
       }
     }
     for(const bolt of bolts)drawStarBolt(ctx,bolt.x,bolt.y,bolt.vx>0?1:-1);
@@ -805,24 +805,22 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
 
     // HUD in the pixel font, at art resolution, on a strip so it reads on any background
     ctx.globalAlpha = 0.94; ctx.fillStyle = '#f6fbfd'; ctx.fillRect(0, 0, HUD_W, 22); ctx.globalAlpha = 1;
-    ctx.font = '12px "Pixelify Sans", monospace'; ctx.textBaseline = 'top'; ctx.fillStyle = '#30485a';
-    ctx.fillText(`${s.collected}/${s.total}`, 8, 6);
+    text(ctx, `${s.collected}/${s.total}`, 8, 6, '#30485a', 2);
     for (let i = 0; i < T.maxHits; i++) {
       ctx.globalAlpha = i < T.maxHits - s.hits ? 1 : .25;
       drawIllustration(ctx, 'heart', HUD_W - 12 - i * 13, 17, 10, 10);
     }
     ctx.globalAlpha = 1;
     const head = `${stageCode(s.level)} ${WORLDS[s.level].short} · ${WORLDS[s.level].when}`;
-    ctx.font = '8px "Pixelify Sans", monospace'; ctx.fillStyle = '#30485a';
-    ctx.fillText(head, (HUD_W - ctx.measureText(head).width) / 2, 8);
+    text(ctx, head, Math.round((HUD_W - textWidth(head)) / 2), 9, '#30485a');
     // the mission, under the strip
     const ms = s.mission.done ? `★ ${s.mission.text} · DONE` : MISSIONS[s.level].kind === 'ride' ? `★ ${s.mission.text}` : `★ ${s.mission.text} · ${s.mission.have}/${s.mission.need}`;
-    ctx.globalAlpha = .94; ctx.fillStyle = '#f6fbfd'; ctx.fillRect(0, 22, ctx.measureText(ms).width + 16, 13); ctx.globalAlpha = 1;
-    ctx.fillStyle = s.mission.done ? '#8c5a00' : '#30485a'; ctx.fillText(ms, 8, 24);
-    if(achievementToast>0){ctx.fillStyle='#182640';ctx.fillRect(18,HUD_H-36,HUD_W-36,26);ctx.fillStyle='#ffe08a';ctx.fillText(`★ ${achievementTitle}`,28,HUD_H-29);}
-    if(s.powerSeconds>0){ctx.fillStyle='#ffe08a';ctx.fillRect(HUD_W-128,22,128,15);ctx.fillStyle='#182640';ctx.fillText(`STAR POWER ${Math.ceil(s.powerSeconds)}s`,HUD_W-120,25);}
-    if(boss&&p.x<=boss.home-480&&!s.finished){ctx.fillStyle='#172b3b';ctx.fillRect(8,42,176,16);ctx.fillStyle='#f6d58d';ctx.fillText('STARLIGHT WAND · X / J TO CAST',16,46);}
-    if(boss&&p.x>boss.home-480){const message=s.finished?(endT<1.6&&!opts.reduceMotion?'RAISING THE FLAG…':'FLAG RAISED · SWEET DREAMS!'):boss.hp?`SCROLLKEEPER · ${boss.hp}/3 · X / J · CAST WAND`:'AT THE FLAG · UP / SPACE TO RAISE';ctx.fillStyle='#172b3b';ctx.fillRect(8,42,ctx.measureText(message).width+16,16);ctx.fillStyle='#f6d58d';ctx.fillText(message,16,46);}
+    ctx.globalAlpha = .94; ctx.fillStyle = '#f6fbfd'; ctx.fillRect(0, 22, textWidth(ms) + 16, 13); ctx.globalAlpha = 1;
+    text(ctx, ms, 8, 26, s.mission.done ? '#8c5a00' : '#30485a');
+    if(achievementToast>0){ctx.fillStyle='#182640';ctx.fillRect(18,HUD_H-36,HUD_W-36,26);text(ctx,`★ ${achievementTitle}`,28,HUD_H-29,'#ffe08a');}
+    if(s.powerSeconds>0){ctx.fillStyle='#ffe08a';ctx.fillRect(HUD_W-128,22,128,15);text(ctx,`STAR POWER ${Math.ceil(s.powerSeconds)}s`,HUD_W-120,27,'#182640');}
+    if(boss&&p.x<=boss.home-480&&!s.finished){ctx.fillStyle='#172b3b';ctx.fillRect(8,42,176,16);text(ctx,'STARLIGHT WAND · X / J TO CAST',16,47,'#f6d58d');}
+    if(boss&&p.x>boss.home-480){const message=s.finished?(endT<1.6&&!opts.reduceMotion?'RAISING THE FLAG...':'FLAG RAISED · SWEET DREAMS!'):boss.hp?`SCROLLKEEPER · ${boss.hp}/3 · X / J · CAST WAND`:'AT THE FLAG · UP / SPACE TO RAISE';ctx.fillStyle='#172b3b';ctx.fillRect(8,42,textWidth(message)+16,16);text(ctx,message,16,47,'#f6d58d');}
     if (s.paused) {
       ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(0, 0, HUD_W, HUD_H);
       text(ctx, 'PAUSED', HUD_W / 2 - 36, HUD_H / 2 - 8, '#ffffff', 3);

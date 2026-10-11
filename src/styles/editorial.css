@@ -445,8 +445,8 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.012em;li
 .encoding-legend span{display:flex;align-items:center;gap:12px;font-size:14px}
 .encoding-legend i{display:block;width:32px;height:16px}.encoding-line{border-top:2px solid #366885;transform:translateY(7px)}.encoding-dash{border-top:2px dashed #705d8d;transform:translateY(7px)}.encoding-dot::before{content:'';display:block;width:12px;height:12px;border-radius:50%;background:#9b4e65}.encoding-range{background:repeating-linear-gradient(45deg,transparent,transparent 3px,#75888b 3px,#75888b 4px);border:1px solid #75888b}
 @media(max-width:760px){.access-notes{grid-template-columns:1fr;gap:24px}.responsive-captures{grid-template-columns:1fr;gap:32px}.responsive-captures figure:last-child{width:72%;justify-self:center}.persona-art figcaption{font-size:12px}.persona-roles{gap:24px}}
-/* Fine pixel scenery has its own 960px backing detail; avoid coarse CSS zoom. */
-.play canvas{image-rendering:auto}
+/* The game renders on a 480px pixel grid; preserve its edges at every size. */
+.play canvas{image-rendering:pixelated}
 /* Original product identities, shown as evidence within the portfolio world. */
 .brand-mark{display:block;width:64px;line-height:0}
 .brand-mark-ai{width:176px;background:#0a0e1a;padding:14px 18px;border-radius:var(--radius)}

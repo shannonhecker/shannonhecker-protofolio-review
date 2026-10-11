@@ -422,19 +422,26 @@ function ai(): Theme {
   return { id: 'ai', sky, ground, fill, platform, draft, pickup: [spark, spark], hazard: noise, finish: door.c, check: post('#a78bfa'), spike: spike('#5b4f86', '#a78bfa'), far: far.c, near: near.c, ink: '#c4b5fd', hud: '#c4b5fd' };
 }
 
-/** The scooter for World 1: mint body, two wheels. Drawn under the rider. */
+/** Solid rose scooter: enclosed panels, dark chassis and opaque tyres.
+ * Drawn on the same art grid as the rider, facing right. */
 export const scooter = () => sprite([
-  '..............kk......',
-  '.............kmk......',
-  '............kmk.......',
-  '.kkkkkkkkkkkmmk.......',
-  'kmmmmmmmmmmmmmmkkkk...',
-  'kmmmmmmmmmmmmmmmmmmk..',
-  '.kkkkkkkkkkkkkkkkkkk..',
-  '..kkk..........kkk....',
-  '.kwwwk........kwwwk...',
-  '.kwkwk........kwkwk...',
-  '..kkk..........kkk....',
-], { k: '#161616', m: '#8fd3c1', w: '#9aa3ad' });
+  '...................kkkk...',
+  '...................kwwk...',
+  '...................kppk...',
+  '..kkkkkkkk.........kppk...',
+  '..knnnnnnk.........kppk...',
+  '..kkkkkkkkk........kppk...',
+  '.kpppppppppk.......kpppk..',
+  'kphhhhhppppk.......kphppk.',
+  'kppppppppppk.......kphppk.',
+  'kppppppppppk.......kppppk.',
+  'kppppppppppkkkkkkkkkppppk.',
+  '.kppppppppppppppppppppppk.',
+  '..kkkkkkkkkkkkkkkkkkkkkk..',
+  '..kknnk............kknnk..',
+  '..knwwnk..........knwwnk..',
+  '..knwwnk..........knwwnk..',
+  '...kkkk............kkkk...',
+], { k:'#172239', p:'#cf6e85', h:'#f4b3bf', n:'#34445f', w:'#fff0d7' });
 
 export const THEMES: Record<ThemeId, () => Theme> = { kaohsiung, lingtung, web, london, tower, desk, ai, bedtime };

@@ -422,3 +422,7 @@ I softened the navigation and reading-section dividers with a subtle, theme-awar
 My fixed header now becomes frosted glass after scrolling: a translucent page tint, restrained blur and a soft inner highlight. It works in both themes and returns to an opaque surface for reduced transparency or browsers without backdrop-filter. I used the MDN and WebKit backdrop-filter examples as references, with no extra library.
 
 I moved the avatar's blink and smile frames to stepped opacity animations, preserving the poses while allowing the browser to composite them without continuous visibility changes. Phones also avoid stacking individual word masks inside the title entrance. Lighthouse no longer reports non-composited avatar animations; the local mobile check scores 96 for performance and 100 in the other three categories.
+
+I fixed my Contact button's hover and keyboard-focus colours in both themes. My scooter now has a solid rose body, dark chassis and opaque tyres. The game HUD uses the same hand-drawn bitmap lettering as the map, with crisp canvas scaling so its labels stay sharp on large screens.
+
+I corrected the two remaining pale lines around How I work. They were using a fixed light colour; they now share the subtle theme-aware divider, as do the case-section and ticker rules.

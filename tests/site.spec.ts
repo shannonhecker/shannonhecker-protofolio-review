@@ -19,11 +19,19 @@ test('header glass follows scrolling in both themes and keeps links usable', asy
     await expect(nav).not.toHaveClass(/solid/);
     if (dark) await page.getByRole('switch', { name: 'Dark mode' }).click();
     expect(await filter()).toBe('none');
+    const contact = nav.getByRole('link', { name: 'Contact', exact: true });
+    await contact.hover();
+    expect((await new AxeBuilder({ page }).include('.nav .cta').withTags(WCAG).analyze()).violations).toEqual([]);
+    await contact.focus();
+    expect((await new AxeBuilder({ page }).include('.nav .cta').withTags(WCAG).analyze()).violations).toEqual([]);
+    await page.mouse.move(0, 300);
+
     await page.evaluate(() => window.scrollTo(0, 200));
     await expect(nav).toHaveClass(/solid/);
     expect(await filter()).toContain('blur(16px)');
     expect(await nav.evaluate(el => getComputedStyle(el).backgroundColor)).toContain('0.78');
     await expect(nav.getByRole('link', { name: 'FX', exact: true })).toBeInViewport();
+    await contact.hover();
     expect((await new AxeBuilder({ page }).include('.nav').withTags(WCAG).analyze()).violations).toEqual([]);
   }
   await nav.getByRole('link', { name: 'FX', exact: true }).click();
