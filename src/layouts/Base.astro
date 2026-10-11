@@ -12,9 +12,7 @@ import '../styles/type-rhythm.css';
 import '../styles/showcase.css';
 import '../styles/page-transitions.css';
 import displayFont from '@fontsource/inter-tight/files/inter-tight-latin-500-normal.woff2?url';
-import bodyFont from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
-import mediumFont from '@fontsource/inter/files/inter-latin-500-normal.woff2?url';
-import semiboldFont from '@fontsource/inter/files/inter-latin-600-normal.woff2?url';
+import bodyFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 
 interface Props {
   title?: string;
@@ -91,8 +89,6 @@ const og = new URL(ogImage.src, Astro.site).href;
     </>}
     {!(['/', '/panel'].includes(Astro.url.pathname)) && <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />}
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={mediumFont} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={semiboldFont} as="font" type="font/woff2" crossorigin />
     <script is:inline>
       // Motion gate. Hidden-until-revealed states only apply under html.js, and
       // html.js is only set when motion is allowed. If the motion bundle never
