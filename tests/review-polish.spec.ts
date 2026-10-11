@@ -28,14 +28,19 @@ test('home artwork covers its frame and follows the hero alignment',async({page}
  }
 });
 
-test('FX detail panels have Retina sources and do not overlap the overview',async({page})=>{
+test('FX detail panels retain Retina sources inside the overlapping hero',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
  for(const width of [390,1440,1920]){
   await page.setViewportSize({width,height:1000});await page.goto('/fx');
   const overview=(await page.locator('.fx-hero-overview').boundingBox())!;
+  const composition=(await page.locator('.fx-hero-composition').boundingBox())!;
+  const comparison=(await page.locator('.fx-hero-compare').boundingBox())!;
+  expect(comparison.y).toBeLessThan(overview.y+overview.height);
   for(const selector of ['.fx-hero-ticket','.fx-hero-compare']){
    const panel=page.locator(selector);const rect=(await panel.boundingBox())!;
-   expect(rect.y).toBeGreaterThanOrEqual(overview.y+overview.height+15);
+   expect(rect.x).toBeGreaterThanOrEqual(composition.x);
+   expect(rect.x+rect.width).toBeLessThanOrEqual(composition.x+composition.width+1);
+   expect(rect.y+rect.height).toBeLessThanOrEqual(composition.y+composition.height+1);
    const largest=await panel.locator('source').first().evaluate(el=>Math.max(...(el.getAttribute('srcset')||'').split(',').map(item=>Number(item.trim().split(' ').at(-1)?.replace('w','')))));
    expect(largest).toBeGreaterThanOrEqual(rect.width*2);
   }

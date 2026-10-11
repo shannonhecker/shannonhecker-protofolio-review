@@ -14,7 +14,7 @@ const facts={
  <div class="access-notes"><div><h4>{facts.heading}</h4><p>{facts.text}</p></div><div><h4>Across screen sizes</h4><p>{facts.responsive}</p></div></div>
  {project==='fx'&&<div class="encoding-legend" role="group" aria-label="Chart meaning uses more than colour"><span><i class="encoding-line"></i>Market prices</span><span><i class="encoding-dash"></i>Benchmarks</span><span><i class="encoding-dot"></i>Fills</span><span><i class="encoding-range"></i>Order states</span></div>}
  <div class="responsive-captures">
-  <figure><Pic name={`live-${capture}-tablet.png`} alt="Current product at an 820-pixel tablet viewport" sizes="(max-width:760px) 90vw, 620px" widths={[620,820]} /><figcaption>Tablet · 820px viewport</figcaption></figure>
-  <figure><Pic name={`live-${capture}-mobile.png`} alt="Current product at a 390-pixel phone viewport" sizes="(max-width:760px) 72vw, 300px" widths={[390]} /><figcaption>Phone · 390px viewport</figcaption></figure>
+  <figure><div class="responsive-capture-image"><Pic name={`live-${capture}-tablet.png`} alt="Current product at an 820-pixel tablet viewport" sizes="(max-width:760px) 90vw, 620px" widths={[620,820]} /></div><figcaption>Tablet · 820px viewport</figcaption></figure>
+  <figure><div class="responsive-capture-image"><Pic name={`live-${capture}-mobile.png`} alt="Current product at a 390-pixel phone viewport" sizes="(max-width:760px) 72vw, 300px" widths={[390]} /></div><figcaption>Phone · 390px viewport</figcaption></figure>
  </div>
 </section>

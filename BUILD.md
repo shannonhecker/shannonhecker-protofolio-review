@@ -583,3 +583,13 @@ I kept Dana's peach background, changed Marcus to light grey and Priya to pale b
 The FX screenshot display now applies the original Figma crop transforms to the full-resolution source images. This preserves the authored framing, including the hover capture without browser chrome, while leaving the downloaded originals untouched.
 
 Validation: production build and all 148 browser tests passed. I checked the persona colours and hover framing in Chrome.
+
+### 11 October · Screenshot shadows match Figma
+
+I removed the hard outline from the shared product screenshot frames and used the drop shadow from my working Figma figures: 0px horizontal offset, 16px vertical offset, 32px blur, -8px spread and 40% dark colour. My original screenshots and crops stay intact.
+
+I also gave the tablet and phone capture group 24px of padding on every side, with the same soft shadow around each image.
+
+I arranged the FX hero as an overlapping composition matching my reference: the full chart behind the comparison panel, with the order ticket in front toward the lower left. Each retains its full-size link and original proportions.
+
+Validation: production build and all 148 Playwright tests passed. I checked the borderless shadow in Chrome, mobile page width, and the overlapping hero composition.
