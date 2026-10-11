@@ -51,7 +51,8 @@ test('FX comparisons use the authored charts and stay readable on phones', async
   await expect(page.locator('#fx-decision-map .authored-decision-list>li')).toHaveCount(3);
   await expect(page.locator('#fx-decisions .dec')).toHaveCount(0);
   await page.goto('/winking-star');
-  await expect(page.locator('.authored-choice-pair .authored-image-link').first()).toHaveCSS('background-color','rgb(255, 255, 255)');
+  await expect(page.locator('.authored-choice-pair .authored-image-link').first()).toHaveCSS('background-color','rgba(0, 0, 0, 0)');
+  await expect(page.locator('.authored-choice-pair .authored-image-link').first()).toHaveCSS('padding','0px');
 });
 
 test('Deal Model is reachable from selected work and retains its evidence on mobile', async ({ page }) => {

@@ -548,3 +548,15 @@ I synced the updated Deal Model collage on Home and Panel directly from the orig
 I also aligned the Figma case layouts, widened project status and kept the FX data graphic visible on desktop and mobile. My updated graphics and image fills stay intact; the layout edits use the existing nodes and original vectors.
 
 - Checks: production build, Astro check and all 148 browser tests pass. Home artwork checked in the browser; desktop and phone case layouts and fullscreen map covered by the browser suite.
+
+### 11 October · Flow steps start with the line
+
+I moved the coloured rule above each workflow step, with space before the number and title. The shared flow component carries this across all five case studies on desktop and mobile.
+
+I replaced the rebuilt FX journey with the exact original Figma vector export from node 120:4779, including its persona, chart, approach and phase descriptions. It stays readable with horizontal scrolling on smaller screens. The matching workflow rules in the current Figma case frames now sit above the steps too.
+
+I removed the extra background and source footer from the original FX decision loop. Flow explanations now remain visible across every case, without an accordion.
+
+I removed the extra white surround and padding from comparison graphics across the case pages. The original chart edge now defines the image boundary, matching Figma, without changing the artwork. I also expanded the FX flow text in the desktop and mobile Figma frames and hid its obsolete source captions and disclosure arrows.
+
+Validation: production build and all 148 Playwright tests passed. I checked the comparison edges and always-visible transcript in Chrome. Figma comparison frames already had zero padding, so their artwork needed no changes.
