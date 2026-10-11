@@ -489,3 +489,9 @@ I read every case against my interview notes and the working Figma file, then ch
 - The Revolut checklist has a Deal Model column and a note of what is still open: measured outcomes, the Fusion audit provenance, test records, and the names visible in the Deal Model screens.
 - Checks: production build and Astro check pass. Browser suite: 143 of 145 pass locally. The two that fail, the product-recording playback check and the home scroll-motion check, fail the same way on main in this sandbox, so they are environment limits here, not this change. Release CI is the gate.
 - Follow-up in the same pass: honest test records under the FX and Fusion decision maps, in my words, with "no protocol, no count" where that is true; the Fusion accessibility tile now names the method; and the Deal Model screens in the working Figma file use sample client and colleague names, so the next image sync carries no real names.
+
+### 11 October · Keyboard focus keeps the whole tile still
+
+The home scroll-motion check had been red on main. When a work tile takes keyboard focus the browser also scrolls it into view, and that scroll handed the artwork straight back to its scrubbed scroll tween, so the tile lifted again a frame after the focus reset. A tile's scroll triggers now pause while it holds focus, so the reset holds, and they pick up from the live scroll position when focus leaves. The test now checks both halves: still while focused, moving again after blur.
+
+- Checks: production build and Astro check pass. The home scroll-motion test passes six times in a row locally. Full browser suite: 143 of 145 pass; the product-recording playback check still fails here as it does on main, and the chapter-jump image check timed out once in three runs on an unrelated page, under reduced motion, where this script does nothing.

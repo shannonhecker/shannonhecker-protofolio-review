@@ -34,6 +34,8 @@ test('home artwork and captions follow scroll in both directions',async({page})=
  expect(Math.abs(await y(artwork))).toBeLessThan(1);expect(Math.abs(await y(title))).toBeLessThan(1);
  await position(.93);await page.waitForTimeout(900);expect(await y(artwork)).toBeGreaterThan(20);
  await row.focus();expect(Math.abs(await y(artwork))).toBeLessThan(1);
+ await page.waitForTimeout(600);expect(Math.abs(await y(artwork))).toBeLessThan(1);
+ await row.blur();await position(.93);await page.waitForTimeout(900);expect(await y(artwork)).toBeGreaterThan(20);
  await page.emulateMedia({reducedMotion:'reduce'});expect(await y(artwork)).toBe(0);
 });
 

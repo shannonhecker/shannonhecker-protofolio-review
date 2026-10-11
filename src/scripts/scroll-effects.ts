@@ -75,11 +75,21 @@ export function initScrollEffects() {
       });
     }
     // Keyboard focus always exposes the complete linked tile immediately.
-    const revealFocus=(event:FocusEvent)=>{
+    // Focusing a link also scrolls it into view, which would hand the tile
+    // straight back to its scrubbed scroll tweens, so those pause while the
+    // tile holds focus and pick up from the live scroll position on blur.
+    const rowTriggers=(row:Element)=>ScrollTrigger.getAll().filter(trigger=>trigger.trigger&&row.contains(trigger.trigger));
+    const leavesRow=(event:FocusEvent)=>{
       const row=(event.target as Element).closest('#work .row');
-      if(row)gsap.set(row.querySelectorAll(':scope > *'),{y:0,scale:1,opacity:1});
+      return row&&!row.contains(event.relatedTarget as Node|null)?row:null;
     };
-    document.addEventListener('focusin',revealFocus);
-    return ()=>{marked.forEach(el=>delete el.dataset.scrollMotion);document.removeEventListener('focusin',revealFocus);};
+    const revealFocus=(event:FocusEvent)=>{
+      const row=leavesRow(event);if(!row)return;
+      rowTriggers(row).forEach(trigger=>trigger.disable(false));
+      gsap.set(row.querySelectorAll(':scope > *'),{y:0,scale:1,opacity:1});
+    };
+    const restoreMotion=(event:FocusEvent)=>{const row=leavesRow(event);if(row)rowTriggers(row).forEach(trigger=>trigger.enable());};
+    document.addEventListener('focusin',revealFocus);document.addEventListener('focusout',restoreMotion);
+    return ()=>{marked.forEach(el=>delete el.dataset.scrollMotion);document.removeEventListener('focusin',revealFocus);document.removeEventListener('focusout',restoreMotion);};
   });
 }
