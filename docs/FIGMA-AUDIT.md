@@ -141,3 +141,5 @@ Desktop content and mobile text inventories were compared. Mobile's shorter capt
 Image comparison checked forty existing product placements. Most normalized pixel differences were 0.1–1.2%; the original website screenshots were larger than the Figma display exports. Retaining those avoids a resolution downgrade. The new Deal Model screens are the sample-name versions from nodes 242:530 through 242:590 (increments of five), not the unsanitized original design page. The FX illustrations use 120:7013, 120:7019 and 120:7025. Existing product media provenance remains in MEDIA-SOURCES.md.
 
 No Nano Banana generation was needed: the required source artwork was available. No portfolio material was sent to 12ui or another design-generation service.
+
+Visual exception: the four decision-flow exports are retained as source references, but rendered as inline SVG on the website. This corrects overflowing Deal Model labels and weak outlined connector labels in the other exports, adds dark-theme pairing and applies the site's 4px corner treatment. The original graph structure and text remain intact.

@@ -41,3 +41,18 @@ test('updated authored evidence loads without clipping and mobile identities sta
     }
   }
 });
+
+
+test('animated chapter jumps clear the sticky header', async ({page}) => {
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto('/deal-model');
+  await page.getByRole('button',{name:'No thanks'}).click();
+  await page.locator('.section-open').click();
+  await page.getByRole('navigation',{name:'Case study sections'}).getByRole('link',{name:'Decision map',exact:true}).click();
+  await expect(page.getByRole('heading',{name:'Decision map',exact:true})).toBeInViewport();
+  await page.locator('#deal-decisions').evaluate(async el=>{await Promise.all(el.getAnimations().map(a=>a.finished.catch(()=>{})));});
+  const heading=(await page.getByRole('heading',{name:'Decision map',exact:true}).boundingBox())!;
+  const nav=(await page.locator('.nav').boundingBox())!;
+  expect(heading.y).toBeGreaterThanOrEqual(nav.y+nav.height);
+  await expect(page.locator('.deal-flow-vector')).toBeVisible();
+});
