@@ -619,3 +619,13 @@ I synced the latest Fusion screen artwork from my portfolio Figma file. Performa
 I refreshed the configuration, tablet and phone captures from their original uploaded image data, preserving my Figma crops. I also reserved space for lazy-loaded SVG screens and journey graphics so section links do not shift as artwork loads.
 
 Validation: production build, desktop and mobile visual checks, and the full browser suite, including delayed-image navigation on Fusion and uoaui.ai.
+
+### 11 October · uoaui.ai artwork and quieter journey phases
+
+I synced my updated uoaui.ai builder, comparison, UI Kit, charts, forms, house-system and responsive screenshots from Figma using the original image data. The Mei Lin and Dev Patel portraits and card colours now match my updated artwork.
+
+I removed the vertical colour bars beside journey phase headings across the case studies. Larger gaps separate the phases, while the horizontal rules above individual steps remain.
+
+Validation: type check and production build, desktop and mobile visual checks, and the browser suite. The persona check now expects my revised uoaui.ai card colour.
+
+I repaired the uoaui.ai desktop and mobile Figma spacing using content columns with consistent gaps. Empty caption space and legacy duplicate mobile persona content are hidden. The artwork, image fills and copy remain intact. I checked the resulting section bounds and both persona layouts.

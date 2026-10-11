@@ -10,7 +10,7 @@ test('all fifteen personas share portrait framing and one card surface',async({p
       await page.setViewportSize({width,height:900});
       const frames=await page.locator('.persona-art').evaluateAll(nodes=>nodes.map(n=>({w:n.clientWidth,h:n.clientHeight})));
       for(const f of frames){expect(f.w).toBe(300);expect(f.h).toBe(400);}
-      await expect(page.locator('.persona-card').first()).toHaveCSS('background-color','rgb(245, 228, 220)');
+      await expect(page.locator('.persona-card').first()).toHaveCSS('background-color',route==='/uoaui'?'rgb(239, 240, 227)':'rgb(245, 228, 220)');
     }
   }
 });
