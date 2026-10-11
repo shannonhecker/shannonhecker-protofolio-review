@@ -91,6 +91,11 @@ import Stack from './dg/Stack.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="What I tried, what I dropped, and why." />
         <DecisionMap project="fusion" />
+        <ul class="rows" aria-label="How each call was tested">
+          <li><b>How I tested the widget grid</b><p>Internal users first, weekly reviews on their real portfolios. I built the configurable page so they could set it up themselves, and I watched what they chose. That gave me the default layout, and it is why the grid held.</p></li>
+          <li><b>How I tested the tier cut</b><p>Watching people use the three configuration levels in those same reviews. The middle tier added choices without changing what anyone built. I removed it and the first useful view came faster. No timed study, so no number.</p></li>
+          <li><b>How I tested the shared screens</b><p>Through the client-facing team, because they knew what a client gets asked at a board meeting. Two clients tested before phase two went wide. That is the full record. I don't present it as a study.</p></li>
+        </ul>
 
         <ProductCapture name="live-fusion-config.png" alt="The current Fusion performance table beside its configuration panel" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Configure performance" />
       </div>
@@ -106,7 +111,7 @@ import Stack from './dg/Stack.astro';
         <ul class="rows">
           <li><b>One widget, many cubes</b><p>The same widget works across different data cubes and permission levels. One design serves a portfolio manager and a client who can only see part of the book. Users build their own views and import and export through FactSet.</p></li>
           <li><b>What I built</b><p>Tokens, components and patterns for Fusion on top of Salt. Data tables, chart frames, filter bars, widget shells, the accessibility layers. Where Salt had a gap, I built it and contributed it back upstream.</p></li>
-          <li><b>Before Fusion, I helped define the foundation</b><p>I worked on UITK, now Salt, to define the design language, look and feel. We ran design workshops in London and New York with multiple design, product and development teams. At J.P. Morgan, I worked with developers from day one on Execute, with weekly working and review sessions, daily when needed.</p></li>
+          <li><b>Before Fusion, I helped define the foundation</b><p>I worked on UITK, now Salt, on the design language, the look and the feel. I ran the design system workshops in London and New York with design, product and development in the same room. The point wasn't to present. It was to agree what a component is before anyone built it. On Execute, I worked with developers from day one, weekly working sessions and daily when needed.</p></li>
           <li><b>Why a layer, not a fork</b><p>A fork would have drifted from the firm's standard within a year. A layer meant every Fusion screen stayed on the platform standard and the platform got better from our work.</p></li>
           <li><b>How it was adopted</b><p>Other Fusion product teams built their journeys on the same components, which is how the analytics patterns spread across modules without me in every room.</p></li>
         </ul>
@@ -130,7 +135,7 @@ import Stack from './dg/Stack.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="Shipped, adopted, and opened to clients." />
         <div class="metrics">
-          <div class="metric"><span class="big" data-count="0">0</span><span>accessibility violations. Shipped to WCAG AA with a specialist in reviews from the start</span></div>
+          <div class="metric"><span class="big" data-count="0">0</span><span>accessibility violations at ship, WCAG AA. The method was the review cycle: an accessibility specialist checked every release, and anything that failed went back before engineering</span></div>
           <div class="metric"><span class="big w">Adopted</span><span>widget and filtering patterns reused across other Fusion modules</span></div>
           <div class="metric"><span class="big w">Phase 2</span><span>opened the product to external clients, and several signed after that launch</span></div>
         </div>

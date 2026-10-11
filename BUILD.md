@@ -475,3 +475,17 @@ The illustrations are fictional design personas, not photographs of research par
 I prioritised the reading font on phones and limited the avatar image preloads to larger screens, where the illustration is visible immediately. The greeting frames still load eagerly and decode before the animation starts. I also removed an inherited portrait margin so every illustration rests at the card edge.
 
 The hosted phone audit exposed an extra synchronous navigation layout during startup. I moved its overflow measurement into a resize observer and let CSS expose touch/reduced-motion content without rewriting every reveal class at load. Scroll motion and navigation behaviour remain covered by the browser suite.
+
+### 11 October · Sounds like me, matches the Figma
+
+I read every case against my interview notes and the working Figma file, then changed words, not structure. The Figma sync had already landed, so this pass is about voice and consistency.
+
+- The diagram introductions stopped sounding like a report. "I have summarised the roles" became "The people I designed for, and what each one needed." The decision maps now open with "The calls, what I tried instead, and what each one cost."
+- The honesty lines stay honest and now sound like me. FX: "No adoption numbers yet. Rollout brings three measures." uoaui.ai: "No adoption rate, no time saving, no external test yet. When another designer gets there without me, I'll say so here." The accessibility and responsive notes say what I can show and what I have not run.
+- The FX before-and-after panels are labelled Today and Designed, the same as the Figma file, because the lane and the clusters are designed, not shipped.
+- Every case has a number that matches the index: FX 01, Fusion 02, Winking Star 03, Deal Model 04, uoaui.ai 05. The home page no longer counts beats, because the cases do not all have six.
+- Fusion's UITK paragraph is in my words from the interview notes: workshops in London and New York with design, product and development in the same room, to agree what a component is before anyone built it.
+- Deal Model carries three lines from my notes: weekly with each team and a shared review every fortnight; the upload template idea came out of a user session, not from me; and when template uploads dropped to nothing we knew people had moved. The two-hours-to-twenty-minutes figure stays labelled as my estimate.
+- The Revolut checklist has a Deal Model column and a note of what is still open: measured outcomes, the Fusion audit provenance, test records, and the names visible in the Deal Model screens.
+- Checks: production build and Astro check pass. Browser suite: 143 of 145 pass locally. The two that fail, the product-recording playback check and the home scroll-motion check, fail the same way on main in this sandbox, so they are environment limits here, not this change. Release CI is the gate.
+- Follow-up in the same pass: honest test records under the FX and Fusion decision maps, in my words, with "no protocol, no count" where that is true; the Fusion accessibility tile now names the method; and the Deal Model screens in the working Figma file use sample client and colleague names, so the next image sync carries no real names.

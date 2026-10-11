@@ -7,7 +7,7 @@ interface Props { project: keyof typeof content }
 const {project}=Astro.props;const data=content[project];
 ---
 <section class="authored-decisions" id={`${project}-decision-map`} aria-labelledby={`${project}-decision-map-title`}>
- <header class="process-heading"><h3 id={`${project}-decision-map-title`}>Decision map</h3><p>I have pulled the choices and trade-offs below into one view.</p></header>
+ <header class="process-heading"><h3 id={`${project}-decision-map-title`}>Decision map</h3><p>The calls, what I tried instead, and what each one cost.</p></header>
  <figure class="authored-flow"><div class="authored-flow-scroll" tabindex="0" role="region" aria-label="Decision flow, scroll horizontally to explore">{project==='deal'?<DealDecisionFlow/>:<AuthoredDecisionFlow project={project}/>}</div>
  <details><summary>Read the flow</summary><ul>{data.decisionFlowText.map(t=><li>{t}</li>)}</ul></details></figure>
  <ol class="authored-decision-list">{data.decisions.map((d,i)=><li>

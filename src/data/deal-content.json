@@ -36,11 +36,11 @@
     "rows": [
       {
         "label": "How I got in the room",
-        "text": "In a bank there is usually a BA between the designer and the user. I was embedded with the four teams for a year, so I could ask each one what they needed to see and what they needed to change."
+        "text": "In a bank there is usually a BA between the designer and the user. I was embedded with the four teams for a year. Weekly with each one, and a shared review every fortnight where all four saw the same screen. Short sessions on their own deals, not a demo. Watching someone price a real deal tells you more in twenty minutes than a workshop does in a day."
       },
       {
         "label": "Three versions, every review",
-        "text": "I never showed one proposal. Three versions on the table meant people said what was wrong instead of saying yes. Most arguments went away once they saw it was the same deal with different columns."
+        "text": "I never showed one proposal. The one I thought they'd want, and two that did it differently. People are much better at saying what's wrong than what they want, and the answer was usually a merge. Sales got the comparison table out of that. Legal got the iteration list. Nobody got the whole thing their way, which is why all four used it."
       },
       {
         "label": "Who I worked with",
@@ -58,7 +58,7 @@
       },
       {
         "label": "The spreadsheet",
-        "text": "Some people kept the spreadsheet. Instead of forcing them across, we built an upload template they could fill in and the system mapped it. That brought the last people over."
+        "text": "Some people kept the spreadsheet. Not because they were stubborn. They didn't trust the platform yet, and they couldn't find things because it didn't look like Excel. So we built a template. Download it, fill it in the way you always have, upload it, and the system maps it into the deal. The idea came out of a session with a user, not from me."
       },
       {
         "label": "Compliance",
@@ -136,7 +136,7 @@
       },
       {
         "label": "Adoption",
-        "text": "Four teams moved onto one platform. The upload template brought the last spreadsheet users across. No adoption number was measured in my time, so none is claimed."
+        "text": "Four teams moved onto one platform. The upload template was the bridge. It kept the habit while people learned the platform, and when template uploads dropped to nothing we knew they'd moved. That is the signal I have. No adoption number was measured in my time, so none is claimed."
       },
       {
         "label": "My estimate",
