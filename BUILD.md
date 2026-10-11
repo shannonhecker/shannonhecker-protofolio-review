@@ -465,3 +465,9 @@ I aligned my FX comparisons with the case reading column, keeping the diagrams s
 I removed the three-project status strip now that Selected work includes five projects. The game now shows an original pixel compass while its map loads and fullscreen settles, replacing the stretched poster flash. The loading scene remains until the canvas has painted, respects reduced motion, and allows retry after a loading failure.
 
 The cloud mobile audit scored 94 against my 95 budget. I let the phone introduction paragraph paint immediately, while keeping the title entrance, avatar greeting and scroll-driven text movement.
+
+### 11 October · One illustrated persona family
+
+I recreated all fifteen persona portraits with Nano Banana 2, using the FX illustration style as the reference. They share a 1200 by 1600 source canvas and the same 300 by 400 display frame. Deal Model now includes all four composite roles. The cards share one continuous warm surface, with names, quotes and needs kept as selectable text in the existing project structure.
+
+The illustrations are fictional design personas, not photographs of research participants. Their source jobs and role mapping are recorded in the media notes.

@@ -1,5 +1,20 @@
 import { test, expect } from '@playwright/test';
 
+test('all fifteen personas share portrait framing and one card surface',async({page})=>{
+  await page.emulateMedia({reducedMotion:'reduce'});
+  for(const [route,count] of [['/fx',3],['/fusion',3],['/uoaui',2],['/winking-star',3],['/deal-model',4]] as const){
+    await page.goto(route);
+    await expect(page.locator('.persona-card')).toHaveCount(count);
+    await expect(page.locator('.persona-card .persona-art img')).toHaveCount(count);
+    for(const width of [390,1440]){
+      await page.setViewportSize({width,height:900});
+      const frames=await page.locator('.persona-art').evaluateAll(nodes=>nodes.map(n=>({w:n.clientWidth,h:n.clientHeight})));
+      for(const f of frames){expect(f.w).toBe(300);expect(f.h).toBe(400);}
+      await expect(page.locator('.persona-card').first()).toHaveCSS('background-color','rgb(245, 228, 220)');
+    }
+  }
+});
+
 test('FX data layers preserve the four authored branches at every width',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.goto('/fx');
