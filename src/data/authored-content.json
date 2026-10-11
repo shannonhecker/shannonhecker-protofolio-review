@@ -1,4 +1,269 @@
 {
+  "fx": {
+    "sourcePage": "32:9",
+    "personas": {
+      "intro": "My three design personas: execution, desk oversight and algo tuning. Illustrations, not photographs of research participants.",
+      "note": "Composite roles, not research participants.",
+      "items": [
+        {
+          "name": "Dana Chen",
+          "role": "Senior Execution Trader\nBuy-side FX desk",
+          "quote": "“I need one glance to know whether my order needs me, or whether I’d just be adding noise.”",
+          "image": "fx-persona-0.png",
+          "groups": [
+            {
+              "label": "Goals",
+              "items": [
+                "Beat arrival mid without burning the spread",
+                "Keep the passive ratio high yet on schedule",
+                "Catch venue toxicity before it costs pips"
+              ]
+            },
+            {
+              "label": "Frictions",
+              "items": [
+                "TCA lands after the damage is done",
+                "Alerts fire without market context",
+                "Juggling EMS blotter, charts and chat"
+              ]
+            },
+            {
+              "label": "In this app",
+              "items": [
+                "Benchmarks + pinned tooltip",
+                "Reprice & pill-drag staging",
+                "Venue cross-filter"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Marcus Webb",
+          "role": "Head of Trading\nDesk oversight",
+          "quote": "“Best execution isn’t a report, it’s something I defend order by order.”",
+          "image": "fx-persona-1.png",
+          "groups": [
+            {
+              "label": "Goals",
+              "items": [
+                "Defend best execution order by order",
+                "Compare sibling orders on one canvas",
+                "Spot venue-mix drift across the desk"
+              ]
+            },
+            {
+              "label": "Frictions",
+              "items": [
+                "Evidence scattered across tools",
+                "Slippage numbers without a narrative",
+                "Static end-of-day reporting"
+              ]
+            },
+            {
+              "label": "In this app",
+              "items": [
+                "Compare orders",
+                "Venue analysis chart + table",
+                "Passive / aggressive gauge"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Priya Nair",
+          "role": "Execution Quant\nAlgo tuning",
+          "quote": "“Give me the complete series and I’ll tell you if the pacing is wrong.”",
+          "image": "fx-persona-2.png",
+          "groups": [
+            {
+              "label": "Goals",
+              "items": [
+                "Validate pacing against session TWAP",
+                "Study fill placement vs mid by venue",
+                "Tune passive / aggressive thresholds"
+              ]
+            },
+            {
+              "label": "Frictions",
+              "items": [
+                "Downsampling hides microstructure",
+                "Studies polluted by partial series"
+              ]
+            },
+            {
+              "label": "In this app",
+              "items": [
+                "Complete bid/ask/mid studies",
+                "Interval regrouping",
+                "Table view with CSV export"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "journey": {
+      "line": "Dana Chen · Senior Execution Trader · Buy-side FX desk, London · EURUSD, 1M sell, one session",
+      "persona": "Dana Chen",
+      "scenario": "Dana is working a 1M EURUSD sell across the London session. The algo slices it into child orders while she supervises a book of tickets at once. She starts from benchmarks she trusts, arrival mid and session TWAP, and steps in only when the canvas says the order needs her.",
+      "goal": "Finish inside the benchmarks, stay mostly passive, and defend the execution afterwards.",
+      "approachText": [
+        "Reprice, return to working",
+        "Exclude a venue, keep working",
+        "Post-trade learnings set the next order’s limit"
+      ],
+      "quotes": [
+        "“Where’s the liquidity today?”",
+        "“Right level, right size?”",
+        "“Ticket’s pre-filled. One check and go.”",
+        "“On schedule, without paying the spread?”",
+        "“BARX fills me most. At what cost?”",
+        "“Act now, or wait one more bar?”",
+        "“Repriced. Let it breathe.”",
+        "“Can I defend this print?”",
+        "“All in, inside arrival.”"
+      ],
+      "phases": [
+        {
+          "title": "Work the order",
+          "description": "Supervise one parent order from staging to done"
+        },
+        {
+          "title": "Prove it",
+          "description": "Post-trade, order by order"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Pre-trade",
+          "description": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+          "recommendations": [
+            "Order ticket with percentile presets",
+            "Benchmarks captured and frozen on the canvas"
+          ],
+          "backstage": "The ticket carries percentile presets. Arrival mid and session TWAP are captured when the order goes live and frozen on the canvas."
+        },
+        {
+          "title": "Staging the order",
+          "description": "She stages the order straight from the chart, dragging the BID pill to a level and reviewing the pre-filled ticket before submitting.",
+          "recommendations": [
+            "Pill-drag staging",
+            "Pre-filled ticket, one check and go"
+          ],
+          "backstage": "Dragging the BID pill stages the order at that level and pre-fills the ticket. Nothing is sent until she confirms."
+        },
+        {
+          "title": "Working passively",
+          "description": "The algo works. Dana watches percent done against schedule, fills against the market, and the venue mix, without touching anything.",
+          "recommendations": [
+            "Canvas with pinned tooltip",
+            "Passive gauge and venue doughnut"
+          ],
+          "backstage": "The canvas draws percent done against schedule, fills sized by volume and coloured by venue, and the passive gauge updates as clips land."
+        },
+        {
+          "title": "Intervention",
+          "description": "When the market drifts or a hatched band comes on, she acts from the chart: repricing the limit, flipping aggressive, or excluding a venue.",
+          "recommendations": [
+            "Reprice",
+            "Venue cross-filter"
+          ],
+          "backstage": "Dragging the limit line opens a pre-filled reprice ticket. Confirmation and the audit trail stay on the chart."
+        },
+        {
+          "title": "Post-trade review",
+          "description": "Done. Dana compares the order against its sibling, exports the fills, and writes the best-ex note while the context is fresh.",
+          "recommendations": [
+            "Compare orders",
+            "Table view with CSV export"
+          ],
+          "backstage": "Compare orders puts the sibling beside it with the benchmark metrics in one table. The table view exports the fills as CSV."
+        }
+      ],
+      "takeaways": [
+        {
+          "label": "Opportunities",
+          "text": "Direct trader access earlier, instead of going through the business first. And the vendor’s engine limits discovered in week one, not mid-spec."
+        },
+        {
+          "label": "Insight",
+          "text": "The question is always the same. Am I ahead of the market or behind it. That’s the first thing the screen answers. And the limit price log showed orders changed mid-flight, several times each, so repricing is a core action, not an edge case."
+        },
+        {
+          "label": "Who was in the room",
+          "text": "Lead designer, one of one. Around twenty engineers, the business, and the charting vendor. A few clients, watched while they decided to trade now or wait."
+        },
+        {
+          "label": "How I measure it",
+          "text": "No adoption numbers yet. Three measures agreed with the business for rollout: price move to trader action, tool switches per order, usage per feature. Until those run, the test records under the decision map are what I have."
+        }
+      ]
+    },
+    "decisions": [
+      {
+        "title": "Progress and price on one canvas, not two panels",
+        "choices": [
+          {
+            "label": "One canvas with a dual axis",
+            "image": "fx-decision-1-chosen.png",
+            "alt": "One canvas with price lines, a stepped limit and order progress on a dual axis."
+          },
+          {
+            "label": "Two linked panels",
+            "image": "fx-decision-1-alternative.png",
+            "alt": "Two linked panels separate market prices from execution progress."
+          }
+        ],
+        "reason": "We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.",
+        "tradeoff": "A denser screen that needed careful hierarchy.",
+        "outcome": "One canvas with a dual axis went in as the build contract. Readable in two seconds, actionable in one click."
+      },
+      {
+        "title": "Reprice on the chart, not in a settings menu",
+        "choices": [
+          {
+            "label": "Drag-to-reprice on the price line",
+            "image": "fx-decision-2-chosen.png",
+            "alt": "Dragging the limit line opens a pre-filled reprice ticket beside the chart."
+          },
+          {
+            "label": "A menu-based edit",
+            "image": "fx-decision-2-alternative.png",
+            "alt": "A separate order-settings menu edits the limit price away from the chart."
+          }
+        ],
+        "reason": "The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line. Drag won because the decision and the action sit in the same place.",
+        "tradeoff": "Drag needs a safety step, so a pre-filled ticket sits between the gesture and the change.",
+        "outcome": "Drag-to-reprice went into the spec as the build contract. Each step commits you a little more, so you can’t reprice by accident."
+      },
+      {
+        "title": "Studies on market prices only. A decision I reversed",
+        "choices": [
+          {
+            "label": "Bid, ask and mid only",
+            "image": "fx-decision-3-chosen.png",
+            "alt": "The study-source picker offers bid, ask and mid market prices."
+          },
+          {
+            "label": "Any series, including the order’s own fills",
+            "image": "fx-decision-3-alternative.png",
+            "alt": "The alternative allows own fills, whose data gaps make the study unreliable."
+          }
+        ],
+        "reason": "My spec let analytics studies run on any series, including the order’s own fills. The vendor showed that order data has gaps, so a study on it looks confident and is wrong. I reversed it.",
+        "tradeoff": "Less flexibility. Studies cannot run on the order’s own fills, even when someone asks for it.",
+        "outcome": "Studies run on bid, ask and mid only, and the picker says why. Flexibility that produces plausible but wrong output isn’t a feature."
+      }
+    ],
+    "decisionFlow": "fx-original-decision-loop.png",
+    "decisionFlowText": [
+      "Working Order Live → Watch the canvas. Percent done against schedule, fills against the market.",
+      "Percent done on schedule? On schedule → watch the canvas. Behind → is the average fill inside the benchmarks, arrival and TWAP?",
+      "Acceptable → stay passive: let resting limits work, keep working, watch the canvas.",
+      "Adverse → how to intervene? Reprice by dragging the limit line. Stage an order by dragging the BID pill. Fill now and take liquidity. Cross-filter venues to exclude poor fills. Each leads to Filled, Post-trade review.",
+      "Hatched band on: delayed, suspended, or outside limit → reprice, or accept the wait → keep watching. Session ends → cut off, fill now, or carry the risk."
+    ]
+  },
   "fusion": {
     "sourcePage": "32:11",
     "personas": {

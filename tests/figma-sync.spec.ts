@@ -41,13 +41,13 @@ test('FX comparisons use the authored charts and stay readable on phones', async
     const sizes=await charts.evaluateAll(images=>images.map(el=>({width:el.getBoundingClientRect().width})));
     if(width>=1440){
       expect(sizes.every(s=>s.width<width*.36)).toBe(true);
-      const chart=(await charts.first().boundingBox())!;
-      const explanation=(await page.locator('.choice-narrative').first().boundingBox())!;
+      const chart=(await page.locator('#fx-decision-map .authored-choice-pair .authored-image-link').first().boundingBox())!;
+      const explanation=(await page.locator('#fx-decision-map .authored-decision-reason').first().boundingBox())!;
       expect(Math.abs(chart.x-explanation.x)).toBeLessThan(1);
     }
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
   }
-  await expect(page.locator('#fx-decisions .choice-narrative')).toHaveCount(3);
+  await expect(page.locator('#fx-decision-map .authored-decision-list>li')).toHaveCount(3);
   await expect(page.locator('#fx-decisions .dec')).toHaveCount(0);
   await page.goto('/winking-star');
   await expect(page.locator('.authored-choice-pair .authored-image-link').first()).toHaveCSS('background-color','rgb(255, 255, 255)');

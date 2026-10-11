@@ -513,6 +513,16 @@ The footer read as loose. Three CSS causes, no content change. The headline colu
 - The FX link label is "FX analytics, rebuild", so its destination no longer wraps onto a second line on phones while the other five stay on one.
 - The floating Sections opener now steps aside once the footer is in view, so it no longer covers the live links on phones or the legal row on desktop.
 - Checks: build and Astro check pass; the scoreboard, controls and polish suites pass. Footer checked visually at 1440 and 390.
+### 11 October · FX on the shared blocks
+
+The design review found that FX, the first case the panel opens, was built on an older template than the other four. Its journey ran full width on a dark chart with five coloured stage bands, its headings had no accent bar, its labels were sentence case where the others are capitals, its decision cards had no Trade-off and Outcome columns, and it had no Opportunities, Insight, Who was in the room and How I measure it block.
+
+FX now uses the same persona, journey and decision blocks as Fusion, Winking Star, Deal Model and uoaui, fed from the same content file. The words are the words that were already on the page, moved into the shared structure. Two things are new, and both are mine to check: a "What the system does" line under each journey stage, written from the product behaviour the case already describes, and the Trade-off and Outcome lines on the three decisions, taken from the existing verdicts.
+
+- The journey plot is still my vector, not a flattened export. It sits on the shared white panel, so the stems and loop arrows that were drawn white for the dark panel take the ink colour instead. The original decision loop stays as the flow figure, with its transcript in the shared "Read the flow" disclosure.
+- The journey moved inside the research beat, at the reading width the other cases use, instead of a full-width band of its own.
+- Image descriptions for the six decision charts are kept through a new optional alt field on a choice.
+- Checks: build and Astro check pass. The figma-sync, heading and axe suites pass; the FX decision test now measures alignment against the chart card edge, which is what the shared block aligns. Blocks checked visually at 1440 and 390.
 ### 11 October · Deal Model screens re-synced with sample names
 
 The thirteen Deal Model screens under `src/assets/img/figma-sync/` are re-exported from the working Figma file, where the client and colleague names were replaced with the sample names the page already uses. Same nodes, same 2200 pixel width, same pipeline. The cloud environment can reach figma.com again, which is what had held this back.
