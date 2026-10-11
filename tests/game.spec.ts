@@ -1,5 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 import { LEVELS } from '../src/game/levels';
+import { NODES } from '../src/game/map';
 
 const state = (page: Page) => page.evaluate(() => (window as unknown as { __game: () => any }).__game());
 
@@ -362,8 +363,40 @@ test('starlight wand supports touch, cooldown and pause, and stays out of earlie
   await page.locator('#game-timeline button').first().click();
   await page.locator('#game-world').click();
   await expect(cast).toHaveAttribute('hidden');
-  await page.locator('[data-stage="0"]').click();
+  await page.locator('.game-stages [data-stage="0"]').click();
   await expect.poll(async()=>(await state(page)).weapon).toBeNull();
   await page.keyboard.press('x');
   expect((await state(page)).bolts).toHaveLength(0);
+});
+
+test.describe('mobile fullscreen map', () => {
+  test.use({ hasTouch: true, isMobile: true });
+  for (const viewport of [{ width: 390, height: 844 }, { width: 844, height: 390 }]) {
+    test(`map stays readable at ${viewport.width} × ${viewport.height}`, async ({ page }) => {
+      await page.setViewportSize(viewport);
+      await page.goto('/');
+      await page.getByRole('button', { name: 'Start adventure' }).click();
+      await expect(page.locator('.game')).toHaveAttribute('data-state', 'playing');
+      await expect(page.locator('.game-touch')).toBeHidden();
+      const canvas = page.locator('#game');
+      const bounds = await canvas.boundingBox();
+      expect(bounds!.height).toBeGreaterThan(viewport.width < viewport.height ? 400 : 290);
+      expect(bounds!.width / bounds!.height).toBeCloseTo(16 / 9, 1);
+      if (viewport.width < viewport.height) {
+        await expect(page.locator('.game-map-hint')).toBeVisible();
+        expect(await page.locator('.game').evaluate(el => el.scrollWidth > el.clientWidth)).toBe(true);
+        // A drag beginning on a marker must not start a level.
+        const x = bounds!.x + NODES[0][0] / 480 * bounds!.width;
+        const y = bounds!.y + NODES[0][1] / 270 * bounds!.height;
+        await canvas.dispatchEvent('pointerdown', { pointerId: 1, clientX: x, clientY: y });
+        await canvas.dispatchEvent('pointerup', { pointerId: 1, clientX: x - 100, clientY: y });
+        expect((await state(page)).mode).toBe('map');
+      }
+      await page.touchscreen.tap(bounds!.x + NODES[0][0] / 480 * bounds!.width, bounds!.y + NODES[0][1] / 270 * bounds!.height);
+      await expect.poll(async () => (await state(page)).mode).toBe('level');
+      await expect(page.locator('.game-touch')).toBeVisible();
+      await page.locator('#game-exit').click();
+      await expect(page.locator('.play')).not.toHaveClass(/is-full/);
+    });
+  }
 });

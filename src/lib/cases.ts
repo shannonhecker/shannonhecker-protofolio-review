@@ -17,7 +17,7 @@ export const CASES = [
     "title": "Fusion analytics dashboard",
     "meta": "J.P. Morgan · 2023 to 2025 · shipped. Board-ready analytics on Salt, zero accessibility violations, opened to clients in phase two.",
     "arrow": "Read →",
-    "img": "live-fusion-performance.png"
+    "img": "figma-fusion-performance.png"
   },
   {
     "href": "/winking-star",

@@ -9,9 +9,6 @@ const HL = top ? 'h2' : 'h3';
 const HD = top ? 'h3' : 'h4'; // decision titles
 import Demo from './Demo.astro';
 import FxHero from './FxHero.astro';
-import { Picture } from 'astro:assets';
-import { imageWidths } from '../lib/image-widths';
-import dataLayers from '../assets/img/fx-figma/data-layers.png';
 import ProductCapture from './ProductCapture.astro';
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
@@ -24,7 +21,6 @@ import Journey from './dg/AuthoredJourney.astro';
 import FxJourneyPlot from './dg/FxJourneyPlot.astro';
 
 import Flow from './dg/Flow.astro';
-import Layers from './dg/Layers.astro';
 import Matrix from './dg/Matrix.astro';
 import BeforeAfter from './dg/BeforeAfter.astro';
 ---
@@ -67,22 +63,10 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <li><b>Watching people decide</b><p>I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.</p></li>
         </ul>
         <figure class="fx-source-layers">
-          <a href={dataLayers.src} target="_blank" rel="noopener" aria-label="View full size: FX data-to-encoding diagram (opens in new tab)"><Picture src={dataLayers} quality={85} widths={imageWidths(dataLayers.width)} sizes="90vw" formats={['avif','webp']} alt="Market data becomes continuous lines; limit-price changes become steps; states become ranges; fills become sized dots; benchmarks become fixed reference lines. Each shape gets its own encoding." loading="lazy" /></a>
-          <figcaption>My data-to-encoding diagram, from the updated desktop design.</figcaption>
+          <div class="fx-layer-scroll" tabindex="0" role="region" aria-label="Original data-to-encoding diagram. Scroll horizontally on small screens.">
+            <img src="/art/fx-data-layers.svg" width="1406" height="739" loading="lazy" alt="Market data becomes continuous lines; limit-price changes become steps; order states become ranges; fills become sized dots; benchmarks become fixed reference lines. Each shape gets its own encoding." />
+          </div>
         </figure>
-        <details class="fx-layer-transcript"><summary>Explore each data layer</summary>
-        <Layers
-          label="Understanding the data: five spreadsheets, four kinds of data, one mark each"
-          cols={[
-            { from: ['Market data'], kind: 'Market context', note: 'The world around the order', enc: 'Ticks become lines', encNote: 'Streaming quotes drawn as continuous lines', glyph: 'line' },
-            { from: ['Limit price log'], kind: 'Order intent', note: 'What the trader asked for', enc: 'Events become steps', encNote: 'Each amendment holds until the next', glyph: 'steps' },
-            { from: ['Order states'], kind: 'Order intent', note: 'Working, suspended, outside limit', enc: 'States become ranges', encNote: 'Each state holds from start to end', glyph: 'range' },
-            { from: ['Fills'], kind: 'Execution results', note: 'What the algo actually did', enc: 'Fills become sized dots', encNote: 'Dot size is volume, colour is venue', glyph: 'dots' },
-            { from: ['Arrival price', 'Risk transfer price'], kind: 'Benchmarks', note: 'How the outcome is judged', enc: 'Constants become references', encNote: 'Fixed lines every fill is judged against', glyph: 'dash' },
-          ]}
-          result="Each kind of data gets its own shape. Nothing on the chart is decorative."
-          caption="The same four branches as my Figma diagram, with selectable text and a stacked layout on smaller screens."
-        />        </details>
 
         <Personas project="fx" />
         <Journey project="fx"><FxJourneyPlot slot="plot" /></Journey>
@@ -219,5 +203,5 @@ import BeforeAfter from './dg/BeforeAfter.astro';
 </section>
 
 <style>
-.fx-source-layers{margin:40px 0 16px;min-width:0}.fx-source-layers img{display:block;width:100%;height:auto;border-radius:var(--radius)}.fx-source-layers figcaption{font-size:13px;color:var(--fg-2);line-height:1.6;margin-top:12px}.fx-layer-transcript{margin:16px 0 48px}.fx-layer-transcript summary{cursor:pointer;padding-block:12px;color:var(--fg);font-size:15px}
+.fx-source-layers{margin:0;min-width:0}.fx-layer-scroll{overflow-x:auto;background:#171b22;padding:24px;border-radius:var(--radius)}.fx-layer-scroll img{display:block;width:100%;min-width:900px;height:auto;max-width:none}.fx-layer-scroll:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
 </style>
