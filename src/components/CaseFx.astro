@@ -16,7 +16,7 @@ import ResponsiveEvidence from './ResponsiveEvidence.astro';
 import DecisionMap from './dg/AuthoredDecisions.astro';
 import FxOriginalFlow from './dg/FxOriginalFlow.astro';
 import Personas from './dg/AuthoredPersonas.astro';
-import FxDesignEvidence from './FxDesignEvidence.astro';
+
 import FxOriginalJourney from './dg/FxOriginalJourney.astro';
 
 import Flow from './dg/Flow.astro';
@@ -116,10 +116,11 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <p class="muted">Classic represents my Barclays design. These are captures of my public rebuild with simulated data, not private bank screens.</p>
       <ProductCapture name="live-fx-classic.png" alt="Classic FX public rebuild in dark mode, showing the complete order and execution chart" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Classic · Dark mode · Simulated data" />
       <ProductCapture name="live-fx-classic-light.png" alt="The same Classic FX workspace in light mode" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Classic · Light mode · Simulated data" />
-      <ProductCapture name="live-fx-table.png" alt="Enhanced FX public rebuild with its table view selected" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Enhanced · Table view · Simulated data" />
+      <ProductCapture name="live-fx-hover.png" alt="Classic FX canvas with the pinned price and execution tooltip" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Hover a fill" />
+      <ProductCapture name="live-fx-table.png" alt="Classic FX execution canvas in candlestick view with percent done and venue analytics" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Candlestick view · Simulated data" />
     </section>
         <ProductCapture name="live-fx-compare.png" alt="Two simulated FX orders compared side by side in the current public rebuild" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Compare orders" />
-        <FxDesignEvidence />
+        <ProductCapture name="live-fx-ticket.png" alt="Pre-filled FX order ticket opened on the chart, using simulated data" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Order ticket" />
         <p class="lead muted">Hover a fill to see the detail. Right-click to act. Drag a price line to reprice, and it opens a filled-in order ticket. Each step commits you a little more, so you can't reprice by accident. We turned a chart you watch into a chart you can trade from.</p>
         <Flow
           label="Monitoring to action, step by step"
@@ -178,7 +179,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <div class="metric"><span class="big w">Beta</span><span>in use with internal users at Barclays today</span></div>
           <div class="metric"><span class="big" data-count="3">3</span><span>measures agreed for rollout. Price move to action, tool switches per order, usage per feature</span></div>
         </div>
-        <Demo src="/media/fx-current.webm" poster="live-fx.png" width={1600} height={1000} label="Enhanced view, filter controls, comparison and the order ticket. All data is simulated." description="Silent recording. It opens the Enhanced view, works through the filter controls, compares orders, then opens the order ticket." />
+        <Demo src="/media/fx-current.webm" poster="live-fx-compare.png" width={1600} height={1000} label="Enhanced view, filter controls, comparison and the order ticket. All data is simulated." description="Silent recording. It opens the Enhanced view, works through the filter controls, compares orders, then opens the order ticket." />
         <ProductCapture name="live-fx-filters.png" alt="The current FX filters for venue, fill side and execution states" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Filter controls" />
         <p class="muted measure">No adoption numbers yet. Rollout brings three measures, and I'll hold the design to them the way I hold the data. What I'd do differently: direct trader access earlier, instead of going through the business first. And the vendor's engine limits discovered in week one, not mid-spec.</p>
       </div>
