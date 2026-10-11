@@ -28,7 +28,7 @@ test('home artwork covers its frame and follows the hero alignment',async({page}
  }
 });
 
-test('FX detail panels retain Retina sources inside the overlapping hero',async({page})=>{
+test('FX vector panels stay sharp inside the overlapping hero',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
  for(const width of [390,1440,1920]){
   await page.setViewportSize({width,height:1000});await page.goto('/fx');
@@ -41,8 +41,8 @@ test('FX detail panels retain Retina sources inside the overlapping hero',async(
    expect(rect.x).toBeGreaterThanOrEqual(composition.x);
    expect(rect.x+rect.width).toBeLessThanOrEqual(composition.x+composition.width+1);
    expect(rect.y+rect.height).toBeLessThanOrEqual(composition.y+composition.height+1);
-   const largest=await panel.locator('source').first().evaluate(el=>Math.max(...(el.getAttribute('srcset')||'').split(',').map(item=>Number(item.trim().split(' ').at(-1)?.replace('w','')))));
-   expect(largest).toBeGreaterThanOrEqual(rect.width*2);
+   await expect(panel.locator('img')).toHaveAttribute('src',/\.svg$/);
+   expect(await panel.locator('img').evaluate(el=>(el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth>0)).toBeTruthy();
   }
  }
 });

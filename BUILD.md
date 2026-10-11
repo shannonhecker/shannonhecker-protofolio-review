@@ -593,3 +593,13 @@ I also gave the tablet and phone capture group 24px of padding on every side, wi
 I arranged the FX hero as an overlapping composition matching my reference: the full chart behind the comparison panel, with the order ticket in front toward the lower left. Each retains its full-size link and original proportions.
 
 Validation: production build and all 148 Playwright tests passed. I checked the borderless shadow in Chrome, mobile page width, and the overlapping hero composition.
+
+### 11 October · Readable journeys, exact vectors and Deal Model repairs
+
+I applied the readable FX journey layout to Fusion, uoaui.ai, Winking Star and Deal Model on the site and in the desktop and mobile Figma frames. Persona, scenario, goal, stage descriptions and takeaways now use readable text. The original thoughts, feelings and approach artwork stays intact as SVG, with horizontal scrolling on phones and all supporting text visible by default.
+
+I exported the three original vector panels for the overlapping FX hero. I removed the export's page background and baked shadow margins, so the foreground panels have transparent surrounds and one soft shadow. Raster product captures retain their original resolution; wrapping those in SVG would not improve their detail.
+
+I repaired all six chosen/alternative comparison pairs in Deal Model's desktop and mobile Figma layouts using the exact assets on the live page. The broken editable copies are preserved but hidden. The current graphics and other uploaded screenshots stay intact.
+
+Validation: production build and all 148 Playwright tests passed. I checked the transparent SVG hero, readable desktop journey, mobile page width and scrolling, and the repaired Figma comparison graphics.
