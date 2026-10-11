@@ -19,6 +19,8 @@ work. Completion requires the source, rendered result and deployed result to agr
 | Put workflow rules above steps; align arrows with title row | Live, recheck | Flow and shared CSS; verify all variants |
 | Remove vertical colour bars from journey phases; increase separation | Live, recheck | AuthoredJourney and FxOriginalJourney; recheck after new journey work |
 | Tighten all persona typography to match site, keep updated colours/art | Local | PersonaCard and AuthoredPersonas; desktop/mobile reviewed, publish pending |
+| Match latest supplied persona template across all 15 web personas and 30 Figma cards | New local implementation; review open | Latest user reference supersedes prior persona-layout completion. Preserve supplied image priorities and project colour variants; do not invent technical ratings, research attributes or participant facts. Web revision is uncommitted; rendered review and Figma mirroring underway. |
+| One accent per persona, white base, clean portrait cutouts | New local implementation; assets pending | Latest direction replaces mixed pastel surfaces: white identity/content, one accent hue with a 12% derived portrait tint. Remove baked image backgrounds, do not use multiply blending to disguise them. Four opaque Deal portraits require cutouts; inspect all 15 portraits and 30 Figma cards before release. |
 | Self-inspect craft to the requested awards-level benchmark | Open | No external award claim; complete visual, responsive, accessibility, motion and source audit |
 
 ## Assets and project content
@@ -117,6 +119,48 @@ authored-content/source-art reconciliation and final rendered checks remain open
 | Publish and verify live | Open | Current branch design/winking-product-refresh is not deployed |
 
 ## Current verification
+
+**Hold PR #49 merge:** the latest user-supplied persona template adds a new
+revision after `2a2988d`. Test and push it, then verify that exact head's checks
+before merging. Existing CI success, if obtained, will cover only the earlier
+head until the persona changes are included. Fifteen website personas and thirty
+desktop/mobile Figma cards need explicit template/overflow/source review.
+The hold includes the latest single-accent treatment and four Deal portrait
+cutouts now in progress. The Deal journey return label is locally corrected to
+TXN/SK rate review, matching the original source rather than a generic tolerance
+gate; include that revision in the final source/render check.
+
+Persona/cutout checkpoint: root reports the final production build and **149
+browser tests passed in 58.2s**. BUILD entry is updated. All thirty Figma cards,
+their final upload/manifest and the independent visual check are still pending
+before committing/pushing this revision. New-head CI remains required. Keep
+authenticity/source-art reconciliation, raster/zoom readability, and real scroll
+performance open until their final evidence is recorded.
+
+Later checkpoint: all thirty Figma portraits are uploaded with the single-accent
+white-base treatment, visually checked and recorded in the final manifest.
+Independent review confirms FX phone composition and mobile fullscreen map
+readability. Root removed 0.7s trailing parallax from product captures/hero media
+while keeping text motion. A later full run had 148 passes and one responsive
+image-decoding test race; the test now polls the current decoded source and the
+full suite is rerunning. Five Deal raster source-art corrections remain queued.
+This supersedes the earlier pending Figma upload status, but not the release hold.
+
+Latest root release candidate: `2a2988d` created and being pushed to PR #49.
+Local Astro check: 0 errors, 0 warnings, 4 unused-symbol hints. Production build
+passes; full browser suite **149 passed in 59.9s**, including the new exports.
+A subsequent small AI eyebrow simplification has a passing rebuild. New-head CI
+and deployed review are not yet complete. Figma whole-page gaps, remaining Deal
+illustrative baked-in claims, final sitewide craft and scroll performance remain
+open; this checkpoint does not close the overall task.
+
+GitHub verification: CI
+[38184120959](https://github.com/shannonhecker/shannonhecker-protofolio-review/actions/runs/38184120959)
+at exact head `2a2988d71e91b23c9c5003cb248b9afa5896d9a5` completed **success**,
+including browser tests and all configured Lighthouse gates. Log saved to
+`/private/tmp/pr49-2a2988d-ci.log`. This supersedes the older failed performance
+checkpoint for this head, but does not validate the subsequent persona/cutout
+revision or close the final manual craft/scroll/deployed reviews.
 
 - Local branch: `design/winking-product-refresh`, based on `982ff55` (PR #48).
   Root reports commit `7d6c6bc` includes only the tested asset/persona changes.

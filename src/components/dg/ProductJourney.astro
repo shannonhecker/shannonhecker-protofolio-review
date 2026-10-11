@@ -29,7 +29,7 @@ const family=[{title:'Getting started',role:'Parent',indices:[0,1]},{title:'Ever
  </>}
  {project==='deal' && <>
   <div class="deal-object"><h4>One deal, shared across the teams</h4><p>Sales, custody operations, legal and product work from the same deal. Each iteration carries the pricing decision forward.</p></div>
-  <div class="deal-blueprint"><div class="blueprint-head" aria-hidden="true"><span>The deal owner’s work</span><span>Behind the surface</span></div>{steps.map((step,i)=><section class="blueprint-row"><div><JourneyStep step={step} number={i+1} system={false}/></div><div class="blueprint-system"><h5>What the system does</h5><p>{step.backstage}</p>{i===2 && <p class="return-path">Outside tolerance → correct the field and price again.</p>}</div></section>)}</div>
+  <div class="deal-blueprint"><div class="blueprint-head" aria-hidden="true"><span>The deal owner’s work</span><span>Behind the surface</span></div>{steps.map((step,i)=><section class="blueprint-row"><div><JourneyStep step={step} number={i+1} system={false}/></div><div class="blueprint-system"><h5>What the system does</h5><p>{step.backstage}</p>{i===2 && <p class="return-path">Rate difference → review the TXN rate against the SK rate.</p>}</div></section>)}</div>
  </>}
  {project==='fx' && <>
   <div class="fx-prepare">{steps.slice(0,2).map((step,i)=><JourneyStep step={step} number={i+1}/>)}</div>

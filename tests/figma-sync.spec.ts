@@ -1,16 +1,74 @@
 import { test, expect } from '@playwright/test';
 
-test('all fifteen personas share portrait framing and one card surface',async({page})=>{
+test('all fifteen personas retain the approved card hierarchy across screen sizes',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});
   for(const [route,count] of [['/fx',3],['/fusion',3],['/uoaui',2],['/winking-star',3],['/deal-model',4]] as const){
     await page.goto(route);
-    await expect(page.locator('.persona-card')).toHaveCount(count);
-    await expect(page.locator('.persona-card .persona-art img')).toHaveCount(count);
-    for(const width of [390,1440]){
+    const cards=page.locator('.persona-card');
+    await expect(cards).toHaveCount(count);
+    const portraits=cards.locator('.persona-art img');
+    await expect(portraits).toHaveCount(count);
+    await portraits.evaluateAll(async nodes=>{
+      await Promise.all(nodes.map(async node=>{
+        const image=node as HTMLImageElement;
+        image.loading='eager';
+        await image.decode();
+      }));
+    });
+    for(const width of [320,390,820,1440]){
       await page.setViewportSize({width,height:900});
-      const frames=await page.locator('.persona-art').evaluateAll(nodes=>nodes.map(n=>({w:n.clientWidth,h:n.clientHeight})));
-      for(const f of frames){expect(f.w).toBeGreaterThanOrEqual(100);expect(f.w).toBeLessThanOrEqual(240);expect(Math.abs(f.h/f.w-4/3)).toBeLessThan(.02);}
-      await expect(page.locator('.persona-card').first()).toHaveCSS('background-color',route==='/uoaui'?'rgb(239, 240, 227)':route==='/winking-star'?'rgb(255, 248, 226)':'rgb(245, 228, 220)');
+      const rendered=await cards.evaluateAll(nodes=>nodes.map(card=>{
+        const identity=card.querySelector('.persona-identity')!;
+        const content=card.querySelector('.persona-content')!;
+        const frame=card.querySelector('.persona-art')!;
+        const image=frame.querySelector('img')!;
+        const panel=card.querySelector('.persona-response')!;
+        const bounds=card.getBoundingClientRect();
+        const rect=(el:Element)=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom};};
+        const text=Array.from(card.querySelectorAll('h4,h5,p,li'));
+        const clipped=text.filter(el=>{
+          const range=document.createRange();range.selectNodeContents(el);
+          return Array.from(range.getClientRects()).some(r=>r.left<bounds.left-1||r.right>bounds.right+1||r.top<bounds.top-1||r.bottom>bounds.bottom+1);
+        }).map(el=>el.textContent);
+        return {
+          card:rect(card),identity:rect(identity),content:rect(content),frame:rect(frame),image:rect(image),
+          loaded:image.complete&&image.naturalWidth>0&&image.naturalHeight>0,
+          fit:getComputedStyle(image).objectFit,surface:getComputedStyle(card).backgroundColor,
+          portraitSurface:getComputedStyle(frame).backgroundColor,identitySurface:getComputedStyle(identity).backgroundColor,
+          accent:getComputedStyle(panel).backgroundColor,
+          heading:getComputedStyle(card.querySelector('h4')!).color,
+          context:getComputedStyle(card.querySelector('.persona-context h5')!).color,
+          quote:getComputedStyle(card.querySelector('blockquote>span')!).color,
+          panelText:getComputedStyle(panel).color,clipped,
+        };
+      }));
+      for(const card of rendered){
+        expect(card.loaded,`${route}: portrait decoded at ${width}px`).toBe(true);
+        expect(card.fit).toBe('contain');
+        expect(card.frame.width).toBeGreaterThanOrEqual(100);
+        expect(card.frame.height).toBeGreaterThanOrEqual(150);
+        expect(card.image.width).toBeLessThanOrEqual(card.frame.width+1);
+        expect(card.image.height).toBeLessThanOrEqual(card.frame.height+1);
+        expect(card.surface).toBe('rgb(255, 255, 255)');
+        expect(card.portraitSurface).toBe(card.surface);
+        expect(card.identitySurface).toBe(card.surface);
+        expect(card.accent).not.toBe(card.surface);
+        expect(card.heading).toBe(card.accent);
+        expect(card.context).toBe(card.accent);
+        expect(card.quote).toBe(card.accent);
+        expect(card.panelText).toBe('rgb(255, 255, 255)');
+        expect(card.clipped,`${route}: text remains inside the visible card at ${width}px`).toEqual([]);
+        expect(card.card.x).toBeGreaterThanOrEqual(0);
+        expect(card.card.right).toBeLessThanOrEqual(width+1);
+        if(width<=390){
+          expect(card.content.y).toBeGreaterThanOrEqual(card.identity.bottom-1);
+          expect(Math.abs(card.content.width-card.card.width)).toBeLessThanOrEqual(1);
+        }else{
+          expect(card.content.x).toBeGreaterThanOrEqual(card.identity.right-1);
+          expect(card.content.width).toBeGreaterThan(card.identity.width);
+        }
+      }
+      expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     }
   }
 });
@@ -37,7 +95,9 @@ test('FX comparisons use the authored charts and stay readable on phones', async
   await expect(charts).toHaveCount(6);
   for (const width of [390,1440,1920]) {
     await page.setViewportSize({width,height:900});
-    await charts.evaluateAll(async images=>{await Promise.all(images.map(async el=>{const im=el as HTMLImageElement;im.loading='eager';await im.decode();}));});
+    // A viewport change can replace srcset while decode is pending. Retry the
+    // current source; permanently invalid images still fail the assertion.
+    await expect.poll(()=>charts.evaluateAll(async images=>(await Promise.all(images.map(async el=>{const im=el as HTMLImageElement;im.loading='eager';try{await im.decode();return im.complete&&im.naturalWidth>0;}catch{return false;}}))).every(Boolean))).toBe(true);
     await expect.poll(()=>charts.evaluateAll(images=>images.every(el=>el.getBoundingClientRect().width>=300&&(el as HTMLImageElement).naturalWidth>0))).toBe(true);
     const sizes=await charts.evaluateAll(images=>images.map(el=>({width:el.getBoundingClientRect().width})));
     if(width>=1440){

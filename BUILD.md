@@ -664,3 +664,15 @@ See `docs/DELIVERY-CHECKLIST.md`, `docs/DECISION-AUDIT.md` and
 Final local validation: Astro check returned 0 errors and 0 warnings (4 existing
 unused-variable hints); the production build passed; all 149 Playwright tests
 passed in 59.9 seconds. Source-art updates are included in this run.
+
+### PR 49 follow-up · One colour per persona
+
+**What Codex changed at my request**
+
+- I wanted the persona cards to follow my reference: a portrait and identity on the left, a quote, context, goals and pain points on the right, with one coloured response panel.
+- Each card now has white surfaces and one accent colour. The separate pastel portrait backgrounds are gone, and the four Deal portraits have transparent backgrounds.
+- The same template is applied to all 30 desktop and mobile Figma cards. Existing product artwork is preserved.
+- Fixed the Deal hero width so its overlapping screens appear on desktop and stack on phones. Corrected the Deal journey return path to the documented TXN/SK rate review.
+- Validation: production build passed; 149 browser tests passed in 58.2 seconds. Persona checks cover all 15 cards at four widths, including text fit, portrait framing and consistent colour.
+
+- Removed the 0.7-second screenshot and hero scroll catch-up so dense product UI stays steady. Final production build and all 149 browser tests passed in 58.9 seconds after this change.

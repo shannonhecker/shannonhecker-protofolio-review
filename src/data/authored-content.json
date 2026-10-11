@@ -35,7 +35,8 @@
                 "Venue cross-filter"
               ]
             }
-          ]
+          ],
+          "bio": "Works a large FX order through the session, watching price and progress to decide when to intervene."
         },
         {
           "name": "Marcus Webb",
@@ -67,7 +68,8 @@
                 "Passive / aggressive gauge"
               ]
             }
-          ]
+          ],
+          "bio": "Oversees the trading desk and reviews execution quality across orders and venues."
         },
         {
           "name": "Priya Nair",
@@ -98,7 +100,8 @@
                 "Table view with CSV export"
               ]
             }
-          ]
+          ],
+          "bio": "Studies fill placement and pacing to tune how an execution algorithm behaves."
         }
       ]
     },
@@ -300,7 +303,8 @@
                 "Configurable pages built from widgets"
               ]
             }
-          ]
+          ],
+          "bio": "Prepares performance, attribution and risk for board meetings, and presents the analysis live."
         },
         {
           "name": "Tom Reilly",
@@ -332,7 +336,8 @@
                 "Import and export through FactSet"
               ]
             }
-          ]
+          ],
+          "bio": "Explores returns, attribution and risk across data cubes to build an analytical view."
         },
         {
           "name": "Amara Osei",
@@ -364,7 +369,8 @@
                 "One codebase, consistent patterns"
               ]
             }
-          ]
+          ],
+          "bio": "Uses the client-facing view in phase two, without the training available to internal analysts."
         }
       ]
     },
@@ -641,7 +647,8 @@
                 "Mapped system components, with explicit fallbacks"
               ]
             }
-          ]
+          ],
+          "bio": "Designs screens inside an established design system, comparing and refining generated drafts."
         },
         {
           "name": "Dev Patel",
@@ -673,7 +680,8 @@
                 "Token mapping underneath, mapped not generated"
               ]
             }
-          ]
+          ],
+          "bio": "Receives exported React and needs to understand the components, structure and remaining work."
         }
       ]
     },
@@ -967,7 +975,8 @@
                 "A weekly pet so one bad day doesn't end the game"
               ]
             }
-          ]
+          ],
+          "bio": "Uses the routine board with a parent. Large pictures and immediate feedback help before reading is fluent."
         },
         {
           "name": "The parent",
@@ -999,7 +1008,8 @@
                 "Custom activities, so Mandarin sits next to teeth"
               ]
             }
-          ]
+          ],
+          "bio": "Sets up the family board and decides whether it helps with the household’s daily routines."
         },
         {
           "name": "The second adult",
@@ -1029,7 +1039,8 @@
                 "From their own phone"
               ]
             }
-          ]
+          ],
+          "bio": "Joins an existing family board as a partner, grandparent or childminder."
         }
       ]
     },
@@ -1489,7 +1500,8 @@
                 "Status and deal lead on the landing page"
               ]
             }
-          ]
+          ],
+          "bio": "Builds and prices a custody deal, compares iterations and explains the proposal sent for approval."
         },
         {
           "name": "The approver",
@@ -1521,7 +1533,8 @@
                 "Owner-written winning-bid reason before publishing"
               ]
             }
-          ]
+          ],
+          "bio": "Reviews the proposed deal, its financial comparison and the owner’s reason before signing off."
         },
         {
           "name": "The legal reviewer",
@@ -1553,7 +1566,8 @@
                 "History per iteration"
               ]
             }
-          ]
+          ],
+          "bio": "Reviews the terms and supporting deal record alongside the other teams."
         },
         {
           "name": "The product owner",
@@ -1585,7 +1599,8 @@
                 "Tiering across AUC and transactions"
               ]
             }
-          ]
+          ],
+          "bio": "Owns the portfolio and platform, balancing the needs of sales, operations and legal."
         }
       ]
     },
