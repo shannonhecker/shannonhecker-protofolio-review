@@ -84,11 +84,14 @@ function chrome() {
   list?.addEventListener('scroll', edges, { passive: true });
   let lastCur: HTMLElement | null = null;
   const upd = () => {
-    const h = root.scrollHeight - innerHeight;
+    // At the top, progress and section state are already known. Avoid forcing
+    // layout of the full image gallery during the first text/scene entrance.
+    const atTop = scrollY === 0;
+    const h = atTop ? 0 : root.scrollHeight - innerHeight;
     if (prog) prog.style.transform = `scaleX(${h > 0 ? Math.min(1, scrollY / h) : 0})`;
     const y = scrollY + innerHeight * 0.35;
     let cur: HTMLElement | null = null;
-    sections.forEach((s) => { if (s.offsetTop <= y) cur = s; });
+    if (!atTop) sections.forEach((s) => { if (s.offsetTop <= y) cur = s; });
     links.forEach((a) => {
       const on = pageLink ? a === pageLink : !!cur && (a.getAttribute('href') ?? '').endsWith('#' + (cur as HTMLElement).id);
       if (on) a.setAttribute('aria-current', pageLink ? 'page' : 'true');

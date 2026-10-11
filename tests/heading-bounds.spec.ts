@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-for(const route of ['/fx','/fusion','/winking-star','/uoaui']){
+for(const route of ['/fx','/fusion','/winking-star','/deal-model','/uoaui']){
  test(`${route} heading stays inside the viewport with motion enabled`,async({page})=>{
   await page.goto(route);
   await page.locator('h1').evaluate(async el=>{await Promise.all(el.getAnimations().map(a=>a.finished.catch(()=>{})));});

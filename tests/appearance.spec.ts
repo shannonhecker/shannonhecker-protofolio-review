@@ -7,7 +7,7 @@ async function chooseTheme(page:Page,label:string){
 }
 
 for (const width of [390, 1440]) {
-  for (const route of ['/panel','/fusion','/uoaui','/winking-star']) {
+  for (const route of ['/panel','/fusion','/uoaui','/deal-model','/winking-star']) {
     test(`dark theme remains readable at ${width}px on ${route}`, async ({page}) => {
       await page.setViewportSize({width,height:900});
       await page.emulateMedia({reducedMotion:'reduce'});
@@ -25,7 +25,7 @@ for (const width of [390, 1440]) {
 
 test('dark is the default and explicit theme preferences persist across projects',async({page})=>{
   await page.emulateMedia({colorScheme:'light'});
-  for(const route of ['/panel','/fx','/fusion','/uoaui','/winking-star','/privacy','/build','/404']){
+  for(const route of ['/panel','/fx','/fusion','/uoaui','/deal-model','/winking-star','/privacy','/build','/404']){
     await page.goto(route);
     await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
     await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content','#171b22');

@@ -243,3 +243,9 @@ The final FX review uses authored screenshot/vector compositions from portfolio 
 
 ### 11 October sharpness pass
 Read-only exports from the same authored nodes above: FX overview, comparison and data layers at 3×; ticket at 4×; source interaction frames `8:2746` and `74:7013` at 2×. Winking cover containers `109:46` and `109:219` at 3×. No Figma node was changed. Website responsive widths extend to native source width (maximum 3200px), with quality 85 and no raster upscaling. Home FX and uoaui retain their original uploaded source resolution (1536px and 1280px); the narrower shared content alignment reduces their displayed size.
+
+### 11 October · Figma working-page assets
+
+`src/assets/img/figma-sync/` contains 68 authored exports from portfolio file `l6noy7onfsRiuBgjqSsKbt`: 11 persona illustrations (including three updated FX scenes), four qualitative journey plots, four decision-flow diagrams, 36 choice schematics and 13 Deal Model sample-data screens. Exported diagram resolution is up to 2600px wide. Product captures retain their source resolution; the pipeline never treats upscaling as extra detail. Responsive WebP delivery uses explicit dimensions, lazy loading below the fold and a link to the original-size asset. The hero image loads eagerly.
+
+The source page and node map is recorded in FIGMA-AUDIT.md. Unused audit exports were removed. All artwork came from Shannon's supplied design file; none was generated for this update.

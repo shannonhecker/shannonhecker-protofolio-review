@@ -431,3 +431,17 @@ I corrected the two remaining pale lines around How I work. They were using a fi
 
 I made dark mode the starting appearance across my site, including the first HTML paint and browser theme colour. A visitor's saved light or dark choice still takes precedence. I also kept the missing-page link readable on hover against the dark background.
 - The dark-default release check caught a slow mobile first paint. I kept the phone introduction's movement but let its text paint immediately, so the entrance does not delay reading. All 130 browser tests still pass.
+
+### 11 October · Updated Figma content and Deal Model
+
+**What Codex did**
+
+I read the current desktop and mobile working pages in Shannon's portfolio Figma file and brought the updated case-study content into the existing site structure. I added Deal Model as the fifth project, with its four composite roles, five-step journey, six decisions, validation states and thirteen design-file screens. I kept the stated limits: smart pricing was explored, and the time saving is Shannon's estimate, not a measured result.
+
+I replaced the older persona, journey and decision treatments for Fusion, uoaui.ai and Winking Star with the current authored material. I exported the updated FX persona illustrations and kept names, roles and quotes as accessible page text. I compared forty existing product-image placements against Figma and retained the higher-resolution originals where their content matched. I used the provided illustrations and diagrams; no generated replacement graphics were needed, and I did not edit the Figma file while Claude was working there.
+
+I checked desktop composition, mobile reflow, image loading, section navigation, reduced motion and both themes. The first test pass caught a visible margin around the new home tile; I fixed its crop. The final local production build succeeds, Astro reports zero errors and warnings (one pre-existing hint), and all 140 browser checks pass. The release still requires its own remote CI and published-site verification.
+
+The visual pass then caught two source-flow labels extending beyond their boxes and connector labels that were difficult to read against dark mode. I rebuilt the four small flow diagrams as theme-aware vectors, keeping their wording and relationships. I also increased chapter-jump clearance to account for the entrance motion, with a regression for the sticky header. All 141 local browser checks pass. I corrected the screenshot test to use Playwright's output directory so the same evidence can be saved on the Linux release runner.
+
+The cloud mobile homepage audit scored 94, just below my 95 budget. I shortened the introductory paragraph's phone entrance and stopped the navigation from measuring the full gallery while the page is at the top. The title, avatar greeting and scroll motion remain. All 141 browser checks pass after this refinement.

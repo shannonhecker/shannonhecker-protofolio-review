@@ -6,15 +6,14 @@ interface Props { top?: boolean }
 const { top = false } = Astro.props;
 const HT = top ? 'h1' : 'h2';
 const HL = top ? 'h2' : 'h3';
-const HD = top ? 'h3' : 'h4'; // decision titles
 import Demo from './Demo.astro';
 import ProductCapture from './ProductCapture.astro';
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
 import ResponsiveEvidence from './ResponsiveEvidence.astro';
-import DecisionMap from './dg/DecisionMap.astro';
-import Personas from './dg/Personas.astro';
-import Journey from './dg/Journey.astro';
+import DecisionMap from './dg/AuthoredDecisions.astro';
+import Personas from './dg/AuthoredPersonas.astro';
+import Journey from './dg/AuthoredJourney.astro';
 
 import Flow from './dg/Flow.astro';
 import Stack from './dg/Stack.astro';
@@ -92,12 +91,7 @@ import Stack from './dg/Stack.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="What I tried, what I dropped, and why." />
         <DecisionMap project="fusion" />
-        <ol class="dec">
-          <li><span class="n">01</span><div><HD>Modular widgets over fixed page templates</HD><p>Fixed layouts were faster to ship, but every new data cube would have needed a new page.</p><p class="verdict">The grid won because one widget serves many cubes and permission levels.</p></div></li>
-          <li><span class="n">02</span><div><HD>Cut a customisation tier</HD><p>Early versions had three levels of configuration. Testing showed the middle tier added cognitive load without changing what people built.</p><p class="verdict">I removed it. The test I use for what not to design: is this serving a real workflow contradiction, or one team's preference?</p></div></li>
-          <li><span class="n">03</span><div><HD>Same screens for internal and external users</HD><p>Phase two brought in clients who'd had no training.</p><p class="verdict">One product with entitlement-based views over a simplified client version, so patterns stayed consistent and the team kept one codebase.</p></div></li>
-          <li><span class="n">04</span><div><HD>What I'd do differently</HD><p>Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules.</p></div></li>
-        </ol>
+
         <ProductCapture name="live-fusion-config.png" alt="The current Fusion performance table beside its configuration panel" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Configure performance" />
       </div>
     </div>

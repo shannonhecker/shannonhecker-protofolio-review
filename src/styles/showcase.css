@@ -345,6 +345,9 @@ html .nav,html[data-theme=dark] .nav{background:var(--bg)!important;-webkit-back
    remain available once the reader moves through the page. */
 @media(max-width:760px) and (hover:none) and (prefers-reduced-motion:no-preference){
  .has-js .hero-story>:is(h1,.hero-top,.status-row,.explore-work){animation-name:hero-phone-enter}
+ /* Settle the reading copy promptly on phones while the remaining intro
+    continues. This paragraph is the largest initial content on narrow screens. */
+ .has-js .hero-story>.hero-top{animation-duration:.28s;animation-delay:.04s}
  .has-js .hero-word-window{animation:none}
  .landing-companion[data-intro=true] .companion-avatar{animation-duration:.35s}
  @keyframes hero-phone-enter{from{transform:translateY(12px)}to{transform:none}}
@@ -355,3 +358,9 @@ html .nav .cta:hover,html .nav .cta:focus-visible,
 html[data-theme=dark] .nav .cta:hover,html[data-theme=dark] .nav .cta:focus-visible{
  background:var(--fg);color:var(--bg);border-color:var(--fg)
 }
+
+/* Deal Model follows the same editorial grid and restrained project accent. */
+.case-page[data-project=deal-model]{--project-ink:#8a2d3b;--project-wash:#f8eff1}
+html[data-theme=dark] .case-page[data-project=deal-model]{--project-ink:#e5a8b4;--project-wash:#33262f}
+#work .home-artwork-deal{background:#f3f4f6}
+#work .home-artwork-deal img{object-position:top center}

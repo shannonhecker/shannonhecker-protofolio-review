@@ -1,4 +1,4 @@
-// The four index rows, copy unchanged from the prototype. Used by the home
+// The project index. Used by the home
 // index and by the next-case row at the end of each case page.
 export const CASES = [
   {
@@ -29,8 +29,17 @@ export const CASES = [
     "img": "ws-marketing.jpg"
   },
   {
-    "href": "/uoaui",
+    "href": "/deal-model",
     "n": "04",
+    "vt": "deal",
+    "title": "Deal Model",
+    "meta": "J.P. Morgan · Securities Services · in use internally. Four teams, one deal object, four views. Pricing, comparison and approval in one platform.",
+    "arrow": "Read →",
+    "img": "figma-sync/source-242-530.png"
+  },
+  {
+    "href": "/uoaui",
+    "n": "05",
     "vt": "ai",
     "title": "uoaui.ai and how I use AI",
     "meta": "Private alpha. A design platform on Claude that builds screens from real design systems, and where a designer still matters.",

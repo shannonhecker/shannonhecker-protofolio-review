@@ -1,0 +1,249 @@
+{
+  "intro": "Four teams with four ideas of what a deal is. Custody ops, sales, legal and product priced global custody deals from one large spreadsheet and email chains. Slow, easy to get wrong, and no audit trail. I was embedded with the four teams for a year. One web platform, one deal object, four views.",
+  "status": "Shown as redrawn schematics with sample data. The product is internal to J.P. Morgan, so no production screens, names or figures appear here.",
+  "meta": [
+    "Case four · J.P. Morgan · Securities Services · internal product",
+    "Role · UI lead, one of two designers",
+    "Team · Two UX designers, a junior designer, a BA, a researcher, a data analyst, engineers",
+    "Status · In use internally. Six design phases, to January 2024",
+    "Platform · Web, desktop"
+  ],
+  "problem": {
+    "label": "01 Problem",
+    "title": "Four teams, four spreadsheets, one deal.",
+    "rows": [
+      {
+        "label": "Users",
+        "text": "Custody ops, sales, legal and product. Each team priced and approved global custody deals from its own copy of one large spreadsheet, with email as the audit trail."
+      },
+      {
+        "label": "The job",
+        "text": "Price a deal, compare iterations, get it approved and signed off, with a record that survives an audit."
+      },
+      {
+        "label": "Where it started",
+        "text": "About sixty product owners on one Excel app. Creating a deal took around two hours across tools. Slow, easy to get wrong, and no audit trail. The two-hour figure is my estimate from sitting with the teams, not a measured study."
+      },
+      {
+        "label": "Business goal",
+        "text": "Move deal pricing onto one web platform so the four teams work from one object, and the sign-off trail comes out of the tool instead of someone's inbox."
+      }
+    ]
+  },
+  "research": {
+    "label": "02 Users and research",
+    "title": "Four teams, one deal, four views.",
+    "rows": [
+      {
+        "label": "How I got in the room",
+        "text": "In a bank there is usually a BA between the designer and the user. I was embedded with the four teams for a year, so I could ask each one what they needed to see and what they needed to change."
+      },
+      {
+        "label": "Three versions, every review",
+        "text": "I never showed one proposal. Three versions on the table meant people said what was wrong instead of saying yes. Most arguments went away once they saw it was the same deal with different columns."
+      },
+      {
+        "label": "Who I worked with",
+        "text": "Two UX designers on flows and research, a junior designer on screens with me, a business analyst, a researcher, a data analyst, and the engineers in every review."
+      }
+    ]
+  },
+  "constraints": {
+    "label": "03 Constraints and role",
+    "title": "One object, four views, and a spreadsheet that would not die.",
+    "rows": [
+      {
+        "label": "Four definitions of a deal",
+        "text": "Sales, legal, custody ops and product each had a different idea of what a deal was. I did not ask them to agree on a design. I asked what each needed to see and what each needed to change. One object, four views."
+      },
+      {
+        "label": "The spreadsheet",
+        "text": "Some people kept the spreadsheet. Instead of forcing them across, we built an upload template they could fill in and the system mapped it. That brought the last people over."
+      },
+      {
+        "label": "Compliance",
+        "text": "Every price needs a source, every change needs a person, and every deal needs a sign-off trail. Checks run as you go, and the record comes out of the tool."
+      },
+      {
+        "label": "Accessibility",
+        "text": "ADA specs sat inside the design file: landmarks, tabbing order, content hierarchy and alt text for every screen, reviewed with the ADA specialist before engineering picked it up."
+      },
+      {
+        "label": "What was mine",
+        "text": "I led UI: the compare grid, the column chooser, the iteration list, the validation states and the three-versions review format. The five-step flow was shared with the two UX designers. The upload template came out of the BA and me."
+      },
+      {
+        "label": "Six phases",
+        "text": "Phases one to six, to January 2024. Deals, portfolio, pricing, tiering, ADA specs, smart pricing, then the deal-owner dashboard and the approver workflow."
+      }
+    ]
+  },
+  "flow": {
+    "title": "From a spreadsheet to a signed-off deal in five steps.",
+    "intro": "Create the deal. Load the portfolio. Price and iterate. Compare and tier. Approve and sign off. Each step shows only what you need at that stage, with checks as you go. Step five writes the sign-off summary for you."
+  },
+  "edge": {
+    "title": "The states a deal hits when things are not normal.",
+    "rows": [
+      [
+        "Price outside tolerance",
+        "A warning at the field as soon as it changes, naming the tolerance and the rate card. Legal sign-off is added to the route.",
+        "Found at the field, not three days later at approval."
+      ],
+      [
+        "Rate card missing or stale",
+        "The iteration is blocked at that field with the card owner named, so the deal owner knows who to ask.",
+        "A price must have a source. The trail starts with the card."
+      ],
+      [
+        "Template with unmapped columns",
+        "The mapping screen lists every unmapped column. Import waits until each one is mapped or skipped on purpose.",
+        "No silent data loss on the way in."
+      ],
+      [
+        "No portfolio or no iteration yet",
+        "A default portfolio and a \"new proposal\" entry, so the first useful view appears before any data is loaded.",
+        "Value before setup, the same rule as everywhere else I design."
+      ],
+      [
+        "Approval returned",
+        "The deal comes back with the reason inline and the fields that changed highlighted, not an email thread.",
+        "The record is the tool, not the inbox."
+      ],
+      [
+        "Keyboard and screen reader",
+        "Landmarks, tabbing order, content hierarchy and alt text specified per screen, reviewed with the ADA specialist before build.",
+        "Accessibility was a review step, not a final check."
+      ],
+      [
+        "Forty columns on one grid",
+        "Column chooser with saved settings, legends, and a secondary-transactions view split out.",
+        "Honest at ten columns and at forty."
+      ]
+    ]
+  },
+  "outcome": {
+    "label": "07 Outcome and impact",
+    "title": "In use internally. The numbers are mine, not measured.",
+    "rows": [
+      {
+        "label": "Delivered",
+        "text": "Six design phases to January 2024: deals, portfolio, pricing, tiering, ADA specs, smart pricing, then the deal-owner dashboard and the approver workflow. Reviewed with the four teams at every phase."
+      },
+      {
+        "label": "Live",
+        "text": "In use internally in Securities Services. It is an internal product, so there is no public link and no production screen on this page."
+      },
+      {
+        "label": "Adoption",
+        "text": "Four teams moved onto one platform. The upload template brought the last spreadsheet users across. No adoption number was measured in my time, so none is claimed."
+      },
+      {
+        "label": "My estimate",
+        "text": "Creating a deal went from about two hours across tools to about twenty minutes in one flow, and the audit trail now comes out of the tool. That is my estimate from a year with the teams, not a measured study."
+      },
+      {
+        "label": "What I would measure",
+        "text": "Time to create a deal, iterations per deal, approvals returned for correction, and how many deals still start in the spreadsheet."
+      },
+      {
+        "label": "What I would do differently",
+        "text": "Measure before and after. I had the teams for a year and never timed the old flow properly. And bring the data analyst in from phase one, so smart pricing had its data ready when we designed it."
+      }
+    ]
+  },
+  "validation": [
+    {
+      "name": "Default",
+      "label": "Reduction",
+      "value": "12 %",
+      "message": "Within Tier B tolerance (max 15 %)."
+    },
+    {
+      "name": "Warning",
+      "label": "Reduction",
+      "value": "16 %",
+      "message": "Above Tier B tolerance (15 %). Legal sign-off will be added to the route."
+    },
+    {
+      "name": "Error",
+      "label": "Reduction",
+      "value": "abc",
+      "message": "Enter a percentage between 0 and 100."
+    },
+    {
+      "name": "Blocked",
+      "label": "Rate card",
+      "value": "No card for APAC · Tier B",
+      "message": "Ask the rate card owner before pricing this market."
+    }
+  ],
+  "screensIntro": "Screens from the Deal Model stakeholder summary, phases one to six. Client names, people and internal links are replaced.",
+  "screens": [
+    {
+      "image": "source-242-530.png",
+      "title": "01 · Deals landing",
+      "description": "Every deal, its iteration, status and lead in one list. Filters by region, segment and status."
+    },
+    {
+      "image": "source-242-535.png",
+      "title": "02 · Portfolio landing",
+      "description": "The portfolios behind a deal: default, additional, new."
+    },
+    {
+      "image": "source-242-540.png",
+      "title": "03 · Load data",
+      "description": "Bulk search, month end or a date range. Or the upload template."
+    },
+    {
+      "image": "source-242-545.png",
+      "title": "04 · Portfolio summary",
+      "description": "Holdings, primary and secondary transactions, physical securities, collateral."
+    },
+    {
+      "image": "source-242-550.png",
+      "title": "05 · New iteration",
+      "description": "Create an iteration on a benchmark rate card. Checks as you go."
+    },
+    {
+      "image": "source-242-555.png",
+      "title": "06 · Validation states",
+      "description": "One field, every state the deal owner can hit."
+    },
+    {
+      "image": "source-242-560.png",
+      "title": "07 · Compare grid",
+      "description": "Iterations side by side, one market per row."
+    },
+    {
+      "image": "source-242-565.png",
+      "title": "08 · Column chooser",
+      "description": "The grid is a view, not a rebuild. Saved per user."
+    },
+    {
+      "image": "source-242-570.png",
+      "title": "09 · Tiering",
+      "description": "AUC versus primary transactions, blended bps, tiers only, hide totals."
+    },
+    {
+      "image": "source-242-575.png",
+      "title": "10 · Smart pricing (explored)",
+      "description": "Model scope, pricing influence, a suggested iteration to edit or discard."
+    },
+    {
+      "image": "source-242-580.png",
+      "title": "11 · Deal owner dashboard",
+      "description": "Fees, costs, gross margin and the deal team, per deal."
+    },
+    {
+      "image": "source-242-585.png",
+      "title": "12 · Approver workflow",
+      "description": "Market comparison and approval for the custody ops lead."
+    },
+    {
+      "image": "source-242-590.png",
+      "title": "13 · ADA specs · tabbing order",
+      "description": "Landmarks, tabbing order, content hierarchy and alt text, specified per screen."
+    }
+  ]
+}
