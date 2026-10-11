@@ -38,7 +38,7 @@ test('chapter jumps stay in place while deferred product screenshots load', asyn
   }
 });
 
-for (const path of ['/fx', '/fusion', '/winking-star', '/uoaui']) {
+for (const path of ['/fx', '/fusion', '/winking-star', '/deal-model', '/uoaui']) {
   test(`${path}: every case navigation target exists and evidence remains readable`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto(path);
@@ -53,7 +53,7 @@ for (const path of ['/fx', '/fusion', '/winking-star', '/uoaui']) {
     await expect(page.getByRole('heading', { name: 'Decision map', exact: true })).toBeInViewport();
     for (const width of [320, 820, 1440]) {
       await page.setViewportSize({ width, height: 900 });
-      const overflow = await page.locator('.decision-map li, .process-journey li, .persona-roles article').evaluateAll((els) =>
+      const overflow = await page.locator('.decision-map li, .process-journey li, .persona-roles article, .authored-decisions li, .authored-journey li, .authored-persona').evaluateAll((els) =>
         els.filter((e) => e.scrollWidth > e.clientWidth + 1).map((e) => e.textContent?.slice(0, 50)),
       );
       expect(overflow).toEqual([]);
@@ -74,7 +74,7 @@ test('the game cover stays static and makes no video request under reduced motio
 });
 
 test('case evidence keeps its full image proportions after loading', async ({ page }) => {
-  for (const path of ['/fx', '/fusion', '/uoaui', '/winking-star']) {
+  for (const path of ['/fx', '/fusion', '/uoaui', '/deal-model', '/winking-star']) {
     await page.goto(path);
     await page.locator('.evidence img, .phone img, .ws-hero img, .fx-original-flow img').evaluateAll(async (imgs) => {
       await Promise.all(imgs.map(async (el) => { const img = el as HTMLImageElement; img.loading = 'eager'; await img.decode(); }));

@@ -49,7 +49,7 @@ for (const [label, id] of [['Work', 'work'], ['How I work', 'how']]) {
 
 for (const [label, path, title] of [
   ['FX', '/fx', 'FX execution analytics'], ['Fusion', '/fusion', 'Fusion analytics dashboard'],
-  ['Winking Star', '/winking-star', 'Winking Star'], ['uoaui.ai', '/uoaui', 'uoaui.ai'],
+  ['Winking Star', '/winking-star', 'Winking Star'], ['uoaui.ai', '/uoaui', 'uoaui.ai'], ['Deal Model', '/deal-model', 'Deal Model'],
 ]) {
   test(`nav link "${label}" opens ${path} and marks it current`, async ({ page }) => {
     await page.goto('/');
@@ -86,7 +86,7 @@ test('links home go to /panel, so the panel line stays', async ({ page }) => {
 });
 
 test('private share: every page stays out of search', async ({ page }) => {
-  for (const path of ['/', '/fx', '/fusion', '/uoaui', '/winking-star', '/panel', '/build']) {
+  for (const path of ['/', '/fx', '/fusion', '/uoaui', '/deal-model', '/winking-star', '/panel', '/build']) {
     await page.goto(path);
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
   }
@@ -123,7 +123,7 @@ for (const width of [320, 390, 820, 1440]) {
   });
 }
 
-for (const [width, path] of [390, 820, 1440].flatMap((w) => ['/', '/fx', '/fusion', '/winking-star', '/uoaui'].map((p) => [w, p] as const))) {
+for (const [width, path] of [390, 820, 1440].flatMap((w) => ['/', '/fx', '/fusion', '/winking-star', '/deal-model', '/uoaui'].map((p) => [w, p] as const))) {
   test(`axe: zero violations at ${width}px on ${path}`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' }); // scan the settled page, not mid-reveal
     await page.setViewportSize({ width, height: 900 });
@@ -218,7 +218,7 @@ test('structured data names the person', async ({ page }) => {
 });
 
 test('no visible placeholders on any page', async ({ page }) => {
-  for (const p of ['/', '/fx', '/fusion', '/winking-star', '/uoaui']) {
+  for (const p of ['/', '/fx', '/fusion', '/winking-star', '/deal-model', '/uoaui']) {
     await page.goto(p);
     await expect(page.locator('.todo, .screen')).toHaveCount(0);
     expect(await page.locator('main').innerText()).not.toMatch(/\bTODO\b|__/);

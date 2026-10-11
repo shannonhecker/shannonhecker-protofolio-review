@@ -702,3 +702,13 @@ nine pages built, 88 files checked without diagnostics.
 - [x] Production route, missing-page, leaderboard-read and run-receipt smoke checks passed. Published stylesheet and game-chunk SHA-256 hashes match the verified local build.
 - [x] Published dark divider colours checked in Chrome; Figma remains with Claude for ongoing edits.
 - [ ] Follow-up requested after publication: make dark the default on all routes while preserving saved light/dark choices.
+
+### 11 October · Figma refresh and fifth project
+
+- [x] Dark default merged through PR #26 after green CI; saved theme preferences preserved.
+- [x] Audit current desktop/mobile working pages without modifying Claude's Figma work.
+- [x] Add Deal Model and update shared navigation, selected work and next-case links.
+- [x] Sync current personas, journeys and decision comparisons across all five cases.
+- [x] Retain sharper product originals where content matches; export 68 new authored assets.
+- [x] Fix home tile crop; pass build, Astro checks and all 140 browser checks.
+- [ ] Exact-head CI and production verification for the Figma refresh.

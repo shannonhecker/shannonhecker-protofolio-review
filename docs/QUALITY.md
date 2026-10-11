@@ -242,3 +242,9 @@ The game now uses integer bitmap HUD glyphs and nearest-neighbour canvas scaling
 ### PR #25 production verification
 
 Published merge `3d9c6d0` after green exact-head CI 38101036158. All 130 tests passed remotely. Mobile performance: home 96, FX 97, Fusion 97, Winking Star 95, uoaui.ai 96; desktop performance 100 throughout. Accessibility, best practices and SEO are 100 on every checked page in both modes (intentional noindex excluded). Production returns nine valid pages, a real 404 for an unknown path, and working leaderboard-read/run-receipt endpoints. Published CSS and game assets match the verified build byte-for-byte. The direct `/404` document is a valid static page returning 200; unknown URLs correctly return 404. No score was submitted.
+
+### 11 October · Current Figma sync and Deal Model
+
+Five projects now share the editorial case structure. Updated personas, journeys and decisions use native text beside authored imagery. Deal Model carries all thirteen source screens, six decisions and explicit estimate/exploration qualifiers. Mobile Figma content was audited against the desktop narrative. Forty existing media placements were compared; sharper matching originals remain in use.
+
+Local validation: ten pages build; Astro checks 122 files with zero errors/warnings and one existing unused-parameter hint; all **140 Playwright checks pass (51.4s)**. These include the new route, 320–1920px heading bounds, 390/820/1440px axe scans, both themes, image decoding, narrow-screen persona/decision text, section targets and all existing game/motion checks. The first pass found the new home image did not cover its frame; the crop is corrected. This is evidence of tested craft, not a claim that an award jury has evaluated the site. Remote Lighthouse and publication results follow in the release record.

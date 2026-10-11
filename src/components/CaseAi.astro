@@ -6,15 +6,14 @@ interface Props { top?: boolean }
 const { top = false } = Astro.props;
 const HT = top ? 'h1' : 'h2';
 const HL = top ? 'h2' : 'h3';
-const HD = top ? 'h3' : 'h4'; // decision titles
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
 import BrandMark from './BrandMark.astro';
 import BrandSystem from './BrandSystem.astro';
 import ResponsiveEvidence from './ResponsiveEvidence.astro';
-import DecisionMap from './dg/DecisionMap.astro';
-import Personas from './dg/Personas.astro';
-import Journey from './dg/Journey.astro';
+import DecisionMap from './dg/AuthoredDecisions.astro';
+import Personas from './dg/AuthoredPersonas.astro';
+import Journey from './dg/AuthoredJourney.astro';
 
 import Pic from './Pic.astro';
 import ProductCapture from './ProductCapture.astro';
@@ -82,11 +81,7 @@ import Stack from './dg/Stack.astro';
       <div class="label"><HL class="k"><b>03</b> Decisions and trade-offs</HL></div>
       <div class="body">
         <DecisionMap project="ai" />
-        <ol class="dec">
-          <li><span class="n">01</span><div><HD>Official components only, never overridden</HD><p>We explored letting the model draw free-form UI and restricting it to each system's published React components. Free-form looked impressive and was unusable.</p><p class="verdict">Official-only won. The output is something a developer recognises, at the cost of the model having fewer moves.</p></div></li>
-          <li><span class="n">02</span><div><HD>Five systems, one model underneath</HD><p>I mapped their tokens, density scales and theming into one structure so a screen can switch system without being rebuilt by hand.</p><p class="verdict">Where the systems disagree, I chose the strictest definition each time.</p></div></li>
-          <li><span class="n">03</span><div><HD>Compare and tune before export</HD><p>The model's first answer is a draft. I compare across systems and tune the screen before I export.</p><p class="verdict">That's where the person decides, and where I correct the model most often.</p></div></li>
-        </ol>
+
         <Stack
           label="How a screen is built, from the person to the exported code"
           layers={[

@@ -1,0 +1,1703 @@
+{
+  "fusion": {
+    "sourcePage": "32:11",
+    "personas": {
+      "intro": "My three design personas: the portfolio manager who presents, the analyst who slices, and the client who never had training. Composite roles from the case, not research participants.",
+      "note": "Composite roles, not research participants.",
+      "items": [
+        {
+          "name": "Helen Marsh",
+          "role": "Portfolio Manager\nAsset manager, presents live",
+          "quote": "“I need numbers I can take into a board meeting.”",
+          "image": "fusion-persona-0.png",
+          "groups": [
+            {
+              "label": "Goals",
+              "items": [
+                "Performance, attribution and risk for a board meeting",
+                "Trust in the numbers, not more features",
+                "Present the screen live, under pressure"
+              ]
+            },
+            {
+              "label": "Frictions",
+              "items": [
+                "Drowning in fragmented data",
+                "A legacy RaaS layout that couldn't flex to different data or roles",
+                "Dense data pulling against decision speed"
+              ]
+            },
+            {
+              "label": "In this app",
+              "items": [
+                "Board-ready analytics on Salt",
+                "Type, hierarchy and colour set for the worst-case viewing moment",
+                "Configurable pages built from widgets"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Tom Reilly",
+          "role": "Investment Analyst\nReturns, attribution and risk",
+          "quote": "“Select a cube, slice it, and get to the view that matters fast.”",
+          "image": "fusion-persona-1.png",
+          "groups": [
+            {
+              "label": "Goals",
+              "items": [
+                "Select a data cube and slice it deep",
+                "Analyse returns, attribution and risk across asset classes",
+                "Report without leaving the surface"
+              ]
+            },
+            {
+              "label": "Frictions",
+              "items": [
+                "Heavy filtering across live and historical data",
+                "Three levels of configuration, the middle one added load",
+                "Every new data cube would have needed a new page"
+              ]
+            },
+            {
+              "label": "In this app",
+              "items": [
+                "Advanced filtering, toggles and deep slicing",
+                "One widget serves many cubes",
+                "Import and export through FactSet"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Amara Osei",
+          "role": "Client, phase two\nHad no training",
+          "quote": "“Nobody trained me. It has to make sense on first open.”",
+          "image": "fusion-persona-2.png",
+          "groups": [
+            {
+              "label": "Goals",
+              "items": [
+                "See the part of the book she is entitled to",
+                "The same patterns as the internal team",
+                "Get to a useful view without onboarding"
+              ]
+            },
+            {
+              "label": "Frictions",
+              "items": [
+                "No training before first use",
+                "A simplified client version would drift from the product",
+                "Permissions differ by person"
+              ]
+            },
+            {
+              "label": "In this app",
+              "items": [
+                "Entitlement-based views",
+                "Same screens for internal and external users",
+                "One codebase, consistent patterns"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "journey": {
+      "line": "Helen Marsh · Portfolio Manager · Asset manager, London · Quarterly board pack, one afternoon",
+      "persona": "Helen Marsh",
+      "scenario": "Helen is preparing a quarterly board meeting. She opens Fusion to pull performance, attribution and risk for the book, slices by asset class and period, and builds the view she will present live while the numbers are still updating.",
+      "goal": "Walk into the board meeting with numbers she trusts, built in one surface, without a spreadsheet detour.",
+      "plot": "fusion-experience.png",
+      "approach": "fusion-approach.png",
+      "approachText": [
+        "Testing cut the middle tier",
+        "Refine the view, back to filters",
+        "Phase two reuses the same screens"
+      ],
+      "quotes": [
+        "“Which cube has the whole book?”",
+        "“Fixed layout, wrong shape again.”",
+        "“Filter, toggle, slice. Faster this time.”",
+        "“Three config levels. Which one?”",
+        "“Attribution by asset class, finally.”",
+        "“Can I defend this live?”",
+        "“One screen, no spreadsheet.”",
+        "“The client sees what I see.”"
+      ],
+      "phases": [
+        {
+          "title": "Build the view",
+          "description": "Cube, filters and widgets in one surface"
+        },
+        {
+          "title": "Present and defend",
+          "description": "Live, then shared with clients"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Find the data",
+          "description": "Helen selects the data cube for her book. FactSet's engine feeds it, so the shape of the data is fixed and the first useful view has to be fast.",
+          "recommendations": [
+            "Entitlement-based view on open",
+            "Cube picker with recent cubes"
+          ],
+          "backstage": "FactSet engine returns the cube. The shape of the data is fixed, so the first view has to be fast."
+        },
+        {
+          "title": "Shape the view",
+          "description": "Filter and slice: asset class, period, benchmark. The old RaaS layout couldn't flex to different data or roles.",
+          "recommendations": [
+            "Advanced filtering, toggles, deep slicing",
+            "Comparison tools tailored to data complexity and role",
+            "Two configuration levels, not three"
+          ],
+          "backstage": "Salt filter bar and toggles. Entitlements decide which options each person sees."
+        },
+        {
+          "title": "Analyse",
+          "description": "Returns, attribution and risk across asset classes, in widgets that work across cubes and permission levels.",
+          "recommendations": [
+            "Modular widgets",
+            "Data tables and chart frames on Salt"
+          ],
+          "backstage": "One widget shell renders a table or a chart from the same data contract, across cubes."
+        },
+        {
+          "title": "Present",
+          "description": "She presents the screen live, under pressure. Type, hierarchy and colour were set for this moment, not the clean demo.",
+          "recommendations": [
+            "Board-ready report without leaving the surface",
+            "Worst-case viewing moment as the baseline"
+          ],
+          "backstage": "Dashboard page configuration saved per user. Accessibility specialist reviews before release."
+        },
+        {
+          "title": "Share and reuse",
+          "description": "Phase two: the same screens reach external clients who had no training. One codebase, entitlement decides what each person sees.",
+          "recommendations": [
+            "Import and export through FactSet",
+            "Same patterns for internal and external users",
+            "Patterns reused across other Fusion modules"
+          ],
+          "backstage": "One codebase. Entitlement-based views for clients. Import and export through FactSet."
+        }
+      ],
+      "takeaways": [
+        {
+          "label": "Opportunities",
+          "text": "Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules, and bring the accessibility specialist in from week one."
+        },
+        {
+          "label": "Insight",
+          "text": "Their real need was trust in the numbers, not more features. The middle configuration tier added choices without changing what people built, so it went."
+        },
+        {
+          "label": "Who was in the room",
+          "text": "A product owner setting requirements, a UX designer shared across projects, engineering in daily stand-ups, an accessibility specialist in every review, and FactSet behind the data."
+        },
+        {
+          "label": "How I measure it",
+          "text": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch."
+        }
+      ]
+    },
+    "decisions": [
+      {
+        "title": "Dashboard structure",
+        "choices": [
+          {
+            "label": "Modular widgets",
+            "image": "fusion-decision-0-0.png",
+            "transcript": [
+              "Performance",
+              "Entitled view",
+              "Asset class",
+              "Period",
+              "Benchmark",
+              "Currency",
+              "Apply",
+              "Returns vs benchmark",
+              "Attribution",
+              "Risk by asset class",
+              "+ Add widget",
+              "Any cube, any role"
+            ]
+          },
+          {
+            "label": "Fixed layouts per report type",
+            "image": "fusion-decision-0-1.png",
+            "transcript": [
+              "Performance report",
+              "Performance report",
+              "Attribution report",
+              "Risk report",
+              "Fixed layout. New data cube = new page."
+            ]
+          }
+        ],
+        "reason": "We explored fixed layouts per report type and a widget grid. Fixed layouts were faster to ship, but every new data cube would have needed a new page. The grid won because one widget serves many cubes and permission levels.",
+        "tradeoff": "Slower to ship than fixed layouts, and every widget had to earn its place in one of the four workflow steps.",
+        "outcome": "Widget and filtering patterns reused across other Fusion modules."
+      },
+      {
+        "title": "Configuration",
+        "choices": [
+          {
+            "label": "Cut a customisation tier",
+            "image": "fusion-decision-1-0.png",
+            "transcript": [
+              "Configure dashboard",
+              "Page level",
+              "Layout",
+              "Data cube",
+              "Filters",
+              "Widget level",
+              "Layout",
+              "Data cube",
+              "Filters"
+            ]
+          },
+          {
+            "label": "Three levels of configuration",
+            "image": "fusion-decision-1-1.png",
+            "transcript": [
+              "Configure dashboard",
+              "Page level",
+              "Layout",
+              "Data cube",
+              "Filters",
+              "Theme",
+              "Section level",
+              "Layout",
+              "Data cube",
+              "Filters",
+              "Theme",
+              "Added load, same result",
+              "Widget level",
+              "Layout",
+              "Data cube",
+              "Filters",
+              "Theme"
+            ]
+          }
+        ],
+        "reason": "Early versions had three levels of configuration. Testing showed the middle tier added cognitive load without changing what people built. I removed it. The test I use for what not to design: is this serving a real workflow contradiction, or one team's preference?",
+        "tradeoff": "Fewer options for power users who liked the middle tier.",
+        "outcome": "The first useful view was faster to reach."
+      },
+      {
+        "title": "Phase two",
+        "choices": [
+          {
+            "label": "One product with entitlement-based views",
+            "image": "fusion-decision-2-0.png",
+            "transcript": [
+              "Performance",
+              "Viewing as: Client",
+              "Asset class",
+              "Period",
+              "Benchmark",
+              "Currency",
+              "Apply",
+              "Returns vs benchmark",
+              "Attribution",
+              "Risk by asset class",
+              "Not entitled"
+            ]
+          },
+          {
+            "label": "A simplified client version",
+            "image": "fusion-decision-2-1.png",
+            "transcript": [
+              "Internal",
+              "Client version",
+              "Simplified. Separate",
+              "patterns, second codebase.",
+              "Drift from the product",
+              "within a year"
+            ]
+          }
+        ],
+        "reason": "Phase two brought in clients who'd had no training. We chose one product with entitlement-based views over a simplified client version, so patterns stayed consistent and the team kept one codebase.",
+        "tradeoff": "Client constraints live in the same codebase as the internal views.",
+        "outcome": "Clients onboarded with no training, and several signed after the phase two launch."
+      }
+    ],
+    "decisionFlow": "fusion-decision-flow.png",
+    "decisionFlowText": [
+      "Refine the view",
+      "Open analytics",
+      "Entitlement-based view",
+      "Internal team",
+      "External client",
+      "Select a data cube",
+      "Filter and slice",
+      "Analyse returns,",
+      "attribution and risk",
+      "Report in the",
+      "same surface"
+    ]
+  },
+  "ai": {
+    "sourcePage": "32:14",
+    "personas": {
+      "intro": "My two design personas: a designer like me and the developer who inspects the output. Role-based working assumptions the private alpha exists to test, not research participants.",
+      "note": "Composite roles, not research participants.",
+      "items": [
+        {
+          "name": "Mei Lin",
+          "role": "Product Designer\nWorks inside a design system",
+          "quote": "“The model drafts. I decide.”",
+          "image": "ai-persona-0.png",
+          "groups": [
+            {
+              "label": "Goals",
+              "items": [
+                "Prompt, generate, compare, tune, export",
+                "See the same screen in Salt, Material, Fluent and Carbon",
+                "Stay in control without making the AI useless"
+              ]
+            },
+            {
+              "label": "Frictions",
+              "items": [
+                "Designing for output you can't predict",
+                "Designing for yourself hides your blind spots",
+                "Free-form generated UI looked impressive and was unusable"
+              ]
+            },
+            {
+              "label": "In this app",
+              "items": [
+                "A compare step across systems",
+                "Tune density, theme and charts",
+                "Official components only, never overridden"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Dev Patel",
+          "role": "Front-end Developer\nReceives the export",
+          "quote": "“Show me code I recognise, not a picture of a screen.”",
+          "image": "ai-persona-1.png",
+          "groups": [
+            {
+              "label": "Goals",
+              "items": [
+                "Inspect the exported React",
+                "Recognise each system's official components",
+                "Close the gap between a Figma file and code"
+              ]
+            },
+            {
+              "label": "Frictions",
+              "items": [
+                "Generated screens that use none of the team's components",
+                "Screens nobody tested with a user",
+                "A Figma file with nothing to inspect"
+              ]
+            },
+            {
+              "label": "In this app",
+              "items": [
+                "Export React a developer recognises",
+                "Each system's published React components",
+                "Token mapping underneath, mapped not generated"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "journey": {
+      "line": "Mei Lin · Product Designer · Works inside a design system · One screen in Salt, a Material version due, one afternoon",
+      "persona": "Mei Lin",
+      "scenario": "Mei has a screen to design in Salt by Friday and a Material version due for a sister team. She describes the screen, lets the model draft it from official components, compares the systems, tunes density and theme, and exports React a developer can inspect.",
+      "goal": "Reach a useful, inspectable screen in a real design system without rebuilding it by hand for every system.",
+      "plot": "ai-experience.png",
+      "approach": "ai-approach.png",
+      "approachText": [
+        "Re-prompt when the draft misses",
+        "Tune, then compare again",
+        "Alpha feedback changes the compare step"
+      ],
+      "quotes": [
+        "“Will it understand what I mean?”",
+        "“That is a draft, not an answer.”",
+        "“Same screen, four systems. Nice.”",
+        "“Fluent and Carbon disagree on density.”",
+        "“Tighter, darker, with a chart.”",
+        "“I would never ship the first answer.”",
+        "“This is code Dev will recognise.”",
+        "“Does it work without me guiding it?”"
+      ],
+      "phases": [
+        {
+          "title": "Draft",
+          "description": "Prompt and generate from official components"
+        },
+        {
+          "title": "Decide",
+          "description": "Compare systems, tune the screen"
+        },
+        {
+          "title": "Hand over",
+          "description": "Export React"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Prompt",
+          "description": "Mei describes the screen in words. The output can't be fully predicted, so the prompt has to say what matters: system, density, data.",
+          "recommendations": [
+            "Name the system and density in the prompt",
+            "Real-shaped data, not lorem ipsum"
+          ],
+          "backstage": "The prompt is read with the system, density and data named, so the draft starts inside the right constraints."
+        },
+        {
+          "title": "Generate",
+          "description": "The model drafts the screen from the system's official React components. Free-form UI looked impressive and was unusable.",
+          "recommendations": [
+            "Official components only, never overridden",
+            "The first answer is a draft"
+          ],
+          "backstage": "Claude drafts the screen from the system's official React components. Free-form drawing is never allowed."
+        },
+        {
+          "title": "Compare systems",
+          "description": "The same screen in Salt, Material, Fluent and Carbon. The hard part is where the systems disagree.",
+          "recommendations": [
+            "Side-by-side compare across systems",
+            "Strictest definition wins on a disagreement"
+          ],
+          "backstage": "Token mapping holds five systems in one structure. Where two systems disagree, the strictest definition wins."
+        },
+        {
+          "title": "Tune",
+          "description": "Density, theme and charts. This is where the person decides, and where Mei corrects the model most often.",
+          "recommendations": [
+            "Density, theme and chart controls",
+            "Compare and tune before anything exports"
+          ],
+          "backstage": "Density, theme and chart props re-render the same component tree. Nothing is redrawn by hand."
+        },
+        {
+          "title": "Export React",
+          "description": "Code a developer recognises. It closes the gap between a Figma file and the thing a developer can inspect.",
+          "recommendations": [
+            "Export React",
+            "Inspectable component tree and tokens"
+          ],
+          "backstage": "React export with the component tree and tokens a developer can inspect. It does not ship the product."
+        }
+      ],
+      "takeaways": [
+        {
+          "label": "Opportunities",
+          "text": "The next validation question: can another designer reach a useful, inspectable screen without me guiding them? The private alpha exists to answer it, and to break my own assumptions."
+        },
+        {
+          "label": "Insight",
+          "text": "Free-form generated UI looked impressive and was unusable. Official components only, never overridden, gave output a developer recognises at the cost of the model having fewer moves."
+        },
+        {
+          "label": "Who was in the room",
+          "text": "Me, solo. Claude as the drafting model. A developer inspecting the export as the test of whether a screen is real. Designers like me as the first users, which is the trap the alpha exists to check."
+        },
+        {
+          "label": "How I measure it",
+          "text": "No adoption rate, time saving or external testing result is claimed. What I watch: screens that export without a hand rebuild, and how often I correct the model at the compare and tune steps."
+        }
+      ]
+    },
+    "decisions": [
+      {
+        "title": "Generation",
+        "choices": [
+          {
+            "label": "Official components only, never overridden",
+            "image": "ai-decision-0-0.png",
+            "transcript": [
+              "uoaui.ai · Screen builder",
+              "Salt DS",
+              "Prompt",
+              "Generate",
+              "Components used",
+              "Salt · Button",
+              "Salt · Input",
+              "Salt · Table",
+              "Salt · Tag",
+              "Orders · generated",
+              "Primary",
+              "Search",
+              "Every element maps to a published component"
+            ]
+          },
+          {
+            "label": "Letting the model draw free-form UI",
+            "image": "ai-decision-0-1.png",
+            "transcript": [
+              "uoaui.ai · Screen builder",
+              "Free-form",
+              "Prompt",
+              "Generate",
+              "Components used",
+              "None recognised",
+              "Off the table",
+              "Looks impressive, nothing a developer can ship"
+            ]
+          }
+        ],
+        "reason": "We explored letting the model draw free-form UI and restricting it to each system's published React components. Free-form looked impressive and was unusable. Official-only won. The output is something a developer recognises, at the cost of the model having fewer moves.",
+        "tradeoff": "The model has fewer moves, so some layouts it could draw are off the table.",
+        "outcome": "The output is something a developer recognises and can inspect."
+      },
+      {
+        "title": "Switching systems",
+        "choices": [
+          {
+            "label": "Five systems, one model underneath",
+            "image": "ai-decision-1-0.png",
+            "transcript": [
+              "uoaui.ai · Screen builder",
+              "One model",
+              "Salt",
+              "M3",
+              "Fluent",
+              "Carbon",
+              "uoaui",
+              "Orders · Salt density medium",
+              "Primary",
+              "Search",
+              "Structure",
+              "Tokens",
+              "Density scale",
+              "Theme",
+              "Components",
+              "Strictest definition wins",
+              "Switch system, density or theme without a hand rebuild"
+            ]
+          },
+          {
+            "label": "A screen rebuilt by hand",
+            "image": "ai-decision-1-1.png",
+            "transcript": [
+              "uoaui.ai · Screen builder",
+              "By hand",
+              "Salt",
+              "M3",
+              "Orders · Salt",
+              "Primary",
+              "Search",
+              "→",
+              "Orders · M3 (rebuilt)",
+              "Rebuilt by hand · 2 days"
+            ]
+          }
+        ],
+        "reason": "I mapped their tokens, density scales and theming into one structure so a screen can switch system without being rebuilt by hand. The hard part was where the systems disagree, and I chose the strictest definition each time.",
+        "tradeoff": "The strictest definition wins, so a looser system loses some of its own defaults.",
+        "outcome": "Switch system, density or theme and the screen rebuilds without a hand rebuild."
+      },
+      {
+        "title": "Export",
+        "choices": [
+          {
+            "label": "Compare and tune before export",
+            "image": "ai-decision-2-0.png",
+            "transcript": [
+              "uoaui.ai · Compare and tune",
+              "Export",
+              "Compare",
+              "Salt",
+              "Primary",
+              "Search",
+              "Carbon",
+              "Primary",
+              "Search",
+              "Tune",
+              "Density",
+              "Radius",
+              "Contrast",
+              "Export React",
+              "Handover to a developer",
+              "The person decides where the systems disagree",
+              "Table header differs",
+              "Button height 32 vs 28",
+              "Both use tokens"
+            ]
+          },
+          {
+            "label": "The model's first answer",
+            "image": "ai-decision-2-1.png",
+            "transcript": [
+              "uoaui.ai · Screen builder",
+              "Draft",
+              "Orders · first answer",
+              "Primary",
+              "Search",
+              "Draft · unchecked",
+              "Export",
+              "Export React",
+              "No compare step",
+              "No tune step",
+              "The model's guess ships as it came, and the person corrects it in code"
+            ]
+          }
+        ],
+        "reason": "The model's first answer is a draft. The flow forces a compare step across systems and a tune step on the screen before anything exports. That's where the person decides, and where I correct the model most often.",
+        "tradeoff": "Nothing exports from the first answer. The flow is slower by design.",
+        "outcome": "The compare and tune steps are where the person decides, and where I correct the model most often."
+      }
+    ],
+    "decisionFlow": "ai-decision-flow.png",
+    "decisionFlowText": [
+      "Ready to hand over",
+      "Review again",
+      "Describe the screen",
+      "Generate a draft",
+      "Official components",
+      "The person decides",
+      "Compare systems",
+      "Tune density,",
+      "theme and charts",
+      "Export React",
+      "Developer handover",
+      "The model drafts",
+      "I decide"
+    ]
+  },
+  "winking": {
+    "sourcePage": "32:17",
+    "personas": {
+      "intro": "Three users, one star: the child who ticks, the parent who sets it up, and the second adult who never opted in. Composite roles from the case, not research participants.",
+      "note": "Composite roles, not research participants.",
+      "items": [
+        {
+          "name": "Leo, 6",
+          "role": "The child\nCan't read much yet",
+          "quote": "Knows his own name, his colour and his football.",
+          "image": "winking-persona-0.png",
+          "groups": [
+            {
+              "label": "Wants",
+              "items": [
+                "To tick it himself",
+                "See the star land",
+                "Find out what the pet turns into"
+              ]
+            },
+            {
+              "label": "Breaks when",
+              "items": [
+                "A word he can't read is in the way",
+                "A tap target is small",
+                "A missed day makes the week feel lost"
+              ]
+            },
+            {
+              "label": "Design answer",
+              "items": [
+                "A big illustrated banner per theme",
+                "Celebration on every tick",
+                "A weekly pet so one bad day doesn't end the game"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "The parent",
+          "role": "Sets it up\nDecides in two minutes if it stays",
+          "quote": "Downloads it after another bedtime argument.",
+          "image": "winking-persona-1.png",
+          "groups": [
+            {
+              "label": "Wants",
+              "items": [
+                "Routines done without nagging",
+                "One place both adults can see",
+                "Nothing that sells to her kids"
+              ]
+            },
+            {
+              "label": "Breaks when",
+              "items": [
+                "Setup takes more than a minute",
+                "An ad appears",
+                "The app hands the phone to the child with no guard rails"
+              ]
+            },
+            {
+              "label": "Design answer",
+              "items": [
+                "A sample family on first open, so value shows before any setup",
+                "Kid Mode and a parental gate",
+                "Custom activities, so Mandarin sits next to teeth"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "The second adult",
+          "role": "Never opted in\nPartner, grandparent, childminder",
+          "quote": "Got an invite on WhatsApp. Has thirty seconds.",
+          "image": "winking-persona-2.png",
+          "groups": [
+            {
+              "label": "Wants",
+              "items": [
+                "To tick a star",
+                "Get back to bedtime"
+              ]
+            },
+            {
+              "label": "Breaks when",
+              "items": [
+                "Any learning",
+                "A board that looks different from the one the kids know"
+              ]
+            },
+            {
+              "label": "Design answer",
+              "items": [
+                "Invite to the same board",
+                "Same screen, same stars",
+                "From their own phone"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "journey": {
+      "line": "The parent · Sets it up · Two children, two adults · From a bad bedtime to week two, with Leo, 6, underneath",
+      "persona": "The parent",
+      "scenario": "After another bad bedtime the parent downloads Winking Star, finds the Sample Family already set up, hands the phone to Leo for the first tick, and by the end of the week a Mystery Pet has grown and grandma has joined the board.",
+      "goal": "Routines done without nagging, a child who asks to tick his own stars, and a second adult on the same board.",
+      "plot": "winking-experience.png",
+      "approach": "winking-approach.png",
+      "approachText": [
+        "Daily loop, ten seconds",
+        "Weekly loop, a new egg on Monday",
+        "Offline ticks sync on reconnect, from any phone"
+      ],
+      "quotes": [
+        "“Not another chart.”",
+        "“Two minutes. Does it stay?”",
+        "“Oh, there is already a family in here.”",
+        "“I did it myself!”",
+        "“The egg is hatching!”",
+        "“Nobody nagged tonight.”",
+        "“Is Monday a dinosaur?”",
+        "“Grandma ticked bath?”"
+      ],
+      "phases": [
+        {
+          "title": "First week",
+          "description": "From a bad bedtime to the first reveal"
+        },
+        {
+          "title": "Keep coming back",
+          "description": "The weekly loop and the second adult"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Another bad bedtime",
+          "description": "Searches for a chore chart app. Most are checklists, subscriptions or ads. Child feels fed up.",
+          "recommendations": [
+            "Ad-free, kid-first on the store page"
+          ],
+          "backstage": "App Store listing in the Kids Category: ad-free, no tracking, privacy manifest."
+        },
+        {
+          "title": "First open",
+          "description": "Opens the app and finds the Sample Family already set up. Child feels curious.",
+          "recommendations": [
+            "A working sample board first",
+            "Add your own family when you like it"
+          ],
+          "backstage": "Sample Family seeded on first open. No account, no tour, no permission prompt."
+        },
+        {
+          "title": "First tick",
+          "description": "Hands the phone over. The child taps teeth. A star lands and confetti fires. Child feels delighted.",
+          "recommendations": [
+            "Icon per activity, big targets",
+            "Kid Mode locks editing"
+          ],
+          "backstage": "The tick writes to the shared board. Celebration fires unless Calm Mode is on."
+        },
+        {
+          "title": "End of day",
+          "description": "Checks Home. The pet grew a stage. A treasure dropped. Child feels proud, or a bit flat.",
+          "recommendations": [
+            "Stars count up, never down",
+            "The pet grows on what was done"
+          ],
+          "backstage": "Pet stage computed from the week's stars. A treasure drops. Day rolls over at local midnight."
+        },
+        {
+          "title": "End of week",
+          "description": "Prints the weekly summary for the fridge. Monday, a new pet arrives. Child feels excited.",
+          "recommendations": [
+            "A new egg every Monday",
+            "Old pet joins the Pet Pals collection"
+          ],
+          "backstage": "Weekly summary printed. A new egg on Monday; the old pet joins Pet Pals."
+        },
+        {
+          "title": "Second adult joins",
+          "description": "Invites grandma to the board. She opens it and ticks a bath. Child feels relieved, and a bit smug.",
+          "recommendations": [
+            "One shared board",
+            "Same screen on every phone"
+          ],
+          "backstage": "Invite link joins the same board. Offline ticks queue and sync on reconnect through Firebase."
+        }
+      ],
+      "takeaways": [
+        {
+          "label": "Opportunities",
+          "text": "The pet card still truncates its helper text at the smallest sizes, and the pet family labels are not translated yet. Both found in my own usability pass and on the list."
+        },
+        {
+          "label": "Insight",
+          "text": "The checklist lost in our own house within a week. Big icons, sticker mechanics, bright colour and celebration moments won, and a weekly pet means one bad day does not end the game."
+        },
+        {
+          "label": "Who was in the room",
+          "text": "Built for my own two kids first and watched them use it every evening. A second adult who never opted in. App Store Kids Category rules shaped the parental gate and the privacy manifest."
+        },
+        {
+          "label": "How I measure it",
+          "text": "Routines completed per week, weeks retained, and whether a second adult joins the board. Live at 1.0.4 on iPhone and iPad, four releases since launch, five languages."
+        }
+      ]
+    },
+    "decisions": [
+      {
+        "title": "Daily motivation",
+        "choices": [
+          {
+            "label": "Stars and a pet",
+            "image": "winking-decision-0-0.png",
+            "transcript": [
+              "Leo · this week",
+              "M",
+              "T",
+              "W",
+              "T",
+              "F",
+              "S",
+              "S",
+              "Teeth",
+              "Bag",
+              "Read",
+              "Bed",
+              "Stars hatch a pet",
+              "Tap a routine, a star lands",
+              "Celebrate",
+              "Research with five to seven year olds",
+              "Big icons, stickers and celebration win. A star you can tap beats a box you tick.",
+              "A star board",
+              "Each tap is a small win the child can see",
+              "What it feeds",
+              "Stars count towards the weekly pet, so the board has a reason to fill up."
+            ]
+          },
+          {
+            "label": "A plain tick list",
+            "image": "winking-decision-0-1.png",
+            "transcript": [
+              "Leo · today",
+              "Brush teeth",
+              "Pack bag",
+              "Reading",
+              "Tidy room",
+              "Bedtime",
+              "2 of 5 done",
+              "A plain tick list",
+              "Reads like homework. Nothing happens when the list is done, so the child stops caring by Wednesday.",
+              "What testing showed",
+              "Checkboxes read as chores",
+              "No reward moment",
+              "Parents nag, kids stall"
+            ]
+          }
+        ],
+        "reason": "Explored a plain tick list. Research on five to seven year olds said big icons, stickers and celebration win. The checklist lost in our own house within a week.",
+        "tradeoff": "More art and motion to build and keep consistent: fourteen banners and four pet stages.",
+        "outcome": "Routines ticked without nagging in our own house."
+      },
+      {
+        "title": "First open",
+        "choices": [
+          {
+            "label": "A sample family before any setup",
+            "image": "winking-decision-1-0.png",
+            "transcript": [
+              "The Sample Family",
+              "Today",
+              "23 of 30 done",
+              "Leo",
+              "Mia",
+              "Sam",
+              "Replace with your family",
+              "Value before any setup",
+              "The first screen is a full week for a family that already exists. You see what the app does, then swap in your own kids.",
+              "What is already filled in",
+              "Three children with themes",
+              "A week of routines and stars",
+              "A pet mid-way through hatching"
+            ]
+          },
+          {
+            "label": "A tour and an empty state",
+            "image": "winking-decision-1-1.png",
+            "transcript": [
+              "Welcome",
+              "+",
+              "Add your first child",
+              "Tour · step 1 of 4",
+              "Routines live here. Tap to add one when you are ready.",
+              "Next",
+              "A tour and an empty state",
+              "Both ask parents to invest before they have seen the loop. An empty board says nothing about why a child would care.",
+              "Cost of entry",
+              "Four tour steps to dismiss",
+              "Add a child before anything shows",
+              "No pet, no stars, no week to look at"
+            ]
+          }
+        ],
+        "reason": "Explored a tour and an empty state. Both asked parents to invest before they'd seen the loop. The Sample Family shows a full week on first open, and you replace it when you're ready.",
+        "tradeoff": "First-run sample data has to be replaced, so there is a clear swap step.",
+        "outcome": "Value shows before any setup."
+      },
+      {
+        "title": "Access and trust",
+        "choices": [
+          {
+            "label": "Lifetime unlock",
+            "image": "winking-decision-2-0.png",
+            "transcript": [
+              "Unlock everything",
+              "One payment",
+              "Yours for good",
+              "Every theme and pet",
+              "No ads",
+              "No tracking",
+              "Free to start",
+              "Unlock once",
+              "Keep using the free version",
+              "Trust is the product",
+              "Free to start, one payment if you want everything. No ads, no third-party tracking.",
+              "What a parent sees",
+              "A price they pay once",
+              "Nothing recurring to cancel",
+              "Their kids are not the product"
+            ]
+          },
+          {
+            "label": "A small subscription",
+            "image": "winking-decision-2-1.png",
+            "transcript": [
+              "Choose a plan",
+              "Monthly",
+              "renews every month",
+              "Yearly",
+              "renews every year",
+              "Start free trial",
+              "Cancel anytime in settings",
+              "A small subscription",
+              "Recurring revenue, and a recurring reason to distrust the app. Every renewal is a chance to feel tricked.",
+              "What it costs the family",
+              "A trial that turns into a charge",
+              "Something to remember to cancel",
+              "A paywall between a child and their pet"
+            ]
+          }
+        ],
+        "reason": "It's for children, and trust is the product. Free to start, one payment if you want everything, no ads, no third-party tracking.",
+        "tradeoff": "No recurring revenue.",
+        "outcome": "Free to start, one payment if you want everything, no ads, no third-party tracking."
+      },
+      {
+        "title": "A theme per child",
+        "choices": [
+          {
+            "label": "A theme per child, drawn not templated",
+            "image": "winking-decision-3-0.png",
+            "transcript": [
+              "Our family",
+              "Leo · Ocean",
+              "Mia · Unicorn",
+              "Sam · Dinosaur",
+              "Add a child",
+              "Kids find their own card",
+              "Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.",
+              "Fourteen banners",
+              "Colour and picture before they can read"
+            ]
+          },
+          {
+            "label": "One look for all",
+            "image": "winking-decision-3-1.png",
+            "transcript": [
+              "Our family",
+              "Child 1",
+              "Child 2",
+              "Child 3",
+              "Add a child",
+              "One look for all",
+              "Cheaper to build and keep consistent. Every card is the same grey, so a six year old cannot tell which one is theirs.",
+              "One banner",
+              "Kids need a parent to point at their card"
+            ]
+          }
+        ],
+        "reason": "Explored one look for all. Kids find their own card by colour and picture before they can read. Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.",
+        "tradeoff": "Fourteen illustrated banners to draw and keep consistent.",
+        "outcome": "Kids find their own card by colour and picture before they can read."
+      },
+      {
+        "title": "A parental gate",
+        "choices": [
+          {
+            "label": "A quick maths question gates the exits",
+            "image": "winking-decision-4-0.png",
+            "transcript": [
+              "Settings",
+              "Grown-ups only",
+              "Answer to continue",
+              "3 + 4 = ?",
+              "7",
+              "Continue",
+              "Kid Mode stays locked",
+              "A speed bump, not a lock",
+              "A sum a seven year old cannot guess and a parent does not need to remember. It only guards edits, so there is nothing to forget.",
+              "What it guards",
+              "Edit a routine",
+              "Delete a child",
+              "Leave Kid Mode"
+            ]
+          },
+          {
+            "label": "A PIN, or a locked app",
+            "image": "winking-decision-4-1.png",
+            "transcript": [
+              "Enter PIN",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "0",
+              "Forgot your PIN?",
+              "A PIN, or a locked app",
+              "Parents forget PINs and kids watch them type. A locked app also locks the parent out of a quick edit at bedtime.",
+              "Failure modes",
+              "Kid shoulder-surfs the code",
+              "Parent locked out at bedtime",
+              "Reset flow needs an account"
+            ]
+          }
+        ],
+        "reason": "Explored a PIN. Parents forget PINs and kids watch them type. A quick maths question gates anything that leaves the app, uploads a photo or deletes an account, and Kid Mode locks editing so the phone can be handed over mid-routine.",
+        "tradeoff": "A maths question is a speed bump for parents too.",
+        "outcome": "Kid Mode lets the phone be handed over mid-routine."
+      },
+      {
+        "title": "Weekly pet",
+        "choices": [
+          {
+            "label": "A weekly pet with four stages",
+            "image": "winking-decision-5-0.png",
+            "transcript": [
+              "Leo · this week's pet",
+              "Hatching",
+              "Egg",
+              "Hatching",
+              "Growing",
+              "Grown",
+              "Mon to Sun",
+              "New pet on Monday",
+              "The week is the unit",
+              "Stars count up and never down. One missed bath does not end the week, and Monday always brings a new egg.",
+              "Four stages",
+              "Egg",
+              "Hatching",
+              "Growing",
+              "Grown",
+              "Why not a daily score",
+              "A daily number resets at midnight. A pet that grows across the week survives a bad Tuesday."
+            ]
+          },
+          {
+            "label": "A daily score",
+            "image": "winking-decision-5-1.png",
+            "transcript": [
+              "Leo · today",
+              "Stars today",
+              "12",
+              "resets at midnight",
+              "M",
+              "T",
+              "W",
+              "T",
+              "F",
+              "S",
+              "S",
+              "Thursday · 4 stars",
+              "Missed bath and reading. Score reset.",
+              "A daily score",
+              "Every missed routine is a loss the child sees at bedtime. The number resets, so a bad day erases a good one.",
+              "What a child feels",
+              "Pressure every evening",
+              "Nothing carries over",
+              "No reason to try again on Friday"
+            ]
+          }
+        ],
+        "reason": "Daily stars count up and never down. The pet grows across the week on what was done, so one missed bath doesn't end the week, and Monday always brings a new egg.",
+        "tradeoff": "No daily pressure means less urgency on a quiet day.",
+        "outcome": "One missed bath does not end the week, and Monday always brings a new egg."
+      }
+    ],
+    "decisionFlow": "winking-decision-flow.png",
+    "decisionFlowText": [
+      "Daily loop",
+      "Next week",
+      "Open the app",
+      "A shared family board",
+      "First open",
+      "Sample Family",
+      "Your own family",
+      "Second adult",
+      "joins by invitation",
+      "Pick your child",
+      "Tap a routine",
+      "A star lands",
+      "The pet grows",
+      "Four weekly stages",
+      "Weekly summary",
+      "New pet on Monday"
+    ]
+  },
+  "deal": {
+    "sourcePage": "230:592",
+    "personas": {
+      "intro": "Four composite roles from the four teams I sat with for a year: the deal owner who prices, the ops lead who approves, legal who checks the terms, and the product owner who keeps the portfolio. Composite roles, not research participants.",
+      "note": "Composite roles drawn from a year with the four teams. Not research participants, and no individual is depicted.",
+      "items": [
+        {
+          "name": "The deal owner",
+          "role": "Custody sales\nPrices and defends the deal",
+          "quote": "“Show me the three iterations side by side and tell me which one wins.”",
+          "image": null,
+          "groups": [
+            {
+              "label": "Goals",
+              "items": [
+                "Price a deal in one sitting",
+                "Compare iterations without rebuilding the sheet",
+                "Know where approval is stuck"
+              ]
+            },
+            {
+              "label": "Frictions",
+              "items": [
+                "Four copies of the same spreadsheet",
+                "Numbers that disagree by team",
+                "Approval chased over email"
+              ]
+            },
+            {
+              "label": "In this app",
+              "items": [
+                "Compare grid with a column chooser",
+                "Quick overview per deal",
+                "Status and deal lead on the landing page"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "The approver",
+          "role": "Custody ops lead\nSigns the deal off",
+          "quote": "“I need to see what changed since the last version, not the whole deal again.”",
+          "image": null,
+          "groups": [
+            {
+              "label": "Goals",
+              "items": [
+                "Approve with confidence",
+                "See the iteration history",
+                "Hand a clean record to audit"
+              ]
+            },
+            {
+              "label": "Frictions",
+              "items": [
+                "No audit trail outside an inbox",
+                "Reviewing the full sheet for one change",
+                "Tolerance breaches found late"
+              ]
+            },
+            {
+              "label": "In this app",
+              "items": [
+                "Iteration list with what changed",
+                "Checks as you go, before approval",
+                "Step five writes the sign-off summary"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "The legal reviewer",
+          "role": "Legal\nChecks terms and tolerances",
+          "quote": "“Which rate card is this on, and who changed it?”",
+          "image": null,
+          "groups": [
+            {
+              "label": "Goals",
+              "items": [
+                "Trace every rate to a card and a person",
+                "Catch out-of-tolerance pricing early",
+                "Keep the terms consistent across deals"
+              ]
+            },
+            {
+              "label": "Frictions",
+              "items": [
+                "Rate cards living in attachments",
+                "No link between a price and its source",
+                "Changes with no name on them"
+              ]
+            },
+            {
+              "label": "In this app",
+              "items": [
+                "Benchmark rate cards in the flow",
+                "Validation states on tolerance rules",
+                "History per iteration"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "The product owner",
+          "role": "Product\nOwns the portfolio and the platform",
+          "quote": "“Sixty people keep their own version. I need one.”",
+          "image": null,
+          "groups": [
+            {
+              "label": "Goals",
+              "items": [
+                "One place for the portfolio",
+                "Load data without hand-keying",
+                "Keep the people who love Excel"
+              ]
+            },
+            {
+              "label": "Frictions",
+              "items": [
+                "Sixty copies of one Excel app",
+                "Hand-keyed portfolios",
+                "Migration that loses people"
+              ]
+            },
+            {
+              "label": "In this app",
+              "items": [
+                "Portfolio summary and load-data flow",
+                "Upload template the system maps",
+                "Tiering across AUC and transactions"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "journey": {
+      "line": "The deal owner · Custody sales · London · Global custody deal, four teams, one platform",
+      "persona": "The deal owner",
+      "scenario": "A client asks for a reprice before a call. The deal owner opens the deal, loads the portfolio, builds a new iteration on the benchmark rate card, compares it with the last two, and sends it for approval.",
+      "goal": "Price the deal in one sitting, know it is within tolerance, and get sign-off with a trail that survives an audit.",
+      "plot": "deal-experience.png",
+      "approach": "deal-approach.png",
+      "approachText": [
+        "Three versions at every review",
+        "Fix at the field, back to pricing",
+        "Upload template brings the last across"
+      ],
+      "quotes": [
+        "“Which version is the current one?”",
+        "“Will product recognise this as a deal?”",
+        "“Do I have to key all this in again?”",
+        "“Is this out of tolerance?”",
+        "“Which iteration actually wins?”",
+        "“Three versions, so I can say what is wrong.”",
+        "“The summary wrote itself.”",
+        "“Audit can have this as it is.”"
+      ],
+      "phases": [
+        {
+          "title": "Build the deal",
+          "description": "Create, load and price in one object"
+        },
+        {
+          "title": "Decide and sign off",
+          "description": "Compare, tier, approve, sign off"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Create the deal",
+          "description": "The deal owner creates the deal: name, region, segment, lead. Before, every team set a deal up its own way.",
+          "recommendations": [
+            "One deal object, four views",
+            "Status and deal lead on the landing page"
+          ],
+          "backstage": "Deal object created with role-based views. Deal team and status stored once."
+        },
+        {
+          "title": "Load the portfolio",
+          "description": "Loads holdings and transactions, or uploads the filled template the system maps. Before, hand-keyed from a spreadsheet.",
+          "recommendations": [
+            "Load-data flow",
+            "Upload template, mapped by the system"
+          ],
+          "backstage": "Mapping rules translate the template to the data model. Unmapped columns block the import."
+        },
+        {
+          "title": "Price and iterate",
+          "description": "Builds iterations on benchmark rate cards. Tolerance checks run as each field changes, not at approval.",
+          "recommendations": [
+            "Validation states at the field",
+            "Rate cards in the flow"
+          ],
+          "backstage": "Tolerance rules and benchmark rate cards run on every change."
+        },
+        {
+          "title": "Compare and tier",
+          "description": "Puts iterations side by side in the compare grid, chooses columns, applies tiering across AUC and transactions.",
+          "recommendations": [
+            "Compare grid with a column chooser",
+            "Tiering grid, saved per user"
+          ],
+          "backstage": "Grid settings saved per user. Tiering rules by AUC band and transaction type."
+        },
+        {
+          "title": "Approve and sign off",
+          "description": "Sends for approval. The approver sees what changed. Step five writes the sign-off summary.",
+          "recommendations": [
+            "Iteration list with what changed",
+            "Summary written for you"
+          ],
+          "backstage": "Approver workflow routes by role. History written per iteration."
+        }
+      ],
+      "takeaways": [
+        {
+          "label": "Opportunities",
+          "text": "Catch tolerance breaches at the field, not at approval. Make the comparison a view, not a rebuild. Let the tool write the sign-off."
+        },
+        {
+          "label": "Insight",
+          "text": "Most of the arguments were about columns, not about the deal. Once each team saw its own view of the same object, the fight went away."
+        },
+        {
+          "label": "Who was in the room",
+          "text": "Custody ops, sales, legal and product. Two UX designers, a junior designer, a BA, a researcher, a data analyst, and engineers in every review."
+        },
+        {
+          "label": "How I measure it",
+          "text": "Not measured in my time. Two hours to twenty minutes is my estimate. I would measure time to create a deal, iterations per deal and approvals returned."
+        }
+      ]
+    },
+    "decisions": [
+      {
+        "title": "One object, four views",
+        "choices": [
+          {
+            "label": "One deal object with role-based views",
+            "image": "deal-decision-0-0.png",
+            "transcript": [
+              "Securities Services",
+              "Deal · Northwind Global Equity",
+              "Sales view",
+              "Sales",
+              "Legal",
+              "Custody ops",
+              "Product",
+              "Same deal, different columns",
+              "Iteration",
+              "Fees",
+              "Reductions",
+              "% change",
+              "Status",
+              "One object underneath. The view changes, the deal does not."
+            ]
+          },
+          {
+            "label": "Four products, one per team",
+            "image": "deal-decision-0-1.png",
+            "transcript": [
+              "Securities Services",
+              "Four products",
+              "One per team",
+              "Sales tool",
+              "Legal tracker",
+              "Ops pricing",
+              "Product sheet",
+              "4 data models, 4 trails"
+            ]
+          }
+        ],
+        "reason": "We explored one product per team and one deal object with four views. Most of the arguments were about columns, not about the deal. Once each team saw its own view of the same object, the fight went away.",
+        "tradeoff": "Every change to the object needs all four teams in the review, so reviews are slower.",
+        "outcome": "The four teams work on the same deal, and the audit trail is one trail."
+      },
+      {
+        "title": "Three versions, every review",
+        "choices": [
+          {
+            "label": "Three versions on the table",
+            "image": "deal-decision-1-0.png",
+            "transcript": [
+              "Securities Services",
+              "Review · Pricing grid",
+              "3 versions",
+              "A · Dense grid",
+              "B · Grouped rows",
+              "C · Cards",
+              "Ops: \"B, but keep the totals row from A.\" Legal: \"C hides the history.\""
+            ]
+          },
+          {
+            "label": "One proposal, sign-off at the end",
+            "image": "deal-decision-1-1.png",
+            "transcript": [
+              "Securities Services",
+              "Review · Pricing grid",
+              "1 proposal",
+              "Proposed design",
+              "Four teams say \"fine\" in the room and reopen it by email the next week."
+            ]
+          }
+        ],
+        "reason": "I ran every review with three versions. People said what was wrong instead of saying yes. Sales got the comparison table, legal got the iteration list, because they asked for them in those rooms.",
+        "tradeoff": "Three versions is three times the preparation, every review, for a year.",
+        "outcome": "Decisions held after the room. Nothing was reopened by email."
+      },
+      {
+        "title": "A compare grid with a column chooser",
+        "choices": [
+          {
+            "label": "Configurable compare grid",
+            "image": "deal-decision-2-0.png",
+            "transcript": [
+              "Securities Services",
+              "Pricing · Compare grid",
+              "Column chooser",
+              "Northwind Global Equity · iterations",
+              "Market",
+              "Final bid 5%",
+              "Bid 10%",
+              "Bid 15%",
+              "Columns",
+              "Total fees",
+              "Reductions",
+              "% change",
+              "Trans rate",
+              "AUC",
+              "Client trans",
+              "Proj. fees",
+              "Efficiency",
+              "Saved per user. Sales keeps the comparison it needs."
+            ]
+          },
+          {
+            "label": "A fixed comparison report",
+            "image": "deal-decision-2-1.png",
+            "transcript": [
+              "Securities Services",
+              "Pricing · Comparison report",
+              "Fixed",
+              "Comparison report · all columns",
+              "Every team rebuilt its own version in Excel anyway."
+            ]
+          }
+        ],
+        "reason": "Sales rebuilt the comparison in Excel every time because the report never had the right columns. A grid with a column chooser, saved per user, made the comparison a view instead of a rebuild.",
+        "tradeoff": "Saved settings per user and more states to design: empty, too many columns, a column that no longer exists.",
+        "outcome": "Sales stopped rebuilding comparisons outside the tool."
+      },
+      {
+        "title": "An upload template, not a forced migration",
+        "choices": [
+          {
+            "label": "Upload the template, system maps it",
+            "image": "deal-decision-3-0.png",
+            "transcript": [
+              "Securities Services",
+              "Portfolio · Load data",
+              "Template",
+              "Drop the filled template",
+              ".xlsx · the one they already use",
+              "Download template",
+              "Mapping · 14 of 14 columns",
+              "Fund name → Deal",
+              "AUC → Holdings",
+              "Trans (pri) → Primary",
+              "Trans (sec) → Secondary",
+              "Rate → Rate card",
+              "Region → Region",
+              "Import to portfolio",
+              "Meet people where they are, then bring them over."
+            ]
+          },
+          {
+            "label": "Cut everyone over on day one",
+            "image": "deal-decision-3-1.png",
+            "transcript": [
+              "Securities Services",
+              "Portfolio · Load data",
+              "Cut-over",
+              "Enter holdings manually",
+              "Row 5 of 780",
+              "The spreadsheet never dies",
+              "Sixty people keep a private copy and the platform becomes the second source of truth."
+            ]
+          }
+        ],
+        "reason": "Some people kept the spreadsheet. We built an upload template they could fill in, and the system mapped it to the data model. Meet people where they are, then bring them over.",
+        "tradeoff": "Two ways in, so the mapping rules had to be maintained alongside the product.",
+        "outcome": "The last people came across. If asked about adoption, the template is the answer."
+      },
+      {
+        "title": "Checks as you go, and the tool writes the sign-off",
+        "choices": [
+          {
+            "label": "Validation at the field, summary written for you",
+            "image": "deal-decision-4-0.png",
+            "transcript": [
+              "Securities Services",
+              "Pricing · New iteration",
+              "Step 3 of 5",
+              "Rate card",
+              "Benchmark 2024 · Tier B",
+              "Final bid",
+              "5.00 %",
+              "Reduction",
+              "18 %",
+              "Outside tolerance for Tier B (max 15 %). Needs legal sign-off.",
+              "Trans rate (sec)",
+              "0.85 bps",
+              "Sign-off summary · written for you",
+              "Iteration 3 lowers the final bid to 5.00 % on Benchmark 2024 Tier B. Reduction 18 % exceeds tolerance (15 %), flagged for legal review. Change by R. Mensah.",
+              "Send for approval",
+              "Checks at the field. Nothing waits for approval to be found."
+            ]
+          },
+          {
+            "label": "Validate at approval",
+            "image": "deal-decision-4-1.png",
+            "transcript": [
+              "Securities Services",
+              "Pricing · New iteration",
+              "Validate at end",
+              "Rate card",
+              "Benchmark 2024 · Tier B",
+              "Final bid",
+              "5.00 %",
+              "Reduction",
+              "18 %",
+              "Trans rate (sec)",
+              "0.85 bps",
+              "Submit",
+              "Returned by approver",
+              "\"Reduction out of tolerance. Please correct and resubmit.\" Three days later.",
+              "Sign-off summary",
+              "Written by hand, in email."
+            ]
+          }
+        ],
+        "reason": "Tolerance breaches used to be found at approval, days later, by email. The flow checks each field as it changes against the rate card and tolerance rules, and step five writes the sign-off summary from what changed.",
+        "tradeoff": "The tolerance rules had to live in the product, so they changed whenever the rate cards did.",
+        "outcome": "Breaches surfaced at the field. Legal got a trail that comes out of the tool."
+      },
+      {
+        "title": "Smart pricing, explored",
+        "choices": [
+          {
+            "label": "Model suggests a tier, the person decides",
+            "image": "deal-decision-5-0.png",
+            "transcript": [
+              "Securities Services",
+              "Smart pricing · explored",
+              "Not shipped",
+              "Suggested iteration",
+              "Tiered · 5 % final bid, EM reduction 12 %",
+              "Based on 38 similar deals, same region and segment, past two years.",
+              "Use as draft",
+              "Edit",
+              "Model scope",
+              "Region · Segment · All portfolio",
+              "The model drafts, the deal owner decides.",
+              "Training data",
+              "Won deals · 2 yrs",
+              "Rate cards",
+              "Reductions by tier",
+              "Outcome (won / lost)",
+              "Status · designed with the data analyst, reviewed, not built in my time"
+            ]
+          },
+          {
+            "label": "Hand-priced from rate cards only",
+            "image": "deal-decision-5-1.png",
+            "transcript": [
+              "Securities Services",
+              "Pricing · from rate cards",
+              "Manual only",
+              "Benchmark rate cards",
+              "Tier",
+              "AUC band",
+              "Fee bps",
+              "Reduction",
+              "Every iteration starts from a blank grid and a rate card. Experience lives in the deal owner's head, so a new starter prices slower and less consistently."
+            ]
+          }
+        ],
+        "reason": "At the end we explored training a model on past deals to suggest an iteration, with the deal owner editing or discarding it. Designed with the data analyst and reviewed with the four teams.",
+        "tradeoff": "It needs clean historical data, which we were still assembling. The suggestion must never auto-apply.",
+        "outcome": "Designed and reviewed, not built in my time. The same pattern I use in uoaui.ai: the model drafts, I decide."
+      }
+    ],
+    "decisionFlow": "deal-decision-flow.png",
+    "decisionFlowText": [
+      "Request comes in",
+      "Create the deal\nOne object, four views",
+      "Upload the template\nSpreadsheet mapped in",
+      "Load the portfolio",
+      "Start from a default\nportfolio",
+      "Price and iterate\nChecks as you go",
+      "Out of tolerance\nFix at the field, not at approval",
+      "Compare and tier\nGrid, column chooser",
+      "Approve and sign off\nThe tool writes the summary",
+      "Smart pricing (explored)\nModel suggests, person decides"
+    ]
+  }
+}

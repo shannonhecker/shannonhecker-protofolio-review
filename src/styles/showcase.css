@@ -355,3 +355,9 @@ html .nav .cta:hover,html .nav .cta:focus-visible,
 html[data-theme=dark] .nav .cta:hover,html[data-theme=dark] .nav .cta:focus-visible{
  background:var(--fg);color:var(--bg);border-color:var(--fg)
 }
+
+/* Deal Model follows the same editorial grid and restrained project accent. */
+.case-page[data-project=deal-model]{--project-ink:#8a2d3b;--project-wash:#f8eff1}
+html[data-theme=dark] .case-page[data-project=deal-model]{--project-ink:#e5a8b4;--project-wash:#33262f}
+#work .home-artwork-deal{background:#f3f4f6}
+#work .home-artwork-deal img{object-position:top center}

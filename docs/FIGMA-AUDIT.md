@@ -120,3 +120,24 @@ The PNG preserves the exact authored paths and transparency. It is displayed
 uncropped on #111418 with a full-resolution link and no 1008px display cap.
 SVG export succeeded, but the tool did not attach SVG files; the 3× PNG artifact
 was transferred directly from its image attachment and visually verified.
+
+## 11 October 2026 · Current working-page sync
+
+Source: `l6noy7onfsRiuBgjqSsKbt`, supplied node `181:601` inside the Fusion persona artwork. Read-only inspection; no Figma writes.
+
+| Working page | Desktop / mobile | Implementation |
+|---|---|---|
+| Home | 32:3 / 32:4 | Existing hero, game and motion retained; five-case index including Deal Model |
+| Panel | 32:6 / 32:7 | Same project update, with panel introduction retained |
+| FX | 32:9 / 32:10 | Updated three persona illustrations; native identity text; existing high-resolution product captures retained |
+| Fusion | 32:12 / 32:13 | Three personas, five-step qualitative journey, three decision comparisons and authored flow |
+| uoaui.ai | 32:15 / 32:16 | Two personas, five-step journey, three decision comparisons and flow |
+| Winking Star | 32:18 / 32:19 | Three personas, six-step journey, six decision comparisons and flow |
+| Deal Model | 233:460 / 239:493 | New case: four roles, five steps, six decisions, seven edge states, four validation examples, thirteen product screens |
+| Build / Privacy / 404 | 32:21 / 32:24 / 32:27 and mobile counterparts | Current site log/privacy/404 retained; newer operational copy is not reverted to the captured version |
+
+Desktop content and mobile text inventories were compared. Mobile's shorter captions do not remove the fuller desktop narrative from the responsive website. Qualitative journey plots and schematic comparisons are original authored diagrams; narrative, personas, journey steps and trade-offs are real HTML. Diagrams have native text alternatives and full-size links. Horizontal scrolling is confined to labelled, keyboard-focusable diagram/table regions.
+
+Image comparison checked forty existing product placements. Most normalized pixel differences were 0.1–1.2%; the original website screenshots were larger than the Figma display exports. Retaining those avoids a resolution downgrade. The new Deal Model screens are the sample-name versions from nodes 242:530 through 242:590 (increments of five), not the unsanitized original design page. The FX illustrations use 120:7013, 120:7019 and 120:7025. Existing product media provenance remains in MEDIA-SOURCES.md.
+
+No Nano Banana generation was needed: the required source artwork was available. No portfolio material was sent to 12ui or another design-generation service.

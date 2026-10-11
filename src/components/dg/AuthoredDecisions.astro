@@ -1,0 +1,20 @@
+---
+import content from '../../data/authored-content.json';
+import AuthoredImage from '../AuthoredImage.astro';
+interface Props { project: keyof typeof content }
+const {project}=Astro.props;const data=content[project];
+---
+<section class="authored-decisions" id={`${project}-decision-map`} aria-labelledby={`${project}-decision-map-title`}>
+ <header class="process-heading"><h3 id={`${project}-decision-map-title`}>Decision map</h3><p>I have pulled the choices and trade-offs below into one view.</p></header>
+ <figure class="authored-flow"><div class="authored-flow-scroll" tabindex="0" role="region" aria-label="Decision flow, scroll horizontally to explore"><AuthoredImage name={data.decisionFlow} alt={`${project==='ai'?'uoaui.ai':project==='deal'?'Deal Model':project==='fusion'?'Fusion':'Winking Star'} decision flow`} sizes="(max-width:900px) 900px, 90vw" /></div>
+ <details><summary>Read the flow</summary><ul>{data.decisionFlowText.map(t=><li>{t}</li>)}</ul></details></figure>
+ <ol class="authored-decision-list">{data.decisions.map((d,i)=><li>
+  <h4><span>{String(i+1).padStart(2,'0')}</span>{d.title}</h4>
+  <div class="authored-choice-pair">{d.choices.map((c,j)=><figure><p class="authored-choice-label">{j===0?'I chose':'Alternative'}</p><AuthoredImage name={c.image} alt={c.label} sizes="(max-width:760px) 90vw, 43vw"/><figcaption>{c.label}</figcaption></figure>)}</div>
+  <div class="authored-decision-reason"><p>{d.reason}</p><dl><div><dt>Trade-off</dt><dd>{d.tradeoff}</dd></div><div><dt>Outcome</dt><dd>{d.outcome}</dd></div></dl></div>
+ </li>)}</ol>
+</section>
+<style>
+.authored-decisions{min-width:0;scroll-margin-top:100px}.authored-flow{margin-block:40px 64px}.authored-flow-scroll{overflow:auto;overscroll-behavior-x:contain}.authored-flow-scroll :global(.authored-image-link){min-width:900px}.authored-flow details{margin-top:16px;font-size:14px;color:var(--fg-2)}.authored-flow summary{cursor:pointer;min-height:44px;padding-block:12px;color:var(--fg)}.authored-flow ul{padding:20px;list-style:disc;display:grid;gap:8px}.authored-decision-list{list-style:none;padding:0;display:grid;gap:96px}.authored-decision-list>li{padding-top:36px;border-top:1px solid var(--divider);min-width:0}.authored-decision-list h4{display:flex;align-items:baseline;gap:24px;font-size:clamp(24px,2.5vw,36px);letter-spacing:-.035em;line-height:1.2;margin-bottom:32px}.authored-decision-list h4>span{font-size:14px;color:var(--project-ink);letter-spacing:0;flex:none}.authored-choice-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}.authored-choice-pair figure{margin:0;min-width:0}.authored-choice-label{font-size:14px;color:var(--project-ink);margin-bottom:16px}.authored-choice-pair figcaption{font-size:18px;line-height:1.5;margin-top:18px}.authored-decision-reason{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;margin-top:36px}.authored-decision-reason>p{font-size:18px;line-height:1.75;max-width:64ch}.authored-decision-reason dl{display:grid;gap:24px;padding-left:24px;border-left:2px solid var(--project-ink)}.authored-decision-reason dt{font-size:14px;font-weight:600;margin-bottom:8px}.authored-decision-reason dd{font-size:16px;line-height:1.7;color:var(--fg-2);margin:0}
+@media(max-width:760px){.authored-choice-pair,.authored-decision-reason{grid-template-columns:1fr;gap:28px}.authored-decision-list{gap:64px}.authored-choice-pair figure+figure{margin-top:12px}.authored-decision-reason>p{font-size:17px}.authored-flow{margin-block:32px 48px}.authored-decision-list h4{gap:16px}}
+</style>

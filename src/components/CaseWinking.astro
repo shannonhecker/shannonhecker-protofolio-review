@@ -6,13 +6,14 @@ interface Props { top?: boolean }
 const { top = false } = Astro.props;
 const HT = top ? 'h1' : 'h2';
 const HL = top ? 'h2' : 'h3';
-const HD = top ? 'h3' : 'h4'; // decision titles
 import Pic from './Pic.astro';
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
 import BrandMark from './BrandMark.astro';
 import BrandSystem from './BrandSystem.astro';
-import DecisionMap from './dg/DecisionMap.astro';
+import DecisionMap from './dg/AuthoredDecisions.astro';
+import AuthoredPersonas from './dg/AuthoredPersonas.astro';
+import AuthoredJourney from './dg/AuthoredJourney.astro';
 import CoParent from './dg/CoParent.astro';
 import WinkingScreens from './WinkingScreens.astro';
 
@@ -71,32 +72,7 @@ import WinkingScreens from './WinkingScreens.astro';
       <div class="label"><HL class="k"><b>02</b> Personas</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Three users, one star. Nobody has the same job." />
-        <div class="personas">
-          <div class="persona">
-            <div class="persona-portrait"><Pic name="persona-winking-0.png" alt="" sizes="160px" widths={[160,320]} /></div>
-            <div class="who">The child · Leo, 6</div>
-            <p>Can't read much yet. Knows his own name, his colour and his football.</p>
-            <span class="k">Wants</span><p>To tick it himself, see the star land, and find out what the pet turns into.</p>
-            <span class="k">Breaks when</span><p>A word he can't read is in the way. A tap target is small. A missed day makes the week feel lost.</p>
-            <span class="k">Design answer</span><p>A big illustrated banner per theme, celebration on every tick, and a weekly pet so one bad day doesn't end the game.</p>
-          </div>
-          <div class="persona">
-            <div class="persona-portrait"><Pic name="persona-winking-1.png" alt="" sizes="160px" widths={[160,320]} /></div>
-            <div class="who">The parent · sets it up</div>
-            <p>Downloads it after another bedtime argument. Decides in two minutes if it stays.</p>
-            <span class="k">Wants</span><p>Routines done without nagging. One place both adults can see. Nothing that sells to her kids.</p>
-            <span class="k">Breaks when</span><p>Setup takes more than a minute. An ad appears. The app hands the phone to the child with no guard rails.</p>
-            <span class="k">Design answer</span><p>A sample family on first open, so value shows before any setup. Kid Mode and a parental gate. Custom activities, so Mandarin sits next to teeth.</p>
-          </div>
-          <div class="persona">
-            <div class="persona-portrait"><Pic name="persona-winking-2.png" alt="" sizes="160px" widths={[160,320]} /></div>
-            <div class="who">The second adult · never opted in</div>
-            <p>Partner, grandparent, childminder. Got an invite on WhatsApp. Has thirty seconds.</p>
-            <span class="k">Wants</span><p>To tick a star and get back to bedtime.</p>
-            <span class="k">Breaks when</span><p>Any learning. A board that looks different from the one the kids know.</p>
-            <span class="k">Design answer</span><p>Invite to the same board, same screen, same stars, from their own phone.</p>
-          </div>
-        </div>
+        <AuthoredPersonas project="winking" id="winking-personas" />
       </div>
     </div>
 
@@ -123,15 +99,7 @@ import WinkingScreens from './WinkingScreens.astro';
       <div class="label"><HL class="k"><b>04</b> Journey</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="From a bad bedtime to week two." />
-        <p class="muted measure">The parent's journey, with the child's feeling underneath, the moment it breaks, and what the design does about it. Scroll sideways on a phone.</p>
-        <div class="journey" role="region" tabindex="0" aria-label="Journey stages, scrollable">
-          <div class="stage"><h4>1 · Another bad bedtime</h4><span class="k">Parent does</span><p>Searches for a chore chart app. Most are checklists, subscriptions or ads.</p><span class="k">Child feels</span><p>Fed up.</p><span class="k">Where it breaks</span><p>Nothing is made for a six-year-old.</p><span class="k">Design answer</span><p>Ad-free, kid-first on the store page.</p></div>
-          <div class="stage"><h4>2 · First open</h4><span class="k">Parent does</span><p>Opens the app and finds the Sample Family already set up.</p><span class="k">Child feels</span><p>Curious.</p><span class="k">Where it breaks</span><p>Asked to set up before seeing value.</p><span class="k">Design answer</span><p>A working sample board first. Add your own family when you like it.</p></div>
-          <div class="stage"><h4>3 · First tick</h4><span class="k">Parent does</span><p>Hands the phone over. The child taps teeth. A star lands and confetti fires.</p><span class="k">Child feels</span><p>Delighted.</p><span class="k">Where it breaks</span><p>The child can't read the label, or taps Settings.</p><span class="k">Design answer</span><p>Icon per activity, big targets, Kid Mode locks editing.</p></div>
-          <div class="stage"><h4>4 · End of day</h4><span class="k">Parent does</span><p>Checks Home. The pet grew a stage. A treasure dropped.</p><span class="k">Child feels</span><p>Proud, or a bit flat.</p><span class="k">Where it breaks</span><p>A missed routine feels like failure.</p><span class="k">Design answer</span><p>Stars count up. The pet grows on what was done, not what was missed.</p></div>
-          <div class="stage"><h4>5 · End of week</h4><span class="k">Parent does</span><p>Prints the weekly summary for the fridge. Monday, a new pet arrives.</p><span class="k">Child feels</span><p>Excited.</p><span class="k">Where it breaks</span><p>If Monday is dull, week two never happens.</p><span class="k">Design answer</span><p>A new egg every Monday, and the old pet joins the Pet Pals collection.</p></div>
-          <div class="stage"><h4>6 · Second adult joins</h4><span class="k">Parent does</span><p>Invites grandma to the board. She opens it and ticks a bath.</p><span class="k">Child feels</span><p>Relieved, and a bit smug.</p><span class="k">Where it breaks</span><p>A second board, a second set of rules.</p><span class="k">Design answer</span><p>One shared board. Same screen on every phone.</p></div>
-        </div>
+        <AuthoredJourney project="winking" id="winking-journey" />
       </div>
     </div>
 
@@ -166,14 +134,7 @@ import WinkingScreens from './WinkingScreens.astro';
           </div>
         </div>
         <DecisionMap project="winking" />
-        <ol class="dec">
-          <li><span class="n">01</span><div><HD>Stars and a pet, not a checklist</HD><p>Explored a plain tick list. Research on five to seven year olds said big icons, stickers and celebration win. The checklist lost in our own house within a week.</p></div></li>
-          <li><span class="n">02</span><div><HD>A weekly pet with four stages, not a daily score</HD><p>Daily stars count up and never down. The pet grows across the week on what was done, so one missed bath doesn't end the week, and Monday always brings a new egg.</p></div></li>
-          <li><span class="n">03</span><div><HD>A sample family before any setup</HD><p>Explored a tour and an empty state. Both asked parents to invest before they'd seen the loop. The Sample Family shows a full week on first open, and you replace it when you're ready.</p></div></li>
-          <li><span class="n">04</span><div><HD>A theme per child, drawn not templated</HD><p>Explored one look for all. Kids find their own card by colour and picture before they can read. Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.</p></div></li>
-          <li><span class="n">05</span><div><HD>A parental gate, not a locked app</HD><p>Explored a PIN. Parents forget PINs and kids watch them type. A quick maths question gates anything that leaves the app, uploads a photo or deletes an account, and Kid Mode locks editing so the phone can be handed over mid-routine.</p></div></li>
-          <li><span class="n">06</span><div><HD>Lifetime unlock, not a subscription</HD><p>Explored a small subscription. Dropped it. It's for children, and trust is the product. Free to start, one payment if you want everything, no ads, no third-party tracking.</p></div></li>
-        </ol>
+
       </div>
     </div>
 
