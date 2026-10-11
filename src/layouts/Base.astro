@@ -34,7 +34,7 @@ const ogImage = await getImage({ src: img('live-fx.png'), width: 1200, format: '
 const og = new URL(ogImage.src, Astro.site).href;
 ---
 <!doctype html>
-<html lang="en" data-project={path.slice(1)} data-theme={path==='/fx'?'dark':'light'}>
+<html lang="en" data-project={path.slice(1)} data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -44,13 +44,14 @@ const og = new URL(ogImage.src, Astro.site).href;
     {/* Private share for the Revolut panel: no page is listed in search. The
         vercel.json X-Robots-Tag header says the same for every file. */}
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#171b22" />
     <script is:inline>
       (() => {
         const d=document.documentElement;
-        let choice='project';try{choice=localStorage.getItem('portfolio-theme')||'project';}catch{}
-        const dark=choice==='dark'||(choice==='system'&&matchMedia('(prefers-color-scheme:dark)').matches)||(choice==='project'&&d.dataset.project==='fx');
+        let choice='dark';try{const saved=localStorage.getItem('portfolio-theme');if(saved==='light'||saved==='dark'||saved==='system')choice=saved;}catch{}
+        const dark=choice==='dark'||(choice==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);
         d.dataset.theme=dark?'dark':'light';d.dataset.appearance=choice;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#171b22':'#ffffff');
         // Capture the outgoing document as one unscaled sheet. The incoming
         // document separates title, copy and media for staggered entrances.
         addEventListener('pageswap',event=>{

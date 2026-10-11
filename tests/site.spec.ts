@@ -17,7 +17,8 @@ test('header glass follows scrolling in both themes and keeps links usable', asy
   for (const dark of [false, true]) {
     await page.evaluate(() => window.scrollTo(0, 0));
     await expect(nav).not.toHaveClass(/solid/);
-    if (dark) await page.getByRole('switch', { name: 'Dark mode' }).click();
+    const theme = page.getByRole('switch', { name: 'Dark mode' });
+    if (await theme.getAttribute('aria-checked') !== String(dark)) await theme.click();
     expect(await filter()).toBe('none');
     const contact = nav.getByRole('link', { name: 'Contact', exact: true });
     await contact.hover();

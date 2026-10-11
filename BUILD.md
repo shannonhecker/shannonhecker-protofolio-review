@@ -426,3 +426,7 @@ I moved the avatar's blink and smile frames to stepped opacity animations, prese
 I fixed my Contact button's hover and keyboard-focus colours in both themes. My scooter now has a solid rose body, dark chassis and opaque tyres. The game HUD uses the same hand-drawn bitmap lettering as the map, with crisp canvas scaling so its labels stay sharp on large screens.
 
 I corrected the two remaining pale lines around How I work. They were using a fixed light colour; they now share the subtle theme-aware divider, as do the case-section and ticker rules.
+
+## 11 October · dark by default
+
+I made dark mode the starting appearance across my site, including the first HTML paint and browser theme colour. A visitor's saved light or dark choice still takes precedence. I also kept the missing-page link readable on hover against the dark background.

@@ -23,7 +23,13 @@ for (const width of [390, 1440]) {
   }
 }
 
-test('light and dark preferences persist across projects',async({page})=>{
+test('dark is the default and explicit theme preferences persist across projects',async({page})=>{
+  await page.emulateMedia({colorScheme:'light'});
+  for(const route of ['/panel','/fx','/fusion','/uoaui','/winking-star','/privacy','/build','/404']){
+    await page.goto(route);
+    await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
+    await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content','#171b22');
+  }
   await page.goto('/fx');
   await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
   await chooseTheme(page,'Light');
