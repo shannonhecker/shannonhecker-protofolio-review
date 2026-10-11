@@ -115,6 +115,12 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="Three calls that defined the product. Each one had a real alternative." />
         <DecisionMap project="fx"><FxOriginalFlow slot="flow" /></DecisionMap>
+        <ul class="rows" aria-label="How each call was tested">
+          <li><b>How I tested the canvas call</b><p>Two mockups in front of traders on the desk, during live trading. One question at a time: what are you looking at, what are you waiting for, what would make you act now. With two panels they flicked between them under pressure and missed the moment. That was enough to decide. No written protocol and no participant count, so I don't quote one.</p></li>
+          <li><b>How I tested reprice</b><p>The limit price log first: orders changed mid-flight, several times each. Then a menu-based edit beside drag-to-reprice in the spec review with the business and the vendor. The spec was written line by line so each side could say yes or no to it, and drag went in as the build contract.</p></li>
+          <li><b>How I tested the studies</b><p>In code, not with users. I rebuilt the surface with real-shaped data, and a study on the order's own fills looked confident and was wrong. The vendor confirmed the gaps. I reversed the decision.</p></li>
+          <li><b>What rollout adds</b><p>Three measures agreed with the business: price move to trader action, tool switches per order, usage per feature. Until those run, the records above are what I have.</p></li>
+        </ul>
       </div>
     </div>
 

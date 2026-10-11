@@ -91,6 +91,11 @@ import Stack from './dg/Stack.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="What I tried, what I dropped, and why." />
         <DecisionMap project="fusion" />
+        <ul class="rows" aria-label="How each call was tested">
+          <li><b>How I tested the widget grid</b><p>Internal users first, weekly reviews on their real portfolios. I built the configurable page so they could set it up themselves, and I watched what they chose. That gave me the default layout, and it is why the grid held.</p></li>
+          <li><b>How I tested the tier cut</b><p>Watching people use the three configuration levels in those same reviews. The middle tier added choices without changing what anyone built. I removed it and the first useful view came faster. No timed study, so no number.</p></li>
+          <li><b>How I tested the shared screens</b><p>Through the client-facing team, because they knew what a client gets asked at a board meeting. Two clients tested before phase two went wide. That is the full record. I don't present it as a study.</p></li>
+        </ul>
 
         <ProductCapture name="live-fusion-config.png" alt="The current Fusion performance table beside its configuration panel" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Configure performance" />
       </div>
@@ -130,7 +135,7 @@ import Stack from './dg/Stack.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="Shipped, adopted, and opened to clients." />
         <div class="metrics">
-          <div class="metric"><span class="big" data-count="0">0</span><span>accessibility violations. Shipped to WCAG AA with a specialist in reviews from the start</span></div>
+          <div class="metric"><span class="big" data-count="0">0</span><span>accessibility violations at ship, WCAG AA. The method was the review cycle: an accessibility specialist checked every release, and anything that failed went back before engineering</span></div>
           <div class="metric"><span class="big w">Adopted</span><span>widget and filtering patterns reused across other Fusion modules</span></div>
           <div class="metric"><span class="big w">Phase 2</span><span>opened the product to external clients, and several signed after that launch</span></div>
         </div>

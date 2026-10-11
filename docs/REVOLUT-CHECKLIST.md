@@ -242,3 +242,32 @@ labels, plus the matrix column above:
   accessibility audit provenance, test records with method and sample, and
   the client and colleague names visible in the Deal Model screens.
 
+## 11 October 2026 · decisions on the open evidence
+
+Shannon asked for the open items to be written and decided. Decisions taken,
+and the one fact each still needs from her:
+
+1. **Measured outcomes.** Decision: no number appears without a measurement
+   behind it. Each case now ends with what shipped, the signal Shannon has,
+   and what she would measure. Winking Star is the one case where she owns
+   the data: App Store Connect can give downloads, units by country, and
+   30-day retention for a named range. She pulls those; the tile copy is
+   ready to take them. CAM's 40% / 60% figures were agreed with the ops
+   lead before the build and belong to a future case, not to any current one.
+2. **Fusion "zero violations".** Decision: the tile now states the method
+   (the review cycle: a specialist checked every release, failures went back
+   before engineering). Date still needed from Shannon: the release the audit
+   covered and roughly when (quarter and year).
+3. **Test records.** Decision: written as qualitative records in Shannon's
+   words, under each decision map on FX and Fusion. Who, how, what changed,
+   and an explicit "no protocol, no count" where that is true. No numbers
+   added.
+4. **Names in the Deal Model screens.** Decision: sanitised at source. The
+   client and colleague names in the thirteen pasted screens were replaced
+   in the working Figma file with the sample names the page already uses
+   (Northwind, Harbour, Larkspur, Mensah, Okafor). Same fonts, same layout.
+   The Figma slots and heroes are re-exported. The site's thirteen PNGs
+   under `src/assets/img/figma-sync/` must be re-exported by the Figma sync
+   before the next release; until then the private link still shows the old
+   names.
+
