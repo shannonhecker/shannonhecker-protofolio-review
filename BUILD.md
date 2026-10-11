@@ -473,3 +473,5 @@ I recreated all fifteen persona portraits with Nano Banana 2, using the FX illus
 The illustrations are fictional design personas, not photographs of research participants. Their source jobs and role mapping are recorded in the media notes.
 
 I prioritised the reading font on phones and limited the avatar image preloads to larger screens, where the illustration is visible immediately. The greeting frames still load eagerly and decode before the animation starts. I also removed an inherited portrait margin so every illustration rests at the card edge.
+
+The hosted phone audit exposed an extra synchronous navigation layout during startup. I moved its overflow measurement into a resize observer and let CSS expose touch/reduced-motion content without rewriting every reveal class at load. Scroll motion and navigation behaviour remain covered by the browser suite.

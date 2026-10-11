@@ -374,3 +374,6 @@ html[data-theme=dark] .nav .cta:hover,html[data-theme=dark] .nav .cta:focus-visi
 html[data-theme=dark] .case-page[data-project=deal-model]{--project-ink:#e5a8b4;--project-wash:#33262f}
 #work .home-artwork-deal{background:#f3f4f6}
 #work .home-artwork-deal img{object-position:top center}
+
+/* Touch reveals are visible in CSS without a page-wide startup mutation. */
+@media (hover:none),(pointer:coarse){.js .rv.pre,.js .split .wd{opacity:1;transform:none;transition:none}}

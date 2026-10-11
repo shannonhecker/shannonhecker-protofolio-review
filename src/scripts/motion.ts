@@ -9,11 +9,10 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 function reveals() {
+  // CSS already exposes touch/reduced-motion content. Avoid invalidating
+  // every section during the first paint just to repeat that state in JS.
+  if (reduce || !fine) return;
   const els = Array.from(document.querySelectorAll<HTMLElement>('.rv, .split'));
-  if (reduce || !fine) {
-    els.forEach(el => el.classList.add('in'));
-    return;
-  }
   // The observer supplies visibility after layout; avoid measuring the entire
   // document synchronously during startup, especially on small touch devices.
   const io = new IntersectionObserver(
@@ -82,6 +81,9 @@ function chrome() {
     list.classList.toggle('more-end', list.scrollLeft + list.clientWidth < list.scrollWidth - 2);
   };
   list?.addEventListener('scroll', edges, { passive: true });
+  // Measure after layout, independently of progress/theme writes. Reading
+  // scrollWidth after those writes forced another full layout on first paint.
+  if (list) new ResizeObserver(edges).observe(list);
   let lastCur: HTMLElement | null = null;
   const upd = () => {
     // At the top, progress and section state are already known. Avoid forcing
@@ -107,7 +109,6 @@ function chrome() {
         list.scrollTo({ left: list.scrollLeft + ar.left - lr.left - lr.width / 2 + ar.width / 2, behavior: reduce ? 'auto' : 'smooth' });
       }
     }
-    edges();
     sweep();
   };
   let t = 0;
