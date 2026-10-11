@@ -140,26 +140,12 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <li><b>A compare view, because quality is relative</b><p>Execution quality only means something against a benchmark or another order, so I put a patient working order beside an urgent completed one, with the benchmark metrics in one table.</p></li>
         </ul>
         <BeforeAfter label="Version-one debt: order states" before="States tiled the canvas" beforeNote="Patterned regions sat behind the prices, so the exceptional read as normal." after="States in their own lane" afterNote="A lane under the time axis. The price field stays quiet.">
-          <svg slot="before" viewBox="0 0 320 120" role="img" aria-label="Schematic: hatched state regions behind the price line">
-            <defs><pattern id="ba-h" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0 V8" stroke="currentColor" stroke-width="2" opacity=".25" /></pattern></defs>
-            <rect x="60" y="10" width="70" height="90" fill="url(#ba-h)" /><rect x="178" y="10" width="74" height="90" fill="url(#ba-h)" />
-            <path d="M10 70 L50 52 L90 64 L130 38 L170 48 L210 30 L250 44 L310 26" fill="none" stroke="currentColor" stroke-width="2" />
-            <path d="M10 100 H310" stroke="currentColor" opacity=".4" />
-          </svg>
-          <svg slot="after" viewBox="0 0 320 120" role="img" aria-label="Schematic: a clean price line with states in a labelled lane under the axis">
-            <path d="M10 60 L50 42 L90 54 L130 28 L170 38 L210 20 L250 34 L310 16" fill="none" stroke="currentColor" stroke-width="2" />
-            <path d="M10 86 H310" stroke="currentColor" opacity=".4" />
-            <rect x="60" y="94" width="70" height="14" rx="2" fill="currentColor" opacity=".85" /><rect x="178" y="94" width="74" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.5" />
-            <text x="95" y="104.5" font-size="9" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif">Suspended</text><text x="215" y="104.5" font-size="9" text-anchor="middle" fill="currentColor" font-family="Inter, sans-serif">Outside limit</text>
-          </svg>
+          <img slot="before" src="/art/fx-states-today.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: hatched state regions behind the price line" />
+          <img slot="after" src="/art/fx-states-designed.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: a clean price line with states in a labelled lane under the axis" />
         </BeforeAfter>
         <BeforeAfter label="Version-one debt: fills at scale" before="A dot per fill" beforeNote="Volume-sized dots were honest at twenty clips and a smear at three hundred." after="Counted clusters" afterNote="Fills group into clusters with a count, and expand on zoom.">
-          <svg slot="before" viewBox="0 0 320 120" role="img" aria-label="Schematic: hundreds of overlapping fill dots forming a smear">
-            <g fill="currentColor" opacity=".35">{Array.from({ length: 160 }, (_, i) => <circle cx={12 + ((i * 37) % 296)} cy={30 + ((i * 53) % 60) + Math.sin(i) * 6} r={2 + (i % 4)} />)}</g>
-          </svg>
-          <svg slot="after" viewBox="0 0 320 120" role="img" aria-label="Schematic: five counted clusters of fills">
-            {[[40, 70, 48], [100, 50, 112], [165, 64, 31], [228, 40, 87], [286, 58, 22]].map(([x, y, n]) => <g><circle cx={x} cy={y} r={10 + n / 10} fill="currentColor" /><text x={x} y={y + 3.5} font-size="10" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-weight="600">{n}</text></g>)}
-          </svg>
+          <img slot="before" src="/art/fx-fills-today.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: hundreds of overlapping fill dots forming a smear" />
+          <img slot="after" src="/art/fx-fills-designed.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: five counted clusters of fills" />
         </BeforeAfter>
       </div>
     </div>

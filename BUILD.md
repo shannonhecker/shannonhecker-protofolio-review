@@ -560,3 +560,10 @@ I removed the extra background and source footer from the original FX decision l
 I removed the extra white surround and padding from comparison graphics across the case pages. The original chart edge now defines the image boundary, matching Figma, without changing the artwork. I also expanded the FX flow text in the desktop and mobile Figma frames and hid its obsolete source captions and disclosure arrows.
 
 Validation: production build and all 148 Playwright tests passed. I checked the comparison edges and always-visible transcript in Chrome. Figma comparison frames already had zero padding, so their artwork needed no changes.
+
+### 11 October · Workflow arrows beside the titles
+I moved the horizontal workflow arrows from the middle of each card to the title row. They now follow the title position, so longer descriptions and the Cancel branch cannot push them down. This applies to the shared workflow across all case pages; stacked phone steps retain their downward connectors.
+
+I also replaced the four state-lane and fill-cluster schematics with the exact current SVG graphics from Figma. Their outer card borders and padding are gone, with the same cleanup in the desktop and mobile Figma frames. The original artwork and explanatory copy stay intact.
+
+Validation: production build and all 148 Playwright tests passed. Chrome visual checks confirmed the arrow alignment and the exact four graphics.
