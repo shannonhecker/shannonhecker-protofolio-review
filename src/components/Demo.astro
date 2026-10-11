@@ -10,5 +10,5 @@ const posterUrl = poster.startsWith('/') ? poster : (await getImage({ src: img(p
   <video muted playsinline loading="lazy" preload="none" controls poster={posterUrl} width={width} height={height} aria-label={label}>
     <source src={src} type={src.endsWith('.webm') ? 'video/webm' : 'video/mp4'} />
   </video>
-  <figcaption><span>{label}</span><span>Current product recording · 10 October 2026</span><span class="demo-description">{description}</span></figcaption>
+  <figcaption><span class="demo-description">{description}</span></figcaption>
 </figure>

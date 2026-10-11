@@ -184,6 +184,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     const ch = CHAPTERS[chapterOf(sel)];
     opts.onStatus(`World map. ${ch.name}, ${ch.stages.length === 1 ? 'one stage' : `${ch.stages.length} stages`}, selected. Left and right to choose a world, Space to start.`);
     draw();resume();
+    requestAnimationFrame(centerMap);
   }
 
   // ---- juice (off under reduced motion)
@@ -276,15 +277,33 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     draw();
   };
   const leaveMap=()=>{mapHover=-1;canvas.style.cursor='default';if(s.mode==='map')draw();};
+  // A swipe pans the enlarged phone map; only a tap enters a stage.
+  let mapPress: { x: number; y: number; id: number } | null = null;
+  const centerMap = () => {
+    if (s.mode !== 'map' || !canvas.parentElement) return;
+    const viewport = canvas.parentElement;
+    viewport.scrollLeft = NODES[mapSel][0] / HUD_W * canvas.clientWidth - viewport.clientWidth / 2;
+  };
+  const mapResize = new ResizeObserver(centerMap);
+  mapResize.observe(canvas);
   const wake = (e: PointerEvent) => {
-    canvas.focus();
-    if(s.mode==='map'){
-      const best=hitMap(e);
-      if(best>=0){mapSel=best;opts.onMapSelect?.(best);canvas.style.cursor='default';loadLevel(best);}
+    canvas.focus({ preventScroll: true });
+    if (s.mode === 'map') {
+      mapPress = { x: e.clientX, y: e.clientY, id: e.pointerId };
       return;
     }
     setPaused(false);
   };
+  const releaseMap = (e: PointerEvent) => {
+    const press = mapPress;
+    mapPress = null;
+    if (s.mode !== 'map' || !press || press.id !== e.pointerId || Math.hypot(e.clientX - press.x, e.clientY - press.y) > 10) return;
+    const best = hitMap(e);
+    if (best >= 0) { mapSel = best; opts.onMapSelect?.(best); canvas.style.cursor = 'default'; loadLevel(best); }
+  };
+  const cancelMapPress = () => { mapPress = null; };
+  canvas.addEventListener('pointerup', releaseMap);
+  canvas.addEventListener('pointercancel', cancelMapPress);
   canvas.addEventListener('pointermove',hoverMap);
   canvas.addEventListener('pointerleave',leaveMap);
   const onFocus = () => { if (s.mode === 'level') setPaused(false); };
@@ -869,6 +888,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       cancelAnimationFrame(raf); raf = 0;
       canvas.removeEventListener('keydown', kd); canvas.removeEventListener('keyup', ku);
       canvas.removeEventListener('blur', blur); canvas.removeEventListener('pointerdown', wake);
+      canvas.removeEventListener('pointerup', releaseMap);canvas.removeEventListener('pointercancel', cancelMapPress);mapResize.disconnect();
       canvas.removeEventListener('focus', onFocus);
       canvas.removeEventListener('pointermove',hoverMap);canvas.removeEventListener('pointerleave',leaveMap);canvas.style.cursor='';
       document.removeEventListener('visibilitychange', vis);

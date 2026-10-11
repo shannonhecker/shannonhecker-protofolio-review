@@ -528,3 +528,23 @@ FX now uses the same persona, journey and decision blocks as Fusion, Winking Sta
 The thirteen Deal Model screens under `src/assets/img/figma-sync/` are re-exported from the working Figma file, where the client and colleague names were replaced with the sample names the page already uses. Same nodes, same 2200 pixel width, same pipeline. The cloud environment can reach figma.com again, which is what had held this back.
 
 - Checks: build passes; the Deal Model, figma-sync and chapter-jump tests pass. Spot-checked the deals landing and the pricing grid at full size: Northwind, Acme and the sample owners, no real names.
+
+### 11 October · One grid through every case
+
+I kept the section label on the left and all the content on the right throughout the five case studies. Screens and process work no longer jump out to the page edge. The page has a maximum reading width, and product captures stay within the content column with their full proportions. Project status now uses the same label and copy alignment as the rows above it.
+
+The FX data diagram is the original vector export from my supplied Figma node 305:336356, always visible, with horizontal scrolling on phones. I removed the duplicate recreated accordion and the export's canvas background. I also removed the repeated capture dates and source-link rows under screenshots; explanatory captions and recording descriptions stay.
+
+### 11 October · The phone map has room to read
+
+I made the fullscreen map larger on phones. In portrait, it opens on the selected stage and I can swipe across the wider map. Sideways, it uses the available height without reserving space for movement controls that the map does not need. Tapping a marker starts its stage; swiping does not. The movement controls return during play.
+
+- Checks: production build and all 148 browser tests pass, including portrait and landscape map sizing, marker taps, swipe cancellation, and fullscreen exit. Visually checked at 390 × 844 and 844 × 390.
+
+### 11 October · Home and case artwork match Figma
+
+I synced the updated Deal Model collage on Home and Panel directly from the original Figma vector, keeping the separate mobile artwork. Fusion now uses the newer discovery and performance images from the working file. I checked the other home artwork against its Figma image hashes and kept the matching originals.
+
+I also aligned the Figma case layouts, widened project status and kept the FX data graphic visible on desktop and mobile. My updated graphics and image fills stay intact; the layout edits use the existing nodes and original vectors.
+
+- Checks: production build, Astro check and all 148 browser tests pass. Home artwork checked in the browser; desktop and phone case layouts and fullscreen map covered by the browser suite.
