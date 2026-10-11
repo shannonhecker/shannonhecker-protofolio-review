@@ -651,7 +651,7 @@ html.nav-away .case-contents { top:0; }
 .journey-diagram dl>div{background:transparent!important;border:0!important;border-left:2px solid var(--hair)!important;border-radius:0;padding:16px 20px;}
 .journey-diagram dl>.journey-friction{border-left-color:#c38b62!important}.journey-diagram dl>.journey-response{border-left-color:#628c6b!important}
 .journey-diagram dl>div::before{display:none}
-.dg-flow li,.dg-flow li+li{background:transparent;border:0;border-bottom:2px solid var(--project-ink);border-radius:0;padding:12px 16px 28px;}
+.dg-flow li,.dg-flow li+li{background:transparent;border:0;border-top:2px solid var(--project-ink);border-radius:0;padding:20px 16px;}
 .dg-flow li>.pixel-object{margin-bottom:16px}
 .decision-map>ol>li>h4{background:transparent;border:0;border-radius:0;padding:24px 0;font-size:24px;}
 .decision-choice{background:var(--project-wash);border-color:var(--project-ink)}.decision-option{background:transparent}
