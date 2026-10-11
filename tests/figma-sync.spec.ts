@@ -22,8 +22,8 @@ test('FX comparisons use the authored charts and stay readable on phones', async
   for (const width of [390,1440,1920]) {
     await page.setViewportSize({width,height:900});
     await charts.evaluateAll(async images=>{await Promise.all(images.map(async el=>{const im=el as HTMLImageElement;im.loading='eager';await im.decode();}));});
-    const sizes=await charts.evaluateAll(images=>images.map(el=>({width:el.getBoundingClientRect().width,loaded:(el as HTMLImageElement).naturalWidth>0})));
-    expect(sizes.every(s=>s.loaded && s.width>=300)).toBe(true);
+    await expect.poll(()=>charts.evaluateAll(images=>images.every(el=>el.getBoundingClientRect().width>=300&&(el as HTMLImageElement).naturalWidth>0))).toBe(true);
+    const sizes=await charts.evaluateAll(images=>images.map(el=>({width:el.getBoundingClientRect().width})));
     if(width>=1440){
       expect(sizes.every(s=>s.width<width*.36)).toBe(true);
       const chart=(await charts.first().boundingBox())!;

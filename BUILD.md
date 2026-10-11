@@ -463,3 +463,5 @@ I also removed the separate colour blocks from the FX personas. Each card now us
 I aligned my FX comparisons with the case reading column, keeping the diagrams smaller and their full explanations directly underneath. The original high-resolution images remain available to open. I removed the second repeated decision layout without cutting its wording, and kept the chosen and alternative views stacked on phones.
 
 I removed the three-project status strip now that Selected work includes five projects. The game now shows an original pixel compass while its map loads and fullscreen settles, replacing the stretched poster flash. The loading scene remains until the canvas has painted, respects reduced motion, and allows retry after a loading failure.
+
+The cloud mobile audit scored 94 against my 95 budget. I let the phone introduction paragraph paint immediately, while keeping the title entrance, avatar greeting and scroll-driven text movement.

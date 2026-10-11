@@ -357,7 +357,7 @@ html .nav,html[data-theme=dark] .nav{background:var(--bg)!important;-webkit-back
  .has-js .hero-story>:is(h1,.hero-top,.status-row,.explore-work){animation-name:hero-phone-enter}
  /* Settle the reading copy promptly on phones while the remaining intro
     continues. This paragraph is the largest initial content on narrow screens. */
- .has-js .hero-story>.hero-top{animation-duration:.28s;animation-delay:.04s}
+ .has-js .hero-story>.hero-top{animation:none}
  .has-js .hero-word-window{animation:none}
  .landing-companion[data-intro=true] .companion-avatar{animation-duration:.35s}
  @keyframes hero-phone-enter{from{transform:translateY(12px)}to{transform:none}}
