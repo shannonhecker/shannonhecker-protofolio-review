@@ -523,3 +523,8 @@ FX now uses the same persona, journey and decision blocks as Fusion, Winking Sta
 - The journey moved inside the research beat, at the reading width the other cases use, instead of a full-width band of its own.
 - Image descriptions for the six decision charts are kept through a new optional alt field on a choice.
 - Checks: build and Astro check pass. The figma-sync, heading and axe suites pass; the FX decision test now measures alignment against the chart card edge, which is what the shared block aligns. Blocks checked visually at 1440 and 390.
+### 11 October · Deal Model screens re-synced with sample names
+
+The thirteen Deal Model screens under `src/assets/img/figma-sync/` are re-exported from the working Figma file, where the client and colleague names were replaced with the sample names the page already uses. Same nodes, same 2200 pixel width, same pipeline. The cloud environment can reach figma.com again, which is what had held this back.
+
+- Checks: build passes; the Deal Model, figma-sync and chapter-jump tests pass. Spot-checked the deals landing and the pricing grid at full size: Northwind, Acme and the sample owners, no real names.

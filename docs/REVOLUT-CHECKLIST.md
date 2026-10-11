@@ -266,8 +266,7 @@ and the one fact each still needs from her:
    client and colleague names in the thirteen pasted screens were replaced
    in the working Figma file with the sample names the page already uses
    (Northwind, Harbour, Larkspur, Mensah, Okafor). Same fonts, same layout.
-   The Figma slots and heroes are re-exported. The site's thirteen PNGs
-   under `src/assets/img/figma-sync/` must be re-exported by the Figma sync
-   before the next release; until then the private link still shows the old
-   names.
+   The Figma slots and heroes are re-exported, and the site's thirteen PNGs
+   under `src/assets/img/figma-sync/` were re-synced from them on 11 October,
+   so the private link now shows the sample names.
 
