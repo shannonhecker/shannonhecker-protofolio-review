@@ -2,7 +2,15 @@
 import Pic from './Pic.astro';
 interface Props { name: string; alt: string; href: string; label: string; eager?: boolean }
 const { name, alt, href, label, eager = false } = Astro.props;
+const vectorSizes: Record<string, [number, number]> = {
+  "/art/fusion-configuration.svg": [979, 652],
+  "/art/fusion-performance.svg": [980, 582],
+  "/art/fusion-risk.svg": [981, 662],
+  "/art/fusion-screening.svg": [985, 554],
+  "/art/fusion-entity-comparison.svg": [985, 554],
+};
+const vectorSize = vectorSizes[name];
 ---
 <figure class="product-capture">
-  <div class="shot evidence"><Pic name={name} alt={alt} sizes="(max-width: 900px) 92vw, (max-width: 1550px) 66vw, 1040px" eager={eager} /></div>
+  <div class="shot evidence">{name.endsWith(".svg") ? <img src={name} alt={alt} width={vectorSize?.[0]} height={vectorSize?.[1]} style={vectorSize ? `aspect-ratio: auto ${vectorSize[0]} / ${vectorSize[1]}` : undefined} loading={eager ? "eager" : "lazy"} /> : <Pic name={name} alt={alt} sizes="(max-width: 900px) 92vw, (max-width: 1550px) 66vw, 1040px" eager={eager} />}</div>
 </figure>
