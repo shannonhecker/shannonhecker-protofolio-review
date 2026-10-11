@@ -5,13 +5,14 @@ interface Props {
  name:string; role:string; quote:string; portrait:string;
  groups:{label:string;items:string[]}[];
  kind?:'fx'|'authored';
+ background?:string;
 }
-const {name,role,quote,portrait,groups,kind='authored'}=Astro.props;
+const {name,role,quote,portrait,groups,kind='authored',background='#f5e4dc'}=Astro.props;
 const images=import.meta.glob<{default:ImageMetadata}>('../../assets/img/personas/*.png',{eager:true});
 const source=images[`../../assets/img/personas/${portrait}.png`]?.default;
 if(!source)throw new Error(`Missing persona portrait: ${portrait}`);
 ---
-<article class:list={['persona-card',kind==='fx'?'fx-persona':'authored-persona']}>
+<article style={`--persona-background:${background}`} class:list={['persona-card',kind==='fx'?'fx-persona':'authored-persona']}>
  <div class="persona-identity">
   <div class="persona-copy"><h4>{name}</h4><p class="persona-role">{role}</p><blockquote>{quote}</blockquote></div>
   <div class="persona-art"><Picture src={source} alt="" formats={['webp']} widths={[300,600,900]} sizes="(max-width:420px) 75vw, 300px" quality={90} loading="lazy" decoding="async"/></div>
@@ -19,7 +20,7 @@ if(!source)throw new Error(`Missing persona portrait: ${portrait}`);
  <div class="authored-persona-needs">{groups.map(group=><div><h5>{group.label}</h5><ul>{group.items.map(item=><li>{item}</li>)}</ul></div>)}</div>
 </article>
 <style>
-.persona-card{--fg:#272b32;--fg-2:#4d4644;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:#f5e4dc;color:var(--fg);border-radius:4px;overflow:hidden;isolation:isolate}
+.persona-card{--fg:#272b32;--fg-2:#4d4644;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:var(--persona-background);color:var(--fg);border-radius:4px;overflow:hidden;isolation:isolate}
 .persona-identity{min-width:0;display:flex;flex-direction:column;align-items:center;padding-top:32px}
 .persona-copy{width:100%;padding:0 clamp(24px,3vw,40px) 24px}
 .persona-copy h4{color:var(--fg);font-size:clamp(28px,2.5vw,38px);line-height:1.15;letter-spacing:-.035em;margin:0 0 12px}
