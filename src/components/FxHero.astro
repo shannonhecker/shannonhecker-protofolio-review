@@ -1,21 +1,19 @@
 ---
-import { Picture } from 'astro:assets';
-import { imageWidths } from '../lib/image-widths';
-import overview from '../assets/img/fx-figma/overview.png';
-import compare from '../assets/img/fx-figma/compare-detail.png';
-import ticket from '../assets/img/fx-figma/ticket-detail.png';
+const overview={src:"/art/fx-hero-overview.svg"};
+const compare={src:"/art/fx-hero-compare.svg"};
+const ticket={src:"/art/fx-hero-ticket.svg"};
 ---
 <figure class="project-hero fx-authored-hero">
  <div class="fx-hero-composition">
-  <a class="fx-hero-overview" href={overview.src} target="_blank" rel="noopener" aria-label="View full size: my FX overview design (opens in new tab)"><Picture src={overview} quality={85} widths={imageWidths(overview.width)} sizes="(max-width:1100px) 92vw, 57vw" formats={['avif','webp']} alt="My FX design: EURUSD execution chart with limit, arrival, risk-transfer and fill markers, plus venue analytics. Simulated data." loading="eager" fetchpriority="high" /></a>
-  <a class="fx-hero-ticket" href={ticket.src} target="_blank" rel="noopener" aria-label="View full size: FX order ticket detail (opens in new tab)"><Picture src={ticket} quality={85} widths={imageWidths(ticket.width)} sizes="(max-width:1100px) 44vw, 27vw" formats={['avif','webp']} alt="Order-ticket detail with direction, size, limit price and Submit control." /></a>
-  <a class="fx-hero-compare" href={compare.src} target="_blank" rel="noopener" aria-label="View full size: FX comparison detail (opens in new tab)"><Picture src={compare} quality={85} widths={imageWidths(compare.width)} sizes="(max-width:1100px) 44vw, 27vw" formats={['avif','webp']} alt="Compare-orders detail showing working and filled orders, execution benchmarks and their trajectories." /></a>
+  <a class="fx-hero-overview" href={overview.src} target="_blank" rel="noopener" aria-label="View full size: my FX overview design (opens in new tab)"><img src={overview.src} alt="My FX design: EURUSD execution chart with limit, arrival, risk-transfer and fill markers, plus venue analytics. Simulated data." loading="eager" fetchpriority="high" /></a>
+  <a class="fx-hero-ticket" href={ticket.src} target="_blank" rel="noopener" aria-label="View full size: FX order ticket detail (opens in new tab)"><img src={ticket.src} alt="Order-ticket detail with direction, size, limit price and Submit control." /></a>
+  <a class="fx-hero-compare" href={compare.src} target="_blank" rel="noopener" aria-label="View full size: FX comparison detail (opens in new tab)"><img src={compare.src} alt="Compare-orders detail showing working and filled orders, execution benchmarks and their trajectories." /></a>
  </div>
 </figure>
 <style>
 .fx-authored-hero{display:block!important;min-width:0}
 .fx-hero-composition{position:relative;aspect-ratio:622/694;isolation:isolate}
-.fx-hero-composition a{display:block;min-width:0;border-radius:var(--radius);box-shadow:0 16px 32px -8px rgb(12 12 13 / 40%)}
+.fx-hero-composition a{display:block;min-width:0;border-radius:var(--radius);filter:drop-shadow(0 12px 16px rgb(12 12 13 / 25%))}
 .fx-hero-composition :global(img){display:block;width:100%;height:auto;margin:0;max-width:100%}
 .fx-hero-overview{position:relative;width:100%;z-index:0}
 .fx-hero-ticket{position:absolute;width:35%;left:21%;bottom:0;z-index:2}
