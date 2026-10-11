@@ -653,6 +653,11 @@ html.nav-away .case-contents { top:0; }
 .journey-diagram dl>div::before{display:none}
 .dg-flow li,.dg-flow li+li{background:transparent;border:0;border-top:2px solid var(--project-ink);border-radius:0;padding:20px 16px;}
 .dg-flow li>.pixel-object{margin-bottom:16px}
+@media(min-width:761px){
+ .dg-flow li:not(:last-child)::after{content:none}
+ .dg-flow li>b{display:block;position:relative}
+ .dg-flow li:not(:last-child)>b::after{content:'→';position:absolute;right:-39px;top:0;font-size:22px;line-height:20px;font-weight:400;color:var(--project-ink)}
+}
 .decision-map>ol>li>h4{background:transparent;border:0;border-radius:0;padding:24px 0;font-size:24px;}
 .decision-choice{background:var(--project-wash);border-color:var(--project-ink)}.decision-option{background:transparent}
 .case-page[data-project=fusion]{--project-ink:#2f6098;--project-wash:#eaf2fa}
@@ -700,3 +705,7 @@ html[data-theme=dark] .brand-logo-plate:not(.brand-logo-dark){background:var(--b
 .theme-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
 .theme-gallery img{display:block;width:100%;height:auto;border-radius:var(--radius)}
 @media(max-width:640px){.theme-gallery{grid-template-columns:1fr;gap:16px}}
+
+/* Comparison artwork supplies its own edge. */
+.case-page .dg-ba-panel,.case-page .dg-ba-panel.after{padding:0;border:0;background:transparent}
+.dg-pic img{display:block;width:100%;height:auto}
