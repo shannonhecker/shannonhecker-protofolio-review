@@ -694,3 +694,11 @@ nine pages built, 88 files checked without diagnostics.
 - Current Figma work belongs to Claude; this final pass stays in website code.
 
 - [x] Corrected baby milestones to 2018/2021 and rewrote stage songs with distinct rhythm, phrasing and arrangements; actual Web Audio switching is covered.
+
+### 11 October · PR #25 published
+
+- [x] Exact-head CI 38101036158 passed: 130 browser checks, link checks, all ten mobile/desktop Lighthouse audits at or above 95 in every category.
+- [x] PR #25 merged as `3d9c6d080f16611fc0653d0de828deacd1d97ae6`; Vercel production deployed successfully.
+- [x] Production route, missing-page, leaderboard-read and run-receipt smoke checks passed. Published stylesheet and game-chunk SHA-256 hashes match the verified local build.
+- [x] Published dark divider colours checked in Chrome; Figma remains with Claude for ongoing edits.
+- [ ] Follow-up requested after publication: make dark the default on all routes while preserving saved light/dark choices.
