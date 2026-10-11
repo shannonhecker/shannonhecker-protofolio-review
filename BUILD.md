@@ -575,3 +575,11 @@ I synced all nine updated screenshot sources from my working Figma FX page, usin
 I separated the journey's persona, scenario, goal and phase descriptions from the tiny vector lettering. They now use 16px body text, wider two-column stage descriptions and a single column on phones. The thoughts, feelings and approach chart still uses my exact original SVG, unchanged. I added matching readable text layouts in Figma, kept its original vector artwork, and preserved the existing mobile stage descriptions.
 
 Validation: production build and all 148 Playwright tests passed. I checked the desktop and phone journey layouts in Chrome and the revised Figma journey composition.
+
+### 11 October · Persona colours match my latest Figma cards
+
+I kept Dana's peach background, changed Marcus to light grey and Priya to pale blue, using the exact colours in the working FX frame. I also synced the active transparent portrait assets so the old peach image backgrounds do not sit on the new card colours. The shared card accepts a background per persona; other projects keep their existing colours.
+
+The FX screenshot display now applies the original Figma crop transforms to the full-resolution source images. This preserves the authored framing, including the hover capture without browser chrome, while leaving the downloaded originals untouched.
+
+Validation: production build and all 148 browser tests passed. I checked the persona colours and hover framing in Chrome.
