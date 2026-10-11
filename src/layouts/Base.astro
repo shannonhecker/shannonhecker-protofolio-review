@@ -85,11 +85,11 @@ const og = new URL(ogImage.src, Astro.site).href;
       sameAs: ['https://www.linkedin.com/in/shannonhecker/'],
     })} />
     {['/', '/panel'].includes(Astro.url.pathname) && <>
-      <link rel="preload" as="image" href="/art/avatar-idle-0.webp" fetchpriority="high" />
-      <link rel="preload" as="image" href="/art/avatar-greeting/wave.webp" fetchpriority="high" />
+      <link rel="preload" as="image" href="/art/avatar-idle-0.webp" fetchpriority="high" media="(min-width: 761px)" />
+      <link rel="preload" as="image" href="/art/avatar-greeting/wave.webp" fetchpriority="high" media="(min-width: 761px)" />
     </>}
     {!(['/', '/panel'].includes(Astro.url.pathname)) && <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />}
-    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyFont} fetchpriority="high" as="font" type="font/woff2" crossorigin />
     <script is:inline>
       // Motion gate. Hidden-until-revealed states only apply under html.js, and
       // html.js is only set when motion is allowed. If the motion bundle never

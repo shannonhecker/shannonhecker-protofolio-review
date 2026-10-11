@@ -471,3 +471,5 @@ The cloud mobile audit scored 94 against my 95 budget. I let the phone introduct
 I recreated all fifteen persona portraits with Nano Banana 2, using the FX illustration style as the reference. They share a 1200 by 1600 source canvas and the same 300 by 400 display frame. Deal Model now includes all four composite roles. The cards share one continuous warm surface, with names, quotes and needs kept as selectable text in the existing project structure.
 
 The illustrations are fictional design personas, not photographs of research participants. Their source jobs and role mapping are recorded in the media notes.
+
+I prioritised the reading font on phones and limited the avatar image preloads to larger screens, where the illustration is visible immediately. The greeting frames still load eagerly and decode before the animation starts. I also removed an inherited portrait margin so every illustration rests at the card edge.
