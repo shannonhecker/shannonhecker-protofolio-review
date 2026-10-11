@@ -63,6 +63,9 @@ if(index){
  addEventListener('scroll',()=>{if(!frame)frame=requestAnimationFrame(update);},{passive:true});
  nav?.addEventListener('focusin',()=>root.classList.remove('nav-away'));
  update();
+ // The opener floats over the page; it steps aside once the footer arrives so it never covers the live links.
+ const footer=document.querySelector('footer');
+ if(footer)new IntersectionObserver(([entry])=>root.classList.toggle('footer-in-view',entry.isIntersecting)).observe(footer);
 }
 const companion=document.querySelector<HTMLElement>('.landing-companion');
 if(companion){
