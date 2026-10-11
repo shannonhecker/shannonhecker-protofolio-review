@@ -1,17 +1,18 @@
 ---
 import { Picture } from 'astro:assets';
+import { imageWidths } from '../lib/image-widths';
 import overview from '../assets/img/fx-figma/overview.png';
 import compare from '../assets/img/fx-figma/compare-detail.png';
 import ticket from '../assets/img/fx-figma/ticket-detail.png';
 ---
 <figure class="project-hero fx-authored-hero">
  <div class="fx-hero-composition">
-  <a class="fx-hero-overview" href={overview.src} target="_blank" rel="noopener" aria-label="View full size: my FX overview design (opens in new tab)"><Picture src={overview} widths={[400,600,900]} sizes="(max-width:900px) 90vw, 57vw" formats={['avif','webp']} alt="My FX design: EURUSD execution chart with limit, arrival, risk-transfer and fill markers, plus venue analytics. Simulated data." loading="eager" fetchpriority="high" /></a>
-  <a class="fx-hero-ticket" href={ticket.src} target="_blank" rel="noopener" aria-label="View full size: FX order ticket detail (opens in new tab)"><Picture src={ticket} widths={[240,400]} sizes="(max-width:600px) 42vw, 24vw" formats={['avif','webp']} alt="Order-ticket detail with direction, size, limit price and Submit control." /></a>
-  <a class="fx-hero-compare" href={compare.src} target="_blank" rel="noopener" aria-label="View full size: FX comparison detail (opens in new tab)"><Picture src={compare} widths={[240,400]} sizes="(max-width:600px) 42vw, 24vw" formats={['avif','webp']} alt="Compare-orders detail showing working and filled orders, execution benchmarks and their trajectories." /></a>
+  <a class="fx-hero-overview" href={overview.src} target="_blank" rel="noopener" aria-label="View full size: my FX overview design (opens in new tab)"><Picture src={overview} quality={85} widths={imageWidths(overview.width)} sizes="(max-width:1100px) 92vw, 57vw" formats={['avif','webp']} alt="My FX design: EURUSD execution chart with limit, arrival, risk-transfer and fill markers, plus venue analytics. Simulated data." loading="eager" fetchpriority="high" /></a>
+  <a class="fx-hero-ticket" href={ticket.src} target="_blank" rel="noopener" aria-label="View full size: FX order ticket detail (opens in new tab)"><Picture src={ticket} quality={85} widths={imageWidths(ticket.width)} sizes="(max-width:1100px) 44vw, 27vw" formats={['avif','webp']} alt="Order-ticket detail with direction, size, limit price and Submit control." /></a>
+  <a class="fx-hero-compare" href={compare.src} target="_blank" rel="noopener" aria-label="View full size: FX comparison detail (opens in new tab)"><Picture src={compare} quality={85} widths={imageWidths(compare.width)} sizes="(max-width:1100px) 44vw, 27vw" formats={['avif','webp']} alt="Compare-orders detail showing working and filled orders, execution benchmarks and their trajectories." /></a>
  </div>
 </figure>
 <style>
-.fx-authored-hero{display:block!important;min-width:0}.fx-hero-composition{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:0 12px;isolation:isolate}.fx-hero-composition a{display:block;min-width:0;border-radius:var(--radius)}.fx-hero-composition :global(img){display:block;width:100%;height:auto;margin:0;max-width:100%}.fx-hero-overview{grid-column:1/-1}.fx-hero-ticket{grid-column:1;grid-row:2;margin-top:-5%;margin-left:16%;position:relative;z-index:1}.fx-hero-compare{grid-column:2;grid-row:2;margin-top:-42%;margin-right:12%;position:relative;z-index:2}.fx-hero-composition a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.fx-authored-hero{display:block!important;min-width:0}.fx-hero-composition{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:24px 20px;isolation:isolate}.fx-hero-composition a{display:block;min-width:0;border-radius:var(--radius)}.fx-hero-composition :global(img){display:block;width:100%;height:auto;margin:0;max-width:100%}.fx-hero-overview{grid-column:1/-1}.fx-hero-ticket{grid-column:1;grid-row:2;margin:0;position:relative;z-index:1}.fx-hero-compare{grid-column:2;grid-row:2;margin:0;position:relative;z-index:2}.fx-hero-composition a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 @media(max-width:600px){.fx-hero-composition{gap:20px 16px}.fx-hero-ticket,.fx-hero-compare{margin:0}}
 </style>

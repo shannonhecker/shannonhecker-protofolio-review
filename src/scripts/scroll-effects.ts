@@ -14,15 +14,32 @@ export function initScrollEffects() {
     const scrub=desktop?.55:.2;
     const enter=(trigger:Element)=>({trigger,start:'top 96%',end:'top 58%',scrub});
 
+    // Inner layers keep the load entrance and scroll response independent.
+    // Start at the top of the document: the hero must react to the first swipe.
+    const story=document.querySelector<HTMLElement>('.hero-story');
+    if(story){
+      story.dataset.scrollMotion='true';marked.push(story);
+      const timeline=gsap.timeline({scrollTrigger:{trigger:story,start:0,end:'bottom 12%',scrub:desktop?.65:.25}});
+      timeline.to(story.querySelectorAll('.hero-word'),{yPercent:desktop?-68:-28,stagger:.02,duration:1,ease:'none'},0)
+        .to(story.querySelector('.hero-copy-depth'),{y:desktop?-64:-24,duration:1.25,ease:'none'},0)
+        .to(story.querySelectorAll('.status-row>span'),{y:desktop?-30:-10,stagger:.08,duration:1.1,ease:'none'},.1);
+    }
+
     // The artwork leads, followed by its title and description. A single
     // timeline follows native scrolling in both directions without pinning.
     document.querySelectorAll<HTMLElement>('#work .row').forEach((row,index)=>{
       const artwork=row.querySelector(':scope > picture, :scope > .project-preview');
       if(!artwork)return;
-      const timeline=gsap.timeline({scrollTrigger:enter(row)});
-      timeline.fromTo(artwork,{y:desktop?(index%2?88:56):20,scale:desktop?.97:1},{y:0,scale:1,duration:1,ease:'none',immediateRender:false},0);
-      timeline.fromTo(row.querySelectorAll(':scope > .n, :scope > h3'),{y:desktop?32:12,opacity:.25},{y:0,opacity:1,duration:.55,ease:'none',immediateRender:false},.15);
-      timeline.fromTo(row.querySelector(':scope > .meta'),{y:desktop?24:8,opacity:.3},{y:0,opacity:1,duration:.55,ease:'none',immediateRender:false},.3);
+      row.dataset.scrollMotion='true';marked.push(row);
+      gsap.fromTo(artwork,{y:desktop?(index%2?88:56):20,scale:desktop?.97:1},{y:0,scale:1,ease:'none',scrollTrigger:{...enter(row),end:'top 30%'}});
+      // Captions sit below a tall image. Their own trigger keeps their motion
+      // visible instead of completing while they are still below the screen.
+      const title=row.querySelector('h3');
+      if(title){
+        const timeline=gsap.timeline({scrollTrigger:enter(title)});
+        timeline.fromTo(row.querySelectorAll(':scope > .n, :scope > h3'),{y:desktop?40:14,opacity:.25},{y:0,opacity:1,duration:.7,ease:'none'},0);
+        timeline.fromTo(row.querySelector(':scope > .meta'),{y:desktop?28:10,opacity:.3},{y:0,opacity:1,duration:.7,ease:'none'},.15);
+      }
     });
 
     // Existing selectable words reveal through masks; no duplicate reading
@@ -49,10 +66,10 @@ export function initScrollEffects() {
       // Separate scene layers drift at different speeds as the intro leaves.
       const companion=document.querySelector('.landing-companion');
       if(companion){
-        const timeline=gsap.timeline({scrollTrigger:{trigger:companion,start:'top 20%',end:'bottom top',scrub:.8}});
-        timeline.to('.companion-stage',{y:-24,ease:'none'},0)
-          .to('.companion-object.object-one',{y:-40,rotation:-8,ease:'none'},0)
-          .to('.companion-object.object-two',{y:32,rotation:12,ease:'none'},0);
+        const timeline=gsap.timeline({scrollTrigger:{trigger:companion,start:0,end:'bottom top',scrub:.65}});
+        timeline.to('.companion-stage',{y:-88,ease:'none'},0)
+          .to('.companion-object.object-one',{y:-64,rotation:-12,ease:'none'},0)
+          .to('.companion-object.object-two',{y:72,rotation:18,ease:'none'},0);
       }
       document.querySelectorAll<HTMLElement>('.journey-route').forEach(route=>{
         gsap.fromTo(route.children,{y:36,opacity:.3},{y:0,opacity:1,stagger:.12,ease:'none',immediateRender:false,scrollTrigger:{trigger:route,start:'top 94%',end:'top 45%',scrub:.6}});

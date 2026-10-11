@@ -1,5 +1,6 @@
 ---
 import { Picture } from 'astro:assets';
+import { imageWidths } from '../lib/image-widths';
 import fx from '../assets/img/home-figma/fx.png';
 import fusion from '../assets/img/home-figma/fusion.png';
 import winking from '../assets/img/home-figma/winking.png';
@@ -10,6 +11,6 @@ const {project}=Astro.props;
 const artwork={fx,fusion,winking,ai}[project];
 ---
 <div class={`project-preview home-artwork home-artwork-${project}`}>
- {artwork && <Picture src={artwork} alt="" formats={['avif','webp']} widths={[350,681,1000].filter(w=>w<=artwork.width)} sizes="(max-width:760px) 90vw, 48vw" loading="lazy" decoding="async" />}
- {project==='winking' && <Picture class="mobile-artwork" src={winkingMobile} alt="" formats={['avif','webp']} widths={[350]} sizes="90vw" loading="lazy" decoding="async" />}
+ {artwork && <Picture src={artwork} alt="" formats={['avif','webp']} quality={85} widths={imageWidths(artwork.width)} sizes={project==='fx'?'(max-width:760px) 110vw, (min-width:1680px) 982px, 59vw':'(max-width:760px) 100vw, (min-width:1680px) 776px, 47vw'} loading="lazy" decoding="async" />}
+ {project==='winking' && <Picture class="mobile-artwork" src={winkingMobile} alt="" formats={['avif','webp']} quality={85} widths={imageWidths(winkingMobile.width)} sizes="90vw" loading="lazy" decoding="async" />}
 </div>

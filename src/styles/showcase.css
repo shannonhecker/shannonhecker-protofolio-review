@@ -11,7 +11,8 @@
 .hero-bonus { margin-top:48px; }
 
 /* Two generous image tiles, tight centre gutter, quiet labels below. */
-#work>.wrap,.case-page>.band>.wrap { max-width:none;width:auto;margin-inline:clamp(20px,2.5vw,56px);padding-inline:0; }
+.case-page>.band>.wrap { max-width:none;width:auto;margin-inline:clamp(20px,2.5vw,56px);padding-inline:0; }
+#work>.wrap { max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter); }
 #work .index { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:88px 6px; }
 #work .row { display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px 12px;align-content:start;align-items:center;padding:0;border:0; }
 #work .row .n { grid-column:1;grid-row:2;align-self:center;margin:0;font-size:13px;gap:6px; }
@@ -209,7 +210,7 @@ html:not(.has-js) .case-contents { display:none; }
 @keyframes companion-wave{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-9deg)}75%{transform:rotate(9deg)}}
 .landing-companion:is([data-pose=lift],[data-pose=wave]) .idle-open{visibility:hidden}
 .has-js .landing-companion:not([data-entered=true]) .companion-avatar{opacity:0}
-.landing-companion[data-intro=true] .companion-avatar{animation:companion-arrive .5s calc(.82s - var(--intro-elapsed,0ms)) cubic-bezier(.22,1,.36,1) both}
+.landing-companion[data-intro=true] .companion-avatar{animation:companion-arrive .5s calc(.72s - var(--intro-elapsed,0ms)) cubic-bezier(.22,1,.36,1) both}
 .landing-companion[data-pose=wave] .idle-smile{visibility:visible;animation:none!important}
 @keyframes companion-arrive{from{opacity:0;translate:-50% 24px}to{opacity:1;translate:-50% 0}}
 @media(prefers-reduced-motion:reduce){.greeting-frame{visibility:hidden!important}.idle-open{visibility:visible!important}.companion-avatar{animation:none!important;opacity:1!important}}
@@ -226,7 +227,7 @@ html:not(.has-js) .case-contents { display:none; }
 .has-js .landing-companion:not([data-entered=true]) .companion-stage::before,
 .has-js .landing-companion:not([data-entered=true]) :is(.companion-object,.companion-path,.companion-controls,.companion-hint){opacity:0}
 .landing-companion[data-intro=true] .companion-stage::before,
-.landing-companion[data-intro=true] :is(.companion-object,.companion-path,.companion-controls,.companion-hint){animation:companion-scene-enter .3s calc(.7s - var(--intro-elapsed,0ms)) ease-out both}
+.landing-companion[data-intro=true] :is(.companion-object,.companion-path,.companion-controls,.companion-hint){animation:companion-scene-enter .25s calc(.64s - var(--intro-elapsed,0ms)) ease-out both}
 @keyframes companion-scene-enter{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){
  .landing-companion .companion-stage::before,.landing-companion :is(.companion-object,.companion-path,.companion-controls,.companion-hint){animation:none!important;opacity:1!important}
@@ -296,6 +297,16 @@ html.game-is-full :is(.nav,.progress,.avatar-cursor){visibility:hidden!important
 
 /* Text masks and staggered entrances share one restrained motion rhythm. */
 .split[data-scroll-motion] .wd{transition:none!important;opacity:1}
+.hero-word-window{display:inline-block;vertical-align:top;padding-block:.08em;margin-block:-.08em}
+.hero-word,.hero-copy-depth{display:inline-block}
+/* Keep a single accessible sentence and natural line wrapping. Cropped words
+   return to their complete position when the reader scrolls back to the top. */
+@media(prefers-reduced-motion:no-preference) and (hover:hover){
+ .has-js .hero-word-window{animation:hero-word-arrive .45s calc(.08s + var(--word-index,0)*.02s) cubic-bezier(.16,1,.3,1) backwards}
+ @keyframes hero-word-arrive{from{clip-path:inset(0 0 100% 0);translate:0 18px}to{clip-path:inset(0);translate:0 0}}
+}
+.has-js .hero-story>:is(.hero-top,.status-row,.explore-work){animation-fill-mode:backwards}
+@media(prefers-reduced-motion:reduce),print{.hero-word,.hero-copy-depth,.hero-story .status-row>span{transform:none!important}.hero-word-window{animation:none!important;overflow:visible}}
 @media(prefers-reduced-motion:no-preference){
  @keyframes hero-copy-enter{from{opacity:0;transform:translateY(24px);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:none;clip-path:inset(0 0 0 0)}}
  @keyframes case-title-enter{from{opacity:0;translate:0 28px;clip-path:inset(0 0 100% 0)}to{opacity:1;translate:0 0;clip-path:inset(0 0 0 0)}}

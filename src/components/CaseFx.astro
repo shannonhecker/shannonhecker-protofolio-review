@@ -10,6 +10,7 @@ const HD = top ? 'h3' : 'h4'; // decision titles
 import Demo from './Demo.astro';
 import FxHero from './FxHero.astro';
 import { Picture } from 'astro:assets';
+import { imageWidths } from '../lib/image-widths';
 import dataLayers from '../assets/img/fx-figma/data-layers.png';
 import ProductCapture from './ProductCapture.astro';
 import Split from './Split.astro';
@@ -65,7 +66,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <li><b>Watching people decide</b><p>I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.</p></li>
         </ul>
         <figure class="fx-source-layers">
-          <a href={dataLayers.src} target="_blank" rel="noopener" aria-label="View full size: FX data-to-encoding diagram (opens in new tab)"><Picture src={dataLayers} widths={[640,985]} sizes="90vw" formats={['avif','webp']} alt="Market data becomes continuous lines; limit-price changes become steps; states become ranges; fills become sized dots; benchmarks become fixed reference lines. Each shape gets its own encoding." loading="lazy" /></a>
+          <a href={dataLayers.src} target="_blank" rel="noopener" aria-label="View full size: FX data-to-encoding diagram (opens in new tab)"><Picture src={dataLayers} quality={85} widths={imageWidths(dataLayers.width)} sizes="90vw" formats={['avif','webp']} alt="Market data becomes continuous lines; limit-price changes become steps; states become ranges; fills become sized dots; benchmarks become fixed reference lines. Each shape gets its own encoding." loading="lazy" /></a>
           <figcaption>My data-to-encoding diagram, from the updated desktop design.</figcaption>
         </figure>
         <details class="fx-layer-transcript"><summary>Explore each data layer</summary>

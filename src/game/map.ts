@@ -6,6 +6,28 @@
 // hard pixel edges; the game draws nodes and the character on top.
 import { canvas, sprite, text, textWidth } from './pixel';
 
+/** Original computer-company badge for the first professional design stage. */
+export function workIcon() {
+  return sprite([
+    '................',
+    '.kkkkkkkkkkkkkk.',
+    '.kbbbbbbbbbbbbk.',
+    '.kbwwbbbbbbbwbk.',
+    '.kbwbbbbbbwwbbk.',
+    '.kbbbbbbbwwbbbk.',
+    '.kbbbbbbwwbbbbk.',
+    '.kbbbbbwwbbbbbk.',
+    '.kbbbbwwbbbbbbk.',
+    '.kkkkkkkkkkkkkk.',
+    '......kkkk......',
+    '....kkkkkkkk....',
+    '................',
+    '..kkkkkkkkkkkk..',
+    '..kwwwwwwwwwwk..',
+    '..kkkkkkkkkkkk..',
+  ],{k:'#17283f',b:'#55bbcb',w:'#fff3d5'});
+}
+
 type LL = [number, number]; // [lon, lat]
 
 // Simplified coastlines, clockwise.

@@ -18,7 +18,27 @@ test('home artwork covers its frame and desktop statuses stay on one line',async
    const image=Array.from(tile.querySelectorAll('img')).find(img=>img.getBoundingClientRect().width>0)!;
    const a=tile.getBoundingClientRect(),b=image.getBoundingClientRect();return {top:b.top-a.top,left:b.left-a.left,right:b.right-a.right,bottom:b.bottom-a.bottom};
   }));
+  const alignment=await page.evaluate(()=>{
+   const hero=document.querySelector('.hero-story')!.getBoundingClientRect();
+   const heading=document.querySelector('#work .work-title')!.getBoundingClientRect();
+   return Math.abs(hero.left-heading.left);
+  });
+  expect(alignment,`${width}px shared content alignment`).toBeLessThan(1);
   for(const edges of geometry){expect(edges.top).toBeLessThanOrEqual(.1);expect(edges.left).toBeLessThanOrEqual(.1);expect(edges.right).toBeGreaterThanOrEqual(-.1);expect(edges.bottom).toBeGreaterThanOrEqual(-.1);}
   if(width>760){const positions=await page.locator('.status-row>span').evaluateAll(items=>items.map(el=>el.getBoundingClientRect().top));expect(Math.max(...positions)-Math.min(...positions)).toBeLessThan(1);}
+ }
+});
+
+test('FX detail panels have Retina sources and do not overlap the overview',async({page})=>{
+ await page.emulateMedia({reducedMotion:'reduce'});
+ for(const width of [390,1440,1920]){
+  await page.setViewportSize({width,height:1000});await page.goto('/fx');
+  const overview=(await page.locator('.fx-hero-overview').boundingBox())!;
+  for(const selector of ['.fx-hero-ticket','.fx-hero-compare']){
+   const panel=page.locator(selector);const rect=(await panel.boundingBox())!;
+   expect(rect.y).toBeGreaterThanOrEqual(overview.y+overview.height+15);
+   const largest=await panel.locator('source').first().evaluate(el=>Math.max(...(el.getAttribute('srcset')||'').split(',').map(item=>Number(item.trim().split(' ').at(-1)?.replace('w','')))));
+   expect(largest).toBeGreaterThanOrEqual(rect.width*2);
+  }
  }
 });

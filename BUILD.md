@@ -408,3 +408,11 @@ I gave every stage a different song arrangement: swung harbour melody, campus wa
 I removed the redundant Figma-design caption under the FX hero after my final review. The main project-status explanation and detailed source links remain in the case study.
 
 I reduced the body font from three weight downloads to one local variable file while keeping the same type and supported weights. Phone entrances use small opacity and position changes, with a slightly quicker avatar arrival; desktop title masks and scroll masks stay in place. This reduces startup work on slower phones.
+
+### Home motion, image detail and map markers
+
+I made my home title and introduction respond from the first scroll, with staggered words and separate copy depth that reverse when I scroll back. The work captions now animate as the captions enter view, rather than finishing below the screen. My avatar scene has more visible depth, and reduced motion restores a still page.
+
+I aligned Selected work and its gallery with the introduction and exported sharper original FX panels and Winking Star cover compositions from Figma without editing the file. Responsive images now retain source detail for large and Retina displays. The FX overview, ticket and comparison have clear space between them. My first company stage uses a computer-work badge, while universities show their own buildings and completed stages retain their ticks.
+
+I made the shared stylesheet cacheable between pages instead of embedding the entire design system in every HTML response. The home document is now about 64KB rather than 194KB before compression, and the intro flows a little faster from words to scene to greeting.

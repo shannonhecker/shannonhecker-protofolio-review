@@ -3,6 +3,7 @@
 // fallback, width-based srcset, explicit width/height, lazy unless told not to.
 import { Picture } from 'astro:assets';
 import { img } from '../lib/img';
+import { imageWidths } from '../lib/image-widths';
 
 interface Props {
   name: string;
@@ -13,13 +14,14 @@ interface Props {
 }
 const { name, alt, sizes = '(max-width: 1100px) 100vw, 70vw', widths, eager = false } = Astro.props;
 const src = img(name);
-const w = widths ?? [480, 800, 1200, 1600].filter((x) => x < src.width).concat(src.width < 1600 ? [src.width] : []);
+const w = widths ? [...new Set(widths.map(width=>Math.min(width,src.width)))] : imageWidths(src.width);
 ---
 <Picture
   src={src}
   alt={alt}
   style={`--source-width:${src.width}px;--source-ratio:${src.width / src.height};aspect-ratio:auto ${src.width} / ${src.height}`}
   formats={['avif', 'webp']}
+  quality={85}
   fallbackFormat={src.format === 'png' ? 'png' : 'jpg'}
   widths={w}
   sizes={sizes}

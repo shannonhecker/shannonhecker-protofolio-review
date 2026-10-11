@@ -8,7 +8,7 @@ import { LEVELS } from './levels';
 import { THEMES, playerFrames, helmet, pet, scooter, type Theme } from './art';
 import { FOES, type Foe } from './enemies';
 import { text, textWidth } from './pixel';
-import { mapBase, NODES, labelAt, BRAND, SCHOOL_ICONS, LOGO_ICONS, SELECT_RINGS } from './map';
+import { mapBase, NODES, labelAt, BRAND, SCHOOL_ICONS, LOGO_ICONS, SELECT_RINGS, workIcon } from './map';
 import { ACHIEVEMENTS } from '../lib/achievements';
 import { CHAPTERS, chapterOf, stageCode } from '../lib/journey';
 import { sfx, setMusicPlaying, setMusicStage, setPowerMusic, audioState } from './sound';
@@ -574,6 +574,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   const base = mapBase();
   const schools: Record<number, HTMLCanvasElement> = Object.fromEntries(Object.entries(SCHOOL_ICONS).map(([k, f]) => [k, f()]));
   const logos: Record<number, HTMLCanvasElement> = Object.fromEntries(Object.entries(LOGO_ICONS).map(([k, l]) => [k, l.icon()]));
+  const firstCompany=workIcon();
   function drawMap() {
     const plate = illustrated('world-map');
     if (plate) ctx.drawImage(plate, 0, 0, HUD_W, HUD_H);
@@ -621,8 +622,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       const brand = BRAND[i];
       ctx.fillStyle = hover ? '#fff8dc' : sel ? '#ef9e55' : brand ? brand.bg : '#2b3654'; ctx.fillRect(x - 11, y - 11, 22, 22);
       ctx.fillStyle = LOGO_ICONS[i]?.bg ?? mapIcons[i].sky; ctx.fillRect(x - 9, y - 9, 18, 18);
-      const ic = logos[i] ?? schools[i] ?? mapIcons[i].pickup[0]; // schools show their buildings; Barclays its eagle
-      if (logos[i] || !drawIllustration(ctx, i === 7 ? 'star' : i === 6 ? 'gem' : i === 0 ? 'heart' : 'journal', x, y + 8, 16, 16))
+      const ic = logos[i] ?? schools[i] ?? (i===2?firstCompany:mapIcons[i].pickup[0]);
+      if (logos[i] || schools[i] || i===2 || !drawIllustration(ctx, i === 7 ? 'star' : i === 6 ? 'gem' : i === 0 ? 'heart' : 'journal', x, y + 8, 16, 16))
         ctx.drawImage(ic, Math.round(x - ic.width / 2), Math.round(y - ic.height / 2));
       if(locked){ctx.fillStyle='#17202e';ctx.fillRect(x-10,y-10,20,20);ctx.strokeStyle='#d2d7df';ctx.lineWidth=2;ctx.strokeRect(x-4,y-7,8,8);ctx.fillStyle='#d2d7df';ctx.fillRect(x-6,y-2,12,10);ctx.fillStyle='#17202e';ctx.fillRect(x-1,y+1,2,4);}
       // A check is a completed stage; the gold star is its optional mission.
