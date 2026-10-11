@@ -6,28 +6,14 @@ const original = '/art/fx-original-decision-loop.png';
     <img src={original} width="3057" height="2667" loading="lazy" decoding="async" alt="Original FX decision loop: watch order progress and fill prices, assess schedule and benchmarks, then remain passive or intervene. The complete branches are transcribed below." />
   </a>
   <figcaption>Original design exploration · The decision loop · <a href="https://www.figma.com/design/17Rsi3vWFtaYwlrRf5iO8E/Interview-Presentation-2026?node-id=2068-1681" target="_blank" rel="noopener">View the Figma source<span class="vh"> (opens in a new tab)</span> ↗</a></figcaption>
-  <details>
-    <summary>Read the decision loop</summary>
-    <div class="flow-transcript">
-      <p><strong>Working Order Live → Watch the canvas.</strong> % done vs schedule, fills vs market.</p>
-      <ul>
-        <li><strong>% Done On Schedule?</strong> On schedule → Watch the canvas. Behind → Avg Fill Inside Benchmarks (ARR · TWAP)?</li>
-        <li><strong>Acceptable → Stay Passive:</strong> let resting limits work → keep working → Watch the canvas.</li>
-        <li><strong>Adverse → How To Intervene?</strong> Reprice: drag the limit line. Stage an order: drag the BID pill. Fill now: take liquidity. Cross-filter venues: exclude poor fills. Each leads to Filled, Post-Trade Review.</li>
-        <li><strong>Hatched Band On:</strong> delayed, suspended, or outside limit → Reprice, Or Accept The Wait → keep watching. Session ends → Cutoff, Fill Now, Or Carry The Risk.</li>
-      </ul>
-    </div>
-  </details>
 </figure>
 <style>
-  .fx-original-flow { margin: 0 0 32px; min-width: 0; }
+  .fx-original-flow { margin: 0; min-width: 0; }
   .diagram-image { display: block; width: 100%; padding: 0; border: 0; background: #111418; }
   .diagram-image :global(picture) { display: block; width: 100%; }
   .diagram-image :global(img) { display: block; width: 100%; height: auto; max-height: none; aspect-ratio: auto 3057 / 2667; object-fit: contain; border-radius: 0; }
   figcaption { margin-top: 16px; font-size: 13px; line-height: 1.6; color: var(--fg-2); }
-  details { margin-top: 20px; border-top: 1px solid var(--hair); padding-top: 16px; }
-  summary { cursor: pointer; font-size: 15px; font-weight: 600; }
-  .flow-transcript { padding-top: 16px; font-size: 15px; line-height: 1.7; }
+
   .flow-transcript ul { padding-left: 1.3em; display: grid; gap: 12px; }
   .flow-transcript li { display: list-item; padding: 0; border: 0; background: none; }
 </style>

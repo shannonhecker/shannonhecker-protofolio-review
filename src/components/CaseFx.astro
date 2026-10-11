@@ -16,11 +16,12 @@ import ProductCapture from './ProductCapture.astro';
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
 import ResponsiveEvidence from './ResponsiveEvidence.astro';
-import DecisionMap from './dg/DecisionMap.astro';
+import DecisionMap from './dg/AuthoredDecisions.astro';
 import FxOriginalFlow from './dg/FxOriginalFlow.astro';
-import FxPersonas from './dg/FxPersonas.astro';
+import Personas from './dg/AuthoredPersonas.astro';
 import FxDesignEvidence from './FxDesignEvidence.astro';
-import FxJourney from './dg/FxJourney.astro';
+import Journey from './dg/AuthoredJourney.astro';
+import FxJourneyPlot from './dg/FxJourneyPlot.astro';
 
 import Flow from './dg/Flow.astro';
 import Layers from './dg/Layers.astro';
@@ -83,11 +84,10 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           caption="The same four branches as my Figma diagram, with selectable text and a stacked layout on smaller screens."
         />        </details>
 
-        <FxPersonas />
+        <Personas project="fx" />
+        <Journey project="fx"><FxJourneyPlot slot="plot" /></Journey>
       </div>
     </div>
-
-    <FxJourney />
 
     <div class="beat rv" id="fx-constraints">
       <div class="label"><HL class="k"><b>03</b> Constraints</HL></div>

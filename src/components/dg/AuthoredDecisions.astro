@@ -8,11 +8,11 @@ const {project}=Astro.props;const data=content[project];
 ---
 <section class="authored-decisions" id={`${project}-decision-map`} aria-labelledby={`${project}-decision-map-title`}>
  <header class="process-heading"><h3 id={`${project}-decision-map-title`}>Decision map</h3><p>The calls, what I tried instead, and what each one cost.</p></header>
- <figure class="authored-flow"><div class="authored-flow-scroll" tabindex="0" role="region" aria-label="Decision flow, scroll horizontally to explore">{project==='deal'?<DealDecisionFlow/>:<AuthoredDecisionFlow project={project}/>}</div>
+ <figure class="authored-flow"><div class="authored-flow-scroll" tabindex="0" role="region" aria-label="Decision flow, scroll horizontally to explore">{Astro.slots.has('flow')?<slot name="flow"/>:project==='deal'?<DealDecisionFlow/>:<AuthoredDecisionFlow project={project as 'fusion'|'ai'|'winking'}/>}</div>
  <details><summary>Read the flow</summary><ul>{data.decisionFlowText.map(t=><li>{t}</li>)}</ul></details></figure>
  <ol class="authored-decision-list">{data.decisions.map((d,i)=><li>
   <h4><span>{String(i+1).padStart(2,'0')}</span>{d.title}</h4>
-  <div class="authored-choice-pair">{d.choices.map((c,j)=><figure><p class="authored-choice-label">{j===0?'I chose':'Alternative'}</p><AuthoredImage name={c.image} alt={c.label} sizes="(max-width:760px) 90vw, 43vw"/><figcaption>{c.label}</figcaption></figure>)}</div>
+  <div class="authored-choice-pair">{d.choices.map((c,j)=><figure><p class="authored-choice-label">{j===0?'I chose':'Alternative'}</p><AuthoredImage name={c.image} alt={'alt' in c?c.alt:c.label} sizes="(max-width:760px) 90vw, 43vw"/><figcaption>{c.label}</figcaption></figure>)}</div>
   <div class="authored-decision-reason"><p>{d.reason}</p><dl><div><dt>Trade-off</dt><dd>{d.tradeoff}</dd></div><div><dt>Outcome</dt><dd>{d.outcome}</dd></div></dl></div>
  </li>)}</ol>
 </section>

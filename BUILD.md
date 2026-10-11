@@ -504,3 +504,14 @@ A Lighthouse, axe, keyboard and security pass on the live site found no violatio
 - The FX chart legend and the brand palette blocks had a label on a plain container, which ARIA does not allow. They are groups now, so the label has something to attach to.
 - Phones get an 800 pixel image candidate for the hero and authored images instead of jumping from 640 to 960 or 1280. Lighthouse had flagged 20 to 30 KB per hero as oversized on mobile and no longer does. The largest paint time itself did not move measurably in the sandbox, so this is bytes saved, not a faster score.
 - Checks: build and Astro check pass. The axe, evidence, Figma-sync and polish suites pass apart from the product-recording playback check, which fails the same way on main here. Lighthouse mobile on the four hero pages stays in the 95 to 98 band it was in, with FX on the line at 94 to 96 across runs.
+
+### 11 October · FX on the shared blocks
+
+The design review found that FX, the first case the panel opens, was built on an older template than the other four. Its journey ran full width on a dark chart with five coloured stage bands, its headings had no accent bar, its labels were sentence case where the others are capitals, its decision cards had no Trade-off and Outcome columns, and it had no Opportunities, Insight, Who was in the room and How I measure it block.
+
+FX now uses the same persona, journey and decision blocks as Fusion, Winking Star, Deal Model and uoaui, fed from the same content file. The words are the words that were already on the page, moved into the shared structure. Two things are new, and both are mine to check: a "What the system does" line under each journey stage, written from the product behaviour the case already describes, and the Trade-off and Outcome lines on the three decisions, taken from the existing verdicts.
+
+- The journey plot is still my vector, not a flattened export. It sits on the shared white panel, so the stems and loop arrows that were drawn white for the dark panel take the ink colour instead. The original decision loop stays as the flow figure, with its transcript in the shared "Read the flow" disclosure.
+- The journey moved inside the research beat, at the reading width the other cases use, instead of a full-width band of its own.
+- Image descriptions for the six decision charts are kept through a new optional alt field on a choice.
+- Checks: build and Astro check pass. The figma-sync, heading and axe suites pass; the FX decision test now measures alignment against the chart card edge, which is what the shared block aligns. Blocks checked visually at 1440 and 390.
