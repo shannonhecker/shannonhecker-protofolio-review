@@ -629,3 +629,11 @@ I removed the vertical colour bars beside journey phase headings across the case
 Validation: type check and production build, desktop and mobile visual checks, and the browser suite. The persona check now expects my revised uoaui.ai card colour.
 
 I repaired the uoaui.ai desktop and mobile Figma spacing using content columns with consistent gaps. Empty caption space and legacy duplicate mobile persona content are hidden. The artwork, image fills and copy remain intact. I checked the resulting section bounds and both persona layouts.
+
+### 11 October · Current Winking screens and tighter personas
+
+I brought in my updated Winking Star iPhone screens and original theme artwork, then compared the app's four tabs with the web's weekly board. The web captures use my original components with fictional sample data. I found and recorded the web, iOS and shared source repositories so the images can be traced back to their originals.
+
+I tightened the type and spacing in all fifteen persona cards and kept my updated portraits and colours. Fusion's opening Performance image now uses the current Figma screenshot; its detailed vector screens remain in the design section. The Fusion and Winking portraits now match the latest Figma assets.
+
+I also created a current completion checklist. Distinct project journeys, the newly supplied Deal Model images, interview voice review and final whole-site design audit remain queued; this release does not claim those are finished.

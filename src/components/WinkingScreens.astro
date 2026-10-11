@@ -1,22 +1,36 @@
 ---
 import Pic from './Pic.astro';
-import { img } from '../lib/img';
-const screens=['home','activity','treasure','progress'];
+const screens=[
+ {name:'ws-current-home.png',title:'Home: the family view',copy:'A parent can see today’s progress and each child’s space before opening an activity.',alt:'Updated iPhone Home screen with the Sample Family and child cards'},
+ {name:'ws-current-activity.png',title:'Activity: the next small action',copy:'Switch children, find today and tap a large activity target. The week stays close by.',alt:'Updated iPhone Activity screen with child switcher, weekly stars and today’s activities'},
+ {name:'ws-current-treasure.png',title:'Treasure: something to keep',copy:'Discoveries and collected pets give the completed routines a visible history.',alt:'iPhone Treasure screen from the original app source with fictional Sample Family data'},
+ {name:'ws-current-progress.png',title:'Progress: recognise the effort',copy:'Badges and quests make the week legible beyond a single total.',alt:'Updated iPhone Progress screen with badge trail and special quests'},
+];
 ---
-<section class="screen-sequence" aria-labelledby="ws-appstore-screens">
- <h2 id="ws-appstore-screens">The app, from first routine to weekly progress</h2>
- <p class="muted">The four published iPhone screenshots from Winking Star v1.0.4 on the App Store.</p>
- <div class="store-screen-grid">
-  {screens.map(screen=><figure><a href={img(`appstore-iphone-${screen}.jpg`).src} target="_blank" rel="noopener" aria-label={`View full-size ${screen} App Store screenshot (opens in new tab)`}><Pic name={`appstore-iphone-${screen}.jpg`} alt={`Published Winking Star iPhone ${screen} screenshot`} sizes="(max-width:760px) 42vw, 280px" /></a><figcaption>{screen.charAt(0).toUpperCase()+screen.slice(1)}</figcaption></figure>)}
+<section class="ws-product-sequence" aria-labelledby="ws-product-comparison">
+ <h3 id="ws-product-comparison">The same routine, adapted to the screen</h3>
+ <div class="ws-platform-comparison">
+  <div><h4>Web: the week together</h4><p>The chart keeps activities, days and totals in one view. Stars, the pet and the reward goal stay on the same board.</p></div>
+  <div><h4>iPhone: one task at a time</h4><p>Four main tabs separate the family overview, daily actions, collection and progress. More holds the supporting controls.</p></div>
  </div>
- <h3>Room for the family on iPad</h3>
- <div class="tablet-screen-grid">
-  {['home','activity'].map(screen=><figure><a href={img(`appstore-ipad-${screen}.png`).src} target="_blank" rel="noopener" aria-label={`View full-size iPad ${screen} screenshot (opens in new tab)`}><Pic name={`appstore-ipad-${screen}.png`} alt={`Published Winking Star iPad ${screen} screenshot`} sizes="(max-width:760px) 90vw, 580px" /></a><figcaption>iPad · {screen}</figcaption></figure>)}
+ <figure class="ws-web-full"><Pic name="ws-web-board.jpg" alt="Complete current Winking Star web board with weekly activity chart and Stars and Pet section, rendered from the original source using fictional sample data" sizes="(max-width:760px) 92vw, 980px" /></figure>
+ <h3>The iPhone flow</h3>
+ <div class="ws-app-steps">{screens.map(s=><figure><Pic name={s.name} alt={s.alt} sizes="(max-width:600px) 80vw, 340px"/><figcaption><h4>{s.title}</h4><p>{s.copy}</p></figcaption></figure>)}</div>
+ <div class="ws-mobile-comparison">
+  <div><h3>Recognisable on a smaller screen</h3><p>The web keeps the weekly chart. The iPhone app gives the daily action its own tab. I compare both against the same questions: can a child find their place, can an adult see what is done, and can they continue without learning a second routine?</p></div>
+  <figure><Pic name="ws-web-mobile.jpg" alt="Responsive Winking Star web board on a phone using fictional sample data" sizes="(max-width:760px) 80vw, 340px"/></figure>
  </div>
- <h3>English and French</h3>
- <p class="muted">Localized App Store artwork from my app project. These are marketing compositions, shown separately from direct in-app captures.</p>
- <div class="localised-screen-grid">
-  {[['appstore-iphone-activity.jpg','English'],['ws-fr-iphone-02-activity.png','French']].map(([file,label])=><figure><a href={img(file).src} target="_blank" rel="noopener" aria-label={`View full-size ${label} artwork (opens in new tab)`}><Pic name={file} alt={`${label} Winking Star activity artwork`} sizes="(max-width:760px) 42vw, 320px" /></a><figcaption>{label} · App Store artwork</figcaption></figure>)}
- </div>
- <p class="source-link"><a href="https://apps.apple.com/app/id6765767262" target="_blank" rel="noopener">View Winking Star on the App Store<span class="vh"> (opens in new tab)</span></a></p>
 </section>
+<style>
+.ws-product-sequence{display:grid;gap:40px;margin-top:48px;min-width:0}
+.ws-product-sequence h3{font-size:28px;line-height:1.25;margin:0;letter-spacing:-.025em}
+.ws-product-sequence h4{font-size:18px;line-height:1.4;margin:0 0 12px;letter-spacing:-.01em}
+.ws-product-sequence p{font-size:16px;line-height:1.65;color:var(--fg-2);max-width:50ch;margin:0}
+.ws-platform-comparison,.ws-app-steps,.ws-mobile-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 40px}
+.ws-platform-comparison>div{border-top:1px solid var(--divider);padding-top:20px}
+.ws-product-sequence figure{margin:0;min-width:0}.ws-product-sequence :global(img){display:block;width:100%;height:auto;object-fit:contain;border:0;border-radius:4px}
+.ws-web-full{max-width:980px;width:100%;justify-self:center}
+.ws-app-steps figure{max-width:340px;width:100%;justify-self:center}.ws-app-steps figcaption{margin-top:24px}
+.ws-mobile-comparison{align-items:center;margin-top:32px}.ws-mobile-comparison figure{max-width:340px;justify-self:center}.ws-mobile-comparison h3{margin-bottom:20px}.ws-mobile-comparison .ws-source-note{font-size:13px;margin-top:24px}
+@media(max-width:600px){.ws-platform-comparison,.ws-app-steps,.ws-mobile-comparison{grid-template-columns:1fr;gap:36px}.ws-product-sequence{gap:32px}.ws-product-sequence h3{font-size:24px}}
+</style>
