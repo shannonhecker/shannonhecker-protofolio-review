@@ -125,3 +125,36 @@ Finale weapon: starlight wand is equipped in stage 7. X/J, gamepad button 2, or 
 Latest instruction: finish the website changes and push them all live; Claude is independently improving Figma, so do not overwrite those frames. Website scroll motion uses the existing GSAP ScrollTrigger plugin, loaded on first scroll. Reversible masked words and staggered image/caption timelines use shorter touch movement and matchMedia cleanup for reduced motion. Keep product screenshots complete. The home intro uses a ~1.3s sequence; derive elapsed time from document.timeline and animation.startTime, because finished animation.currentTime is clamped.
 
 Music scores live in `src/game/music-score.ts`: eight stage songs plus a map waltz, each with original phrasing, metre, bass and percussion. Stage switching stops all old music voices and resets the score; tests observe Web Audio scheduling rather than only track names. Baby milestones are **2018 and 2021**, per Shannon's correction on 11 October.
+
+## Continuation update, 11 October 2026 afternoon (handing to Codex)
+
+Where main stands after PRs #32 to #37, all merged and live at the private Vercel link:
+
+- `#32` voice and consistency pass; honest test records under the FX and Fusion decision maps; Deal Model names sanitised in the working Figma file.
+- `#33` home work tiles hold still while focused (the scroll-motion test is green again).
+- `#34` silent recordings carry a visible description; the FX legend and brand palette are `role="group"`; an 800px image candidate for phones.
+- `#35` footer tightened (top-aligned columns, single row margin, grouped legal row, "FX analytics, rebuild"); the floating Sections opener hides once the footer is in view.
+- `#36` FX moved onto the shared persona, journey and decision blocks. All five cases now render from `src/data/authored-content.json` through `dg/AuthoredPersonas`, `dg/AuthoredJourney` and `dg/AuthoredDecisions`. FX keeps its vector journey plot through the `plot` slot (`dg/FxJourneyPlot.astro`) and the original decision loop through the `flow` slot (`dg/FxOriginalFlow.astro`). A decision choice may carry an optional `alt`.
+- `#37` the thirteen Deal Model screens under `src/assets/img/figma-sync/source-242-*.png` re-exported from the sanitised Figma slots (page "07 · Deal Model", nodes 242:530 to 242:590, PNG at scale 3.3846 = 2200px wide).
+
+Audits run on 11 October, all on the built site: Lighthouse 95 to 100 on every page, mobile and desktop; axe zero violations at 390 and 1440 in both themes; keyboard focus visible on every stop; no security findings (headers, CSP, HMAC run tokens, same-origin API checks all in place).
+
+### Open items, in priority order
+
+1. Facts only Shannon can supply: Winking Star App Store Connect numbers (downloads, countries, 30-day retention, date range) and the release or quarter of the Fusion "zero violations" audit. Until then the site says "no numbers yet" and must keep saying so.
+2. Deal Model hero and home index tile. The current screen is four table rows over white space. Use the pricing grid or the compare grid, cropped to content, on both.
+3. Home page titles render in Inter; case titles render in Inter Tight. The rule is Inter Tight for titles. Check `src/styles/editorial.css` and `type-rhythm.css` for the home `h1`, `.work-title` and `#work .row h3`.
+4. Hero framing differs per case: FX floats panels, Fusion and uoaui use a tinted surface with a caption row, Winking Star a peach surface, Deal Model a bare screenshot. Pick the Fusion treatment and apply it to FX and Deal Model.
+5. Deal Model eyebrow has no dates where the other four do. Shannon's own estimate is roughly 2022 to 2023, six phases to January 2024. Confirm with her before writing a year.
+6. Type scale has sprawled (body at 12 to 20px in eight steps, h3 at 28 to 56px in six). Consolidate when touching those styles, not as its own project.
+7. `docs/VISUAL-PASS.md` and `docs/EDITORIAL-POLISH.md` still describe a white default page; the site opens dark since PR #26. Record the decision in those docs.
+8. `tests/game.spec.ts` "world 7 (ai) can be finished" is a wall-clock flake: the bot waits in milliseconds, so a loaded runner misses jumps. It fails 2 of 3 runs on main in the sandbox and occasionally in CI. Fix by stepping the bot on game ticks (expose a frame counter on `window.__game()`) rather than `waitForTimeout`. Diagnosis is on PR #33.
+
+### Things that will bite a new session
+
+- The cloud sandbox could not reach `figma.com` until Shannon allowed it in the environment's network settings on 11 October. If `curl https://www.figma.com` returns 000 through the proxy, that setting has reverted; the Figma MCP tools still work for reading and editing, only downloads fail.
+- The Figma MCP `use_figma` return value is capped at 20 KB, so never try to pass image bytes through it. Use `download_assets` and curl the short-lived URL.
+- `tests/portfolio-evidence.spec.ts:91` (video playback) fails in the sandbox and passes in CI. Not a regression.
+- Every PR appends to `BUILD.md`, so two open PRs conflict there. Merge main into the later branch and keep both entries, main's first.
+- CI's `build-test` takes about 16 minutes because of the fourteen Lighthouse runs. The run status is readable without credentials at `api.github.com/repos/shannonhecker/shannonhecker-protofolio-review/actions/runs`.
+- Lighthouse scores in the sandbox drop when two audits overlap. A single mobile run of the home page scored 84 under load and 96 to 98 alone. Re-run before believing a low number.
