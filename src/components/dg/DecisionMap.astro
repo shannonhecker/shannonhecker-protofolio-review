@@ -18,7 +18,7 @@ const fxDescriptions = [
 ];
 ---
 <section class:list={['decision-map', {'authored-fx': project === 'fx'}]} aria-labelledby={`${project}-decision-map-title`} id={`${project}-decision-map`}>
-  <header class="process-heading"><h3 id={`${project}-decision-map-title`}>Decision map</h3><p>I have pulled the choices and trade-offs below into one view.</p></header>
+  <header class="process-heading"><h3 id={`${project}-decision-map-title`}>Decision map</h3><p>The calls, what I tried instead, and what each one cost.</p></header>
   <slot name="flow"><DecisionFlow project={project} /></slot>
   <ol class="visual-decisions">{decisions[project].map((d,i) => <li>
     <div class="choice-origin"><span aria-hidden="true">{String(i+1).padStart(2,'0')}</span><h4>{d.question}</h4></div>

@@ -43,7 +43,7 @@ research evidence.
 | P06 | Working Order craft and controls | Complete | Cover, map and Kaohsiung art refined; all eight stages, missions, keyboard, touch, fullscreen, Escape, picker and Sound regression checks passed |
 | P07 | UX artifacts for all current cases | Complete | Discoverable problem, users/personas, journey, flow and decision views; source-backed role summaries and explicit AI working assumptions |
 | P08 | Winking Star co-parent flow | Complete | Shared board and approved offline behavior; no invented conflict-resolution rule; unconfirmed and superseded deck claims excluded |
-| P09 | Corporate Action Manager, Deal Model, Data Solution | Next separate feature | Exact source notes located in `FIGMA-AUDIT.md`; historical public-image selection and new case implementation remain future work |
+| P09 | Corporate Action Manager, Deal Model, Data Solution | Deal Model complete; CAM and Data Solution future | Deal Model is case 04 with four composite roles, experience map, six decisions, state matrix and thirteen design-file screens; Corporate Action Manager and Data Solution remain future cases with source notes in `FIGMA-AUDIT.md` |
 | P10 | Iterative visual self-inspection | Complete for this pass | Main reviewed home, four cases, build page, map and Kaohsiung; 1440px desktop and 390px mobile screenshots, automated 320/820 checks; fixes recorded in `QUALITY.md` |
 | P11 | Fresh local validation | Passed | Build eight routes; Astro 63 files, zero errors/warnings/hints; 78 Playwright tests passed. All ten Lighthouse runs passed; final seven-test media rerun passed after the Winking opacity adjustment |
 | P12 | Quality, source and build records | Complete | `QUALITY.md` removes stale self-scores; `MEDIA-SOURCES.md`, `FIGMA-AUDIT.md`, handoff and `BUILD.md` reflect this pass |
@@ -584,9 +584,9 @@ Actual remaining essentials:
   still unavailable for several cases; Fusion/uoaui complete edge-state proof
   remains limited. Do not mark every official Revolut criterion fully satisfied
   just because all sections exist. Keep the exact source/status caveats.
-- **Scope boundary:** the current deliverable covers the four published cases.
-  Corporate Action Manager, Deal Model and Data Solution remain separate future
-  cases; do not imply the entire historical portfolio has been rebuilt.
+- **Scope boundary:** the current deliverable covers the five published cases.
+  Corporate Action Manager and Data Solution remain separate future cases; do
+  not imply the entire historical portfolio has been rebuilt.
 
 The 320px and tablet layout defects have been locally corrected and inspected,
 including intact Winking hero image proportions. Current verification must

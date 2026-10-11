@@ -7,7 +7,7 @@ const items = journeys[project] ?? [];
 const pictures = { fx:['chart','dual','ticket','compare'],fusion:['cube','filter','widgets','report'],ai:['prompt','systems','tune','code'],winking:[] };
 ---
 <section class="process-journey" aria-labelledby={`${project}-journey-title`} id={`${project}-journey`}>
-  <header class="process-heading"><h3 id={`${project}-journey-title`}>User journey</h3><p>{project === 'ai' ? 'I have mapped the intended journey through the alpha, with the person deciding before export.' : 'I have mapped the task, friction and design response described in this case.'}</p></header>
+  <header class="process-heading"><h3 id={`${project}-journey-title`}>User journey</h3><p>{project === 'ai' ? 'The journey through the alpha, with the person deciding before anything exports.' : 'The task, where it broke, and what the design does about it.'}</p></header>
   <ol class="journey-route">{items.map((s, i) => <li>
     <div class="route-station"><span class="route-number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><Schematic kind={pictures[project][i]} /><h4>{s.stage}</h4><p class="route-action">{s.action}</p></div>
     <div class="route-resolution">
