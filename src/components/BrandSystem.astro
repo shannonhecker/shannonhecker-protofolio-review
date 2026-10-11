@@ -28,7 +28,7 @@ const palette=ai?[
    <p class="brand-type-label">{ai?'Brand typography: Bricolage Grotesque · Inter · IBM Plex Mono. Component typography: Inter in my own system; system-native type in the others.':'Typography: Nunito for both display and body. Shared family tokens keep the rounded character consistent across surfaces.'}</p>
   </div>
  </div>
- <div class="brand-palette" aria-label="Design-system colour palette">
+ <div class="brand-palette" role="group" aria-label="Design-system colour palette">
   {palette.map(([name,hex,role])=><div class="brand-swatch"><span class="brand-colour" style={`background:${hex}`} aria-hidden="true"></span><h4>{name}</h4><p>{role}<br/><code>{hex}</code></p></div>)}
  </div>
  <p class="brand-source-note">{ai?'Current landing-page palette. The component library has separate light and dark semantic tokens.':'Current native-app palette. Earlier earthy brand explorations on my old site use a different palette.'}</p>
