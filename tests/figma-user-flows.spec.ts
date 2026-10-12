@@ -9,7 +9,7 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
   await page.goto(route);
   const consent=page.getByRole('button',{name:'No thanks'});if(await consent.isVisible())await consent.click();
   const flow=page.locator('.figma-user-flow');const region=flow.locator('.user-flow-scroll');
-  for(const width of [390,1440]){
+  for(const width of [320,390,760,1440]){
    await page.setViewportSize({width,height:900});
    for(const theme of ['light','dark']){
     const toggle=page.getByRole('switch',{name:'Dark mode'});if((await toggle.getAttribute('aria-checked')==='true')!==(theme==='dark'))await toggle.click();
@@ -19,8 +19,16 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
     const s=await img.evaluate((n:HTMLImageElement)=>({w:n.clientWidth,h:n.clientHeight,nw:n.naturalWidth,nh:n.naturalHeight}));
     expect(Math.abs(s.w/s.h-s.nw/s.nh)).toBeLessThan(.01);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
-    if(width===390){
-     expect(s.w).toBe(1120);await region.focus();const before=await region.evaluate(n=>n.scrollLeft);await page.keyboard.press('ArrowRight');await expect.poll(()=>region.evaluate(n=>n.scrollLeft)).toBeGreaterThan(before);
+    if(width<=760){
+     expect(s.w).toBeLessThanOrEqual(width);
+     expect(await region.evaluate(n=>n.scrollWidth-n.clientWidth)).toBeLessThanOrEqual(1);
+     await flow.getByRole('button',{name:'Enlarge map',exact:true}).click();
+     await expect.poll(()=>img.evaluate(n=>n.clientWidth)).toBe(1120);
+     await expect.poll(()=>region.evaluate(n=>Math.abs(n.scrollLeft-(n.scrollWidth-n.clientWidth)/2))).toBeLessThan(2);
+     await region.focus();const before=await region.evaluate(n=>n.scrollLeft);await page.keyboard.press('ArrowRight');await expect.poll(()=>region.evaluate(n=>n.scrollLeft)).toBeGreaterThan(before);
+     await flow.getByRole('button',{name:'Fit to screen',exact:true}).click();
+     await expect(flow.getByRole('button',{name:'Enlarge map',exact:true})).toHaveAttribute('aria-pressed','false');
+     expect(await region.evaluate(n=>n.scrollWidth-n.clientWidth)).toBeLessThanOrEqual(1);
     }
    }
   }

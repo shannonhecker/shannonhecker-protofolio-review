@@ -801,3 +801,9 @@ I brought Winking Star's introduction into the same label and content grid as th
 I removed the old Winking-only page styling hook so case headings, row labels and outcome figures use the shared typography and theme colours. The actual product demo and artwork retain their own identity.
 
 Validation: production build passes, Astro check reports zero errors and warnings, and all 204 browser tests pass. I checked desktop and phone layouts in both themes, including section alignment and the preserved transparent product hero.
+
+### Maps that fit phone screens · 12 October 2026
+
+I made the new decision maps and user flows fit the available width by default, so the whole diagram is visible on a phone. A shared Enlarge map control restores the readable detail view, centred on the main path with horizontal scrolling. Fit to screen returns to the overview. Both views follow the page theme and preserve the original graphic proportions.
+
+Validation: production build passes; Astro check reports zero errors and warnings; all 204 browser tests pass. Map checks cover 320, 390, 760 and 1440px widths in both themes, including the enlarge/fit controls in Chromium and iPhone WebKit.
