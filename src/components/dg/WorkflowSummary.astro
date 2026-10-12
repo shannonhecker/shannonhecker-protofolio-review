@@ -37,9 +37,9 @@ function illustration(svg:string){
 .summary-intro,.summary-caption{font-size:14px;line-height:1.65;color:var(--fg-2);margin:0 0 20px}
 .summary-caption{margin:20px 0 0;max-width:70ch}
 /* Exported at 336px: keep 20px headings and 16px copy at their authored scale. */
-ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:696px;gap:24px;list-style:none;padding:0;margin:0}
+ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:696px;gap:var(--space-card-row,40px) 24px;list-style:none;padding:0;margin:0}
 li{min-width:0;margin:0;padding:0}
-.summary-copy{padding:16px 0 8px}
+.summary-copy{padding:20px 0 0}
 .summary-copy h5{margin:0 0 8px;font-size:18px;line-height:1.4;font-weight:500;color:var(--fg)}
 .summary-copy p{margin:0;font-size:16px;line-height:1.6;color:var(--fg-2)}
 .summary-copy .summary-branch{margin-top:8px;font-size:14px}
@@ -47,5 +47,5 @@ li{min-width:0;margin:0;padding:0}
 .summary-dark{display:none}
 :global(html[data-theme=dark]) .summary-light{display:none}
 :global(html[data-theme=dark]) .summary-dark{display:block}
-@media(max-width:620px){ol{grid-template-columns:minmax(0,1fr);max-width:336px;gap:20px}.summary-heading{align-items:flex-start;flex-direction:column;gap:8px}.summary-heading h4{font-size:20px}}
+@media(max-width:620px){ol{grid-template-columns:minmax(0,1fr);max-width:336px;gap:32px}.summary-heading{align-items:flex-start;flex-direction:column;gap:8px}.summary-heading h4{font-size:20px}}
 </style>

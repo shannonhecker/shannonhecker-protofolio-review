@@ -965,3 +965,11 @@ Validation: production build and ten targeted browser checks pass across all fiv
 I removed the requested caregiver handoff link above the shared-board steps on Winking Star.
 
 Validation: production build and the Winking Star layout check pass.
+
+### Consistent spacing across the portfolio · 12 October 2026
+
+I reviewed the homepage and all five case studies at phone, tablet and desktop widths. Case summaries now have 32px top and bottom padding, more space under their labels, and consistent separation before the evidence note. I removed the negative margin that squeezed FX's delivery status against the preceding content.
+
+I consolidated case content spacing around 32px on smaller screens and 48px on desktop, removing doubled margins on diagrams and sections. Illustration captions have 20px separation from artwork, and card rows use 32px on smaller screens and 40px on desktop.
+
+Validation: production build and 17 browser checks pass, including all-page navigation and overflow, all five case summaries, diagram captions in both themes, and a new spacing regression check. The six-page audit reports no overlapping content blocks or horizontal overflow at 390px, 820px and 1440px. I inspected the corrected summary at phone and desktop sizes.

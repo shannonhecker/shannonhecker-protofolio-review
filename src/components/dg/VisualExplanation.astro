@@ -32,14 +32,14 @@ function illustration(svg:string){
 .explanation-heading h4{font-size:24px;line-height:1.4;font-weight:500;color:var(--fg);margin:0;max-width:32ch}
 
 /* Match the workflow cards' authored 336px width rather than enlarging SVG text. */
-ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:696px;gap:24px;list-style:none;padding:0;margin:0}
+ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:696px;gap:var(--space-card-row,40px) 24px;list-style:none;padding:0;margin:0}
 li{min-width:0;margin:0;padding:0}.explanation-art{width:100%;min-width:0}
-.explanation-copy{padding:16px 0 8px}
+.explanation-copy{padding:20px 0 0}
 .explanation-copy h5{margin:0 0 8px;font-size:18px;line-height:1.4;font-weight:500;color:var(--fg)}
 .explanation-copy p{margin:0;font-size:16px;line-height:1.6;color:var(--fg-2)}
 .explanation-art :global(svg){display:block;width:100%;height:auto;border-radius:var(--radius)}
 .explanation-art :global(text){font-family:Inter,Arial,sans-serif}
 .explanation-dark{display:none}:global(html[data-theme=dark]) .explanation-light{display:none}:global(html[data-theme=dark]) .explanation-dark{display:block}
 .explanation-caption{font-size:14px;line-height:1.7;color:var(--fg-2);margin:20px 0 0;max-width:75ch}
-@media(max-width:620px){ul{grid-template-columns:minmax(0,1fr);max-width:336px;gap:20px}.explanation-heading{flex-direction:column;align-items:flex-start;gap:8px}.explanation-heading h4{font-size:20px}}
+@media(max-width:620px){ul{grid-template-columns:minmax(0,1fr);max-width:336px;gap:32px}.explanation-heading{flex-direction:column;align-items:flex-start;gap:8px}.explanation-heading h4{font-size:20px}}
 </style>
