@@ -735,3 +735,11 @@ Final local validation passed: 149 browser tests in 53.6 seconds, including the 
 ### PR 49 release-test reliability
 
 The remote browser run exposed a test-driver problem on the AI game's narrow platforms. The trace showed the automated player overshooting a landing and returning to its checkpoint, rather than a blocked tile. The driver now reads the level's landing surfaces and brakes with ordinary keyboard input. Three consecutive completion runs passed; the engine, assistance settings, time budget and completion assertions are unchanged. The artwork motion test now waits for its existing settling condition instead of assuming a fixed delay is sufficient on a busy runner.
+
+### Mobile product images and dark-mode surrounds · 12 October 2026
+
+I made the product heroes fill their available column on phones. Winking Star's centred hero was shrinking to 117px in a 350px space; it now uses the full width without cropping the phones.
+
+The outer backdrops in my project compositions, individual Winking phone exports and home gallery now become transparent in dark mode. Light mode keeps the original colours. The screens themselves stay unchanged, and selecting an image still opens the full-resolution original. This uses the existing responsive images and adds no image downloads on a theme switch.
+
+Validation: Astro check reports 0 errors and 0 warnings, production build passes, and all 152 browser tests pass. The new checks cover five products at four widths, exact preservation of all 84 source/derivative SVGs, and rendered dark/light background pixels with unchanged phone-screen pixels.

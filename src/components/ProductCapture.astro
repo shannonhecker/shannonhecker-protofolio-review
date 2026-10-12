@@ -1,5 +1,6 @@
 ---
 import Pic from './Pic.astro';
+import { adaptiveArt } from '../lib/adaptive-art';
 interface Props { name: string; alt: string; href: string; label: string; eager?: boolean }
 const { name, alt, href, label, eager = false } = Astro.props;
 const vectorSizes: Record<string, [number, number]> = {
@@ -28,8 +29,8 @@ const delivery: Record<string,{directory:string;widths:number[];fallback:number}
 };
 const responsive = delivery[name];
 const stem = name.split('/').pop()?.replace('.svg', '');
-const displaySrc = responsive ? `/art/${responsive.directory}/${stem}-${responsive.fallback}.svg` : name;
-const displaySrcset = responsive ? responsive.widths.map(width => `/art/${responsive.directory}/${stem}-${width}.svg ${width}w`).join(', ') : undefined;
+const displaySrc = adaptiveArt(responsive ? `/art/${responsive.directory}/${stem}-${responsive.fallback}.svg` : name);
+const displaySrcset = responsive ? responsive.widths.map(width => `${adaptiveArt(`/art/${responsive.directory}/${stem}-${width}.svg`)} ${width}w`).join(', ') : undefined;
 
 ---
 <figure class:list={["product-capture", {"original-composition": name.endsWith("-composition.svg")} ]}>
