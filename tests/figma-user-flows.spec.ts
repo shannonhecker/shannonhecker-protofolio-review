@@ -35,10 +35,11 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
     }
    }
   }
-  await expect(flow.locator('.user-flow-transcript ol')).toBeVisible();
+  await expect(flow.locator('.user-flow-transcript')).toHaveCount(0);
+  await expect(flow.getByRole('heading',{name:'User flow in detail',exact:true})).toHaveCount(0);
+  await expect(flow.getByRole('heading',{name:'Actions, branches and returns',exact:true})).toHaveCount(0);
   await expect(flow.locator('details')).toHaveCount(0);
   await expect(flow.locator('.workflow-summary')).toBeVisible();
-  for(const node of content[project].nodes)await expect(flow.locator('.user-flow-transcript')).toContainText(node.title);
   await expect(flow.locator('.flow-tools a')).toHaveAttribute('href',new RegExp(maps.fileKey));
   await expect(flow.locator('.flow-scope')).toContainText(content[project].scope);
  });
