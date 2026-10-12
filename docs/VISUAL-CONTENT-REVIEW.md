@@ -19,3 +19,7 @@ Figma source: https://www.figma.com/design/l6noy7onfsRiuBgjqSsKbt?node-id=463-93
 The remaining research accounts, evidence limitations and decision rationale are kept as prose because replacing them with decorative graphics would weaken the panel's ability to judge the work. Existing product screenshots, workflow summaries, maps and visible transcripts remain; no disclosure is introduced.
 
 The site embeds the exported Figma SVGs inline for the loaded Inter font and uses theme-specific exports. Every illustration has a full accessible description; text visible inside the graphics remains readable without zoom. Paired cards share heights within each Figma row. The manifest records all 34 exports and their source nodes. Captions distinguish schematic explanations from product screens.
+
+## Detail and accuracy refinement
+
+All 17 drawings now label whether they show dependency, access, delivery sequence, shared object or independent settings. Relationships are grounded in the existing authored case content. The diagrams do not add undocumented validation or sync-conflict rules. The uoaui mapping fork terminates at both outcomes; Fusion dependency arrows mean uses-the-layer-below; Deal Model role connectors mean views-the-same-object. Both theme exports and accessible descriptions were refreshed from the same editable Figma nodes.

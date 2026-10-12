@@ -13,7 +13,7 @@ const source=`https://www.figma.com/design/${manifest.fileKey}?node-id=${frame.n
  <div class="explanation-heading"><h4 id={`${project}-explanation-title`}>{item.title}</h4><a href={source} target="_blank" rel="noopener">View in Figma <FlatArrow /></a></div>
  <ul aria-label={`${item.name} illustrated explanation`}>
   {item.cards.map((card,index)=><li>
-   {(['light','dark'] as const).map(theme=><div class={`explanation-art explanation-${theme}`} role="img" aria-label={`${card.title}. ${card.body}`}><Fragment set:html={artwork[`../../../public/art/explanations/${project}-${index}-${theme}.svg`]} /></div>)}
+   {(['light','dark'] as const).map(theme=><div class={`explanation-art explanation-${theme}`} role="img" aria-label={`${card.title}. ${card.diagramDescription}. ${card.body}`}><Fragment set:html={artwork[`../../../public/art/explanations/${project}-${index}-${theme}.svg`]} /></div>)}
   </li>)}
  </ul>
  <p class="explanation-caption">{item.caption}</p>

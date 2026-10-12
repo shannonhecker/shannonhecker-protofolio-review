@@ -79,7 +79,7 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
     await expect(arts).toHaveCount(explanations[project].cards.length);
     for(const [i,art]of(await arts.all()).entries()){
      await expect(art).toHaveClass(new RegExp(`explanation-${theme}`));
-     await expect(art).toHaveAttribute('aria-label',explanations[project].cards[i].title+'. '+explanations[project].cards[i].body);
+     await expect(art).toHaveAttribute('aria-label',explanations[project].cards[i].title+'. '+explanations[project].cards[i].diagramDescription+'. '+explanations[project].cards[i].body);
      const bounds=await art.evaluate(n=>{const r=n.getBoundingClientRect();return {w:r.width,clipped:[...n.querySelectorAll('text')].filter(t=>{const b=t.getBoundingClientRect();return b.left<r.left-1||b.right>r.right+1||b.bottom>r.bottom+1||b.top<r.top-1;}).map(t=>t.textContent)};});
      expect(bounds.w).toBeGreaterThan(250);expect(bounds.clipped).toEqual([]);
     }

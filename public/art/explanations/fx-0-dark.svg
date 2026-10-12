@@ -1,16 +1,25 @@
-<svg width="336" height="391" viewBox="0 0 336 391" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="0.5" y="0.5" width="335" height="390" rx="3.5" fill="#222933"/>
-<rect x="0.5" y="0.5" width="335" height="390" rx="3.5" stroke="#46515F"/>
-<path d="M146 30H22C19.7909 30 18 31.7909 18 34V58C18 60.2091 19.7909 62 22 62H146C148.209 62 150 60.2091 150 58V34C150 31.7909 148.209 30 146 30Z" fill="#222933" stroke="#46515F"/>
-<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="28" y="50.8636">Trader</tspan></text>
-<path d="M316 30H192C189.791 30 188 31.7909 188 34V58C188 60.2091 189.791 62 192 62H316C318.209 62 320 60.2091 320 58V34C320 31.7909 318.209 30 316 30Z" fill="#222933" stroke="#46515F"/>
-<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="198" y="50.8636">Client</tspan></text>
-<path d="M84 67V91H255V67" stroke="#A4CBE6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M168 92V108M172 104L168 108L164 104" stroke="#A4CBE6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M289 118H49C46.7909 118 45 119.791 45 122V146C45 148.209 46.7909 150 49 150H289C291.209 150 293 148.209 293 146V122C293 119.791 291.209 118 289 118Z" fill="#A4CBE6" stroke="#A4CBE6"/>
-<text fill="#222933" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="55" y="138.864">One platform</tspan></text>
-<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="52" y="173.591">Different entitlements</tspan></text>
-<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">Two audiences, one platform</tspan></text>
-<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">Internal traders and external clients use </tspan><tspan x="13" y="298.618">the same system with different </tspan><tspan x="13" y="321.818">entitlements. I had to support both on </tspan><tspan x="13" y="345.018">old technology without a second </tspan><tspan x="13" y="368.218">codebase.</tspan></text>
+<svg width="336" height="527" viewBox="0 0 336 527" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="526" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="526" rx="3.5" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="33.8636">ACCESS MODEL &#xb7; ORIGINAL PLATFORM</tspan></text>
+<path d="M158 51H22C19.2386 51 17 53.2386 17 56V104C17 106.761 19.2386 109 22 109H158C160.761 109 163 106.761 163 104V56C163 53.2386 160.761 51 158 51Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="27" y="73.5909">Internal trader</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="27" y="94.8636">Role and access</tspan></text>
+<path d="M316 51H180C177.239 51 175 53.2386 175 56V104C175 106.761 177.239 109 180 109H316C318.761 109 321 106.761 321 104V56C321 53.2386 318.761 51 316 51Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="185" y="73.5909">External client</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="185" y="94.8636">Role and access</tspan></text>
+<path d="M90 109V122H248V109" stroke="#A4CBE6" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M169 122V146M173 140L169 146L165 140" stroke="#A4CBE6" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M302 146H36C33.2386 146 31 148.239 31 151V199C31 201.761 33.2386 204 36 204H302C304.761 204 307 201.761 307 199V151C307 148.239 304.761 146 302 146Z" fill="#222933" stroke="#A4CBE6" stroke-width="1.5"/>
+<text fill="#A4CBE6" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="168.591">One shared platform</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="189.864">Different entitlements</tspan></text>
+<path d="M169 204V224M173 218L169 224L165 218" stroke="#A4CBE6" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M302 224H36C33.2386 224 31 226.239 31 229V277C31 279.761 33.2386 282 36 282H302C304.761 282 307 279.761 307 277V229C307 226.239 304.761 224 302 224Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="246.591">Permitted view and controls</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="267.864">Same codebase &#xb7; legacy technology</tspan></text>
+<path d="M17 287H321" stroke="#46515F" stroke-width="1.5" stroke-linejoin="round"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="306.864">Separate access, not a second product.</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="325.864">Conceptual model; no client data shown.</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="372.773">Two audiences, one platform</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="411.418">Internal traders and external clients use </tspan><tspan x="13" y="434.618">the same system with different </tspan><tspan x="13" y="457.818">entitlements. I had to support both on </tspan><tspan x="13" y="481.018">old technology without a second </tspan><tspan x="13" y="504.218">codebase.</tspan></text>
 </svg>
-
