@@ -8,15 +8,10 @@ const graph=content[project];
 <figure class="figma-decision-map">
  <div class="map-tools"><p class="map-hint">On smaller screens, enlarge the map to read and explore the branches.</p></div>
  <MapViewport id={`${project}-decision-map-viewport`} regionClass="map-scroll" title={`${graph.title}. Enlarge the map to explore details, or open the full-size image.`}>
-  {(['light','dark'] as const).map(theme=><a class={`map-image map-${theme}`} href={`/art/decision-maps/${project}-${theme}.svg`} target="_blank" rel="noopener" aria-label={`Open the full-size ${graph.title} decision map`}><img src={`/art/decision-maps/${project}-${theme}.svg`} width="1120" height={graph.height} loading="lazy" decoding="async" alt={`${graph.title} decision map. ${graph.subtitle} A complete text version follows.`}/></a>)}
+  {(['light','dark'] as const).map(theme=><a class={`map-image map-${theme}`} href={`/art/decision-maps/${project}-${theme}.svg`} target="_blank" rel="noopener" aria-label={`Open the full-size ${graph.title} decision map`}><img src={`/art/decision-maps/${project}-${theme}.svg`} width="1120" height={graph.height} loading="lazy" decoding="async" alt={`${graph.title} decision map. ${graph.subtitle}`}/></a>)}
  </MapViewport>
- <div class="map-transcript"><h4>Decision map in detail</h4>
-  <p>{graph.subtitle}</p>
-  <ul>{graph.nodes.map(n=><li><strong>{n[3]}.</strong> {n[4]}</li>)}</ul>
-  <h5>Branches and return loops</h5>
-  <ul>{graph.edges.map(e=><li>{graph.nodes.find(n=>n[0]===e[0])?.[3]} → {graph.nodes.find(n=>n[0]===e[1])?.[3]}{e[6]?` (${e[6]})`:''}.</li>)}</ul>
- </div>
+
 </figure>
 <style>
-.figma-decision-map{margin:36px 0 56px;min-width:0}.map-tools{display:flex;gap:20px;justify-content:space-between;align-items:baseline;margin-bottom:16px;font-size:13px;line-height:1.5}.map-hint{margin:0;color:var(--fg-2)}.map-scroll{overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--divider);border-radius:var(--radius)}.map-scroll:focus-visible{outline:2px solid var(--project-ink);outline-offset:4px}.map-image{display:block;width:100%}.map-image img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}.map-dark{display:none}:global(html[data-theme="dark"]) .map-light{display:none}:global(html[data-theme="dark"]) .map-dark{display:block}.map-transcript{margin-top:18px;font-size:15px;line-height:1.7;color:var(--fg-2)}h4{color:var(--fg);font-size:18px;line-height:1.4;font-weight:500;margin:0 0 16px}.map-transcript ul{padding-left:20px}.map-transcript li{margin-block:8px}.map-transcript h5{font-size:15px;margin-top:24px}@media(max-width:760px){.map-tools{align-items:flex-start;flex-direction:column;gap:8px}.figma-decision-map{margin-block:28px 40px}}
+.figma-decision-map{margin:36px 0 56px;min-width:0}.map-tools{display:flex;gap:20px;justify-content:space-between;align-items:baseline;margin-bottom:16px;font-size:13px;line-height:1.5}.map-hint{margin:0;color:var(--fg-2)}.map-scroll{overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--divider);border-radius:var(--radius)}.map-scroll:focus-visible{outline:2px solid var(--project-ink);outline-offset:4px}.map-image{display:block;width:100%}.map-image img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}.map-dark{display:none}:global(html[data-theme="dark"]) .map-light{display:none}:global(html[data-theme="dark"]) .map-dark{display:block}@media(max-width:760px){.map-tools{align-items:flex-start;flex-direction:column;gap:8px}.figma-decision-map{margin-block:28px 40px}}
 </style>

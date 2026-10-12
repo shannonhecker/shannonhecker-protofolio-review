@@ -913,3 +913,9 @@ Validation: production build and Astro check pass with zero errors and warnings.
 I stopped workflow and explanation SVG cards from stretching beyond their authored 336px width. Their headings now stay at 20px and body copy at 16px, matching the surrounding site instead of growing with wide desktop columns. Both shared components use the same compact two-column grid and switch to one column on small phones. This applies across all five projects and both themes, with the original artwork and wording preserved.
 
 Validation: production build and Astro check pass. All ten Chromium checks pass across five projects, four viewport widths and both themes, covering text bounds, overflow and the new maximum artwork size. I visually reviewed the Fusion explanation cards at their corrected scale.
+
+### Remove repeated decision-map prose · 12 October 2026
+
+I removed Decision map in detail and Branches and return loops across all five projects. The themed diagrams and enlargement controls remain. I also removed the image description promising a following text version and the unused transcript styles.
+
+Validation: production build and Astro check pass. All five Chromium map checks pass, covering both themes, phone sizing, enlargement and absence of the removed text.
