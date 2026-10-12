@@ -18,6 +18,7 @@ import Journey from './dg/AuthoredJourney.astro';
 import ProductCapture from './ProductCapture.astro';
 import Demo from './Demo.astro';
 import Flow from './dg/Flow.astro';
+import FigmaUserFlow from './dg/FigmaUserFlow.astro';
 import Stack from './dg/Stack.astro';
 ---
 <section id="ai" data-tone="dark" class="band">
@@ -57,7 +58,7 @@ import Stack from './dg/Stack.astro';
       <div class="label"><HL class="k"><b>02</b> The flow</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="From a prompt to a screen a developer can inspect." />
-        <Flow
+        <FigmaUserFlow project="ai"><Flow
           label="My review workflow, prompt to export"
           steps={[
             { t: 'Prompt', d: 'Describe the screen in words' },
@@ -67,7 +68,7 @@ import Stack from './dg/Stack.astro';
             { t: 'Export React', d: 'Code a developer recognises' },
           ]}
           caption="The model drafts. I compare and tune before handover, but the builder also lets me export directly."
-        />
+        /></FigmaUserFlow>
         <Demo src="/media/uoaui-current.mp4" poster="/media/uoaui-current-poster.webp" width={1280} height={800} label="The current uoaui walkthrough: choose a template, edit a card and present the screen across five systems." description="Silent recording. It picks a template, edits one card, then presents the same screen across the five design systems." />
         <ProductCapture name="live-uoaui-kit.png" alt="The current uoaui Salt UI Kit with foundations, components, patterns and system controls" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · Salt UI Kit · Component library" />
         <ProductCapture name="live-uoaui-charts.png" alt="The current uoaui UI Kit charts and data visualisation specimens in Salt" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · UI Kit · Charts and data visualisation" />

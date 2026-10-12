@@ -8,7 +8,7 @@ test('case content keeps one column and screenshots stay within it', async ({pag
       await page.setViewportSize({width,height:1000});
       const layout=await page.locator('.beat .body').evaluateAll(bodies=>bodies.map(body=>{
         const rect=body.getBoundingClientRect();
-        return {width:rect.width, children:[...body.children].map(child=>{
+        return {width:rect.width, children:[...body.children].filter(child=>child.getClientRects().length>0).map(child=>{
           const r=child.getBoundingClientRect();return {left:r.left-rect.left,right:r.right-rect.right};
         })};
       }));

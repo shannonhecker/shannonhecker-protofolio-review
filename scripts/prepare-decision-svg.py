@@ -1,5 +1,5 @@
 """Normalize Figma's SVG text encoding and embed the site's licensed Inter font.
-Run after replacing public/art/decision-maps/*.svg with Figma SVG_STRING exports.
+Run after replacing decision-map or user-flow SVGs with Figma SVG_STRING exports.
 Geometry, labels and colours are authored in Figma, not regenerated here.
 """
 import base64,re
@@ -9,7 +9,7 @@ style='<style id="embedded-inter">@font-face{font-family:Inter;src:url(data:font
 def decode(match):
  try:return bytes(int(n) for n in re.findall(r'&#(\d+);',match[0])).decode('utf-8')
  except (ValueError,UnicodeDecodeError):return match[0]
-for path in Path('public/art/decision-maps').glob('*.svg'):
+for path in [*Path('public/art/decision-maps').glob('*.svg'), *Path('public/art/user-flows').glob('*.svg')]:
  svg=path.read_text()
  svg=re.sub(r'(?:&#(?:1[2-9]\d|2[0-5]\d);){2,}',decode,svg)
  svg=re.sub(r'<style id="embedded-inter">.*?</style>','',svg,flags=re.S)

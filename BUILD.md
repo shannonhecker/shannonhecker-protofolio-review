@@ -785,3 +785,11 @@ Validation: production build passes; Astro check has zero errors and warnings; a
 I restored a white backing behind the decision-comparison artwork across all five projects. Some images contain dark labels over transparent areas, which disappeared against the dark page. The backing preserves those labels and the original artwork colours. Product heroes remain transparent; journey and decision maps keep their explicit theme variants.
 
 I visually checked the reported payment, onboarding and weekly-pet comparisons on a phone-sized preview. Browser regressions check every comparison in both themes at phone and desktop widths, including iPhone WebKit, while the existing checks protect transparent hero artwork.
+
+### Figma user flows for all five projects · 12 October 2026
+
+I reviewed user-flow examples from Figma and Nielsen Norman Group, then drew each project's flow in Figma using the current case content. The diagrams show who acts, the central path, alternate states and return loops. I kept the optional routes optional and marked FX's original specified sequence separately from the public demo.
+
+I added light and dark exports to all five projects, with readable phone scrolling, keyboard panning, a Figma source link and a complete text version. The original workflow copy remains available below each graphic. Winking Star's caregiver steps link to the same shared-family flow.
+
+Validation: production build passes; Astro check reports zero errors and warnings; all 203 browser tests pass, including the new flows in Chromium and iPhone WebKit. I checked that branch labels clear the nodes and every connector segment avoids unrelated nodes.
