@@ -9,6 +9,12 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
   await page.goto(route);
   const consent=page.getByRole('button',{name:'No thanks'});
   if(await consent.isVisible())await consent.click();
+  if(project==='fx'){
+   await expect(page.locator('.figma-decision-map')).toHaveCount(0);
+   await expect(page.locator('.figma-user-flow')).toHaveCount(1);
+   await expect(page.locator('#fx-decision-map-title')).toHaveText('Design decisions');
+   return;
+  }
   for(const width of [320,390,760,1440]){
    await page.setViewportSize({width,height:900});
    for(const theme of ['light','dark']){

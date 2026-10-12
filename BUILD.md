@@ -973,3 +973,9 @@ I reviewed the homepage and all five case studies at phone, tablet and desktop w
 I consolidated case content spacing around 32px on smaller screens and 48px on desktop, removing doubled margins on diagrams and sections. Illustration captions have 20px separation from artwork, and card rows use 32px on smaller screens and 40px on desktop.
 
 Validation: production build and 17 browser checks pass, including all-page navigation and overflow, all five case summaries, diagram captions in both themes, and a new spacing regression check. The six-page audit reports no overlapping content blocks or horizontal overflow at 390px, 820px and 1440px. I inspected the corrected summary at phone and desktop sizes.
+
+### Remove the duplicate FX map · 12 October 2026
+
+I removed the FX decision-map graphic because it repeated the full user flow. The section now says Design decisions, including its section-menu label, while the trade-offs and main user flow remain.
+
+Validation: production build and a browser regression check confirm the duplicate map is absent and the main flow remains.
