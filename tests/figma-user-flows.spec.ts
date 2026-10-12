@@ -1,3 +1,4 @@
+import {setTheme} from './theme-helper';
 import {test,expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 const maps=JSON.parse(readFileSync(new URL('../src/data/figma-user-flows.json',import.meta.url),'utf8'));
@@ -12,7 +13,7 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
   for(const width of [320,390,760,1440]){
    await page.setViewportSize({width,height:900});
    for(const theme of ['light','dark']){
-    const toggle=page.getByRole('switch',{name:'Dark mode'});if((await toggle.getAttribute('aria-checked')==='true')!==(theme==='dark'))await toggle.click();
+    await setTheme(page,theme==='dark');
     const img=flow.locator('img:visible');await expect(img).toHaveCount(1);
     await expect(img).toHaveAttribute('src',`/art/user-flows/${project}-${theme}.svg`);
     await img.evaluate(async(n:HTMLImageElement)=>{n.loading='eager';await n.decode();});

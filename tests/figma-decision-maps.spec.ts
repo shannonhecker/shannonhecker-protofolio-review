@@ -1,3 +1,4 @@
+import {setTheme} from './theme-helper';
 import {test,expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 const maps=JSON.parse(readFileSync(new URL('../src/data/figma-decision-maps.json',import.meta.url),'utf8')); 
@@ -11,8 +12,7 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
   for(const width of [320,390,760,1440]){
    await page.setViewportSize({width,height:900});
    for(const theme of ['light','dark']){
-    const toggle=page.getByRole('switch',{name:'Dark mode'});
-    if((await toggle.getAttribute('aria-checked')==='true') !== (theme==='dark'))await toggle.click();
+    await setTheme(page,theme==='dark');
     const image=page.locator('.figma-decision-map img:visible');
     await expect(image).toHaveCount(1);
     await expect(image).toHaveAttribute('src',`/art/decision-maps/${project}-${theme}.svg`);

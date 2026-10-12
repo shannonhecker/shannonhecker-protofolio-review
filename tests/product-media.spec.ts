@@ -1,3 +1,4 @@
+import {setTheme} from './theme-helper';
 import { test, expect } from '@playwright/test';
 import { readFileSync, readdirSync } from 'node:fs';
 import { artworkKey, backdrops, themeArtwork } from '../src/lib/adaptive-art';
@@ -45,14 +46,13 @@ test('image surround follows site theme even when the SVG receives a light colou
   await page.goto('/winking-star');
   const consent = page.getByRole('button', { name:'No thanks' });
   if (await consent.isVisible()) await consent.click();
-  const toggle = page.getByRole('switch', { name:'Dark mode' });
-  await toggle.check();
+  await setTheme(page,true);
   // Reproduce an embedded browser that does not propagate the document theme to SVG images.
   await page.addStyleTag({ content: '#winking .project-hero{color-scheme:light!important}' });
   const img = page.locator('#winking .project-hero img');
   await img.evaluate(el => (el as HTMLImageElement).decode());
   const dark = await sharp(await img.screenshot()).removeAlpha().raw().toBuffer({resolveWithObject:true});
-  await toggle.uncheck();
+  await setTheme(page,false);
   await expect(page.locator('html')).toHaveAttribute('data-theme','light');
   const light = await sharp(await img.screenshot()).removeAlpha().raw().toBuffer({resolveWithObject:true});
   const pixel = (r:typeof dark, x:number,y:number) => [...r.data.subarray((y*r.info.width+x)*3,(y*r.info.width+x)*3+3)];
@@ -69,10 +69,9 @@ test('every project selects explicit diagram colours from the site theme', async
   for (const route of ['/fx','/fusion','/winking-star','/deal-model','/uoaui']) {
     await page.goto(route);
     await page.addStyleTag({content:'.theme-artwork{color-scheme:light!important}'});
-    const toggle=page.getByRole('switch',{name:'Dark mode'});
     const count=route==='/fx'?5:2;
     for (const theme of ['dark','light']) {
-      await toggle.setChecked(theme==='dark');
+      await setTheme(page,theme==='dark');
       await expect(page.locator(`[data-artwork-theme="${theme}"]:visible`)).toHaveCount(count);
       await expect(page.locator(`[data-artwork-theme="${theme==='dark'?'light':'dark'}"]:visible`)).toHaveCount(0);
       for (const src of await page.locator(`[data-artwork-theme="${theme}"]`).evaluateAll(els=>els.map(el=>(el as HTMLImageElement).src))) {
@@ -101,8 +100,7 @@ test('comparison artwork keeps a readable support surface in both themes across 
     for (const width of [390, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       for (const dark of [false, true]) {
-        const theme = page.getByRole('switch', { name: 'Dark mode' });
-        if ((await theme.getAttribute('aria-checked') === 'true') !== dark) await theme.click();
+        await setTheme(page,dark);
         const rendered = await art.evaluateAll(async links => Promise.all(links.map(async link => {
           const image = link.querySelector('img')!;
           image.loading = 'eager';
