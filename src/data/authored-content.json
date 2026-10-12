@@ -194,7 +194,7 @@
         },
         {
           "label": "Who was in the room",
-          "text": "Lead designer, one of one. Around twenty engineers, the business, and the charting vendor. A few clients, watched while they decided to trade now or wait."
+          "text": "Lead designer, one of one. Around twenty engineers, the business, and the charting vendor. Traders observed on the desk."
         },
         {
           "label": "How I measure it",
@@ -586,8 +586,8 @@
               "Client version",
               "Simplified. Separate",
               "patterns, second codebase.",
-              "Drift from the product",
-              "within a year"
+              "Risk of divergence",
+              "over time"
             ]
           }
         ],

@@ -59,11 +59,11 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <li><b>Professionals whose job is the tool</b><p>A trader will tolerate density because power is worth the learning curve. So the problem is hierarchy under pressure, not simplification.</p></li>
           <li><b>Five spreadsheets, read line by line</b><p>Fills, market data, limit price changes, arrival price, risk transfer price. I grouped them into four kinds of data and that grouping became the layers of the chart. Every mark maps to a data type. Nothing is decorative.</p></li>
           <li><b>The limit price log was the clue</b><p>Orders were being changed mid-flight, several times each. So repricing is a core action, not an edge case, and it had to live on the chart.</p></li>
-          <li><b>Watching people decide</b><p>I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.</p></li>
+          <li><b>Watching people decide</b><p>I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.</p></li>
         </ul>
         <figure class="fx-source-layers">
           <div class="fx-layer-scroll" tabindex="0" role="region" aria-label="Original data-to-encoding diagram. Scroll horizontally on small screens.">
-            <img src="/art/fx-data-layers.svg" width="1406" height="739" loading="lazy" decoding="async" fetchpriority="low" alt="Market data becomes continuous lines; limit-price changes become steps; order states become ranges; fills become sized dots; benchmarks become fixed reference lines. Each shape gets its own encoding." />
+            <img src="/art/themed/fx-data-layers.svg" width="1406" height="739" loading="lazy" decoding="async" fetchpriority="low" alt="Market data becomes continuous lines; limit-price changes become steps; order states become ranges; fills become sized dots; benchmarks become fixed reference lines. Each shape gets its own encoding." />
           </div>
         </figure>
 
@@ -141,12 +141,12 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <li><b>A compare view, because quality is relative</b><p>Execution quality only means something against a benchmark or another order, so I put a patient working order beside an urgent completed one, with the benchmark metrics in one table.</p></li>
         </ul>
         <BeforeAfter label="Version-one debt: order states" before="States tiled the canvas" beforeNote="Patterned regions sat behind the prices, so the exceptional read as normal." after="States in their own lane" afterNote="A lane under the time axis. The price field stays quiet.">
-          <img slot="before" src="/art/fx-states-today.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: hatched state regions behind the price line" />
-          <img slot="after" src="/art/fx-states-designed.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: a clean price line with states in a labelled lane under the axis" />
+          <img slot="before" src="/art/themed/fx-states-today.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: hatched state regions behind the price line" />
+          <img slot="after" src="/art/themed/fx-states-designed.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: a clean price line with states in a labelled lane under the axis" />
         </BeforeAfter>
         <BeforeAfter label="Version-one debt: fills at scale" before="A dot per fill" beforeNote="Volume-sized dots were honest at twenty clips and a smear at three hundred." after="Counted clusters" afterNote="Fills group into clusters with a count, and expand on zoom.">
-          <img slot="before" src="/art/fx-fills-today.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: hundreds of overlapping fill dots forming a smear" />
-          <img slot="after" src="/art/fx-fills-designed.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: five counted clusters of fills" />
+          <img slot="before" src="/art/themed/fx-fills-today.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: hundreds of overlapping fill dots forming a smear" />
+          <img slot="after" src="/art/themed/fx-fills-designed.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: five counted clusters of fills" />
         </BeforeAfter>
       </div>
     </div>
@@ -189,5 +189,5 @@ import BeforeAfter from './dg/BeforeAfter.astro';
 </section>
 
 <style>
-.fx-source-layers{margin:0;min-width:0}.fx-layer-scroll{overflow-x:auto;background:#171b22;padding:24px;border-radius:var(--radius)}.fx-layer-scroll img{display:block;width:100%;min-width:900px;height:auto;max-width:none}.fx-layer-scroll:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
+.fx-source-layers{margin:0;min-width:0}.fx-layer-scroll{overflow-x:auto;background:var(--bg-2);padding:24px;border-radius:var(--radius)}.fx-layer-scroll img{display:block;width:100%;min-width:900px;height:auto;max-width:none}.fx-layer-scroll:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
 </style>

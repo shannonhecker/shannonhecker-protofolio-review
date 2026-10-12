@@ -4,6 +4,8 @@ test('all fifteen personas retain the approved card hierarchy across screen size
   await page.emulateMedia({reducedMotion:'reduce'});
   for(const [route,count] of [['/fx',3],['/fusion',3],['/uoaui',2],['/winking-star',3],['/deal-model',4]] as const){
     await page.goto(route);
+    const theme=page.getByRole('switch',{name:'Dark mode'});
+    if(await theme.getAttribute('aria-checked')==='true') await theme.click();
     const cards=page.locator('.persona-card');
     await expect(cards).toHaveCount(count);
     const portraits=cards.locator('.persona-art img');
@@ -31,7 +33,7 @@ test('all fifteen personas retain the approved card hierarchy across screen size
           return Array.from(range.getClientRects()).some(r=>r.left<bounds.left-1||r.right>bounds.right+1||r.top<bounds.top-1||r.bottom>bounds.bottom+1);
         }).map(el=>el.textContent);
         return {
-          card:rect(card),identity:rect(identity),content:rect(content),frame:rect(frame),image:rect(image),
+          card:rect(card),innerWidth:card.clientWidth,identity:rect(identity),content:rect(content),frame:rect(frame),image:rect(image),
           loaded:image.complete&&image.naturalWidth>0&&image.naturalHeight>0,
           fit:getComputedStyle(image).objectFit,surface:getComputedStyle(card).backgroundColor,
           portraitSurface:getComputedStyle(frame).backgroundColor,identitySurface:getComputedStyle(identity).backgroundColor,
@@ -50,7 +52,7 @@ test('all fifteen personas retain the approved card hierarchy across screen size
         expect(card.image.width).toBeLessThanOrEqual(card.frame.width+1);
         expect(card.image.height).toBeLessThanOrEqual(card.frame.height+1);
         expect(card.surface).toBe('rgb(255, 255, 255)');
-        expect(card.portraitSurface).toBe(card.surface);
+        expect(card.portraitSurface).toBe(card.accent);
         expect(card.identitySurface).toBe(card.surface);
         expect(card.accent).not.toBe(card.surface);
         expect(card.heading).toBe(card.accent);
@@ -62,7 +64,7 @@ test('all fifteen personas retain the approved card hierarchy across screen size
         expect(card.card.right).toBeLessThanOrEqual(width+1);
         if(width<=390){
           expect(card.content.y).toBeGreaterThanOrEqual(card.identity.bottom-1);
-          expect(Math.abs(card.content.width-card.card.width)).toBeLessThanOrEqual(1);
+          expect(Math.abs(card.content.width-card.innerWidth)).toBeLessThanOrEqual(1);
         }else{
           expect(card.content.x).toBeGreaterThanOrEqual(card.identity.right-1);
           expect(card.content.width).toBeGreaterThan(card.identity.width);
@@ -70,6 +72,23 @@ test('all fifteen personas retain the approved card hierarchy across screen size
       }
       expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     }
+    const before=await cards.evaluateAll(nodes=>nodes.map(card=>getComputedStyle(card).backgroundColor));
+    await page.getByRole('switch',{name:'Dark mode'}).click();
+    const dark=await cards.evaluateAll(nodes=>nodes.map(card=>({
+      surface:getComputedStyle(card).backgroundColor,
+      portrait:getComputedStyle(card.querySelector('.persona-art')!).backgroundColor,
+      panel:getComputedStyle(card.querySelector('.persona-response')!).backgroundColor,
+      heading:getComputedStyle(card.querySelector('h4')!).color,
+      filter:getComputedStyle(card.querySelector('img')!).filter,
+    })));
+    expect(new Set(dark.map(card=>card.panel)).size).toBe(count);
+    dark.forEach((card,index)=>{
+      expect(card.surface).not.toBe(before[index]);
+      expect(card.portrait).toBe(card.panel);
+      expect(card.heading).toBe(card.panel);
+      expect(card.filter).toBe('none');
+    });
+    await page.getByRole('switch',{name:'Dark mode'}).click();
   }
 });
 
@@ -79,7 +98,7 @@ test('FX data layers preserve the four authored branches at every width',async({
   await page.getByRole('button',{name:'No thanks'}).click();
   const diagram=page.locator('.fx-source-layers img');
   await expect(diagram).toBeVisible();
-  await expect(diagram).toHaveAttribute('src','/art/fx-data-layers.svg');
+  await expect(diagram).toHaveAttribute('src','/art/themed/fx-data-layers.svg');
   await expect(page.locator('.fx-source-layers details')).toHaveCount(0);
   for(const width of [320,390,820,1440]){
     await page.setViewportSize({width,height:900});

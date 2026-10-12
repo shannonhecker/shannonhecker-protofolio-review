@@ -89,3 +89,7 @@ decision and outcome. Retain Shannon's authored material, but give each repetiti
 a different job: context, action, trade-off or evidence. The final visual reviewer
 should check that this hierarchy is legible rather than treating equal-sized blocks
 as consistency.
+
+### Final attribution and scope reconciliation, 12 October
+
+The FX case, home method and authored takeaway now describe traders observed on the desk. The separate client trade-or-wait story is no longer attributed to execution analytics. Winking accessibility copy is limited to labelled/selected tabs, text scaling up to 1.6× and confetti suppression with Reduce Motion or Calm Mode; it does not claim a complete device accessibility audit. The stale Fusion transcript now matches the corrected image's “Risk of divergence over time” text. The unused process-data AI component claim is narrowed to mappings with fallbacks.

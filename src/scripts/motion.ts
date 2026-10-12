@@ -12,7 +12,10 @@ function reveals() {
   // CSS already exposes touch/reduced-motion content. Avoid invalidating
   // every section during the first paint just to repeat that state in JS.
   if (reduce || !fine) return;
-  const els = Array.from(document.querySelectorAll<HTMLElement>('.rv, .split'));
+  // Case-study sections contain dense evidence. Keep them visible during native
+  // scrolling rather than fading an entire screenshot and its text for a second.
+  const els = Array.from(document.querySelectorAll<HTMLElement>('.rv, .split'))
+    .filter(el => el.classList.contains('split') || !el.closest('.case-page'));
   // The observer supplies visibility after layout; avoid measuring the entire
   // document synchronously during startup, especially on small touch devices.
   const io = new IntersectionObserver(

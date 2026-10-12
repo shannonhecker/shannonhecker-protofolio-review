@@ -686,3 +686,16 @@ passed in 59.9 seconds. Source-art updates are included in this run.
 - Corrected the remaining FX benchmark and study wording, removed an unverified Fusion client-signing claim, and kept Deal template mapping separate from an unsupported blocking rule. Synced the corresponding editable Figma copy.
 - Removed an unintended decorative avatar from the uoaui.ai introduction. The explanatory text and product screens now lead the page, matching the Figma structure.
 - Validation: Astro check has 0 errors and 0 warnings; production build passed; all 149 browser tests passed in 1.1 minutes. Desktop and phone reviews cover the changed evidence, personas, home and utility pages. Production CI and live verification remain the release gate.
+
+### PR 49 follow-up · Persona accents and theme-aware graphics
+
+**What Codex changed at my request**
+
+- Each persona has its own accent. The transparent portrait sits on the same colour as the response panel, and headings and quote marks match.
+- Persona cards now adapt to light and dark mode. Dark cards use lighter versions of the same accents with dark panel text. Original portrait colours stay intact.
+- Corrected the FX research attribution to observing traders on the desk. Winking accessibility copy now describes the implemented tab labels, text scaling and quieter celebration controls.
+- Synced Figma persona colours to each page's actual theme and recorded both colour variants. Theme-aware journey and diagram exports preserve original paths while adapting neutral surfaces and text.
+- Removed inherited portrait margins and flex gaps that added 52px above persona names. Kept a 20px name gap, increased content padding and spacing between cards.
+- Removed the one-second fade from whole case-study sections so product evidence and body copy are visible as they enter the viewport. Heading motion remains separate.
+- Added a 1px inner outline at 50% opacity using each persona's current theme accent. It overlays the card edge without changing layout dimensions.
+- Final local verification after the inside outline: Astro check has 0 errors and 0 warnings; production build passed; all 149 browser tests passed in 52.9 seconds. Thirteen themed SVG outputs retain the exact original content after their added colour stylesheet is removed.
