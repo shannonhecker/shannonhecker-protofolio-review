@@ -36,7 +36,8 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
     }
    }
   }
-  await page.locator('.map-transcript summary').click();
+  await expect(page.locator('.map-transcript ul').first()).toBeVisible();
+  await expect(page.locator('main details')).toHaveCount(0);
   await expect(page.locator('.map-transcript')).toContainText('Branches and return loops');
   await expect(page.locator('.map-tools a')).toHaveAttribute('href',new RegExp(maps.fileKey));
  });

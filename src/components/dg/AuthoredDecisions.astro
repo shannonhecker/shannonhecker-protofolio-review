@@ -37,11 +37,11 @@ const decisions = data.decisions.map((decision, index) => {
     {review.connections.map(connection => <div><h4>{connection.label}</h4><p>{connection.text}</p></div>)}
   </div>
 
-  {Astro.slots.has('flow') && <details class="decision-context" aria-labelledby={`${project}-decision-context-title`}>
-    <summary id={`${project}-decision-context-title`}>Original FX reference diagram</summary>
+  {Astro.slots.has('flow') && <div class="decision-context" aria-labelledby={`${project}-decision-context-title`}>
+    <h4 id={`${project}-decision-context-title`}>Original FX reference diagram</h4>
     <p>The original decision loop shows when the trader watches, waits or intervenes. The design alternatives and evidence are set out below.</p>
     <div class="authored-flow-scroll"><slot name="flow" /></div>
-  </details>}
+  </div>}
 
   <ol class="authored-decision-list">{decisions.map(({decision: d, record: r, id}, i) => <li id={id}>
     <header class="decision-heading">

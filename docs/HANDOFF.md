@@ -135,3 +135,7 @@ Shannon confirmed that custom-component proliferation was a Fusion problem, and 
 Continue the one-question-at-a-time evidence interview using docs/REVOLUT-EVIDENCE.md. Shannon confirmed there are no Winking Star results or external family feedback yet. She confirmed Deal Model preceded Fusion without overlap and that she moved to Fusion in 2023. The January 2024 involvement endpoint was incorrect and has been removed. Do not infer an exact Deal Model start date or attribute that date to a file update without evidence. Do not invent missing adoption, testing, audit scope or dates; presentation improvements do not by themselves close the hiring-review evidence gaps.
 
 Shannon clarified Fusion accessibility: a specific flow, close work with an ADA specialist, and developer-tool accessibility checks. The zero-violations/product-wide claim is superseded by that scope. No named flow, audit report, tool name or formal sign-off was supplied; do not infer them.
+
+## Always-visible case-study content · 12 October 2026
+
+Shannon does not want case-study content hidden behind accordions or expandable disclosures. Keep all explanations, workflow summaries, caregiver steps and reference diagrams visible in the page. Do not reintroduce collapsed details/summary blocks to shorten the cases. Mobile navigation and map zoom controls remain separate interactive controls.

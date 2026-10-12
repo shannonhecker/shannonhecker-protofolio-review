@@ -15,12 +15,12 @@ const source=`https://www.figma.com/design/${maps.fileKey}?node-id=${dark.nodeId
  <MapViewport id={`${project}-user-flow-viewport`} regionClass="user-flow-scroll" title={`${graph.title}. Enlarge the map to explore details, or open the full-size image.`}>
   {(['light','dark'] as const).map(theme=><a class={`flow-image flow-${theme}`} href={`/art/user-flows/${project}-${theme}.svg`} target="_blank" rel="noopener" aria-label={`Open the full-size ${graph.title} user flow`}><img src={`/art/user-flows/${project}-${theme}.svg`} width={graph.width} height={graph.height} loading="lazy" decoding="async" alt={`${graph.title}. ${graph.subtitle} A complete text version follows.`}/></a>)}
  </MapViewport>
- <details class="user-flow-transcript"><summary>Read the user flow as text</summary>
+ <div class="user-flow-transcript"><h4>User flow in detail</h4>
   <ol>{graph.nodes.map(n=><li><strong>{n.title}.</strong> {n.actor}. {n.body}</li>)}</ol>
   <h5>Actions, branches and returns</h5>
   <ul>{graph.edges.map(e=><li>{graph.nodes.find(n=>n.id===e.source)?.title} → {graph.nodes.find(n=>n.id===e.target)?.title}{e.label?` (${e.label.replace(/\n/g,' ')})`:''}.</li>)}</ul>
- </details>
- {Astro.slots.has('default') && <details class="original-flow-summary"><summary>Original workflow summary</summary><slot /></details>}
+ </div>
+ {Astro.slots.has('default') && <div class="original-flow-summary"><h4>Original workflow summary</h4><slot /></div>}
 </figure>
 <style>
 .figma-user-flow{margin:36px 0 56px;min-width:0}
@@ -28,6 +28,6 @@ figcaption{margin:0 0 24px}h4{font-size:24px;line-height:1.3;font-weight:500;mar
 .flow-tools{display:flex;gap:20px;justify-content:space-between;align-items:baseline;margin-bottom:16px;font-size:13px;line-height:1.5}.flow-tools p{margin:0;color:var(--fg-2)}.flow-tools a{white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .user-flow-scroll{overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--divider);border-radius:var(--radius)}.user-flow-scroll:focus-visible{outline:2px solid var(--project-ink);outline-offset:4px}
 .flow-image{display:block;width:100%}.flow-image img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}.flow-dark{display:none}:global(html[data-theme="dark"]) .flow-light{display:none}:global(html[data-theme="dark"]) .flow-dark{display:block}
-.user-flow-transcript,.original-flow-summary{margin-top:18px;font-size:15px;line-height:1.7;color:var(--fg-2)}summary{cursor:pointer;color:var(--fg)}.user-flow-transcript ul,.user-flow-transcript ol{padding-left:20px}.user-flow-transcript li{margin-block:8px}.user-flow-transcript h5{font-size:15px;margin-top:24px}
+.user-flow-transcript,.original-flow-summary{margin-top:18px;font-size:15px;line-height:1.7;color:var(--fg-2)}.user-flow-transcript>h4,.original-flow-summary>h4{color:var(--fg);font-size:18px;line-height:1.4;font-weight:500;margin:0 0 16px}.user-flow-transcript ul,.user-flow-transcript ol{padding-left:20px}.user-flow-transcript li{margin-block:8px}.user-flow-transcript h5{font-size:15px;margin-top:24px}
 @media(max-width:760px){.flow-tools{align-items:flex-start;flex-direction:column;gap:8px}.figma-user-flow{margin-block:28px 40px}}
 </style>
