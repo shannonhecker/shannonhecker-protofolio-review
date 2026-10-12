@@ -743,3 +743,11 @@ I made the product heroes fill their available column on phones. Winking Star's 
 The outer backdrops in my project compositions, individual Winking phone exports and home gallery now become transparent in dark mode. Light mode keeps the original colours. The screens themselves stay unchanged, and selecting an image still opens the full-resolution original. This uses the existing responsive images and adds no image downloads on a theme switch.
 
 Validation: Astro check reports 0 errors and 0 warnings, production build passes, and all 152 browser tests pass. The new checks cover five products at four widths, exact preservation of all 84 source/derivative SVGs, and rendered dark/light background pixels with unchanged phone-screen pixels.
+
+### Phone background correction · 12 October 2026
+
+My phone still showed the cream image surround after the first fix. The previous version depended on the browser passing the site theme into an external SVG. I now remove the audited outer fills in the delivered files, so the page shows through in both themes. New image URLs avoid the previously cached version; the original product screens and full-size source files stay intact.
+
+A controlled dark-page/light-image-container check failed on the previous implementation and passes with explicit transparency. The image regression suite now runs in Chromium and iPhone-configured WebKit. Current WebKit alone did not reproduce the original in-app behaviour, so the new checks also verify the files contain no theme-dependent background rule.
+
+Validation: Astro check has 0 errors and 0 warnings; the production build and all 155 browser tests pass, including the three media regressions under iPhone-configured WebKit.

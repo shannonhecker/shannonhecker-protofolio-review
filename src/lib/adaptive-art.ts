@@ -1,4 +1,4 @@
-// Only audited presentation backdrops are hidden in dark mode. Product surfaces,
+// Only audited presentation backdrops become transparent in both themes. Product surfaces,
 // raster bytes, paths, masks and phone frames retain their original colours.
 export const backdrops: Record<string, { tag: 'rect' | 'path'; count: number }> = {
   'winking-hero-composition': { tag: 'rect', count: 5 },
@@ -27,7 +27,7 @@ export function artworkKey(path: string): string {
 }
 
 export function adaptiveArt(path: string): string {
-  return backdrops[artworkKey(path)] ? path.replace('/art/', '/art/adaptive/') : path;
+  return backdrops[artworkKey(path)] ? path.replace('/art/', '/art/transparent/') : path;
 }
 
 export function themeArtwork(svg: string, key: string): string {
@@ -43,11 +43,12 @@ export function themeArtwork(svg: string, key: string): string {
       if (!canvasWidth || layerWidth < canvasWidth - 1) throw new Error(`Backdrop dimensions changed: ${key}`);
     }
     marked++;
-    return tag.replace(`<${rule.tag}`, `<${rule.tag} data-presentation-backdrop=""`);
+    if (!/\bfill="[^"]+"/.test(tag)) throw new Error(`Backdrop fill missing: ${key}`);
+    return tag.replace(/\bfill="([^"]+)"/, 'data-presentation-backdrop="$1" fill="none"');
   });
   if (marked !== rule.count) throw new Error(`Backdrop count changed: ${key}`);
-  // Embedded SVG media queries follow the embedding document's color-scheme,
-  // including the explicit site toggle, without downloading a second image.
-  return themed.replace(/(<svg\b[^>]*>)/,
-    '$1<style>@media(prefers-color-scheme:dark){[data-presentation-backdrop]{fill:none}}</style>');
+  // Explicit transparent paint works in Safari and embedded browsers without
+  // relying on the host document's colour scheme reaching an external SVG.
+  // Keep the old paint as metadata so source integrity remains verifiable.
+  return themed;
 }
