@@ -959,3 +959,9 @@ Validation: production build and two Winking Star map checks pass; I inspected t
 I extended the separate graphic-and-copy treatment to every workflow summary and visual explanation across Fusion, FX, Winking Star, Deal Model and uoaui.ai. Titles and descriptions now render as normal HTML beneath the illustration; diagram labels remain inside the artwork. Text wraps naturally at 18px for headings and 16px for descriptions.
 
 Validation: production build and ten targeted browser checks pass across all five projects, four viewport widths and both themes.
+
+### Remove caregiver handoff link · 12 October 2026
+
+I removed the requested caregiver handoff link above the shared-board steps on Winking Star.
+
+Validation: production build and the Winking Star layout check pass.
