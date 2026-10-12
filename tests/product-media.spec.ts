@@ -126,3 +126,22 @@ test('comparison artwork keeps a readable support surface in both themes across 
     }
   }
 });
+
+test('next-project previews fill their media column and retain native proportions',async({page})=>{
+ for(const width of [390,820,1440]){
+  await page.setViewportSize({width,height:900});
+  for(const route of ['/fusion','/winking-star','/fx','/deal-model','/uoaui']){
+   await page.goto(route);
+   const row=page.locator('.next-case .row');
+   const preview=row.locator('.home-artwork');
+   const image=preview.locator('img');
+   const bounds=(await preview.boundingBox())!;
+   const parent=(await row.boundingBox())!;
+   expect(bounds.width).toBeGreaterThan(width<=760?parent.width*.95:parent.width*.25);
+   const size=await image.evaluate(async(img:HTMLImageElement)=>{img.loading='eager';await img.decode();return {width:img.clientWidth,height:img.clientHeight,nw:img.naturalWidth,nh:img.naturalHeight};});
+   expect(Math.abs(size.width-bounds.width)).toBeLessThanOrEqual(1);
+   expect(Math.abs(size.width/size.height-size.nw/size.nh)).toBeLessThan(.02);
+   if(width<=760){const meta=(await row.locator('.meta').boundingBox())!;expect(bounds.y).toBeGreaterThan(meta.y+meta.height);}
+  }
+ }
+});

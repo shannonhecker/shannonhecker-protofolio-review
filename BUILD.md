@@ -853,3 +853,11 @@ I limited this redesign to phone widths at 760px and below. Tablet screens keep 
 ### Case-study content is visible without expanding · 12 October 2026
 
 I removed the expandable disclosures from all five case studies. Decision-map explanations, user-flow steps, original workflow summaries, the FX reference diagram and Winking Star caregiver steps now appear directly in the page with ordinary headings. I kept all the content and added browser checks that the text is visible without clicking and case-study main content contains no disclosure elements.
+
+### Consistent preview sizing and card frames · 12 October 2026
+
+I fixed the next-project preview layout that squeezed Winking Star screens into a narrow column on phones. Every next-project link now uses the same responsive artwork as the selected-work gallery, filling the mobile width and occupying a dedicated media column on larger screens.
+
+I removed the emoji-rendered return arrow in the Fusion journey; the existing loop explanation remains visible. Comparison artwork now sits inside a consistently padded white frame, avoiding conflicting image and container corners while preserving readable text and the source image proportions.
+
+Validation: production build and Astro check pass. Browser coverage checks all next-project previews at phone, tablet and desktop widths, including native image proportions and placement beneath the mobile description.
