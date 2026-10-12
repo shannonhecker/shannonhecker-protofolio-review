@@ -5,16 +5,18 @@ Older TASKS.md and QUALITY.md describe historical releases. Completion requires
 source, rendered implementation and deployed result to agree.
 
 **Current state:** PR [#49](https://github.com/shannonhecker/shannonhecker-protofolio-review/pull/49),
-head `24be6c93fa954e9efc227cc96c4f5fd3caa9b62b`, is open. This head's build,
-browser tests, links, preview and all CI38186411926 gates passed.
-Subsequent source/copy corrections, persona/theme work and current Figma
-composition imports are local and not covered by this head.
-Local checkpoint `dd7d4ac` now contains that persona/theme work; twenty-two fresh
-composition exports and associated website changes remain uncommitted. Neither
-the earlier PR checks nor the old image review cover the new composition batch.
-**Hold merge until those changes are finished, tested, pushed and
-verified at the final exact head.** PM monitors and records evidence; root owns
-implementation and release. No external award validation is claimed.
+head `d49eb9050a161b4ce996b1d22a25e9eba532931b`, is open and release is held.
+CI38191526789 passed source checks, compiled API runtime, production build,
+all 149 browser tests (5.5 minutes) and links. It failed only the Fusion desktop
+Lighthouse performance budget: **94 against the required 95**. FCP 0.4s,
+LCP 0.853s, CLS 0; TBT 180ms is the principal score penalty. No gate waiver.
+A targeted responsive embedded-raster delivery fix for the Fusion compositions
+is pending; original full-resolution SVG compositions remain unchanged.
+The protected preview was visually checked on Fusion and Deal, but protected
+asset fetches returned login HTML, so byte verification belongs to production.
+**Hold merge until the targeted fix is tested, pushed and verified at its exact
+head.** PM records evidence; root owns implementation and release. No external
+award validation is claimed.
 
 Status terms: **Implemented, release pending** is verified local work, not live.
 **Previously live, final recheck** needs the final review. **Open** requires work.
@@ -35,19 +37,22 @@ Current pending sequence:
    and vector-lettering synchronization is complete in `figma-final-content-sync.json`.
 3. Local sampled craft/scroll review complete in `UI-REVIEW.md`. Root reports
    final current-source check/build and all 149 browser tests passed in 53.5s.
-   Remote performance and preview must cover that final committed head.
-4. Final exact-head commit/CI/preview, merge and production verification.
+   CI on d49eb90 passed all 149 tests but failed the Fusion desktop performance
+   budget. Recheck the targeted image fix locally and on its exact new head.
+4. Targeted Fusion image-delivery fix and fidelity/render verification, then
+   final exact-head commit/CI/preview, merge and production verification.
 
 New image checkpoint: twenty-two fresh Figma composition assets were losslessly
 packed with exact RGBA comparison, recorded in `figma-composition-encoding.json`.
 Home Fusion reduced from 8.65MB to 2.75MB, Winking from 5.95MB to 3.22MB; the
-5.52MB Deal home vector is unchanged. These imports invalidate earlier scroll
-performance acceptance. Recheck final new assets after image/content completion;
+5.52MB Deal home vector was unchanged at that initial packing checkpoint. The
+subsequent native-scroll review is recorded in `UI-REVIEW.md`.
 Forty responsive Home SVG variants now preserve vector geometry while resizing
 embedded screenshot data; original full-resolution files remain available.
 Deal vector optimization reduces bytes by approximately 40%. Fidelity evidence
 is in `home-responsive-quality.json`, `home-responsive-delivery.json` and
-`home-vector-optimization.json`. Final exact-head remote performance is pending.
+`home-vector-optimization.json`. Latest remote performance failed on Fusion desktop; the new targeted candidate
+must pass the unchanged 95-point budget.
 
 Manual bot-excluded links verified in Chrome on 12 October: App Store
 `https://apps.apple.com/app/id6765767262` resolves to the Winking Star listing
@@ -75,7 +80,7 @@ profile and the same public profile URL. This was read-only; temporary tabs clos
 | Full-size image zoom/readability | Implemented, final coverage/release pending | ProductCapture and Deal hero links added; Fusion phone original-image tap and native zoom manually verified. Remaining route coverage belongs to final review |
 | Final whole-site UI/UX craft review | Current local sampled review complete; deployed check pending | All ten routes at 1440/390 inspected by PM; light/dark samples, section navigation and keyboard return checked. `UI-REVIEW.md` records exact scope and limits |
 | Final actual scroll-performance review | Local scroll/image review complete with transient-paint limitation; remote performance pending | Current Home and case imagery reviewed during native scroll. One rapid Home paint was blank then resolved and did not repeat; no persistent blocker. See `UI-REVIEW.md`; no frame-rate certification |
-| Final exact-head CI, merge and production verification | Open | Earlier green head does not certify subsequent revisions |
+| Final exact-head CI, merge and production verification | Blocked by Fusion desktop performance 94 on d49eb90 | Other checks green; targeted delivery fix pending. Earlier green heads do not certify subsequent revisions |
 
 ## Shared UI and assets to recheck in the final review
 
@@ -202,6 +207,7 @@ or jury decision. Passing Lighthouse does not close visual or scroll review.
 | PR49 / 2a2988d, CI38184120959 | All gates passed. Mobile 96–97, desktop 99–100; other categories 100 across 14 runs | Earlier verified candidate, not current persona revision |
 | PR49 / 7057e7a, CI38185501523 | Local 149 tests / 58.9s and build passed | Historical persona checkpoint; superseded by 24be6c9 |
 | PR49 / 24be6c9, CI38186411926 | All remote gates passed, preview ready | Superseded by latest local accent/theme/source-copy revisions; merge held |
+| PR49 / d49eb90, CI38191526789 | Check 131 files: 0 errors / 0 warnings / 4 hints; build/API/149 tests/links passed. Fusion desktop performance 94, TBT 180ms, LCP 0.853s | Failed current budget; fix pending, no merge |
 
 FX retains actual SVGs. Geometry compaction and load prioritization improved local
 84 / LCP 4.5s to 95 / LCP 2.7s. Hero precision-three high-resolution mean channel difference
@@ -213,3 +219,34 @@ Diagnostics: `/private/tmp/fx-final-vectors-lh.json`,
 `/private/tmp/pr49-2a2988d-ci.log`. Simulated LCP render-delay attribution differed
 from the actual trace; unused SVG filter definitions were not active rendering
 cost. Continue checking network/decode behavior for the separate scroll-lag report.
+
+
+### d49eb90 performance evidence
+
+| Route | Mobile performance | Desktop performance | Other categories |
+|---|---:|---:|---|
+| `/` | 95 | 99 | All 100 |
+| `/panel` | 96 | 99 | All 100 |
+| `/fx` | 95 | 100 | All 100 |
+| `/fusion` | 95 | **94** | All 100 |
+| `/winking-star` | Not run | Not run | Fail-fast stopped before route |
+| `/deal-model` | Not run | Not run | Fail-fast stopped before route |
+| `/uoaui` | Not run | Not run | Fail-fast stopped before route |
+
+Fusion desktop's LCP is the discovery composition (74,536 transferred bytes,
+99,572 uncompressed). Actual trace breakdown: TTFB 5.915ms, load delay 8.223ms,
+load 28.636ms, render 367.333ms. Two long tasks are classified as Other, 154ms
+and 230ms; script evaluation totals 12.8ms. The secondary performance composition
+embeds a 4096×2392 raster and transfers 265,941 bytes. Native raster decode/paint
+is a profiling hypothesis, not proven solely by the Other category. The targeted
+fix retains the original vector wrapper and full-size original while delivering
+appropriately sized embedded screenshot pixels.
+
+Exact logs: `/private/tmp/pr49-d49eb90-ci.log`; failed report:
+`/private/tmp/pr49-d49eb90-artifacts/lh.json`; extracted evidence:
+`/private/tmp/pr49-d49eb90-evidence.json`. No complete fourteen-run performance
+result exists for this head because the budget stops at the first failure.
+
+### Fusion follow-up validation
+
+Two raster-bearing Fusion hero SVGs now use six responsive delivery versions; their original full-size exports and vector wrappers remain unchanged. The configuration composition is pure vector and unchanged. Local check/build passed and 149 tests passed in 53.7s. Fusion desktop Lighthouse locally changed from 99 (LCP859ms/TBT0) to100 (LCP588ms/TBT0); this local comparison does not certify the remote TBT regression. A fresh exact-head CI run remains required. Reports: `fusion-responsive-delivery.json`, `fusion-responsive-quality.json`; local Lighthouse JSON under `/private/tmp/fusion-{before,after}-responsive-lh.json`.

@@ -715,3 +715,11 @@ I checked every project against the current Figma artwork and my interview notes
 The home gallery now chooses smaller SVG files for its display size while retaining the original geometry and full-resolution source exports. Embedded screenshots are resized inside the SVGs; this does not turn raster detail into vectors. The four raster-bearing desktop covers fall from 8.31 MB to 2.48 MB at the reviewed size. The Deal covers remain vectors and are about 40% smaller, with only tiny subpixel differences in render comparisons.
 
 Final local verification after the last source-art and responsive-size changes: Astro check has 0 errors and 0 warnings (4 existing hints), the production build passed, and all 149 browser tests passed in 53.5 seconds. Exact-head CI and production verification remain the release gates.
+
+### PR 49 performance follow-up · Fusion image decoding
+
+The remote release check caught Fusion desktop at 94, below the required 95. Its largest image painted in 0.9 seconds, but main-thread blocking reached 180ms. The second hero carried a 4096×2392 embedded screenshot at a much smaller display size.
+
+I added six responsive SVG versions for the two Fusion hero compositions. The 800px performance version decodes about 0.4 million pixels instead of 9.8 million. The composition, shadows and vector geometry stay intact; selecting the image still opens the original full-resolution export. The configuration artwork remains a vector. Render comparisons and source hashes are recorded in the Fusion delivery reports.
+
+After this change, Astro check has 0 errors and 0 warnings, the build passed, and all 149 browser tests passed in 53.7 seconds. The remote performance gate must pass before publication; its threshold has not changed.

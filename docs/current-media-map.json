@@ -314,7 +314,25 @@
           "export": "fusion-hero-discovery-fresh.svg",
           "status": "framing mismatch corrected"
         }
-      ]
+      ],
+      "deliveryVariants": [
+        {
+          "path": "public/art/fusion-responsive/fusion-hero-discovery-composition-800.svg",
+          "width": 800,
+          "bytes": 84196
+        },
+        {
+          "path": "public/art/fusion-responsive/fusion-hero-discovery-composition-1600.svg",
+          "width": 1600,
+          "bytes": 99572
+        },
+        {
+          "path": "public/art/fusion-responsive/fusion-hero-discovery-composition-2400.svg",
+          "width": 2400,
+          "bytes": 99572
+        }
+      ],
+      "deliveryNote": "Responsive display SVGs preserve vector geometry; embedded screenshots resized and losslessly encoded. Original full-size link retained. See fusion-responsive-delivery.json and fusion-responsive-quality.json."
     },
     {
       "route": "/fusion",
@@ -336,7 +354,25 @@
           "export": "fusion-hero-performance-fresh.svg",
           "status": "framing mismatch corrected"
         }
-      ]
+      ],
+      "deliveryVariants": [
+        {
+          "path": "public/art/fusion-responsive/fusion-hero-performance-composition-800.svg",
+          "width": 800,
+          "bytes": 50492
+        },
+        {
+          "path": "public/art/fusion-responsive/fusion-hero-performance-composition-1600.svg",
+          "width": 1600,
+          "bytes": 139136
+        },
+        {
+          "path": "public/art/fusion-responsive/fusion-hero-performance-composition-2400.svg",
+          "width": 2400,
+          "bytes": 260824
+        }
+      ],
+      "deliveryNote": "Responsive display SVGs preserve vector geometry; embedded screenshots resized and losslessly encoded. Original full-size link retained. See fusion-responsive-delivery.json and fusion-responsive-quality.json."
     },
     {
       "route": "/fusion",

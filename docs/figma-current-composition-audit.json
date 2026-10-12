@@ -1,7 +1,7 @@
 {
   "date": "2026-10-12",
   "fileKey": "l6noy7onfsRiuBgjqSsKbt",
-  "status": "Current composition exports; full body audit still in progress",
+  "status": "Current image/composition parity complete: 108 source roots classified, 146 active website references resolved, 22 compositions restored; see current-media-parity.json. Performance delivery verification remains a separate release gate.",
   "preserved": "Exact source geometry, masks, fills and shadows. Embedded screenshots remain raster. Temporary export clones removed.",
   "exports": [
     {
