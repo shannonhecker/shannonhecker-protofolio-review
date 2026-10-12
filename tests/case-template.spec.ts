@@ -32,3 +32,34 @@ test('case content keeps one column and screenshots stay within it', async ({pag
   expect(Math.abs(alignment.row-alignment.status)).toBeLessThan(1);
   expect(Math.abs(alignment.rowWidth-alignment.statusWidth)).toBeLessThan(1);
 });
+
+test('Winking Star uses the shared case typography and content alignment', async ({page}) => {
+  await page.emulateMedia({reducedMotion:'reduce'});
+  for (const width of [390,1440]) {
+    await page.setViewportSize({width,height:1000});
+    for (const theme of ['light','dark']) {
+      const styles = [];
+      for (const route of ['/fusion','/winking-star']) {
+        await page.goto(route);
+        await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme);
+        styles.push(await page.evaluate(()=>['.chapter-head h1','.beat .h-sub','.beat .rows b'].map(selector=>{
+          const style=getComputedStyle(document.querySelector(selector)!);
+          return {font:style.fontFamily,size:style.fontSize,weight:style.fontWeight,line:style.lineHeight,colour:style.color};
+        })));
+      }
+      expect(styles[1]).toEqual(styles[0]);
+      const positions=await page.evaluate(()=>{
+        const reference=document.querySelector('#ws-problem .body')!.getBoundingClientRect();
+        return [...document.querySelectorAll('#ws-hero .body > *,#ws-personas .body > .art-note')].map(el=>{
+          const rect=el.getBoundingClientRect();return {left:rect.left-reference.left,right:rect.right-reference.right};
+        });
+      });
+      for (const position of positions) {
+        expect(Math.abs(position.left)).toBeLessThan(1);
+        expect(position.right).toBeLessThanOrEqual(1);
+      }
+      await expect(page.locator('.chapter-head .meta a')).toHaveCount(2);
+      await expect(page.locator('.wrap > .art-note')).toHaveCount(0);
+    }
+  }
+});

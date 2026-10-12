@@ -79,10 +79,10 @@ test('the game cover stays static and makes no video request under reduced motio
 test('case evidence keeps its full image proportions after loading', async ({ page }) => {
   for (const path of ['/fx', '/fusion', '/uoaui', '/deal-model', '/winking-star']) {
     await page.goto(path);
-    await page.locator('.evidence img, .phone img, .ws-hero img, .fx-original-flow img').evaluateAll(async (imgs) => {
+    await page.locator('.evidence img, .phone img, #ws-hero .shot img, .fx-original-flow img').evaluateAll(async (imgs) => {
       await Promise.all(imgs.map(async (el) => { const img = el as HTMLImageElement; img.loading = 'eager'; await img.decode(); }));
     });
-    const cropped = await page.locator('.evidence img, .phone img, .ws-hero img, .fx-original-flow img').evaluateAll((imgs) => imgs.filter((el) => {
+    const cropped = await page.locator('.evidence img, .phone img, #ws-hero .shot img, .fx-original-flow img').evaluateAll((imgs) => imgs.filter((el) => {
       const img = el as HTMLImageElement, box = img.getBoundingClientRect();
       return Math.abs(box.width / box.height - img.naturalWidth / img.naturalHeight) > 0.02;
     }).map((el) => el.getAttribute('alt')));

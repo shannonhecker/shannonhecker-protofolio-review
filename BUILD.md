@@ -793,3 +793,11 @@ I reviewed user-flow examples from Figma and Nielsen Norman Group, then drew eac
 I added light and dark exports to all five projects, with readable phone scrolling, keyboard panning, a Figma source link and a complete text version. The original workflow copy remains available below each graphic. Winking Star's caregiver steps link to the same shared-family flow.
 
 Validation: production build passes; Astro check reports zero errors and warnings; all 203 browser tests pass, including the new flows in Chromium and iPhone WebKit. I checked that branch labels clear the nodes and every connector segment avoids unrelated nodes.
+
+### Winking Star shared case layout · 12 October 2026
+
+I brought Winking Star's introduction into the same label and content grid as the other cases, removing the inset promotional card while keeping its copy and illustration. The product links now sit with the shared hero metadata, and the persona illustration note stays inside its section's reading column.
+
+I removed the old Winking-only page styling hook so case headings, row labels and outcome figures use the shared typography and theme colours. The actual product demo and artwork retain their own identity.
+
+Validation: production build passes, Astro check reports zero errors and warnings, and all 204 browser tests pass. I checked desktop and phone layouts in both themes, including section alignment and the preserved transparent product hero.
