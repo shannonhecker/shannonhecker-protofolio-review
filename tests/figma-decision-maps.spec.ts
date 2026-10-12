@@ -39,7 +39,7 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
   await expect(page.locator('.map-transcript ul').first()).toBeVisible();
   await expect(page.locator('main details')).toHaveCount(0);
   await expect(page.locator('.map-transcript')).toContainText('Branches and return loops');
-  await expect(page.locator('.map-tools a')).toHaveAttribute('href',new RegExp(maps.fileKey));
+  await expect(page.locator('a[href*="figma.com"]')).toHaveCount(0);
  });
  test(`${project} exported Figma text fits its nodes in both themes`,async({page})=>{
   for(const theme of ['light','dark']){
