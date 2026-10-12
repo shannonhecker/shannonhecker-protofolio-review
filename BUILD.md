@@ -751,3 +751,5 @@ My phone still showed the cream image surround after the first fix. The previous
 A controlled dark-page/light-image-container check failed on the previous implementation and passes with explicit transparency. The image regression suite now runs in Chromium and iPhone-configured WebKit. Current WebKit alone did not reproduce the original in-app behaviour, so the new checks also verify the files contain no theme-dependent background rule.
 
 Validation: Astro check has 0 errors and 0 warnings; the production build and all 155 browser tests pass, including the three media regressions under iPhone-configured WebKit.
+
+The remote release checks exposed startup rendering pressure on the homepage. I let the browser defer drawing off-screen product previews while their existing aspect ratios reserve the same space. All 155 browser checks pass again, including home-gallery geometry and scroll motion; the performance threshold remains unchanged.

@@ -14,7 +14,7 @@ const sizes='(max-width:760px) calc(100vw - 48px), (min-width:1680px) 780px, cal
  <picture><source media="(max-width:760px)" srcset={responsive?srcset('mobile-current'):mobile} sizes={sizes} width="350" height={mobileHeight}/><img src={responsive?adaptiveArt(`/art/home-responsive/${project}-current-800.${extension}`):desktop} srcset={responsive?srcset('current'):undefined} sizes={responsive?sizes:undefined} alt="" width="681" height="524" loading="lazy" decoding="async" /></picture>
 </div>
 <style>
-:global(#work .home-artwork.exact-composition){aspect-ratio:681/524;background:transparent}
+:global(#work .home-artwork.exact-composition){aspect-ratio:681/524;background:transparent;content-visibility:auto}
 :global(#work .home-artwork.exact-composition picture){display:block;inset:0;width:100%;height:100%}
 :global(#work .home-artwork.exact-composition img){object-fit:contain}
 @media(max-width:760px){:global(#work .home-artwork.exact-composition){aspect-ratio:var(--mobile-ratio)}}
