@@ -48,8 +48,8 @@ test('image surround follows site theme even when the SVG receives a light colou
   const toggle = page.getByRole('switch', { name:'Dark mode' });
   await toggle.check();
   // Reproduce an embedded browser that does not propagate the document theme to SVG images.
-  await page.addStyleTag({ content: '.ws-product-hero{color-scheme:light!important}' });
-  const img = page.locator('.ws-product-hero img');
+  await page.addStyleTag({ content: '#winking .project-hero{color-scheme:light!important}' });
+  const img = page.locator('#winking .project-hero img');
   await img.evaluate(el => (el as HTMLImageElement).decode());
   const dark = await sharp(await img.screenshot()).removeAlpha().raw().toBuffer({resolveWithObject:true});
   await toggle.uncheck();
