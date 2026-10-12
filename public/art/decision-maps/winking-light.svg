@@ -62,12 +62,12 @@
 <path id="Vector_28" d="M925 430L929 422H921L925 430Z" fill="#176589"/>
 </g>
 <g id="first → own">
-<path id="Vector_29" d="M560 392V430" stroke="#176589" stroke-width="1.5"/>
-<path id="Vector_30" d="M560 430L564 422H556L560 430Z" fill="#176589"/>
+<path id="Vector_29" d="M560 398V424" stroke="#176589" stroke-width="1.5"/>
+<path id="Vector_30" d="M560 424L564 416H556L560 424Z" fill="#176589"/>
 </g>
 <g id="first → sample">
-<path id="Vector_31" d="M560 392H207C199 392 195 396 195 404V430" stroke="#176589" stroke-width="1.5"/>
-<path id="Vector_32" d="M195 430L199 422H191L195 430Z" fill="#176589"/>
+<path id="Vector_31" d="M560 398V411H207C199 411 195 415 195 423V424" stroke="#176589" stroke-width="1.5"/>
+<path id="Vector_32" d="M195 424L199 416H191L195 424Z" fill="#176589"/>
 </g>
 <g id="start → first">
 <path id="Vector_33" d="M560 256V280" stroke="#6B7A88" stroke-width="1.5"/>
@@ -160,7 +160,7 @@
 </g>
 </g>
 <g id="Branch labels">
-<text id="Branch · Try it" fill="#576572" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="362.816" y="381.864">Try it</tspan></text>
+<text id="Branch · Try it" fill="#576572" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="362.816" y="402.864">Try it</tspan></text>
 <text id="Branch · Set up" fill="#576572" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="569" y="415.864">Set up</tspan></text>
 <text id="Branch · Invited" fill="#576572" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="785.547" y="325.864">Invited</tspan></text>
 <text id="Branch · Adult only" fill="#576572" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="934" y="735.864">Adult only</tspan></text>

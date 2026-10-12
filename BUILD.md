@@ -947,3 +947,15 @@ I expanded the original Winking Star icon to fill a square image card, using res
 Validation: production build and the Winking Star layout check pass. The FX summary check passes across four viewport widths and both themes. Browser inspection confirms the icon fills the card at 390px and 1440px without distortion.
 
 I also separated the three Deal Model explanation diagrams from their captions and reduced the long Deal Model introduction to the site's 16px body size. The Deal Model explanation browser check passes in both themes across four widths.
+
+### Clear Winking Star branch spacing · 12 October 2026
+
+I moved the Sample Family branch below the entry decision's bottom border and left a 6px gap at the outgoing and incoming box edges. The Try it label follows the new route. Both theme exports and the branch source coordinates are updated.
+
+Validation: production build and two Winking Star map checks pass; I inspected the connector spacing in the rendered SVG.
+
+### Separate diagram captions across all projects · 12 October 2026
+
+I extended the separate graphic-and-copy treatment to every workflow summary and visual explanation across Fusion, FX, Winking Star, Deal Model and uoaui.ai. Titles and descriptions now render as normal HTML beneath the illustration; diagram labels remain inside the artwork. Text wraps naturally at 18px for headings and 16px for descriptions.
+
+Validation: production build and ten targeted browser checks pass across all five projects, four viewport widths and both themes.

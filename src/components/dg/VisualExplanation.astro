@@ -4,7 +4,7 @@ interface Props { project: keyof typeof content }
 const {project}=Astro.props;
 const item=content[project];
 const artwork=import.meta.glob<string>('../../../public/art/explanations/*.svg',{query:'?raw',import:'default',eager:true});
-const separateCopy=project==='deal';
+const separateCopy=true;
 function illustration(svg:string){
  if(!separateCopy)return svg;
  const height=Number(svg.match(/<svg[^>]*height="(\d+)"/)?.[1]);
