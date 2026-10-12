@@ -883,3 +883,9 @@ Validation: production build and Astro check pass with zero errors and warnings.
 I refined all 17 Figma explanation diagrams to name the actors, dependencies, transitions and implementation scope. Fusion now explains the direction of its layer dependencies; Deal Model shows four views of a shared record rather than a handoff; uoaui.ai shows the component/fallback branch and my review loop. Winking Star separates web and iPhone entry and describes the offline queue, midnight rollover and accessibility settings. I kept unspecified behaviour labelled and retained the original case evidence. The accessible descriptions now include the diagram labels.
 
 Validation: production build and Astro check pass with zero errors and warnings. I inspected all five revised Figma compositions, corrected the mapping branch endpoints, and reviewed phone dark mode and desktop light mode in the browser. Responsive tests cover both themes at 320, 390, 820 and 1440 pixels.
+
+### Remove duplicate flow transcripts · 12 October 2026
+
+I removed the User flow in detail and Actions, branches and returns sections from all five case pages. The visual flow and illustrated Workflow at a glance remain together, without the duplicated prose between them. I also removed the image description promising a text section that no longer follows.
+
+Validation: production build and Astro check pass. The full browser run passed 231 checks; 21 Safari checks failed during a widespread slowdown involving menu clicks, navigation and theme changes. Three passed on a sequential retry; the remaining run was stopped after continued stalls. Chromium verifies the section removal on all five projects. Safari verification remains incomplete.
