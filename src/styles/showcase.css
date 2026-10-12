@@ -297,7 +297,7 @@ html.game-is-full :is(.nav,.progress,.avatar-cursor){visibility:hidden!important
 .game-stages button[data-locked='true']{opacity:.6;cursor:not-allowed}.game-stages button[data-locked='true']::after{content:'Locked';font-size:11px;margin-left:auto}
 
 /* Text masks and staggered entrances share one restrained motion rhythm. */
-.split[data-scroll-motion] .wd{transition:none!important;opacity:1}
+.split[data-scroll-motion] .wd{transition:none!important;opacity:1!important;transform:none!important;clip-path:none!important}
 .hero-word-window{display:inline-block;vertical-align:top;padding-block:.08em;margin-block:-.08em}
 .hero-word,.hero-copy-depth{display:inline-block}
 /* Keep a single accessible sentence and natural line wrapping. Cropped words

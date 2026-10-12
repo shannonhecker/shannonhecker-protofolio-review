@@ -41,13 +41,12 @@ export function initScrollEffects() {
       }
     });
 
-    // Existing selectable words reveal through masks; no duplicate reading
-    // text, runtime splitting, or horizontal offsets that can clip a phone.
+    // Move the heading as one unit so words keep their shared baseline.
     document.querySelectorAll<HTMLElement>('.split').forEach(heading=>{
       const words=heading.querySelectorAll('.wd');if(!words.length)return;
       heading.dataset.scrollMotion='true';marked.push(heading);
-      gsap.fromTo(words,{yPercent:desktop?65:25,clipPath:'inset(0% 0% 100% 0%)'},
-        {yPercent:0,clipPath:'inset(0% 0% 0% 0%)',stagger:.035,ease:'none',immediateRender:false,scrollTrigger:enter(heading)});
+      gsap.fromTo(heading,{y:12,opacity:0},
+        {y:0,opacity:1,duration:.5,ease:'power2.out',scrollTrigger:{trigger:heading,start:'top 92%',once:true}});
     });
     document.querySelectorAll<HTMLElement>('.work-title, .process-heading h3').forEach(heading=>{
       gsap.fromTo(heading,{y:desktop?32:12,clipPath:'inset(0% 0% 100% 0%)'},
