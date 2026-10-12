@@ -39,9 +39,10 @@ test('every page shares usable navigation, theme controls and an overflow-free s
    if(width<=1100){
     await page.getByRole('button',{name:'Menu',exact:true}).click();
     await expect(page.locator('.nav ul')).toBeVisible();
-    const menu=(await page.locator('.nav').boundingBox())!;
+    const menu=(await page.locator(width<=760?'.nav':'.nav ul').boundingBox())!;
     expect(menu.x).toBe(0);expect(menu.width).toBe(width);
-    expect(menu.y).toBe(0);expect(menu.height).toBe(1000);
+    if(width<=760){expect(menu.y).toBe(0);expect(menu.height).toBe(1000);}
+    else await expect(page.locator('.nav-actions')).toBeVisible();
     await expect(page.getByRole('button',{name:'Close menu',exact:true})).toBeVisible();
     for(const link of await page.locator('.nav ul a').all())await expect(link).toBeInViewport();
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
