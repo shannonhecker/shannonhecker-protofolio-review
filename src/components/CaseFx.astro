@@ -13,6 +13,7 @@ import FxHero from './FxHero.astro';
 import ProductCapture from './ProductCapture.astro';
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
+import CaseEvidenceSummary from './CaseEvidenceSummary.astro';
 import ResponsiveEvidence from './ResponsiveEvidence.astro';
 import DecisionMap from './dg/AuthoredDecisions.astro';
 import FxOriginalFlow from './dg/FxOriginalFlow.astro';
@@ -30,7 +31,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
     <header class="chapter-head">
       <div class="g" style="row-gap:28px;align-items:end">
         <div style="grid-column:1/9;display:grid;gap:24px">
-          <p class="eyebrow">Case one · Barclays · 2025 to now</p>
+          <p class="eyebrow">Case three · Barclays · 2025 to now</p>
           <HT class="h-chapter" style="view-transition-name:t-fx">FX execution analytics</HT>
         </div>
         <p class="lead muted" style="grid-column:1/9">A trader works a large FX order over hours and keeps deciding whether to step in or leave it. The desk did that across a static chart, five spreadsheets and a separate execution tool.</p>
@@ -38,6 +39,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       </div>
       <FxHero />
     </header>
+    <CaseEvidenceSummary project="fx" />
     <CaseContents project="fx" />
 
 

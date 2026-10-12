@@ -5,8 +5,9 @@
     "Case four · J.P. Morgan · Securities Services · internal product",
     "Role · UI lead",
     "Team · Two UX designers, a junior designer, a BA, a researcher, a data analyst, engineers",
-    "Status · In use internally. Six design phases, to January 2024",
-    "Platform · Web, desktop"
+    "Status · In use internally. Six design phases",
+    "Platform · Web, desktop",
+    "My involvement · Before Fusion; I moved to Fusion in 2023"
   ],
   "problem": {
     "label": "01 Problem",
@@ -74,7 +75,7 @@
       },
       {
         "label": "Six phases",
-        "text": "Phases one to six, to January 2024. Deals, portfolio, pricing, tiering, ADA specs, smart pricing, then the deal-owner dashboard and the approver workflow."
+        "text": "Phases one to six, before I moved to Fusion in 2023. Deals, portfolio, pricing, tiering, ADA specs, smart pricing, then the deal-owner dashboard and the approver workflow."
       }
     ]
   },
@@ -128,7 +129,7 @@
     "rows": [
       {
         "label": "Design scope",
-        "text": "Six design phases to January 2024, covering deals, portfolio, pricing, tiering, ADA specs, the deal-owner dashboard and the approver workflow. Smart pricing was explored with the data analyst but was not built in my time. I reviewed the work with the four teams at each phase."
+        "text": "Before I moved to Fusion in 2023, I worked across six design phases covering deals, portfolio, pricing, tiering, ADA specs, the deal-owner dashboard and the approver workflow. Smart pricing was explored with the data analyst but was not built in my time. I reviewed the work with the four teams at each phase."
       },
       {
         "label": "Live",

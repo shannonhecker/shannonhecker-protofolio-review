@@ -2,31 +2,31 @@
 // index and by the next-case row at the end of each case page.
 export const CASES = [
   {
-    "href": "/fx",
-    "n": "01",
-    "vt": "fx",
-    "title": "FX execution analytics",
-    "meta": "Barclays · 2025 to now · in beta. Five spreadsheets and a static chart became one chart a trader can act from.",
-    "arrow": "Read →",
-    "img": "live-fx.png"
-  },
-  {
     "href": "/fusion",
-    "n": "02",
+    "n": "01",
     "vt": "fusion",
     "title": "Fusion analytics dashboard",
-    "meta": "J.P. Morgan · 2023 to 2025 · shipped. Board-ready analytics on Salt, zero accessibility violations, opened to clients in phase two.",
+    "meta": "J.P. Morgan · 2023 to 2025 · shipped. Board-ready analytics on Salt, reusable widget and filtering patterns, opened to clients in phase two.",
     "arrow": "Read →",
     "img": "figma-fusion-performance.png"
   },
   {
     "href": "/winking-star",
-    "n": "03",
+    "n": "02",
     "vt": "winking",
     "title": "Winking Star",
-    "meta": "Solo · live on web and iOS. A shared routine board for families. Designed, built and shipped by me.",
+    "meta": "Solo · 2026 · live on web and iOS. A shared routine board for families. Designed, built and shipped by me.",
     "arrow": "Read →",
     "img": "ws-marketing.jpg"
+  },
+  {
+    "href": "/fx",
+    "n": "03",
+    "vt": "fx",
+    "title": "FX execution analytics",
+    "meta": "Barclays · 2025 to now · in beta. Five spreadsheets and a static chart became one chart a trader can act from.",
+    "arrow": "Read →",
+    "img": "live-fx.png"
   },
   {
     "href": "/deal-model",

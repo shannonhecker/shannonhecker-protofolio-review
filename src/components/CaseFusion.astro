@@ -10,6 +10,7 @@ import Demo from './Demo.astro';
 import ProductCapture from './ProductCapture.astro';
 import Split from './Split.astro';
 import CaseContents from './CaseContents.astro';
+import CaseEvidenceSummary from './CaseEvidenceSummary.astro';
 import ResponsiveEvidence from './ResponsiveEvidence.astro';
 import DecisionMap from './dg/AuthoredDecisions.astro';
 import Personas from './dg/AuthoredPersonas.astro';
@@ -24,7 +25,7 @@ import Stack from './dg/Stack.astro';
     <header class="chapter-head">
       <div class="g" style="row-gap:28px;align-items:end">
         <div style="grid-column:1/9;display:grid;gap:24px">
-          <p class="eyebrow">Case two · J.P. Morgan · 2023 to 2025 · shipped</p>
+          <p class="eyebrow">Case one · J.P. Morgan · 2023 to 2025 · shipped</p>
           <HT class="h-chapter" style="view-transition-name:t-fusion">Fusion analytics dashboard</HT>
         </div>
         <p class="lead muted" style="grid-column:1/9">Portfolio managers and analysts were drowning in fragmented data. Their real need was trust in the numbers, not more features. Performance, attribution and risk they could take into a board meeting.</p>
@@ -35,6 +36,7 @@ import Stack from './dg/Stack.astro';
 <ProductCapture name="/art/fusion-hero-performance-composition.svg" alt="Original Fusion Performance design showing the complete workspace" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Original Fusion Performance design" />
       </div>
     </header>
+    <CaseEvidenceSummary project="fusion" />
     <CaseContents project="fusion" />
 
     <div class="beat rv" id="fu-problem">
@@ -57,6 +59,7 @@ import Stack from './dg/Stack.astro';
         <ul class="rows">
           <li><b>My role</b><p>A UX designer was shared across other projects, so most of the day-to-day calls were mine. A product owner set requirements.</p></li>
           <li><b>Salt, the firm's design system</b><p>Every component had to come from Salt or go back into it. I built the Fusion layer on top and contributed back. My craft shows in layout, hierarchy and data density, not in new components.</p></li>
+          <li><b>Adoption was part of the problem</b><p>Some development teams built custom components instead of using the design system's components out of the box. The UI became inconsistent and harder to extend and evolve. I audited the custom components, organised them into groups and reviewed the issues regularly with developers as we worked through the fixes.</p></li>
           <li><b>FactSet's engine behind the data</b><p>The analytics came from a partner engine, so the shape of the data was fixed. Design had to fit what the engine could return, fast.</p></li>
           <li><b>Accessibility as a gate, not a finish</b><p>An accessibility specialist sat in every review. Anything that failed went back before it reached engineering.</p></li>
           <li><b>Two constraints that pulled against each other</b><p>Dense data and decision speed. I named them both, then built the conflict into the design. Type, hierarchy and colour were set for the worst-case viewing moment, someone presenting live under pressure, not the clean demo.</p></li>

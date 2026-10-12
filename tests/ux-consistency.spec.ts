@@ -2,6 +2,26 @@ import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const routes=['/','/panel','/fx','/fusion','/winking-star','/deal-model','/uoaui','/privacy','/build','/404'];
+for(const route of ['/fusion','/winking-star','/fx','/deal-model','/uoaui']){
+test(`${route} summary follows complete hero media and links to the outcome`,async({page})=>{
+ await page.emulateMedia({reducedMotion:'reduce'});
+ for(const width of [390,1440]){
+  await page.setViewportSize({width,height:900});
+   await page.goto(route);
+   const summary=page.getByRole('complementary',{name:'Case summary'});
+   const hero=(await page.locator('.chapter-head').boundingBox())!;
+   const bounds=(await summary.boundingBox())!;
+   expect(bounds.y).toBeGreaterThanOrEqual(hero.y+hero.height);
+   expect(bounds.x+bounds.width).toBeLessThanOrEqual(width);
+   const target=await summary.getByRole('link',{name:'Read the outcome'}).getAttribute('href');
+   await expect(page.locator(target!)).toHaveCount(1);
+   for(const theme of ['light','dark']){
+    await page.getByRole('switch',{name:'Dark mode'}).setChecked(theme==='dark');
+    expect((await new AxeBuilder({page}).include('.case-evidence').withTags(['wcag2a','wcag2aa']).analyze()).violations).toEqual([]);
+   }
+ }
+});
+}
 test('every page shares usable navigation, theme controls and an overflow-free shell',async({page})=>{
  test.setTimeout(90000);
  await page.emulateMedia({reducedMotion:'reduce'});
