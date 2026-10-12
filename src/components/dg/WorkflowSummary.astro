@@ -22,11 +22,12 @@ const summary: {label:string;caption:string;steps:{t:string;d:string;branch?:{t:
 
 .summary-intro,.summary-caption{font-size:14px;line-height:1.65;color:var(--fg-2);margin:0 0 20px}
 .summary-caption{margin:20px 0 0;max-width:70ch}
-ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;list-style:none;padding:0;margin:0}
+/* Exported at 336px: keep 20px headings and 16px copy at their authored scale. */
+ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:696px;gap:24px;list-style:none;padding:0;margin:0}
 li{min-width:0;margin:0;padding:0}
 .summary-art{width:100%;min-width:0}.summary-art :global(svg){display:block;width:100%;height:auto;max-height:none;border-radius:var(--radius)}.summary-art :global(text){font-family:Inter,Arial,sans-serif}
 .summary-dark{display:none}
 :global(html[data-theme=dark]) .summary-light{display:none}
 :global(html[data-theme=dark]) .summary-dark{display:block}
-@media(max-width:760px){ol{grid-template-columns:minmax(0,1fr);gap:20px}.summary-heading{align-items:flex-start;flex-direction:column;gap:8px}.summary-heading h4{font-size:20px}}
+@media(max-width:620px){ol{grid-template-columns:minmax(0,1fr);max-width:336px;gap:20px}.summary-heading{align-items:flex-start;flex-direction:column;gap:8px}.summary-heading h4{font-size:20px}}
 </style>

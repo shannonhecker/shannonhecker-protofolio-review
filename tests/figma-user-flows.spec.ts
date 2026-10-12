@@ -61,6 +61,7 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
      const clipped=await img.evaluate(async n=>{await document.fonts.ready;const r=n.getBoundingClientRect();return [...n.querySelectorAll('text')].filter(t=>{const b=t.getBoundingClientRect();return b.left<r.left-1||b.right>r.right+1||b.top<r.top-1||b.bottom>r.bottom+1;}).map(t=>t.textContent);});
      expect(clipped).toEqual([]);
      expect(size.w).toBeGreaterThan(250);
+     expect(size.w).toBeLessThanOrEqual(337);
      expect(Math.abs(size.w/size.h-336/370)).toBeLessThan(.01);
     }
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
@@ -81,7 +82,7 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
      await expect(art).toHaveClass(new RegExp(`explanation-${theme}`));
      await expect(art).toHaveAttribute('aria-label',explanations[project].cards[i].title+'. '+explanations[project].cards[i].diagramDescription+'. '+explanations[project].cards[i].body);
      const bounds=await art.evaluate(n=>{const r=n.getBoundingClientRect();return {w:r.width,clipped:[...n.querySelectorAll('text')].filter(t=>{const b=t.getBoundingClientRect();return b.left<r.left-1||b.right>r.right+1||b.bottom>r.bottom+1||b.top<r.top-1;}).map(t=>t.textContent)};});
-     expect(bounds.w).toBeGreaterThan(250);expect(bounds.clipped).toEqual([]);
+     expect(bounds.w).toBeGreaterThan(250);expect(bounds.w).toBeLessThanOrEqual(337);expect(bounds.clipped).toEqual([]);
     }
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
    }
