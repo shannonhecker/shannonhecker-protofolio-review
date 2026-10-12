@@ -861,3 +861,11 @@ I fixed the next-project preview layout that squeezed Winking Star screens into 
 I removed the emoji-rendered return arrow in the Fusion journey; the existing loop explanation remains visible. Comparison artwork now sits inside a consistently padded white frame, avoiding conflicting image and container corners while preserving readable text and the source image proportions.
 
 Validation: production build and Astro check pass. Browser coverage checks all next-project previews at phone, tablet and desktop widths, including native image proportions and placement beneath the mobile description.
+
+### Illustrated workflow summaries · 12 October 2026
+
+I replaced the text-only original workflow summaries across all five projects with illustrated sequences drawn in Figma. I used Nielsen Norman Group's wireflow examples as the reference for pairing an action with a small screen illustration. The graphics keep my existing workflow wording, the FX cancel branch and the distinction between the specified flow and the public rebuild.
+
+The editable Figma page contains light and dark versions. Individual SVG exports reflow into a single readable column on phones and two columns on larger screens, without a zoom requirement or collapsed content. Each case links to its Figma source. The manifest in src/data/figma-workflow-summaries.json records the source nodes and reference.
+
+Validation: Astro check reports zero errors and warnings. The regression run passed 240 checks; two Safari checks interrupted during the typography rebuild passed on rerun. All 56 final workflow and UX checks pass in Chromium and WebKit, including readable scaling, both themes, text bounds, navigation and accessibility. I reviewed the Figma compositions and the phone/desktop website renderings.

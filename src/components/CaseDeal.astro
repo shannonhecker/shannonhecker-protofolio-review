@@ -7,7 +7,6 @@ import Personas from './dg/AuthoredPersonas.astro';
 import Journey from './dg/AuthoredJourney.astro';
 import Decisions from './dg/AuthoredDecisions.astro';
 import Split from './Split.astro';
-import Flow from './dg/Flow.astro';
 import FigmaUserFlow from './dg/FigmaUserFlow.astro';
 import ProductCapture from './ProductCapture.astro';
 ---
@@ -27,13 +26,7 @@ import ProductCapture from './ProductCapture.astro';
  <div class="beat rv" id="deal-problem"><div class="label"><h2 class="k"><b>01</b> Problem</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.problem.title}/><ul class="rows">{data.problem.rows.map(r=><li><b>{r.label}</b><p>{r.text}</p></li>)}</ul></div></div>
  <div class="beat rv" id="deal-research"><div class="label"><h2 class="k"><b>02</b> Users and research</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.research.title}/><ul class="rows">{data.research.rows.map(r=><li><b>{r.label}</b><p>{r.text}</p></li>)}</ul><Personas project="deal"/></div></div>
  <div class="beat rv" id="deal-constraints"><div class="label"><h2 class="k"><b>03</b> Constraints and role</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.constraints.title}/><ul class="rows">{data.constraints.rows.map(r=><li><b>{r.label}</b><p>{r.text}</p></li>)}</ul></div></div>
- <div class="beat rv" id="deal-workflow"><div class="label"><h2 class="k"><b>04</b> Workflow</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.flow.title}/><p class="lead muted">{data.flow.intro}</p><FigmaUserFlow project="deal"><Flow label="From a spreadsheet to a signed-off deal" steps={[
-  {t:'Create the deal',d:'Name, region, segment, deal lead'},
-  {t:'Load the portfolio',d:'Load data, or upload the template'},
-  {t:'Price and iterate',d:'Rate cards, iterations, checks as you go'},
-  {t:'Compare and tier',d:'Compare grid, column chooser, tiering'},
-  {t:'Approve and sign off',d:'Proposal comparison, description and comments'},
- ]} caption="One deal object, with a view for each role."/></FigmaUserFlow><Journey project="deal"/></div></div>
+ <div class="beat rv" id="deal-workflow"><div class="label"><h2 class="k"><b>04</b> Workflow</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.flow.title}/><p class="lead muted">{data.flow.intro}</p><FigmaUserFlow project="deal" /><Journey project="deal"/></div></div>
  <div class="beat rv" id="deal-screens"><div class="label"><h2 class="k">Product screens</h2></div><div class="body"><Split as="h3" class="h-sub" text="The product, phase by phase."/><p class="lead muted">{data.screensIntro}</p><div class="deal-screen-gallery">{data.screens.map(s=><figure><AuthoredImage name={s.image} alt={`${s.title}: ${s.description}`} sizes="(max-width:900px) 90vw, 43vw"/><figcaption><h3>{s.title}</h3><p>{s.description}</p></figcaption></figure>)}</div></div></div>
  <div class="beat rv" id="deal-decisions"><div class="label"><h2 class="k"><b>05</b> Decisions and trade-offs</h2></div><div class="body"><Split as="h3" class="h-sub" text="Six calls that made four teams one product."/><Decisions project="deal"/></div></div>
  <div class="beat rv" id="deal-edge"><div class="label"><h2 class="k"><b>06</b> Edge and validation states</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.edge.title}/><div class="deal-edge-table" role="region" tabindex="0" aria-label="Edge and validation states, scroll horizontally on small screens"><table><caption class="vh">Designed edge and validation states</caption><thead><tr><th scope="col">State</th><th scope="col">What the screen does</th><th scope="col">Why</th></tr></thead><tbody>{data.edge.rows.map(r=><tr><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td></tr>)}</tbody></table></div>

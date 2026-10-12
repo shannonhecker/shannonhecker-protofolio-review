@@ -1,0 +1,18 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#4F7352" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">03 / 04</tspan></text>
+<path d="M295 67H43C40.7909 67 39 68.7909 39 71V171C39 173.209 40.7909 175 43 175H295C297.209 175 299 173.209 299 171V71C299 68.7909 297.209 67 295 67Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="56" y="88.6364">WEEKLY PET</tspan></text>
+<path d="M99 156C112.255 156 123 143.016 123 127C123 110.984 112.255 98 99 98C85.7452 98 75 110.984 75 127C75 143.016 85.7452 156 99 156Z" fill="white" stroke="#4F7352" stroke-width="2"/>
+<path d="M84 127L94 119L102 128L112 116" stroke="#4F7352" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M153 129H281" stroke="#D6DCE1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M158 135C161.314 135 164 132.314 164 129C164 125.686 161.314 123 158 123C154.686 123 152 125.686 152 129C152 132.314 154.686 135 158 135Z" fill="#4F7352"/>
+<path d="M196 135C199.314 135 202 132.314 202 129C202 125.686 199.314 123 196 123C192.686 123 190 125.686 190 129C190 132.314 192.686 135 196 135Z" fill="#4F7352"/>
+<path d="M234 135C237.314 135 240 132.314 240 129C240 125.686 237.314 123 234 123C230.686 123 228 125.686 228 129C228 132.314 230.686 135 234 135Z" fill="#D6DCE1"/>
+<path d="M272 135C275.314 135 278 132.314 278 129C278 125.686 275.314 123 272 123C268.686 123 266 125.686 266 129C266 132.314 268.686 135 272 135Z" fill="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="153" y="155.5">Daily stars add up</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">See the week grow</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Stars connect the small daily action to a </tspan><tspan x="13" y="281.418">pet and a family reward.</tspan></text>
+</svg>
+

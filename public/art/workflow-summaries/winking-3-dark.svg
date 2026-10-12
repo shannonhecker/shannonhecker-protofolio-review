@@ -1,0 +1,16 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#46515F"/>
+<text fill="#B9D5B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">04 / 04</tspan></text>
+<path d="M57 124C66.9411 124 75 115.941 75 106C75 96.0589 66.9411 88 57 88C47.0589 88 39 96.0589 39 106C39 115.941 47.0589 124 57 124Z" fill="#B9D5B8"/>
+<path d="M281 124C290.941 124 299 115.941 299 106C299 96.0589 290.941 88 281 88C271.059 88 263 96.0589 263 106C263 115.941 271.059 124 281 124Z" fill="#B9D5B8"/>
+<path d="M218 71H120C117.791 71 116 72.7909 116 75V160C116 162.209 117.791 164 120 164H218C220.209 164 222 162.209 222 160V75C222 72.7909 220.209 71 218 71Z" fill="#222933" stroke="#46515F"/>
+<path d="M57 129V144H116M281 129V144H222" stroke="#B9D5B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="13" letter-spacing="0em"><tspan x="137" y="94.7273">Family</tspan></text>
+<path d="M132 114H194" stroke="#B8C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M132 129H194" stroke="#B8C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M132 144H194" stroke="#B8C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Share the board</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">A second adult joins the same family, </tspan><tspan x="13" y="281.418">with the same routines.</tspan></text>
+</svg>
+

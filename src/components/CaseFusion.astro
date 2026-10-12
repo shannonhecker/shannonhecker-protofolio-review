@@ -16,7 +16,6 @@ import DecisionMap from './dg/AuthoredDecisions.astro';
 import Personas from './dg/AuthoredPersonas.astro';
 import Journey from './dg/AuthoredJourney.astro';
 
-import Flow from './dg/Flow.astro';
 import FigmaUserFlow from './dg/FigmaUserFlow.astro';
 import Stack from './dg/Stack.astro';
 ---
@@ -71,16 +70,7 @@ import Stack from './dg/Stack.astro';
       <div class="label"><HL class="k"><b>03</b> Research and workflow</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="One analyst, from a raw data cube to a board-ready page." />
-        <FigmaUserFlow project="fusion"><Flow
-          label="The analyst's workflow, four steps"
-          steps={[
-            { t: 'Select a data cube', d: 'FactSet feeding it' },
-            { t: 'Filter and slice', d: 'Advanced filtering, toggles, deep slicing' },
-            { t: 'Analyse', d: 'Returns, attribution and risk, across asset classes' },
-            { t: 'Report', d: 'Board-ready, without leaving the surface' },
-          ]}
-          caption="Every widget had to earn its place in one of these four steps."
-        /></FigmaUserFlow>
+        <FigmaUserFlow project="fusion" />
         <ul class="rows">
           <li><b>Sketch, wireframe, high fidelity</b><p>Each flow went through paper, then wireframes, then built screens on Salt. The sketches set the information hierarchy before any visual decision.</p></li>
           <li><b>The review cycle</b><p>Requirements with the product owner, iteration with UX, review with product, engineering and the accessibility specialist, then pixel-level work with developers in daily stand-ups. Accessibility was a review step, not a final check.</p></li>
