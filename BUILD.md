@@ -919,3 +919,9 @@ Validation: production build and Astro check pass. All ten Chromium checks pass 
 I removed Decision map in detail and Branches and return loops across all five projects. The themed diagrams and enlargement controls remain. I also removed the image description promising a following text version and the unused transcript styles.
 
 Validation: production build and Astro check pass. All five Chromium map checks pass, covering both themes, phone sizing, enlargement and absence of the removed text.
+
+### Rounded Winking Star tags · 12 October 2026
+
+I gave the four product labels fully rounded pill corners so they read as tags. Their wording, colours and noninteractive span markup remain the same.
+
+Validation: production build and the Winking Star layout check pass. Browser inspection confirms all four labels use the pill radius.
