@@ -979,3 +979,9 @@ Validation: production build and 17 browser checks pass, including all-page navi
 I removed the FX decision-map graphic because it repeated the full user flow. The section now says Design decisions, including its section-menu label, while the trade-offs and main user flow remain.
 
 Validation: production build and a browser regression check confirm the duplicate map is absent and the main flow remains.
+
+### Deal Model homepage artwork background · 12 October 2026
+
+I added a muted rose background behind the Deal Model screen composition, with a deeper surface in dark mode. The background fills the image frame at mobile and desktop sizes.
+
+Validation: production build and three review-polish checks pass. Browser inspection confirms the background colours in both themes at 390px and 1440px.
