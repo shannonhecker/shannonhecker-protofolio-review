@@ -997,3 +997,9 @@ Validation: production build and Deal Model layout check pass. I inspected the r
 I replaced staggered, scroll-scrubbed word masks with a single 500ms heading entrance using a small 12px rise and fade. Words stay on their shared baseline throughout the animation, and headings remain settled when scrolling back. The CSS fallback also fades words together without moving them separately.
 
 Validation: production build passes. Browser checks cover the heading throughout its animation, reduced motion, touch overflow and existing homepage scroll effects. All four checks pass after adapting the heading test to the site's deferred scroll initialization.
+
+### Match the supplied artwork backgrounds · 12 October 2026
+
+I matched the Winking Star preview to the supplied warm cream reference and Deal Model to the neutral grey surface in Figma node 288:466. I removed the added Deal Model inset to restore the edge-to-edge composition. These artwork surfaces keep their reference colours in both site themes.
+
+Validation: production build and homepage artwork framing/theme checks pass at phone and desktop widths.
