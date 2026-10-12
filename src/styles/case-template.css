@@ -42,3 +42,10 @@
 @media(max-width:760px) {
   .case-page .project-status { grid-template-columns:1fr;gap:12px;font-size:16px; }
 }
+
+/* Explicit sizing prevents auto margins from shrinking a hero to min-content. */
+.case-page .chapter-head > .project-hero { width:100%; }
+@media(max-width:760px) {
+  .case-page .project-hero .shot { padding:0; }
+  .case-page .product-capture img { width:100%; }
+}

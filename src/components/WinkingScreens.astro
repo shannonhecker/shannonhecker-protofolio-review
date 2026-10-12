@@ -1,5 +1,6 @@
 ---
 import Pic from './Pic.astro';
+import { adaptiveArt } from '../lib/adaptive-art';
 const screens=[
  {src:'/art/winking-ios-launch.svg',title:'Launch: a familiar welcome',copy:'The opening illustration introduces the same playful world the family sees inside the app.',alt:'Original Winking Star launch screen in its authored iPhone frame'},
  {src:'/art/winking-ios-home.svg',title:'Home: the family view',copy:'A parent can see today’s progress and each child’s space before opening an activity.',alt:'Updated iPhone Home screen with the Sample Family and child cards'},
@@ -15,8 +16,8 @@ const screens=[
  </div>
  <figure class="ws-web-full"><Pic name="ws-web-board.jpg" alt="Complete current Winking Star web board with weekly activity chart and Stars and Pet section, rendered from the original source using fictional sample data" sizes="(max-width:760px) 92vw, 980px" /></figure>
  <h3>The iPhone flow</h3>
- <figure class="ws-ios-composition"><a href="/art/winking-ios-composition.svg" target="_blank" rel="noopener" aria-label="View full size: original four-phone Winking Star composition (opens in new tab)"><img src="/art/winking-ios-composition.svg" width="985" height="431" loading="lazy" decoding="async" alt="Original Winking Star composition showing Launch, Home, Activity and Progress in four iPhone frames"/></a></figure>
- <div class="ws-app-steps">{screens.map(s=><figure><a class="ws-phone-detail" href={s.src} target="_blank" rel="noopener" aria-label={`View full size: ${s.alt} (opens in new tab)`}><img src={s.src} width="233" height="434" alt={s.alt} loading="lazy" decoding="async"/></a><figcaption><h4>{s.title}</h4><p>{s.copy}</p></figcaption></figure>)}</div>
+ <figure class="ws-ios-composition"><a href="/art/winking-ios-composition.svg" target="_blank" rel="noopener" aria-label="View full size: original four-phone Winking Star composition (opens in new tab)"><img src={adaptiveArt("/art/winking-ios-composition.svg")} width="985" height="431" loading="lazy" decoding="async" alt="Original Winking Star composition showing Launch, Home, Activity and Progress in four iPhone frames"/></a></figure>
+ <div class="ws-app-steps">{screens.map(s=><figure><a class="ws-phone-detail" href={s.src} target="_blank" rel="noopener" aria-label={`View full size: ${s.alt} (opens in new tab)`}><img src={adaptiveArt(s.src)} width="233" height="434" alt={s.alt} loading="lazy" decoding="async"/></a><figcaption><h4>{s.title}</h4><p>{s.copy}</p></figcaption></figure>)}</div>
  <div class="ws-mobile-comparison">
   <div><h3>Recognisable on a smaller screen</h3><p>The web keeps the weekly chart. The iPhone app gives the daily action its own tab. I compare both against the same questions: can a child find their place, can an adult see what is done, and can they continue without learning a second routine?</p></div>
   <figure><Pic name="ws-web-mobile.jpg" alt="Responsive Winking Star web board on a phone using fictional sample data" sizes="(max-width:760px) 80vw, 340px"/></figure>
