@@ -227,8 +227,8 @@ footer.band{background:var(--bg-2)}
 
 /* reveal */
 .rv{opacity:1}
-.js .rv.pre{opacity:0;transform:translateY(32px)}
-.rv.in{opacity:1;transform:none;transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.js .rv.pre{opacity:0;transform:translateY(16px)}
+.rv.in{opacity:1;transform:none;transition:opacity .45s var(--ease),transform .45s var(--ease)}
 .js .split .wd{display:inline-block;opacity:0;transition:opacity .5s var(--ease)}
 .js .split.in .wd{opacity:1;transform:none}
 

@@ -183,24 +183,7 @@
           "backstage": "Compare orders puts the sibling beside it with the benchmark metrics in one table. The table view exports the fills as CSV."
         }
       ],
-      "takeaways": [
-        {
-          "label": "Opportunities",
-          "text": "Direct trader access earlier, instead of going through the business first. And the vendor’s engine limits discovered in week one, not mid-spec."
-        },
-        {
-          "label": "Insight",
-          "text": "The question is always the same. Am I ahead of the market or behind it. That’s the first thing the screen answers. And the limit price log showed orders changed mid-flight, several times each, so repricing is a core action, not an edge case."
-        },
-        {
-          "label": "Who was in the room",
-          "text": "Lead designer, one of one. Around twenty engineers, the business, and the charting vendor. Traders observed on the desk."
-        },
-        {
-          "label": "How I measure it",
-          "text": "No adoption numbers yet. Three measures agreed with the business for rollout: price move to trader action, tool switches per order, usage per feature. Until those run, the decision records under the decision map are what I have."
-        }
-      ]
+      "takeaways": []
     },
     "decisions": [
       {
@@ -459,18 +442,6 @@
         {
           "label": "Opportunities",
           "text": "Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules, and keep the accessibility specialist involved from the first review."
-        },
-        {
-          "label": "Insight",
-          "text": "Their real need was trust in the numbers, not more features. The middle configuration tier added choices without changing what people built, so it went."
-        },
-        {
-          "label": "Who was in the room",
-          "text": "A product owner setting requirements, a UX designer shared across projects, engineering in daily stand-ups, an accessibility specialist in every review, and FactSet behind the data."
-        },
-        {
-          "label": "How I measure it",
-          "text": "I reviewed a specific flow with an ADA specialist and ran developer-tool accessibility checks. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
         }
       ]
     },
@@ -772,18 +743,6 @@
         {
           "label": "Opportunities",
           "text": "The next validation question: can another designer reach a useful, inspectable screen without me guiding them? The private alpha exists to answer it, and to break my own assumptions."
-        },
-        {
-          "label": "Insight",
-          "text": "A structured canvas gives the model defined blocks to work with. Supported blocks map to native system components, while explicit fallbacks cover the gaps. The designer still needs to inspect what comes out."
-        },
-        {
-          "label": "Who was in the room",
-          "text": "I designed and built it solo, with Claude drafting the canvas. A developer inspecting the export is the handover I am designing for, not an external test result."
-        },
-        {
-          "label": "How I measure it",
-          "text": "No adoption rate, time saving or external testing result is claimed. What I watch: screens that export without a hand rebuild, and how often I correct the model at the compare and tune steps."
         }
       ]
     },
@@ -1126,18 +1085,6 @@
         {
           "label": "Opportunities",
           "text": "I want to check the pet helper text at small sizes and review the translated pet names with native speakers. The source now includes translations, but that does not establish that every label reads well."
-        },
-        {
-          "label": "Insight",
-          "text": "The checklist lost in our own house within a week. Big icons, sticker mechanics, bright colour and celebration moments won, and a weekly pet means one bad day does not end the game."
-        },
-        {
-          "label": "Who was in the room",
-          "text": "Built for my own two kids first and watched them use it every evening. A second adult who never opted in. App Store Kids Category rules shaped the parental gate and the privacy manifest."
-        },
-        {
-          "label": "How I measure it",
-          "text": "Routines completed per week, weeks retained, and whether a second adult joins the board. Live at 1.0.4 on iPhone and iPad, four releases since launch, five languages."
         }
       ]
     },
@@ -1678,18 +1625,6 @@
         {
           "label": "Opportunities",
           "text": "Keep pricing warnings close to the work. Make comparison a view, not a rebuild. Keep the owner’s reason with the iteration the approver reviews."
-        },
-        {
-          "label": "Insight",
-          "text": "Most of the arguments were about columns, not about the deal. Once each team saw its own view of the same object, the fight went away."
-        },
-        {
-          "label": "Who was in the room",
-          "text": "Custody ops, sales, legal and product. Two UX designers, a junior designer, a BA, a researcher, a data analyst, and engineers in every review."
-        },
-        {
-          "label": "How I measure it",
-          "text": "Not measured in my time. Two hours to twenty minutes is my estimate. I would measure time to create a deal, iterations per deal and approvals returned."
         }
       ]
     },

@@ -29,8 +29,8 @@ test('header glass follows scrolling in both themes and keeps links usable', asy
 
     await page.evaluate(() => window.scrollTo(0, 200));
     await expect(nav).toHaveClass(/solid/);
-    expect(await filter()).toContain('blur(16px)');
-    expect(await nav.evaluate(el => getComputedStyle(el).backgroundColor)).toContain('0.78');
+    expect(await filter()).toContain('blur(20px)');
+    expect(await nav.evaluate(el => getComputedStyle(el).backgroundColor)).toContain('0.92');
     await expect(nav.getByRole('link', { name: 'FX', exact: true })).toBeInViewport();
     await contact.hover();
     expect((await new AxeBuilder({ page }).include('.nav').withTags(WCAG).analyze()).violations).toEqual([]);
@@ -63,9 +63,9 @@ for (const [label, path, title] of [
 test('each case page ends with the next case', async ({ page }) => {
   await page.goto('/uoaui');
   const next = page.locator('.next-case a.row');
-  await expect(next).toHaveAttribute('href', '/fusion');
+  await expect(next).toHaveAttribute('href', '/fx');
   await next.click();
-  await expect(page).toHaveURL(/\/fusion$/);
+  await expect(page).toHaveURL(/\/fx$/);
 });
 
 test('Winking Star tick demo reaches 6 of 6', async ({ page }) => {

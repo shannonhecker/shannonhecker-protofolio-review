@@ -249,3 +249,8 @@ Read-only exports from the same authored nodes above: FX overview, comparison an
 `src/assets/img/figma-sync/` contains 68 authored exports from portfolio file `l6noy7onfsRiuBgjqSsKbt`: 11 persona illustrations (including three updated FX scenes), four qualitative journey plots, four decision-flow diagrams, 36 choice schematics and 13 Deal Model sample-data screens. Exported diagram resolution is up to 2600px wide. Product captures retain their source resolution; the pipeline never treats upscaling as extra detail. Responsive WebP delivery uses explicit dimensions, lazy loading below the fold and a link to the original-size asset. The hero image loads eagerly.
 
 The source page and node map is recorded in FIGMA-AUDIT.md. Unused audit exports were removed. All artwork came from Shannon's supplied design file; none was generated for this update.
+
+
+## Deal Model trimmed screens · 12 October 2026
+
+`source-242-530/535/550/570/585-trim.png` are the same captures with the empty canvas band between the last content row and the footer removed (48px margin kept, footer kept). Nothing is added, moved or restyled. The untrimmed files remain the Figma sync targets.

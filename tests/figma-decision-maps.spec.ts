@@ -12,7 +12,7 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
   if(project==='fx'){
    await expect(page.locator('.figma-decision-map')).toHaveCount(0);
    await expect(page.locator('.figma-user-flow')).toHaveCount(1);
-   await expect(page.locator('#fx-decision-map-title')).toHaveText('Design decisions');
+   await expect(page.locator('#fx-decision-map-title')).toHaveText('Decision map');
    return;
   }
   for(const width of [320,390,760,1440]){
