@@ -901,3 +901,9 @@ Validation: production build and Astro check pass. All five built case pages con
 I added a consistent support surface behind the Winking Star homepage preview at every viewport: warm cream in light mode and muted green in dark mode. Both sizes now use the same Winking Star composition because the separate mobile artwork retained a baked-in beige tint. The image scales proportionally, and neither size floats directly on the page background. Case-study artwork is unchanged.
 
 Validation: production build and Astro check pass. The homepage artwork check passes at 390, 1280 and 1512 pixels with both theme backgrounds. I inspected the resulting screenshots and confirmed the mobile beige tint is gone.
+
+### Sharp vector Fusion hero · 12 October 2026
+
+I replaced the bitmap hero captures with native SVG screens from my supplied Analytics M1 Figma source. Discovery sits above and to the right of Performance, following my working-page composition. I reduced the overlap enough to preserve the discovery table in the shorter source design. Both screens scale proportionally on phones, retain their product surfaces in both themes and open at full size. The source nodes and export framing are recorded in docs/fusion-vector-hero.json.
+
+Validation: production build and Astro check pass with zero errors and warnings. All five focused media and hero checks pass across Chromium and WebKit. I inspected the composition at 390 and 1440 pixels in light and dark mode and confirmed both SVGs contain vector paths with no embedded images.
