@@ -33,7 +33,9 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
     }
    }
   }
-  await flow.locator('.user-flow-transcript summary').click();
+  await expect(flow.locator('.user-flow-transcript ol')).toBeVisible();
+  await expect(flow.locator('details')).toHaveCount(0);
+  for(const summary of await flow.locator('.original-flow-summary').all())await expect(summary).toBeVisible();
   for(const node of content[project].nodes)await expect(flow.locator('.user-flow-transcript')).toContainText(node.title);
   await expect(flow.locator('.flow-tools a')).toHaveAttribute('href',new RegExp(maps.fileKey));
   await expect(flow.locator('.flow-scope')).toContainText(content[project].scope);

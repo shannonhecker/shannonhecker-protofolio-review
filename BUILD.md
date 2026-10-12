@@ -849,3 +849,7 @@ I reduced the phone header to my logo and a familiar hamburger icon. Opening it 
 The close control stays visible while the menu contents scroll in landscape. Escape restores focus, project links dismiss the menu, and returning to a larger screen releases the page. The light and dark menu surfaces switch together so text stays legible. I reviewed phone, tablet and landscape layouts and added checks for focus containment, page isolation and responsive cleanup. Existing theme tests now use the appearance control inside the mobile menu.
 
 I limited this redesign to phone widths at 760px and below. Tablet screens keep the previous Menu button, header controls and full-width dropdown; desktop navigation is unchanged.
+
+### Case-study content is visible without expanding · 12 October 2026
+
+I removed the expandable disclosures from all five case studies. Decision-map explanations, user-flow steps, original workflow summaries, the FX reference diagram and Winking Star caregiver steps now appear directly in the page with ordinary headings. I kept all the content and added browser checks that the text is visible without clicking and case-study main content contains no disclosure elements.
