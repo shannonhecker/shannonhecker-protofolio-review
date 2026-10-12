@@ -1045,27 +1045,18 @@
       ]
     },
     "journey": {
-      "line": "The parent · Sets it up · Two children, two adults · From a bad bedtime to week two, with Leo, 6, underneath",
+      "line": "An iPhone family scenario: set up once, repeat each day, and share the same board.",
       "persona": "The parent",
-      "scenario": "After another bad bedtime the parent downloads Winking Star and chooses Try the Sample Family. After exploring the example, they create their own family board and hand the phone to Leo for the first tick. The scenario follows their first week and a second adult joining.",
-      "goal": "Routines done without nagging, a child who asks to tick his own stars, and a second adult on the same board.",
+      "scenario": "A parent can explore the optional Sample Family or create a family directly. This scenario follows their own board into the daily routine and weekly progress. A second adult can join once the board exists.",
+      "goal": "Help a child recognise and complete routines, make progress visible, and let another adult pick up on the same board.",
       "plot": "winking-experience.png",
       "approach": "winking-approach.png",
       "approachText": [
-        "Daily loop, ten seconds",
-        "Weekly loop, a new egg on Monday",
-        "Offline ticks sync on reconnect, from any phone"
+        "Repeat the daily routine",
+        "Stars contribute to weekly pet growth; a new egg arrives on Monday",
+        "A second adult joins the existing family board"
       ],
-      "quotes": [
-        "“Not another chart.”",
-        "“Two minutes. Does it stay?”",
-        "“Oh, there is already a family in here.”",
-        "“I did it myself!”",
-        "“The egg is hatching!”",
-        "“Nobody nagged tonight.”",
-        "“Is Monday a dinosaur?”",
-        "“Grandma ticked bath?”"
-      ],
+      "quotes": [],
       "phases": [
         {
           "title": "First week",

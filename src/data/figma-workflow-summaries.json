@@ -401,7 +401,7 @@
       "step": 0,
       "nodeId": "460:9913",
       "width": 336,
-      "height": 370
+      "height": 348
     },
     {
       "key": "winking",
@@ -409,7 +409,7 @@
       "step": 1,
       "nodeId": "460:9927",
       "width": 336,
-      "height": 370
+      "height": 348
     },
     {
       "key": "winking",
@@ -417,7 +417,7 @@
       "step": 2,
       "nodeId": "460:9954",
       "width": 336,
-      "height": 370
+      "height": 348
     },
     {
       "key": "winking",
@@ -425,7 +425,7 @@
       "step": 3,
       "nodeId": "460:9969",
       "width": 336,
-      "height": 370
+      "height": 348
     },
     {
       "key": "winking",
@@ -433,7 +433,7 @@
       "step": 0,
       "nodeId": "460:9986",
       "width": 336,
-      "height": 370
+      "height": 348
     },
     {
       "key": "winking",
@@ -441,7 +441,7 @@
       "step": 1,
       "nodeId": "460:10000",
       "width": 336,
-      "height": 370
+      "height": 348
     },
     {
       "key": "winking",
@@ -449,7 +449,7 @@
       "step": 2,
       "nodeId": "460:10027",
       "width": 336,
-      "height": 370
+      "height": 348
     },
     {
       "key": "winking",
@@ -457,7 +457,7 @@
       "step": 3,
       "nodeId": "460:10042",
       "width": 336,
-      "height": 370
+      "height": 348
     }
   ]
 }

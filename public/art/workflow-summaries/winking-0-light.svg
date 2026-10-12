@@ -1,17 +1,23 @@
-<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="white"/>
-<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#D6DCE1"/>
+<svg width="336" height="348" viewBox="0 0 336 348" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="347" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="347" rx="3.5" stroke="#D6DCE1"/>
 <text fill="#4F7352" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">01 / 04</tspan></text>
-<path d="M112 69H42C39.7909 69 38 70.7909 38 73V160C38 162.209 39.7909 164 42 164H112C114.209 164 116 162.209 116 160V73C116 70.7909 114.209 69 112 69Z" fill="white" stroke="#4F7352"/>
-<path d="M77 123C86.9411 123 95 114.941 95 105C95 95.0589 86.9411 87 77 87C67.0589 87 59 95.0589 59 105C59 114.941 67.0589 123 77 123Z" fill="#4F7352"/>
-<text fill="#4F7352" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="55" y="147.5">Selected</tspan></text>
-<path d="M205 69H135C132.791 69 131 70.7909 131 73V160C131 162.209 132.791 164 135 164H205C207.209 164 209 162.209 209 160V73C209 70.7909 207.209 69 205 69Z" fill="white" stroke="#D6DCE1"/>
-<path d="M170 123C179.941 123 188 114.941 188 105C188 95.0589 179.941 87 170 87C160.059 87 152 95.0589 152 105C152 114.941 160.059 123 170 123Z" fill="#D6DCE1"/>
-<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="148" y="147.5">Child</tspan></text>
-<path d="M298 69H228C225.791 69 224 70.7909 224 73V160C224 162.209 225.791 164 228 164H298C300.209 164 302 162.209 302 160V73C302 70.7909 300.209 69 298 69Z" fill="white" stroke="#D6DCE1"/>
-<path d="M263 123C272.941 123 281 114.941 281 105C281 95.0589 272.941 87 263 87C253.059 87 245 95.0589 245 105C245 114.941 253.059 123 263 123Z" fill="#D6DCE1"/>
-<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="241" y="147.5">Child</tspan></text>
-<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Choose a superstar</tspan></text>
-<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Their name, avatar and theme make the </tspan><tspan x="13" y="281.418">board recognisable.</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="21" y="60.8636">Your family</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="21" y="78.5">Choose whose routines to open</tspan></text>
+<path d="M156 91H26C23.2386 91 21 93.2386 21 96V204C21 206.761 23.2386 209 26 209H156C158.761 209 161 206.761 161 204V96C161 93.2386 158.761 91 156 91Z" fill="white" stroke="#4F7352"/>
+<path d="M49 137C58.3888 137 66 129.389 66 120C66 110.611 58.3888 103 49 103C39.6112 103 32 110.611 32 120C32 129.389 39.6112 137 49 137Z" fill="#4F7352"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="44" y="123.864">L</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="74" y="117.864">Leo</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="74" y="135.636">Selected</tspan></text>
+<path d="M35 159H147M35 179H107" stroke="#D6DCE1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="35" y="197.636">Routines for Leo</tspan></text>
+<path d="M306 91H176C173.239 91 171 93.2386 171 96V204C171 206.761 173.239 209 176 209H306C308.761 209 311 206.761 311 204V96C311 93.2386 308.761 91 306 91Z" fill="white" stroke="#D6DCE1"/>
+<path d="M199 137C208.389 137 216 129.389 216 120C216 110.611 208.389 103 199 103C189.611 103 182 110.611 182 120C182 129.389 189.611 137 199 137Z" fill="#D6DCE1"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="194" y="123.864">M</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="224" y="117.864">Maya</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="224" y="135.636">Choose child</tspan></text>
+<path d="M185 159H297M185 179H257" stroke="#D6DCE1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="185" y="197.636">Routines for Maya</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" font-weight="500" letter-spacing="0em"><tspan x="13" y="250.818">Choose a superstar</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="13" y="281.091">Their name, avatar and theme make the board </tspan><tspan x="13" y="301.091">recognisable.</tspan></text>
 </svg>
-
