@@ -4,13 +4,25 @@ interface Props { project: keyof typeof content }
 const {project}=Astro.props;
 const artwork=import.meta.glob<string>('../../../public/art/workflow-summaries/*.svg',{query:'?raw',import:'default',eager:true});
 const summary: {label:string;caption:string;steps:{t:string;d:string;branch?:{t:string;d:string}}[]}=content[project];
+const separateCopy=project==='fx';
+function illustration(svg:string){
+ if(!separateCopy)return svg;
+ // Keep the numbered illustration from the Figma export; render its caption as HTML.
+ return svg.replace('height="370"','height="200"').replace('viewBox="0 0 336 370"','viewBox="0 0 336 200"')
+  .replaceAll('height="369"','height="199"')
+  .replace(/<text\b[^>]*>[\s\S]*?<\/text>/g,text=>{
+   const y=text.match(/<tspan\b[^>]*\by="([\d.]+)"/);
+   return y&&Number(y[1])>200?'':text;
+  });
+}
 ---
 <section class="workflow-summary" aria-labelledby={`${project}-summary-title`}>
  <div class="summary-heading"><h4 id={`${project}-summary-title`}>Workflow at a glance</h4></div>
  <p class="summary-intro">Illustrated summary · read in numbered order</p>
  <ol aria-label={summary.label}>
   {summary.steps.map((step,index)=><li>
-   {(['light','dark'] as const).map(theme=><div class={`summary-art summary-${theme}`} role="img" aria-label={`${index+1}. ${step.t}. ${step.d}${step.branch?` ${step.branch.t}: ${step.branch.d}.`:''}`}><Fragment set:html={artwork[`../../../public/art/workflow-summaries/${project}-${index}-${theme}.svg`]} /></div>)}
+   {(['light','dark'] as const).map(theme=><div class={`summary-art summary-${theme}`} role="img" aria-label={`${index+1}. ${step.t}. ${step.d}${step.branch?` ${step.branch.t}: ${step.branch.d}.`:''}`}><Fragment set:html={illustration(artwork[`../../../public/art/workflow-summaries/${project}-${index}-${theme}.svg`])} /></div>)}
+   {separateCopy&&<div class="summary-copy"><h5>{step.t}</h5><p>{step.d}</p>{step.branch&&<p class="summary-branch">{step.branch.t} → {step.branch.d}</p>}</div>}
   </li>)}
  </ol>
  {summary.caption&&<p class="summary-caption">{summary.caption}</p>}
@@ -25,6 +37,10 @@ const summary: {label:string;caption:string;steps:{t:string;d:string;branch?:{t:
 /* Exported at 336px: keep 20px headings and 16px copy at their authored scale. */
 ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:696px;gap:24px;list-style:none;padding:0;margin:0}
 li{min-width:0;margin:0;padding:0}
+.summary-copy{padding:16px 0 8px}
+.summary-copy h5{margin:0 0 8px;font-size:18px;line-height:1.4;font-weight:500;color:var(--fg)}
+.summary-copy p{margin:0;font-size:16px;line-height:1.6;color:var(--fg-2)}
+.summary-copy .summary-branch{margin-top:8px;font-size:14px}
 .summary-art{width:100%;min-width:0}.summary-art :global(svg){display:block;width:100%;height:auto;max-height:none;border-radius:var(--radius)}.summary-art :global(text){font-family:Inter,Arial,sans-serif}
 .summary-dark{display:none}
 :global(html[data-theme=dark]) .summary-light{display:none}

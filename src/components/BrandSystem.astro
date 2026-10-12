@@ -18,8 +18,8 @@ const palette=ai?[
   <p>{ai?"I designed the name, brand, interface and system model. My own uoaui system sits alongside Salt, Material 3, Fluent 2 and Carbon; those four libraries retain their own authorship and component rules.":"I designed the brand, copy, illustration direction and app as one family product, then built it and took it through App Store submission."}</p>
  </header>
  <div class="brand-identity">
-  <figure class:list={['brand-logo-plate',{'brand-logo-dark':ai}]}>
-   <Pic name={ai?'uoaui-logo-lockup.png':'ws-icon.png'} alt={ai?'My original uoaui symbol and wordmark':'My original Winking Star app icon'} sizes={ai?'(max-width:760px) 70vw, 440px':'240px'} widths={ai?[320,440]:[240,480]} />
+  <figure class:list={{'brand-logo-plate':ai,'brand-logo-dark':ai,'brand-icon-figure':!ai}}>
+   <Pic name={ai?'uoaui-logo-lockup.png':'ws-icon.png'} alt={ai?'My original uoaui symbol and wordmark':'My original Winking Star app icon'} sizes={ai?'(max-width:760px) 70vw, 440px':'(max-width:760px) 90vw, (max-width:1200px) 45vw, 540px'} widths={ai?[320,440]:[360,540,720,1080]} />
    <figcaption>{ai?'Original symbol and wordmark':'Original app icon'}</figcaption>
   </figure>
   <div class="brand-intent">
