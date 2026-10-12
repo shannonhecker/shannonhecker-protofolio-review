@@ -16,6 +16,7 @@ import AuthoredPersonas from './dg/AuthoredPersonas.astro';
 import AuthoredJourney from './dg/AuthoredJourney.astro';
 import CoParent from './dg/CoParent.astro';
 import WinkingScreens from './WinkingScreens.astro';
+import ProductCapture from './ProductCapture.astro';
 import Flow from './dg/Flow.astro';
 
 ---
@@ -32,9 +33,9 @@ import Flow from './dg/Flow.astro';
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designer and builder, one of one</span><span><b>Platforms</b> · Web, iPhone and iPad</span><span><b>Status</b> · Live web app and iOS v1.0.4</span><span><b>Languages</b> · EN, FR, ES, DE, Traditional Chinese</span></div>
         <p class="ws-product-links"><a href="https://winkingstar.com/" target="_blank" rel="noopener">Open Winking Star<span class="vh"> (opens in new tab)</span></a><a href="https://apps.apple.com/app/id6765767262" target="_blank" rel="noopener">View the iPhone app<span class="vh"> (opens in new tab)</span></a></p>
       </div>
-      <figure class="project-hero ws-product-hero">
-        <Pic name="ws-web-overview.jpg" alt="Winking Star web board with a child's weekly stars, daily routines, Mystery Pet and reward goal" sizes="(max-width:760px) 92vw, 1100px" eager />
-      </figure>
+      <div class="project-hero ws-product-hero">
+        <ProductCapture name="/art/winking-hero-composition.svg" alt="Winking Star iPhone Home, Activity and Progress screens in the original staggered three-phone composition" href="https://winkingstar.com/" label="Original Winking Star iPhone composition" eager />
+      </div>
     </header>
     <CaseContents project="winking" />
 
@@ -104,12 +105,12 @@ import Flow from './dg/Flow.astro';
         <Split as="h3" class="h-sub" text="Two loops and six decisions." />
         <p>These are the decisions behind the iPhone app. The web carries the same routines, themes and family data into a weekly board. I keep the daily action short and let the week give it meaning.</p>
         <div>
-          <div class="loop-label">Daily · ten seconds</div>
+          <div class="loop-label">Daily · a short routine</div>
           <div class="loop"><span>Open</span><i>→</i><span>Pick your child</span><i>→</i><span>Tap a star spot</span><i>→</i><span>Star lands</span><i>→</i><span>Celebration</span><i>→</i><span class="end">Pet grows a little</span></div>
         </div>
         <div>
           <div class="loop-label">Weekly · the reason to come back</div>
-          <div class="loop"><span>Seven days of stars</span><i>→</i><span>Four pet stages</span><i>→</i><span>Treasures and badges</span><i>→</i><span>Fridge summary</span><i>→</i><span class="end">Monday, a new pet</span></div>
+          <div class="loop"><span>Seven days of stars</span><i>→</i><span>Star-based pet growth</span><i>→</i><span>Treasures and badges</span><i>→</i><span>Fridge summary</span><i>→</i><span class="end">Monday, a new pet</span></div>
         </div>
         <div class="demo" id="demo">
           <div class="demo-head"><span class="demo-name"><Pic name="ws-icon.png" alt="" sizes="40px" widths={[80]} />Try it · Leo, Tuesday</span><span class="demo-stars" id="demo-stars" aria-live="polite">0 of 6 stars</span></div>
@@ -125,7 +126,7 @@ import Flow from './dg/Flow.astro';
             <div class="egg" id="egg" aria-hidden="true"><div class="fill" id="egg-fill"></div><span class="pet" id="egg-pet">🥚</span></div>
             <div style="display:grid;gap:10px">
               <div class="stages" id="stages" aria-hidden="true"><span class="on">Egg</span><span>Hatching</span><span>Growing</span><span>Grown</span></div>
-              <p class="muted" id="demo-msg">The pet grows through four stages as the week fills. In the app that takes seven days. Here you can tick all six and watch it now.</p>
+              <p class="muted" id="demo-msg">This is a simplified four-stage illustration. The current app grows the pet at star thresholds across the week. Tick all six routines here to preview the idea.</p>
             </div>
           </div>
         </div>

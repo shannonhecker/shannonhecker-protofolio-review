@@ -198,7 +198,7 @@
         },
         {
           "label": "How I measure it",
-          "text": "No adoption numbers yet. Three measures agreed with the business for rollout: price move to trader action, tool switches per order, usage per feature. Until those run, the test records under the decision map are what I have."
+          "text": "No adoption numbers yet. Three measures agreed with the business for rollout: price move to trader action, tool switches per order, usage per feature. Until those run, the decision records under the decision map are what I have."
         }
       ]
     },
@@ -217,7 +217,7 @@
             "alt": "Two linked panels separate market prices from execution progress."
           }
         ],
-        "reason": "We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.",
+        "reason": "I explored two linked panels and one combined chart. I chose the combined canvas to keep price and progress in the same field of view. The trade-off was a denser chart that needed careful hierarchy.",
         "tradeoff": "A denser screen that needed careful hierarchy.",
         "outcome": "One canvas with a dual axis went in as the build contract. Readable in two seconds, actionable in one click."
       },
@@ -235,7 +235,7 @@
             "alt": "A separate order-settings menu edits the limit price away from the chart."
           }
         ],
-        "reason": "The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line. Drag won because the decision and the action sit in the same place.",
+        "reason": "The limit price log showed orders being changed mid-flight. I reviewed a menu-based edit and drag-to-reprice with the business and charting vendor. I chose drag so the action stayed beside the price the trader was watching.",
         "tradeoff": "Drag needs a safety step, so a pre-filled ticket sits between the gesture and the change.",
         "outcome": "Drag-to-reprice went into the spec as the build contract. Each step commits you a little more, so you can’t reprice by accident."
       },
@@ -255,7 +255,7 @@
         ],
         "reason": "My spec let analytics studies run on any series, including the order’s own fills. The vendor showed that order data has gaps, so a study on it looks confident and is wrong. I reversed it.",
         "tradeoff": "Less flexibility. Studies cannot run on the order’s own fills, even when someone asks for it.",
-        "outcome": "Studies run on bid, ask and mid only, and the picker says why. Flexibility that produces plausible but wrong output isn’t a feature."
+        "outcome": "I changed the specification to use bid, ask and mid as study inputs. The current public rebuild does not include the study-source picker."
       }
     ],
     "decisionFlow": "fx-original-decision-loop.png",
@@ -458,7 +458,7 @@
       "takeaways": [
         {
           "label": "Opportunities",
-          "text": "Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules, and bring the accessibility specialist in from week one."
+          "text": "Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules, and keep the accessibility specialist involved from the first review."
         },
         {
           "label": "Insight",
@@ -779,7 +779,7 @@
         },
         {
           "label": "Who was in the room",
-          "text": "Me, solo. Claude as the drafting model. A developer inspecting the export as the test of whether a screen is real. Designers like me as the first users, which is the trap the alpha exists to check."
+          "text": "I designed and built it solo, with Claude drafting the canvas. A developer inspecting the export is the handover I am designing for, not an external test result."
         },
         {
           "label": "How I measure it",
@@ -821,7 +821,7 @@
               "Components used",
               "None recognised",
               "Off the table",
-              "Looks impressive, nothing a developer can ship"
+              "A visual draft without recognised component mappings"
             ]
           }
         ],
@@ -971,7 +971,7 @@
               "label": "Design answer",
               "items": [
                 "A big illustrated banner per theme",
-                "Celebration on every tick",
+                "Celebration feedback, with quieter options",
                 "A weekly pet so one bad day doesn't end the game"
               ]
             }
@@ -1079,7 +1079,7 @@
       "steps": [
         {
           "title": "Another bad bedtime",
-          "description": "Searches for a chore chart app. Most are checklists, subscriptions or ads. Child feels fed up.",
+          "description": "Looks for a routine board after another difficult bedtime. The charts this family has tried have not held the child’s attention.",
           "recommendations": [
             "Ad-free, kid-first on the store page"
           ],
@@ -1101,16 +1101,16 @@
             "Icon per activity, big targets",
             "Kid Mode locks editing"
           ],
-          "backstage": "The tick writes to the shared board. Celebration fires unless Calm Mode is on."
+          "backstage": "The tick writes to the shared board. Confetti stays off when Calm Mode or Reduce Motion is enabled."
         },
         {
           "title": "End of day",
-          "description": "Checks Home. The pet grew a stage. A treasure dropped. Child feels proud, or a bit flat.",
+          "description": "Checks Home for the week’s progress. In this scenario enough stars have been earned for the pet to grow, and enough completed routines for a treasure.",
           "recommendations": [
-            "Stars count up, never down",
+            "No star penalty for a missed day",
             "The pet grows on what was done"
           ],
-          "backstage": "Pet stage computed from the week's stars. A treasure drops. Day rolls over at local midnight."
+          "backstage": "The pet grows at star thresholds; treasures unlock from cumulative completed routines. The day rolls over at local midnight."
         },
         {
           "title": "End of week",
@@ -1134,7 +1134,7 @@
       "takeaways": [
         {
           "label": "Opportunities",
-          "text": "The pet card still truncates its helper text at the smallest sizes, and the pet family labels are not translated yet. Both found in my own usability pass and on the list."
+          "text": "I want to check the pet helper text at small sizes and review the translated pet names with native speakers. The source now includes translations, but that does not establish that every label reads well."
         },
         {
           "label": "Insight",
@@ -1173,8 +1173,8 @@
               "Stars hatch a pet",
               "Tap a routine, a star lands",
               "Celebrate",
-              "Research with five to seven year olds",
-              "Big icons, stickers and celebration win. A star you can tap beats a box you tick.",
+              "What I saw in my own family",
+              "I explored icons, stickers and celebration to make a completed routine visible.",
               "A star board",
               "Each tap is a small win the child can see",
               "What it feeds",
@@ -1193,16 +1193,16 @@
               "Bedtime",
               "2 of 5 done",
               "A plain tick list",
-              "Reads like homework. Nothing happens when the list is done, so the child stops caring by Wednesday.",
-              "What testing showed",
-              "Checkboxes read as chores",
+              "A plain list marks completion. I wanted a more visible reward after the tap.",
+              "Design concerns",
+              "Completion feels routine",
               "No reward moment",
-              "Parents nag, kids stall"
+              "Limited visible feedback"
             ]
           }
         ],
         "reason": "Explored a plain tick list. Research on five to seven year olds said big icons, stickers and celebration win. The checklist lost in our own house within a week.",
-        "tradeoff": "More art and motion to build and keep consistent: fourteen banners and four pet stages.",
+        "tradeoff": "More art, motion and growth states to build and keep consistent than a plain checklist.",
         "outcome": "Routines ticked without nagging in our own house."
       },
       {
@@ -1286,11 +1286,11 @@
               "Start free trial",
               "Cancel anytime in settings",
               "A small subscription",
-              "Recurring revenue, and a recurring reason to distrust the app. Every renewal is a chance to feel tricked.",
-              "What it costs the family",
+              "Recurring payment adds another subscription for a parent to manage. I chose a one-off unlock.",
+              "What I considered",
               "A trial that turns into a charge",
               "Something to remember to cancel",
-              "A paywall between a child and their pet"
+              "Access depends on the plan"
             ]
           }
         ],
@@ -1310,10 +1310,10 @@
               "Mia · Unicorn",
               "Sam · Dinosaur",
               "Add a child",
-              "Kids find their own card",
-              "Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.",
-              "Fourteen banners",
-              "Colour and picture before they can read"
+              "A recognisable card",
+              "Illustrated themes include Football, Dinosaur, Ocean, Unicorn and Robot, with a photo avatar option.",
+              "Illustrated themes",
+              "Colour and picture beside the name"
             ]
           },
           {
@@ -1326,9 +1326,9 @@
               "Child 3",
               "Add a child",
               "One look for all",
-              "Cheaper to build and keep consistent. Every card is the same grey, so a six year old cannot tell which one is theirs.",
+              "One treatment is simpler to maintain. It gives children fewer visual cues beside their name.",
               "One banner",
-              "Kids need a parent to point at their card"
+              "Fewer cues to recognise a card"
             ]
           }
         ],
@@ -1351,7 +1351,7 @@
               "Continue",
               "Kid Mode stays locked",
               "A speed bump, not a lock",
-              "A sum a seven year old cannot guess and a parent does not need to remember. It only guards edits, so there is nothing to forget.",
+              "A quick question adds friction to protected actions. It is not age verification or a security guarantee.",
               "What it guards",
               "Edit a routine",
               "Delete a child",
@@ -1375,11 +1375,11 @@
               "0",
               "Forgot your PIN?",
               "A PIN, or a locked app",
-              "Parents forget PINs and kids watch them type. A locked app also locks the parent out of a quick edit at bedtime.",
-              "Failure modes",
-              "Kid shoulder-surfs the code",
-              "Parent locked out at bedtime",
-              "Reset flow needs an account"
+              "A PIN adds a code to remember and a recovery flow. I wanted a quicker route for the adult.",
+              "Potential friction",
+              "Code can be observed",
+              "Forgotten code blocks edits",
+              "Recovery needs a route"
             ]
           }
         ],
@@ -1431,15 +1431,15 @@
               "Thursday · 4 stars",
               "Missed bath and reading. Score reset.",
               "A daily score",
-              "Every missed routine is a loss the child sees at bedtime. The number resets, so a bad day erases a good one.",
-              "What a child feels",
-              "Pressure every evening",
+              "A daily score resets at midnight. I wanted completed routines to contribute across the week.",
+              "Design concerns",
+              "Focus on each evening",
               "Nothing carries over",
-              "No reason to try again on Friday"
+              "Less weekly continuity"
             ]
           }
         ],
-        "reason": "Daily stars count up and never down. The pet grows across the week on what was done, so one missed bath doesn't end the week, and Monday always brings a new egg.",
+        "reason": "I wanted the pet to grow from completed routines across the week. Missing a routine does not deduct stars, although a completed tick can be undone. Monday starts a new weekly pet.",
         "tradeoff": "No daily pressure means less urgency on a quiet day.",
         "outcome": "One missed bath does not end the week, and Monday always brings a new egg."
       }
@@ -1768,7 +1768,7 @@
         ],
         "reason": "I ran every review with three versions. People said what was wrong instead of saying yes. Sales got the comparison table, legal got the iteration list, because they asked for them in those rooms.",
         "tradeoff": "Three versions is three times the preparation, every review, for a year.",
-        "outcome": "Decisions held after the room. Nothing was reopened by email."
+        "outcome": "The reviews shaped the comparison table and iteration list. I did not measure how much rework the method saved."
       },
       {
         "title": "A compare grid with a column chooser",
@@ -1804,7 +1804,7 @@
         ],
         "reason": "Sales rebuilt the comparison in Excel every time because the report never had the right columns. A grid with a column chooser, saved per user, made the comparison a view instead of a rebuild.",
         "tradeoff": "Saved settings per user and more states to design: empty, too many columns, a column that no longer exists.",
-        "outcome": "Sales stopped rebuilding comparisons outside the tool."
+        "outcome": "The comparison became a configurable view of the iterations. I did not measure a separate impact for this feature."
       },
       {
         "title": "An upload template, not a forced migration",

@@ -25,7 +25,7 @@ const family=[{title:'Getting started',role:'Parent',indices:[0,1]},{title:'Ever
  </>}
  {project==='winking' && <>
   <div class="family-intro"><h4>A routine passes between people</h4><p>The iPhone landing screen offers Create family and an optional Try Sample Family. This scenario follows that sample route into the daily habit, weekly return and caregiver handoff.</p></div>
-  <div class="family-rhythm">{family.map((part,i)=><section class:list={['family-part',`family-part-${i}`]}><header><h4>{part.title}</h4><p>{part.role}</p></header><div class="family-actions">{part.indices.map(index=><JourneyStep step={steps[index]} number={index+1}/>)}</div>{i===1 && <p class="loop-note">Repeat with the next routine. Stars count up, never down.</p>}{i===2 && <p class="loop-note">A new egg on Monday starts the next week.</p>}</section>)}</div>
+  <div class="family-rhythm">{family.map((part,i)=><section class:list={['family-part',`family-part-${i}`]}><header><h4>{part.title}</h4><p>{part.role}</p></header><div class="family-actions">{part.indices.map(index=><JourneyStep step={steps[index]} number={index+1}/>)}</div>{i===1 && <p class="loop-note">Repeat with the next routine. A missed day does not deduct stars.</p>}{i===2 && <p class="loop-note">A new egg on Monday starts the next week.</p>}</section>)}</div>
  </>}
  {project==='deal' && <>
   <div class="deal-object"><h4>One deal, shared across the teams</h4><p>Sales, custody operations, legal and product work from the same deal. Each iteration carries the pricing decision forward.</p></div>

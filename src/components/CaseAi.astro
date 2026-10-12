@@ -33,8 +33,8 @@ import Stack from './dg/Stack.astro';
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designed and built it, solo</span><span><b>Status</b> · Private alpha</span><span><b>Live</b> · <a href="https://uoaui.ai/" target="_blank" rel="noopener">uoaui.ai<span class="vh"> (opens in new tab)</span> →</a></span><span><b>UI Kit</b> · <a href="https://uoaui.ai/ui-kit?ds=salt" target="_blank" rel="noopener">Salt component library<span class="vh"> (opens in new tab)</span> →</a></span></div>
       </div>
       <div class="project-hero">
-<ProductCapture name="live-uoaui-builder.png" alt="The current authenticated uoaui builder showing the Salt Performance Analytics canvas, chat and component library" href="https://uoaui.ai/builder" eager label="uoaui.ai · Current builder · Private alpha" />
-<ProductCapture name="live-uoaui-kit.png" alt="The current uoaui Salt UI Kit, with foundations and component controls" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · Salt UI Kit · Private alpha" />
+<ProductCapture name="/art/ai-hero-builder-composition.svg" alt="The current authenticated uoaui builder showing the Salt Performance Analytics canvas, chat and component library" href="https://uoaui.ai/builder" eager label="uoaui.ai · Current builder · Private alpha" />
+<ProductCapture name="/art/ai-hero-kit-composition.svg" alt="The current uoaui Salt UI Kit, with foundations and component controls" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · Salt UI Kit · Private alpha" />
       </div>
     </header>
     <CaseContents project="ai" />
@@ -58,7 +58,7 @@ import Stack from './dg/Stack.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="From a prompt to a screen a developer can inspect." />
         <Flow
-          label="The builder flow, prompt to export"
+          label="My review workflow, prompt to export"
           steps={[
             { t: 'Prompt', d: 'Describe the screen in words' },
             { t: 'Generate', d: "Mapped to native components, with fallbacks where needed" },
@@ -66,7 +66,7 @@ import Stack from './dg/Stack.astro';
             { t: 'Tune', d: 'Density, theme and charts. The person decides here' },
             { t: 'Export React', d: 'Code a developer recognises' },
           ]}
-          caption="The model drafts. Compare and tune are where I decide, before I export."
+          caption="The model drafts. I compare and tune before handover, but the builder also lets me export directly."
         />
         <Demo src="/media/uoaui-current.mp4" poster="/media/uoaui-current-poster.webp" width={1280} height={800} label="The current uoaui walkthrough: choose a template, edit a card and present the screen across five systems." description="Silent recording. It picks a template, edits one card, then presents the same screen across the five design systems." />
         <ProductCapture name="live-uoaui-kit.png" alt="The current uoaui Salt UI Kit with foundations, components, patterns and system controls" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · Salt UI Kit · Component library" />
@@ -84,7 +84,7 @@ import Stack from './dg/Stack.astro';
         <Stack
           label="How a screen is built, from the person to the exported code"
           layers={[
-            { t: 'The person', d: 'Writes the prompt, then compares and tunes before I export.', side: 'Where decisions happen' },
+            { t: 'The person', d: 'I write the prompt, then compare and tune before exporting.', side: 'Where decisions happen' },
             { t: 'The model', d: 'Claude drafts the screen. A draft, never the final answer.' },
             { t: 'Token mapping', d: 'Tokens, density scales and theming for five systems in one structure. The mapping resolves system-specific props and uses fallbacks where an equivalent is missing.', mine: true, side: 'The part I designed' },
             { t: 'Component mapping', d: "Published React components where available; explicit markup fallbacks and a class-based in-house system.", side: 'Salt · Material · Fluent · Carbon · my own' },
@@ -115,7 +115,7 @@ import Stack from './dg/Stack.astro';
         <Split as="h3" class="h-sub" text="A working private alpha, with the person still making the decisions." />
         <ul class="rows">
           <li><b>What I can show today</b><p>I have built a working builder, a comparison across five design systems and a component library. The current screens and walkthrough above show that work. This is private alpha, not a production adoption result.</p></li>
-          <li><b>What changed through exploration</b><p>I explored free-form generated UI and official React components. I chose official components because the output needed to be something a developer could inspect and recognise. My comparison and tuning practice keeps the model's first answer a draft.</p></li>
+          <li><b>What changed through exploration</b><p>I explored free-form generated UI and official React components. I chose a structured canvas mapped to system components, with explicit fallbacks, because a developer needs to inspect and recognise the output. My comparison and tuning practice keeps the model's first answer a draft.</p></li>
           <li><b>The next validation question</b><p>Can another designer reach a useful, inspectable screen without me guiding them? That is the question for the alpha. No adoption rate, no time saving, no external test yet. When another designer gets there without me, I'll say so here.</p></li>
         </ul>
       </div>

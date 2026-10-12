@@ -127,8 +127,8 @@
     "title": "In use internally. The numbers are mine, not measured.",
     "rows": [
       {
-        "label": "Delivered",
-        "text": "Six design phases to January 2024: deals, portfolio, pricing, tiering, ADA specs, smart pricing, then the deal-owner dashboard and the approver workflow. Reviewed with the four teams at every phase."
+        "label": "Design scope",
+        "text": "Six design phases to January 2024, covering deals, portfolio, pricing, tiering, ADA specs, the deal-owner dashboard and the approver workflow. Smart pricing was explored with the data analyst but was not built in my time. I reviewed the work with the four teams at each phase."
       },
       {
         "label": "Live",
@@ -178,7 +178,7 @@
       "message": "Please try again."
     }
   ],
-  "screensIntro": "Screens from the Deal Model stakeholder summary, phases one to six. Client names, people and internal links are replaced.",
+  "screensIntro": "Original screens from the Deal Model stakeholder design file, phases one to six. These are design artefacts, not live production captures.",
   "screens": [
     {
       "image": "source-242-530.png",

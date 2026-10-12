@@ -99,7 +99,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
         <Split as="h3" class="h-sub" text="Three calls that defined the product. Each one had a real alternative." />
         <DecisionMap project="fx"><FxOriginalFlow slot="flow" /></DecisionMap>
         <ul class="rows" aria-label="How each call was tested">
-          <li><b>How I tested the canvas call</b><p>Two mockups in front of traders on the desk, during live trading. One question at a time: what are you looking at, what are you waiting for, what would make you act now. With two panels they flicked between them under pressure and missed the moment. That was enough to decide. No written protocol and no participant count, so I don't quote one.</p></li>
+          <li><b>What informed the canvas call</b><p>I sat with traders during live trading and asked what they were looking at, what they were waiting for and what would make them act. I chose one canvas so price and progress stayed in the same field of view. That was a design judgement informed by observation; I did not run a measured comparison of the two layouts.</p></li>
           <li><b>How I tested reprice</b><p>The limit price log first: orders changed mid-flight, several times each. Then a menu-based edit beside drag-to-reprice in the spec review with the business and the vendor. The spec was written line by line so each side could say yes or no to it, and drag went in as the build contract.</p></li>
           <li><b>How I tested the studies</b><p>In code exploration, not a user study. Working with real-shaped data exposed gaps in the order’s own fills, which the vendor confirmed. I reversed the specification so studies used market prices. The current public rebuild does not include the study-source picker.</p></li>
           <li><b>What rollout adds</b><p>Three measures agreed with the business: price move to trader action, tool switches per order, usage per feature. Until those run, the records above are what I have.</p></li>
@@ -145,7 +145,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <img slot="after" src="/art/themed/fx-states-designed.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: a clean price line with states in a labelled lane under the axis" />
         </BeforeAfter>
         <BeforeAfter label="Version-one debt: fills at scale" before="A dot per fill" beforeNote="Volume-sized dots were honest at twenty clips and a smear at three hundred." after="Counted clusters" afterNote="Fills group into clusters with a count, and expand on zoom.">
-          <img slot="before" src="/art/themed/fx-fills-today.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: hundreds of overlapping fill dots forming a smear" />
+          <img slot="before" src="/art/themed/fx-fills-today.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: individual fill dots crowding the plot" />
           <img slot="after" src="/art/themed/fx-fills-designed.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: five counted clusters of fills" />
         </BeforeAfter>
       </div>
@@ -161,7 +161,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           rows={[
             ['Suspended, delayed start, outside limit', 'Each gets its own labelled band in a lane under the time axis.', 'The price field stays quiet, and the state is readable at a glance.'],
             ['Drag to reprice', 'Opens a pre-filled ticket. Nothing changes until it is confirmed.', 'The specified confirmation gives the trader a chance to review the change before committing.'],
-            ['Colour-blind trader, washed-out screen', 'Bid, ask, mid, limit and fills each have their own shape and dash. Favourable and adverse say so in words.', 'Colour never carries meaning alone.'],
+            ['Colour-blind trader, washed-out screen', 'The design combines colour with line styles, fill markers and labelled order states. Favourable and adverse outcomes are named in text.', 'Keep labels and graphical cues alongside colour.'],
             ['Hundreds of fills', 'Fills group into counted clusters that expand on zoom.', 'Honest at twenty clips and at three hundred.'],
             ['A new order, no data yet', 'Empty, then loading, states in place of an empty chart.', 'The screen never looks broken while data arrives.'],
             ['Dark room or bright room', 'Full light and dark themes.', 'Traders run dark rooms and sales run bright ones.'],

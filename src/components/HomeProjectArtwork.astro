@@ -1,19 +1,20 @@
 ---
-import { Picture } from 'astro:assets';
-import { imageWidths } from '../lib/image-widths';
-import fx from '../assets/img/home-figma/fx.png';
-import fusion from '../assets/img/home-figma/fusion.png';
-import winking from '../assets/img/home-figma/winking.png';
-import winkingMobile from '../assets/img/home-figma/winking-mobile.png';
-import dealMobile from '../assets/img/home-figma/deal-mobile.png';
-import ai from '../assets/img/home-figma/uoaui.png';
 interface Props { project:string }
 const {project}=Astro.props;
-const artwork={fx,fusion,winking,ai}[project];
+const desktop=`/art/home-${project}-composition-current.svg`;
+const mobile=`/art/home-${project}-composition-mobile-current.svg`;
+const mobileHeight=project==='fx'?269:270;
+const responsive=project!=='deal';
+const extension='svg';
+const srcset=(variant:string)=>[400,800,1200,1600,2000].map(w=>`/art/home-responsive/${project}-${variant}-${w}.${extension} ${w}w`).join(', ');
+const sizes='(max-width:760px) calc(100vw - 48px), (min-width:1680px) 780px, calc(46.6vw - 3px)';
 ---
-<div class={`project-preview home-artwork home-artwork-${project}`}>
- {project==='deal' && <picture><img src="/art/home-deal.svg" alt="" width="681" height="524" loading="lazy" decoding="async" /></picture>}
- {project==='deal' && <Picture class="mobile-artwork" src={dealMobile} alt="" formats={['avif','webp']} quality={85} widths={imageWidths(dealMobile.width)} sizes="100vw" loading="lazy" decoding="async" />}
- {artwork && <Picture src={artwork} alt="" formats={['avif','webp']} quality={85} widths={imageWidths(artwork.width)} sizes={project==='fx'?'(max-width:760px) 110vw, (min-width:1680px) 982px, 59vw':'(max-width:760px) 100vw, (min-width:1680px) 776px, 47vw'} loading="lazy" decoding="async" />}
- {project==='winking' && <Picture class="mobile-artwork" src={winkingMobile} alt="" formats={['avif','webp']} quality={85} widths={imageWidths(winkingMobile.width)} sizes="90vw" loading="lazy" decoding="async" />}
+<div class={`project-preview home-artwork home-artwork-${project} exact-composition`} style={`--mobile-ratio:350/${mobileHeight}`}>
+ <picture><source media="(max-width:760px)" srcset={responsive?srcset('mobile-current'):mobile} sizes={sizes} width="350" height={mobileHeight}/><img src={responsive?`/art/home-responsive/${project}-current-800.${extension}`:desktop} srcset={responsive?srcset('current'):undefined} sizes={responsive?sizes:undefined} alt="" width="681" height="524" loading="lazy" decoding="async" /></picture>
 </div>
+<style>
+:global(#work .home-artwork.exact-composition){aspect-ratio:681/524;background:transparent}
+:global(#work .home-artwork.exact-composition picture){display:block;inset:0;width:100%;height:100%}
+:global(#work .home-artwork.exact-composition img){object-fit:contain}
+@media(max-width:760px){:global(#work .home-artwork.exact-composition){aspect-ratio:var(--mobile-ratio)}}
+</style>

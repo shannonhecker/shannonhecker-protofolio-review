@@ -73,3 +73,71 @@ Reviewed current local `http://127.0.0.1:4341` in Chrome through the browser ski
 - **Utility routes:** confirmed route files for `/404`, `/build`, and `/privacy`. Error-page heading and return link fit desktop and phone. Privacy content and shared footer are readable at both widths. Build-log introduction and headings fit both widths; a DOM geometry check across its content found no horizontal overflow at phone width. The roughly 44,000px desktop build log was not visually read entry by entry.
 
 No awards outcome, exhaustive accessibility certification, or measured performance result is claimed. This review adds route coverage to the prior case-page, persona, map and full-size-image checks; the automated suite remains a separate verification owned by the parent agent.
+
+## Full-case scroll pass · 12 October, latest persona spacing
+
+Scrolled all five case routes (`/fx`, `/fusion`, `/uoaui`, `/winking-star`, `/deal-model`) to the footer in Chrome at 1440×1000 and 390×844 using the browser skill/runtime. Sampled viewport screenshots and visible-image loading state during the scroll; evidence log: `/private/tmp/portfolio-scroll-review.json`, screenshots `/private/tmp/review-{route}-{desktop,phone}-{step}.png`. This is a sampled craft review, not a frame-rate benchmark or a claim that every pixel was inspected.
+
+The initial rapid FX pass exposed the section opacity reveal and temporary lazy-image blanks. Parent removed the case-section opacity reveal. Repeated FX desktop and all five phone passes with 500ms dwell found **zero visible unloaded images and zero document horizontal overflow**. Original journey graphics retain internal horizontal scrolling on phones, keeping their source labels readable. Fine product UI labels still require the provided original-size image link. Sampled personas, journey graphics, decision copy and source dialogs displayed without collisions or clipped card text. PM received the browser after viewport reset.
+
+Earlier desktop Winking sampling encountered one image still loading at entry; the subsequent phone pass loaded all visible images at each sample. Page height changed during lazy content activation on several long pages; this pass does not establish a CLS score. The report verifies presentation/loading behavior, **not that current Figma source images match every website asset**; the renewed asset audit is tracked separately after the user's latest report.
+
+### Current composition checkpoint, 12 October
+
+The nineteen current Figma composition exports were inspected locally at 1440px and 390px. The uoaui builder/UI Kit retain their authored padded backgrounds, Deal retains its exact overlap, and Winking retains the staggered three-phone hero. The lower Winking iPhone sequence uses the exact full composition on desktop and separate authored phone frames on mobile, keeping Launch, Home, Activity and Progress in order. Home now selects the authored desktop/mobile crop without an additional CSS crop. Mobile FX/Fusion home images and Winking Launch/Home detail were visually checked in Chrome. Thirty focused layout, appearance and evidence tests pass. This is an image implementation checkpoint, not the final whole-site or scroll-performance sign-off.
+
+
+## Final PM browser craft and scroll review · 12 October
+
+Reviewed all ten local routes in Chrome through CUA at 1440×1000 and 390×844:
+`/`, `/panel`, `/fx`, `/fusion`, `/winking-star`, `/deal-model`, `/uoaui`,
+`/privacy`, `/build`, `/404`. Viewport overrides were reset and the review tab
+closed afterward. This was a sampled visual/interaction pass on the current dev
+build, not a physical-phone test or exhaustive inspection of every long-page pixel.
+
+- Home and Panel: both hero/eyebrow variants fit; five project tiles retain the
+  current original compositions. New responsive SVG candidates render on desktop
+  and phone. Number/title/arrow and secondary copy remain aligned. No horizontal
+  document overflow in the sampled Home geometry checks.
+- FX: light desktop introduction, dark research/data diagram/personas/journey,
+  dark phone introduction and persona jump inspected. Source artwork is intact;
+  card names, role copy, one-accent panels and narrow layouts remain readable.
+- Fusion: dark phone introduction/constraints, dark desktop design section and
+  successive full product screens inspected. Original/rebuild qualifier stays
+  visible. Scrolling through performance/risk screens showed complete images.
+- Winking: light desktop introduction/personas/product board and light phone
+  introduction/stacked flow inspected. Portrait colour equals response-panel
+  colour; complete phone compositions remain intact.
+- Deal: light phone introduction/decision links and desktop product-gallery and
+  validation section inspected. Source-screen pairs and text summaries are
+  distinguishable. Dense original screen details remain available via full-size
+  links rather than enlarged or rewritten content.
+- uoaui.ai: light desktop introduction, dark flow/current product screens and
+  dark phone introduction/journey inspected. No missing media or clipped main
+  copy found in these samples. Native Escape closes Sections; section links
+  settle on their targets. A locator-generated Escape observation did not
+  reproduce with native keyboard input and is not classified as a defect.
+- Utilities: Privacy, Build and 404 inspected at both widths in dark mode.
+  Heading/body/link wrapping is readable; Build and Privacy geometry checks
+  show no document overflow. Keyboard Enter on the 404 return link reaches
+  `/panel`. The archive clarification is visible on Build.
+
+### Current-image loading observations
+
+The first Home check occurred while responsive derivatives were being written
+and showed blank tiles. After the asset owner confirmed completion, both desktop
+and phone displayed all new compositions. During one rapid two-page phone-width
+scroll, a single screenshot showed a blank content paint with navigation/cursor
+still visible; the next observation displayed the Winking/Deal/AI rows normally.
+DOM rows were visible at opacity 1. Repeated normal one-page and two-page scrolling
+showed the images, and the desktop gallery repeat also rendered correctly. No
+persistent blank, failed image or reproducible reading blocker was found.
+
+This cannot establish the cause or duration of that transient paint, nor certify
+60fps. Local automation screenshots and viewport emulation are not an on-device
+trace. Current case image groups sampled through native scrolling had no blank
+frames in the observed captures. Root's final build/browser suite and remote
+performance budget remain separate gates for the exact release candidate.
+
+No app code changes were needed from this craft pass. The requested award
+standard is a review benchmark; this report claims no jury/award certification.

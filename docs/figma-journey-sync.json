@@ -2780,5 +2780,147 @@
     "/private/tmp/journey-whole-winking.png",
     "/private/tmp/journey-whole-deal.png"
   ],
-  "fontLimitation": "Inter used; Inter Tight unavailable in Figma font environment."
+  "fontLimitation": "Inter used; Inter Tight unavailable in Figma font environment.",
+  "deskObservationAttributionSync": [
+    {
+      "page": "32:8",
+      "changed": [
+        {
+          "id": "140:4044",
+          "before": "I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.",
+          "after": "I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.",
+          "w": 617,
+          "h": 92,
+          "parent": "140:4043"
+        },
+        {
+          "id": "384:5725",
+          "before": "Lead designer, one of one. Around twenty engineers, the business, and the charting vendor. A few clients, watched while they decided to trade now or wait.",
+          "after": "Lead designer, one of one. Around twenty engineers, the business, and the charting vendor. Traders observed on the desk.",
+          "w": 476.41400146484375,
+          "h": 80,
+          "parent": "384:5723"
+        },
+        {
+          "id": "140:5295",
+          "before": "I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.",
+          "after": "I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.",
+          "w": 342,
+          "h": 173,
+          "parent": "140:5294"
+        },
+        {
+          "id": "384:5817",
+          "before": "Lead designer, one of one. Around twenty engineers, the business, and the charting vendor. A few clients, watched while they decided to trade now or wait.",
+          "after": "Lead designer, one of one. Around twenty engineers, the business, and the charting vendor. Traders observed on the desk.",
+          "w": 342,
+          "h": 80,
+          "parent": "384:5815"
+        },
+        {
+          "id": "126:193",
+          "before": "I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.",
+          "after": "I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.",
+          "w": 617,
+          "h": 92,
+          "parent": "126:192"
+        },
+        {
+          "id": "68:3091",
+          "before": "I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.",
+          "after": "I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.",
+          "w": 624.6400146484375,
+          "h": 92,
+          "parent": "68:3090"
+        },
+        {
+          "id": "140:247",
+          "before": "I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.",
+          "after": "I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.",
+          "w": 617,
+          "h": 92,
+          "parent": "140:246"
+        },
+        {
+          "id": "140:1481",
+          "before": "I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.",
+          "after": "I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.",
+          "w": 342,
+          "h": 173,
+          "parent": "140:1480"
+        },
+        {
+          "id": "127:226",
+          "before": "I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.",
+          "after": "I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.",
+          "w": 617,
+          "h": 92,
+          "parent": "127:225"
+        },
+        {
+          "id": "68:4300",
+          "before": "I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.",
+          "after": "I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.",
+          "w": 342,
+          "h": 173,
+          "parent": "68:4299"
+        },
+        {
+          "id": "140:6563",
+          "before": "I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.",
+          "after": "I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.",
+          "w": 617,
+          "h": 92,
+          "parent": "140:6562"
+        },
+        {
+          "id": "140:7797",
+          "before": "I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.",
+          "after": "I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.",
+          "w": 342,
+          "h": 173,
+          "parent": "140:7796"
+        }
+      ],
+      "unavailable": []
+    },
+    {
+      "page": "32:2",
+      "changed": [
+        {
+          "id": "I109:1964;109:88",
+          "before": "Twelve months with an ops desk. A year embedded with four teams. Paper tests with analysts. Clients watched deciding. My own kids at bedtime.",
+          "after": "Twelve months with an ops desk. A year embedded with four teams. Paper tests with analysts. Traders observed on the desk. My own kids at bedtime.",
+          "w": 405,
+          "h": 87,
+          "parent": "I109:1964;109:87"
+        },
+        {
+          "id": "I109:2226;109:262",
+          "before": "Twelve months with an ops desk. A year embedded with four teams. Paper tests with analysts. Clients watched deciding. My own kids at bedtime.",
+          "after": "Twelve months with an ops desk. A year embedded with four teams. Paper tests with analysts. Traders observed on the desk. My own kids at bedtime.",
+          "w": 342,
+          "h": 116,
+          "parent": "I109:2226;109:261"
+        }
+      ],
+      "unavailable": []
+    }
+  ],
+  "deskObservationMobileReflow": {
+    "paragraph": "140:5294",
+    "row": "140:5291",
+    "list": "140:5275",
+    "reason": "Corrected attribution wraps to 173px; expanded minimum row/list heights and shifted following content by 30.016px."
+  },
+  "winkingAccessibilityCopySync": {
+    "nodes": [
+      "48:4349",
+      "48:5446",
+      "140:9716",
+      "140:10779"
+    ],
+    "text": "Tabs expose their labels and selected state to VoiceOver. Text supports Dynamic Type up to 1.6\u00d7, and confetti stays off when Reduce Motion or Calm Mode is enabled.",
+    "validation": "Current and editable legacy copies updated; desktop92px and mobile116px fit their existing containers; graphics untouched."
+  }
 }

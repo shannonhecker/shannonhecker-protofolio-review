@@ -33,26 +33,33 @@ visual prominence does not imply equal maturity or evidence strength.
 
 ## Evidence matrix
 
-Present = located in current source; Partial = some evidence but the criterion
-is not fully demonstrated; Gap = unavailable in reviewed material. This audits
-content coverage, not final visual quality or the unvalidated active redesign.
+Reconciled 12 October 2026 after the image gate and fresh full-source review.
+Present = demonstrated in the reviewed content; Partial = coverage with a stated
+limit; Gap = evidence absent. This is not a claim of jury approval, production
+parity of a rebuild, or completed release validation.
 
 | Criterion | FX `/fx` | Fusion `/fusion` | uoaui `/uoaui` | Winking Star `/winking-star` | Deal Model `/deal-model` |
 |---|---|---|---|---|---|
-| Production status, live link, recency | Partial: internal beta; public simulated rebuild | Present with qualification: shipped 2023–25; public rebuild is not client production | Gap against shipped requirement: explicitly private alpha | Present: live App Store iPhone/iPad, launched 2026; verify current version | Partial: in use internally at J.P. Morgan, six design phases to January 2024; no public link, screens are design-file exports Shannon chose to show |
-| Individual craft / system contribution | Present: chart encoding, spec and interaction decisions | Present: Salt plus Fusion layer, widgets/filter patterns | Present: five-system token/density mapping | Present: original visual system, routines/pets/celebrations | Present: UI lead (one of two designers); compare grid, column chooser, iteration list, validation states, three-versions review format named as hers |
-| Final whole screens / high resolution | Present: latest simulated full captures/video | Present: latest rebuild full captures/video, source watermark retained | Present: current landing/builder/UI Kit captures and source video | Present: original app screens/art; full-size legibility still inspect | Present: thirteen design-file product screens plus the landing hero; real client and colleague names visible by Shannon's decision |
-| Visual explorations | Partial: alternatives and refinement schematics | Partial: tier-removal narrative; original compared versions absent | Partial: free-form vs official-only narrative; compared drafts absent | Partial: decisions described; dated rejected visual alternatives absent | Partial: six decision rows with chosen versus alternative schematics; earlier versions from the three-versions reviews are not shown |
-| Complete primary flow/navigation | Present: monitor to action, compare/filter/ticket; real capture subset | Partial: analyst flow and report/config walkthrough; permissions/save/failure coverage incomplete | Partial: intended prompt-to-export diagram; video is template/edit/present, not demonstrated full generation/export | Present: daily/weekly and shared-parent flows; verify all screens connect visibly | Present: five-step flow and six-phase experience map; approver workflow and dashboards shown as screens |
-| Native / responsive conventions | Partial: desktop trading context; 820 fits, 390 overflow disclosed | Partial: responsive catalogue, not all analytics workspaces | Partial: responsive UI Kit, not authenticated builder | Partial: iPhone/iPad and VoiceOver stated; tablet/native navigation comparison could be stronger | Partial: desktop web tool; no responsive claim, none needed |
-| Edge and validation states | Present as designed matrix; live subset labelled | Gap: no dedicated complete state inventory/screens | Gap: generation failure/empty/unsupported/export states not demonstrated | Present: offline/time rollover/Kid Mode/split homes; no invented collision rule | Present: seven-row state matrix and a four-state field strip redrawn from the validation-states page; ADA specs (landmarks, tabbing order, hierarchy, alt text) stated |
-| Problem and user goals | Present: execution decisions and trader/sales/support roles | Present: analyst workflow, legacy rigidity | Present: design-system output and human control; personas are assumptions | Present: bedtime routines, children and parents | Present: four teams, four definitions of a deal; four composite roles labelled as such |
-| Business goals | Partial: workflow measures, no quantified business baseline | Partial: internal/external reporting and client opening, baseline not quantified | Partial: inspectable developer output, alpha success criteria undefined | Partial: ad-free family utility; product success goals not measured | Partial: one platform, one object, sign-off trail out of the tool; no quantified baseline |
-| Constraints/blockers/iterations | Present: NDA/vendor/engineering, six phases | Present: Salt, data pressure, roles/accessibility; tier removed | Present: components-only and system disagreement; detailed delivery constraints thin | Present: Kids Category, offline, locales, four releases | Present: four definitions, the spreadsheet that would not die, compliance, accessibility, six phases |
-| Tested X/Y, chose because Z | Partial: menu vs drag and chart studies; method/sample/date absent | Partial: removed middle tier after observation; method/sample/date absent | Partial: free-form rejected; no external evaluation protocol/results | Partial: own children's observation and usability fixes; external study absent | Partial: three versions per review (weekly per team, fortnightly shared) described; no written protocol or participant record |
-| Shipped impact/adoption/KPIs | Gap in measured impact: beta, agreed future measures explicitly unmeasured | Partial: reuse/client adoption qualitative; zero accessibility violations needs audit provenance | Partial: explicit outcome/validation section; no measured alpha result | Partial: shipping/languages/releases are delivery facts, not adoption/retention impact | Partial: upload-template signal (uploads dropped to nothing) is qualitative; two hours to twenty minutes is Shannon's estimate and is labelled so; no measured KPI |
-| Reflection / what changes next | Present: earlier trader access/vendor limits | Partial: lesson in removing a tier, no explicit next improvement | Present as next question: another designer reaches a useful screen unaided; results absent | Present: smallest-size truncation and translation backlog | Present: measure before and after; bring the data analyst in from phase one |
-| Final polish / frictionless use | Pending active redesign validation | Pending active redesign validation | Pending active redesign validation | Pending active redesign validation | Pending final visual check after the voice pass |
+| Production status, live link, recency | Partial: internal beta; simulated public rebuild | Present with qualification: shipped 2023–25; public rebuild is a reconstruction | Gap against shipped requirement: private alpha | Present: live iPhone/iPad App Store listing; 2026 launch, 1.0.4 listing checked 12 October | Partial: internally used JPM product; original design artefacts, no public production access |
+| Individual craft / design-system contribution | Present: encoding, chart composition and interaction judgement | Present: UI/design leadership, Fusion layer over Salt; UITK work explicitly before Fusion | Present: original brand/system and five-system mapping, with component fallbacks | Present: original brand, native/web tokens, routines and celebration design | Present: UI leadership and cross-team decisions; shared UX collaboration remains explicit |
+| Whole screens / original graphics | Present: original designs/vectors plus labelled current simulated captures | Present: original hero/body compositions plus separate public reconstruction captures | Present: original compositions, current builder/UI Kit screens, real walkthrough | Present: original phone compositions, current app/web evidence and labelled sample content | Present: original owner/pricing/approver screens and complete composition; not production captures |
+| Visual exploration | Present with qualification: original chosen/alternative drawings, refinements remain designed | Partial: original system/configuration drawings and tier-removal narrative; complete dated rejected screens absent | Partial: original decision artwork and tradeoffs; full dated comparison drafts absent | Partial: original decision sketches; historical four-stage sketch identified separately from current growth | Partial: six decisions and two exact original smart-pricing explorations; unsupported alternative illustrations removed |
+| End-to-end flow and navigation | Present as design plus live subset: monitor/compare/adjust/review; simulated immediate limit change differs from specification | Partial: analytical workspace and configuration journey; not every entitlement/save/failure state demonstrated | Partial: prompt/build/review/export practice, direct export allowed; video shows template editing, not all generation/export operations | Present with platform scope: daily checks, threshold growth, adult/shared board, native tabs; simplified demo labelled | Present as design: owner input, pricing/iterations, winning-bid reason, approver comparison/comments/decision |
+| Native / responsive conventions | Partial: desktop-first, actual narrow overflow disclosed | Partial: responsive catalogue, not every analytics workspace | Partial: responsive UI Kit, not full builder support | Present with limit: native four tabs plus iPhone/iPad and separate web board; not a full device/a11y certification | Partial: desktop tool, no invented phone-production claim |
+| Edge / validation states | Present as intended state matrix with public-rebuild differences explicit | Partial: source constraints/interaction handling; comprehensive demonstrated state inventory absent | Gap in complete visual coverage: not all generation, empty, failure and export states shown | Present with scope: optional sample family, check/uncheck, local-day rollover, shared board, quiet feedback; no invented collision policy | Present as original design: empty iterations, TXN/SK rate mismatch, create success/error; text summaries explicitly distinguished from original graphics |
+| Problem / user goals / personas | Present: trading decisions and composite roles | Present: analytical trust and flexible workspace; composite roles | Present: system-consistent output and designer control; intended roles | Present: family routine problem; own-household observation and composite roles | Present: four teams, definitions and composite roles |
+| Business goals | Partial: future workflow measures, no quantified baseline | Partial: reusable analytics and phase-two external access, no quantified baseline | Partial: useful inspectable handover; no measured commercial success | Partial: paid/ad-free family utility; no measured adoption or retention | Partial: unified deal object and approval process; no measured business baseline |
+| Constraints / blockers / iterations | Present: NDA, vendor/data/engineering limits and refinement | Present: Salt/FactSet/entitlements and specialist from start | Present: registry mapping, system mismatch, explicit fallback and alpha limits | Present: native/web differences, children, offline/shared behaviour and accessibility controls | Present: four-team alignment, spreadsheet bridge, original validation and design scope |
+| Tested alternatives and reasoning | Partial: desk observation and qualitative menu/drag record; unsupported two-layout experiment removed | Partial: weekly and two client reviews, tier simplification; no protocol/count for comparative study | Partial: designer's component comparison; no external alpha study | Partial: own two children and implementation fixes; no recruited external study | Partial: weekly team/fortnightly shared three-version reviews; no recorded participant protocol |
+| Impact / adoption / KPIs | Gap in measured impact: future measures explicitly unmeasured | Partial: qualitative pattern reuse/phase-two access; zero WCAG AA violations is author's report, original dated audit unavailable | Gap in measured outcomes: no adoption, time-saving or external test claimed | Gap in measured impact: releases/languages are delivery facts, not usage outcomes | Partial: declining template uploads qualitative; two hours to twenty minutes explicitly estimate |
+| Reflection / next work | Present: earlier access and vendor/implementation lessons | Present: carry accessibility review discipline into shared layers, not contradict specialist-from-start | Present: another designer reaches useful output unaided; not yet evaluated | Present: small-screen readability and native-language review; no false blanket untranslated-label claim | Present: measure before/after and earlier data-analyst involvement |
+| Final craft / frictionless reading | Pending final current-asset review | Pending final current-asset review | Pending final current-asset review | Pending final current-asset review | Pending final current-asset review |
+
+Evidence: `HOME-CONTENT-AUDIT.md`, `FX-FUSION-DEAL-CONTENT-REVIEW.md`,
+`AI-WINKING-CONTENT-REVIEW.md`, `current-media-parity.json`, original project
+source references in those audits, and current case/data components. All five
+have explicit personas, distinct journeys, flows and detailed decisions. Those
+structures do not substitute for missing participant records or measured impact.
 
 ## Located evidence
 
@@ -107,7 +114,7 @@ never estimates presented as measurements.
 
 ## Final submission gates
 
-Check all four pages against this matrix after redesign, including navigation,
+Check all five pages against this matrix after redesign, including navigation,
 whole flows, captions, source status and readable images at desktop/tablet/phone.
 Run build, type checks, full tests and release CI; perform visual/self-inspection
 and live-link checks. Automated success does not establish design-panel approval
@@ -152,7 +159,7 @@ proof that no other records exist.
   `rollout-2026-09-12T18-46-14-01a096ba-1c97-73b1-9364-305ec07932c2.jsonl:778`.
   The original Claude timestamps above remain preferable provenance.
 
-### Fresh Figma corroboration reported by the main agent
+### Historical Figma corroboration reported by the main agent
 
 File `17Rsi3vWFtaYwlrRf5iO8E`, exact nodes re-read:
 
@@ -160,7 +167,7 @@ File `17Rsi3vWFtaYwlrRf5iO8E`, exact nodes re-read:
 |---|---|---|
 | `2048:293` | FX rollout measures: action timing, tool switches, feature usage | Explicitly no pre-rollout adoption figures |
 | `2048:297` | Fusion specialist from start, WCAG AA/zero violations, pattern reuse, external-client phase | Original audit scope/method still needed for numerical substantiation |
-| `2068:10740` | Several clients signed | No client count or measured conversion rate |
+| `2068:10740` | Older deck says several clients signed | Removed from current case: not retained as verified design impact |
 | `2074:295` | FX menu-versus-drag comparison | No sample size or protocol |
 | `2075:304` | Fusion configuration-tier removal after testing | No sample size or protocol |
 | `2080:280` | Winking Star observation of Shannon's own two children in the evening | Not an external family study |
@@ -219,6 +226,13 @@ An assistant-proposed six-month estimate marked for checking is excluded.
 These caveats are internal tracking, not instructions to invent visible filler
 or duplicate disclaimers across the design. Continue useful layout/content
 work with available sources and ask only for evidence that cannot be recovered.
+
+## Historical review notes (superseded where current audit differs)
+
+These entries record earlier decisions. Current matrix and 12 October source
+audits take precedence, including the removal of a blanket Deal-screen
+redaction claim. Earlier sample-name exports do not certify every newly
+restored original artefact.
 
 ## 11 October 2026 · voice and consistency pass
 

@@ -20,10 +20,11 @@
           "Keep price and progress in the same field of view; use distinct axes and hierarchy to handle the density.",
           "Separate the two measures into cleaner panels, but require the trader to move between them."
         ],
-        "evidence": "I put two mockups in front of traders during live trading and asked what they were watching and what would make them act. The case records attention switching with two panels. There was no written protocol or recorded participant count.",
+        "evidence": "I observed traders during live trading and asked what they watched, waited for and acted on. I used that to design the combined canvas. I do not have a measured comparison of the two layouts.",
         "status": "Specified for the Barclays beta",
         "result": "The combined canvas became the build contract. The public rebuild shows the interaction; rollout measures are still pending.",
-        "source": "src/components/CaseFx.astro#fx-decisions"
+        "source": "src/components/CaseFx.astro#fx-decisions",
+        "reason": "I explored two linked panels and one combined chart. I chose the combined canvas to keep price and progress in the same field of view, with separate axes and careful hierarchy."
       },
       {
         "key": "reprice",
@@ -74,7 +75,7 @@
           "Reuse widgets across data cubes and permission levels.",
           "Build a fixed page for each report type and data combination."
         ],
-        "evidence": "Internal users configured pages during weekly reviews on their real portfolios. I watched what they chose and used that to shape the default layout. The case also records the patterns being reused by other Fusion teams.",
+        "evidence": "I watched internal users configure pages during weekly reviews on their own portfolios and used their choices to shape the default layout. Other Fusion teams later reused the widget and filtering patterns.",
         "status": "Shipped and reused",
         "result": "Widget and filtering patterns were adopted across other Fusion modules.",
         "source": "src/components/CaseFusion.astro#fu-decisions"
@@ -131,7 +132,7 @@
         ],
         "evidence": "The source sends Claude a catalogue of block types and canvas tools. Its component registry maps supported blocks to Salt, MUI, Fluent and Carbon; the house system uses its own CSS. The renderer and exporter have fallback paths for uncovered combinations.",
         "status": "Implemented in the private-alpha source",
-        "result": "Generation is constrained by a structured block model. It is not accurate to claim every block is an unmodified official component.",
+        "result": "The model works with a defined canvas structure. Native component mappings and explicit fallbacks produce a screen I can inspect.",
         "reason": "I constrained generation to the builder’s block model. Where a system has a supported component, the renderer and React export use it. Where it does not, there is a fallback rather than a fabricated package API.",
         "source": "shannonhecker/desinghub@5f603e731556c0ec9908a4222c6399a6af765e5f: src/lib/chatSystem.ts:16; src/app/api/chat/route.ts:249; src/lib/componentApiRegistry.ts:1; src/components/builder/ComponentRenderer.tsx:2071; src/lib/export/reactExporter.ts:189",
         "optionLabels": [
@@ -151,7 +152,7 @@
         ],
         "evidence": "The source stores one canvas with a selected system, theme and density. Component and layout registries map that structure differently for each system. The mappings use native APIs where available and token-driven CSS where a system has no equivalent.",
         "status": "Working private-alpha comparison",
-        "result": "The same canvas can switch among Salt, Material, Fluent, Carbon and the house system. The mappings accommodate their differences; there is no universal “strictest definition” rule.",
+        "result": "I can switch the same canvas among Salt, Material, Fluent, Carbon and the house system, then inspect how each mapping handles the screen.",
         "source": "shannonhecker/desinghub@5f603e731556c0ec9908a4222c6399a6af765e5f: src/store/useBuilder.ts:1064; src/lib/componentApiRegistry.ts:1; src/lib/layoutRegistry.ts:1",
         "reason": "I mapped screen structure, tokens, density and theme so I could compare the supported systems without drawing a separate screen for each. The differences still need a person to inspect them.",
         "tradeoff": "A shared representation has to accommodate different system rules. Some system-specific choices need an explicit decision rather than a direct one-to-one swap."
@@ -269,10 +270,12 @@
           "Let stars contribute to a pet across the week, with a new pet on Monday.",
           "Make a daily score and reset it at midnight."
         ],
-        "evidence": "The app’s weekly stages and rollover describe the designed feedback loop. The case does not provide retention data or a comparison of children’s emotional responses to daily scores.",
+        "evidence": "In the current iPhone source, weekly stars feed a stage function from egg to stage six. Treasures use cumulative completed routines. These are progression rules, not a measured retention result.",
         "status": "Weekly product loop",
         "result": "The pet grows from completed routines. The claimed result is continuity across the week, not measured retention.",
-        "source": "src/components/CaseWinking.astro#ws-loops"
+        "source": "weekly-superstar-ios@8388f4d: components/MysteryPet.tsx:128; components/ActivityGrid.tsx:257; lib/treasures.ts:91; weekly-superstar-shared@fb7e63f: src/themes.ts:105-118",
+        "artNote": "The original sketch explores four broad stages. The current app uses star thresholds for six growth steps after the egg; the portfolio demo above simplifies that progression.",
+        "reason": "I wanted the pet to carry progress across the week. A missed day does not deduct stars; correcting a tick can change the total. The next week starts a new pet."
       }
     ]
   },
@@ -301,7 +304,7 @@
           "Keep one deal record with views for different roles.",
           "Maintain a separate product and record for each team."
         ],
-        "evidence": "I spent a year with the four teams, with weekly team reviews and shared reviews every fortnight. The case records that many disagreements were about the columns each team needed.",
+        "evidence": "I spent a year with the four teams, reviewing with each team weekly and together every fortnight. Many disagreements came down to the columns each team needed to see.",
         "status": "Shared internal product design",
         "result": "The design puts the teams’ work on a shared deal and iteration history.",
         "source": "src/data/deal-content.json#research"
@@ -314,7 +317,7 @@
           "Bring three different versions and combine the useful parts.",
           "Seek approval on one proposal at the end."
         ],
-        "evidence": "The review account names the comparison table and iteration list as changes that came from those discussions. It does not record a count of reopened decisions or prove that none returned by email.",
+        "evidence": "The comparison table and iteration list came out of those reviews. I can explain how the discussions shaped them, but I did not measure the amount of rework the method saved.",
         "status": "Design-review method",
         "result": "The reviews shaped the comparison and history views. I do not claim that the method eliminated rework.",
         "tradeoff": "More alternatives to prepare and explain in each review, with time needed to bring the useful parts together.",
@@ -332,7 +335,7 @@
           "Compare iterations in a grid with a saved column selection.",
           "Publish the same fixed comparison report for everyone."
         ],
-        "evidence": "The original design includes the compare grid and column chooser. The case attributes the need to sales rebuilding comparisons; there is no measured reduction in spreadsheet use for this individual feature.",
+        "evidence": "The original designs show the compare grid and column chooser. I designed them around the different comparisons each role needed; I did not measure a separate impact for this feature.",
         "status": "Designed for the internal pricing workflow",
         "result": "The comparison becomes a configurable view of the iterations. It supports a choice without requiring a new report layout for every role.",
         "source": "src/data/deal-content.json#constraints",
@@ -349,7 +352,7 @@
           "Let the user fill an upload template that maps into the deal model.",
           "Require manual entry and a complete switch to the new flow."
         ],
-        "evidence": "The template idea came from a user session and was worked through with the BA. The case records a qualitative adoption signal as uploads declined, without a measured adoption rate.",
+        "evidence": "The template idea came from a user session, and I worked it through with the BA. Declining uploads were our adoption signal; I did not measure an adoption rate.",
         "status": "Migration support in the product",
         "result": "The upload route let people keep a familiar way of preparing data while moving the record into the platform.",
         "source": "src/data/deal-content.json#constraints",
@@ -391,7 +394,7 @@
           "The smart-pricing concept explores inputs for creating a new iteration. The owner remains responsible for reviewing the resulting proposal.",
           "The new-proposal concept collects proposal details and portfolio scope before pricing. It is another part of the exploration, not a rejected alternative."
         ],
-        "evidence": "The case records exploration with the data analyst and review with the four teams. Historical data was still being assembled. The feature was not built in my time.",
+        "evidence": "I explored this with the data analyst and reviewed it with the four teams. We were still assembling the historical data. It was not built in my time.",
         "status": "Explored, not built in my time",
         "result": "The proposal kept the owner in control. No model accuracy, adoption or pricing improvement is claimed.",
         "source": "Figma MhZ5D5sh8DZgOTYdLXX8It, SmartPricing frame 1:24108 and Add Proposal frame 1:24561",

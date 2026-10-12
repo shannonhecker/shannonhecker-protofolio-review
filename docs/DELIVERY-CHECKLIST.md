@@ -5,11 +5,14 @@ Older TASKS.md and QUALITY.md describe historical releases. Completion requires
 source, rendered implementation and deployed result to agree.
 
 **Current state:** PR [#49](https://github.com/shannonhecker/shannonhecker-protofolio-review/pull/49),
-head `7057e7a13e08e7003390707cb788c6ce0ebc0d75`, is open. Local build and all
-149 browser tests passed in 58.9s. CI
-[38185501523](https://github.com/shannonhecker/shannonhecker-protofolio-review/actions/runs/38185501523)
-is running. Later source-art and zoom changes are in progress and are not covered
-by this head. **Hold merge until those changes are finished, tested, pushed and
+head `24be6c93fa954e9efc227cc96c4f5fd3caa9b62b`, is open. This head's build,
+browser tests, links, preview and all CI38186411926 gates passed.
+Subsequent source/copy corrections, persona/theme work and current Figma
+composition imports are local and not covered by this head.
+Local checkpoint `dd7d4ac` now contains that persona/theme work; twenty-two fresh
+composition exports and associated website changes remain uncommitted. Neither
+the earlier PR checks nor the old image review cover the new composition batch.
+**Hold merge until those changes are finished, tested, pushed and
 verified at the final exact head.** PM monitors and records evidence; root owns
 implementation and release. No external award validation is claimed.
 
@@ -17,29 +20,61 @@ Status terms: **Implemented, release pending** is verified local work, not live.
 **Previously live, final recheck** needs the final review. **Open** requires work.
 Figma completion is distinct from website deployment.
 
-Latest local checkpoint after 7057e7a: source-art/voice corrections and full-size
-links are implemented. The decorative AI avatar was removed, resolving the old
-hidden-state CSS regression; desktop/mobile visual checks passed. Check/build
-and 149 tests passed in 56.8s before the final avatar/transcript cleanup; the final
-rerun is active. New-head CI/live verification and actual final-review coverage
-remain open. These implementation items no longer block on missing source work.
+Current pending sequence:
+
+1. **Image gate passed locally:** 108 current Figma roots classified, 146 website
+   references resolved and 22 compositions restored. Four additional Deal panels
+   were pixel-verified; the AI Figma gallery repair is complete. Evidence:
+   `current-media-parity.json`; no actionable image mismatch remains.
+2. **Website content gate passed locally:** fresh full eight-note reread and
+   Home/utilities, FX/Fusion/Deal, AI/Winking source reconciliation are complete.
+   `HOME-CONTENT-AUDIT.md`, `FX-FUSION-DEAL-CONTENT-REVIEW.md` and
+   `AI-WINKING-CONTENT-REVIEW.md` record coverage and corrections.
+   `REVOLUT-CHECKLIST.md` is reconciled for all five cases. Missing original
+   research/outcome records remain explicit factual limits. Figma editable text
+   and vector-lettering synchronization is complete in `figma-final-content-sync.json`.
+3. Local sampled craft/scroll review complete in `UI-REVIEW.md`. Root reports
+   final current-source check/build and all 149 browser tests passed in 53.5s.
+   Remote performance and preview must cover that final committed head.
+4. Final exact-head commit/CI/preview, merge and production verification.
+
+New image checkpoint: twenty-two fresh Figma composition assets were losslessly
+packed with exact RGBA comparison, recorded in `figma-composition-encoding.json`.
+Home Fusion reduced from 8.65MB to 2.75MB, Winking from 5.95MB to 3.22MB; the
+5.52MB Deal home vector is unchanged. These imports invalidate earlier scroll
+performance acceptance. Recheck final new assets after image/content completion;
+Forty responsive Home SVG variants now preserve vector geometry while resizing
+embedded screenshot data; original full-resolution files remain available.
+Deal vector optimization reduces bytes by approximately 40%. Fidelity evidence
+is in `home-responsive-quality.json`, `home-responsive-delivery.json` and
+`home-vector-optimization.json`. Final exact-head remote performance is pending.
+
+Manual bot-excluded links verified in Chrome on 12 October: App Store
+`https://apps.apple.com/app/id6765767262` resolves to the Winking Star listing
+(`https://apps.apple.com/us/app/winking-star/id6765767262`), displaying version
+1.0.4. `https://www.linkedin.com/in/shannonhecker/` displays Shannon Hecker's
+profile and the same public profile URL. This was read-only; temporary tabs closed.
 
 ## Current scope and owners
 
 | Request | Current status | Evidence / remaining work |
 |---|---|---|
+| All current Figma pages match website assets and compositions | Verified locally; release pending | 108 current roots and 146 active references classified; 22 compositions restored, including three Fusion body compositions and the AI Figma gallery repair. `current-media-parity.json` records final dispositions. New assets still require final performance/release verification |
+| Fresh full content scan after all image work | Website and Figma source audit complete; release pending | Fresh eight-file reread and all-page ownership audit completed after image parity, including graphic transcripts/alt, headings, roles, qualifiers and outcomes. Three content-review documents record corrections; private notes remain unpublished. Figma text/lettering sync completed in `figma-final-content-sync.json` |
+| Revolut brief coverage on every product page | Current five-case matrix reconciled; factual gaps explicit | Current matrix covers every brief criterion on all five pages and distinguishes complete structures from missing research/impact evidence. No alpha is relabelled shipped; no estimate is relabelled measurement. Final craft and release checks remain separate |
 | Fifteen website personas match supplied template | Implemented, release pending | Final build and 149-test pass at 7057e7a; no invented technical ratings or participant facts |
 | Thirty Figma persona cards match template | Done in Figma | Final upload/manifest and visual review complete; original content retained |
-| One accent per persona, white base, clean cutouts | Implemented, release pending; Figma done | Single hue, no mixed pastel/tinted card surfaces; no multiply blending; four Deal portraits have clean cutouts |
+| Distinct accent per persona; portrait background equals its panel accent | Implemented, release pending; Figma done | Fifteen cards × four widths and theme flips covered by six focused tests; desktop light/dark and phone light inspected. Figma recorded six FX dark/twenty-four light specimens, with both palettes documented; these specimens do not assert the website default theme |
+| Graphics adapt to light/dark where possible | Implemented, final verification/release pending | All thirteen themed vectors and persona palettes implemented. Preserve original product screenshot colours; paired theme assets only where appropriate, no blanket inversion |
 | Five distinct website journeys | Implemented, release pending | ProductJourney/FxOriginalJourney; source-specific structures and accessible narrative |
 | Ten desktop/mobile Figma journey layouts | Done in Figma | Final manifests and gap adjustments complete |
-| Detailed decision maps for every product | Implemented, release pending | 21 choices in decision-evidence.json and AuthoredDecisions; rationale, alternatives, evidence, tradeoffs and status; remaining image claims below |
-| Figma whole-page spacing/gaps after content sync | Done in Figma | Final page-gap manifests; original updated graphics preserved |
-| Eight-file private interview voice review | Implemented, release pending | Final FX TWAP/study, Fusion sign-up and Deal import/sixty wording corrections applied; editable Figma text synced; no unsupported impact added |
+| Detailed decision maps for every product | Implemented, release pending | 21 choices in decision-evidence.json and AuthoredDecisions; rationale, alternatives, evidence, tradeoffs and status; source-art corrections complete locally |
+| Figma whole-page spacing/gaps after latest content sync | Current composition/gap pass done in Figma | Latest AI gallery repair completed without altering the raw original. `figma-final-spacing-audit.json` and image-parity dispositions document current scope |
+| Earlier scoped interview voice review | Historical corrections implemented; fresh full review completed | FX TWAP/study, Fusion sign-up and Deal import/sixty wording corrections applied and Figma synced. The new full review is separately recorded in the three current content-audit documents |
 | Deal original file and updated portfolio art | Implemented, release pending; Figma synced | Three unsupported alternative images hidden in web/Figma, written tradeoffs retained. Two smart-pricing PNGs replaced with exact original dialogs 1:24110 and 1:24564, labelled exploration; hashes and desktop/mobile review recorded |
 | Full-size image zoom/readability | Implemented, final coverage/release pending | ProductCapture and Deal hero links added; Fusion phone original-image tap and native zoom manually verified. Remaining route coverage belongs to final review |
-| Final whole-site UI/UX craft review | Open, after content/source work | All ten routes; details below |
-| Final actual scroll-performance review | Open, after content/design | Reported late images; details below |
+| Final whole-site UI/UX craft review | Current local sampled review complete; deployed check pending | All ten routes at 1440/390 inspected by PM; light/dark samples, section navigation and keyboard return checked. `UI-REVIEW.md` records exact scope and limits |
+| Final actual scroll-performance review | Local scroll/image review complete with transient-paint limitation; remote performance pending | Current Home and case imagery reviewed during native scroll. One rapid Home paint was blank then resolved and did not repeat; no persistent blocker. See `UI-REVIEW.md`; no frame-rate certification |
 | Final exact-head CI, merge and production verification | Open | Earlier green head does not certify subsequent revisions |
 
 ## Shared UI and assets to recheck in the final review
@@ -77,9 +112,9 @@ behavior. Unknown research counts, outcomes and implementation rules stay unknow
 
 | Project | Required boundary | Current audit position |
 |---|---|---|
-| FX | Beta; NDA; public rebuild versus internal production | Source mappings and original vectors retained. Final claim/graphic reconciliation active; no bank screens, clients or invented adoption metrics |
+| FX | Beta; NDA; public rebuild versus internal production | Source mappings and original vectors retained. Claim/graphic corrections implemented; no bank screens, clients or invented adoption metrics |
 | Fusion | Original designs and shipped work versus public rebuild | Current screens and specialist-from-start chronology retained. Final claim check must keep Analytics distinct from Data Manager and avoid attributing sales to design |
-| uoaui.ai | Private alpha; implemented generation/export versus intended review practice | Corrected art/text remove unsupported forced review gates and measured-time claims. Final implementation/source reconciliation active |
+| uoaui.ai | Private alpha; implemented generation/export versus intended review practice | Corrected art/text remove unsupported forced review gates and measured-time claims. Source corrections implemented; final rendered/deployed check pending |
 | Winking Star | Actual web/iOS differences, sample versus real family data | WINKING-SOURCES.md records source revisions. First-use, offline/shared behavior and accessibility claims must be scoped to the evidenced platform |
 | Deal Model | Original pricing/owner/approver evidence versus illustrative portfolio diagrams | Original inspected. Owner-written reasoning and actual iteration/rate states retained. Three unsupported alternative images hidden; two original smart-pricing dialogs restored as exploration. Source-art implementation block resolved locally; final deployed check pending |
 
@@ -101,9 +136,11 @@ contradictory graphic. Private prep is never published wholesale.
 
 ## Private voice-review sources
 
-All eight files were confirmed present in `/Users/shannonhecker/Downloads/` and
-reviewed. Final correction verification is active, not another request to reread
-or publish private interview content.
+All eight files were confirmed present in `/Users/shannonhecker/Downloads/`.
+The earlier scoped review and corrections are historical evidence, not completion
+of the latest request. Shannon explicitly requires a **fresh full reread after
+all image work**, cross-referenced against every page and conversation corrections.
+The fresh full reread and website source-to-page reconciliation are complete after the explicit image-gate release. PM read all eight files in full; root and voice reviewer completed their assigned cases. Combined findings are recorded in the three content-audit documents and current Revolut matrix. Figma text sync is complete in `figma-final-content-sync.json`. Do not publish private interview content.
 
 - lseg-round-5-sai-speaker-notes.md
 - lseg-round-5-sai-potukuchi-prep.md
@@ -119,6 +156,19 @@ shipped/beta/alpha status and measured versus estimated impact. No participant
 counts or metrics are inferred from interview shorthand.
 
 ## Final queue: whole-site craft, then scrolling, then release
+
+Latest explicit order: complete **all image/graphic parity work first**, then
+perform the fresh full content scan of every page against all eight private notes
+and conversation corrections. Both local website source gates are complete and recorded above. Figma copy
+synchronization is complete. Proceed to the final craft/scroll/release review
+below; earlier performance runs do not cover the new compositions.
+
+Scope safeguards: verify both `/` and `/panel` after shared artwork changes,
+not just one home entry point. Keep latest CV, LinkedIn and confirmed dates/status
+consistent during the full content pass. Preserve existing optional game,
+analytics/privacy, reduced-motion and keyboard behavior while changing shared
+styles; their established regression coverage must stay green, without reopening
+settled game direction or claiming new metrics.
 
 After source-art/content and zoom changes, review as a designer, not only a test
 runner. Iterate on concrete findings before closing delivery.
@@ -150,7 +200,8 @@ or jury decision. Passing Lighthouse does not close visual or scroll review.
 | Main PR48 / 982ff55, CI38180336042 | FX mobile 84; LCP 4.43s; TBT 0; later routes not run | Historical failed gate |
 | PR49 / 7d6c6bc, CI38182499828 | Build/check/API/browser/links passed; FX mobile 84, LCP 4.510s | Historical asset/persona checkpoint; superseded |
 | PR49 / 2a2988d, CI38184120959 | All gates passed. Mobile 96–97, desktop 99–100; other categories 100 across 14 runs | Earlier verified candidate, not current persona revision |
-| PR49 / 7057e7a, CI38185501523 | Local 149 tests / 58.9s and build passed; remote CI running | Current pushed candidate; later work still pending |
+| PR49 / 7057e7a, CI38185501523 | Local 149 tests / 58.9s and build passed | Historical persona checkpoint; superseded by 24be6c9 |
+| PR49 / 24be6c9, CI38186411926 | All remote gates passed, preview ready | Superseded by latest local accent/theme/source-copy revisions; merge held |
 
 FX retains actual SVGs. Geometry compaction and load prioritization improved local
 84 / LCP 4.5s to 95 / LCP 2.7s. Hero precision-three high-resolution mean channel difference

@@ -2,6 +2,8 @@
 
 How this site was made, kept honest. Shannon writes the entries marked **Shannon**. Claude Code's entries say what the model did. Nothing here is a claim about design authorship: every design decision on the page is Shannon's.
 
+This is a chronological development history. Earlier entries describe the version at that point, including decisions I later changed. Later corrections take precedence over earlier dates, feature descriptions and measurements. Test counts and performance scores belong to the recorded version, not automatically to the current site.
+
 ## Process
 
 - **Prototype:** `prototype/site-v4/index.html`, signed off by Shannon for content, order, tone, tokens and motion. It is kept in the repo so every production file can be diffed against it.
@@ -699,3 +701,17 @@ passed in 59.9 seconds. Source-art updates are included in this run.
 - Removed the one-second fade from whole case-study sections so product evidence and body copy are visible as they enter the viewport. Heading motion remains separate.
 - Added a 1px inner outline at 50% opacity using each persona's current theme accent. It overlays the card edge without changing layout dimensions.
 - Final local verification after the inside outline: Astro check has 0 errors and 0 warnings; production build passed; all 149 browser tests passed in 52.9 seconds. Thirteen themed SVG outputs retain the exact original content after their added colour stylesheet is removed.
+
+### PR 49 follow-up · Current Figma compositions
+
+I restored the current Figma compositions across the home gallery, uoaui.ai, Winking Star and Deal Model. The original grouping, padding, overlaps and shadows are part of each export. Desktop and mobile home artwork have separate source exports. Winking’s lower iPhone sequence keeps its original four-phone composition on desktop and full individual phones on small screens.
+
+I kept vector geometry intact and re-encoded embedded screenshots only when their decoded RGBA pixels matched exactly. The current twenty-two files total 64.8 MB at source and 38.1 MB after lossless encoding across both responsive variants. Original-resolution images remain available to open. The body-image comparison also restored three Fusion compositions whose source framing and shadows were missing. Mobile Deal now uses the current screen collage. The final performance check is still in progress.
+
+### PR 49 final source and delivery review
+
+I checked every project against the current Figma artwork and my interview notes after the image work. The audit covers 108 source groups and 146 active image references. I corrected unsupported research and outcome wording, kept estimates labelled, and separated original designs, public rebuilds and earlier explorations. The corresponding Figma text and spacing have been updated.
+
+The home gallery now chooses smaller SVG files for its display size while retaining the original geometry and full-resolution source exports. Embedded screenshots are resized inside the SVGs; this does not turn raster detail into vectors. The four raster-bearing desktop covers fall from 8.31 MB to 2.48 MB at the reviewed size. The Deal covers remain vectors and are about 40% smaller, with only tiny subpixel differences in render comparisons.
+
+Final local verification after the last source-art and responsive-size changes: Astro check has 0 errors and 0 warnings (4 existing hints), the production build passed, and all 149 browser tests passed in 53.5 seconds. Exact-head CI and production verification remain the release gates.
