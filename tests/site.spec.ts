@@ -171,17 +171,20 @@ test.describe('JavaScript disabled', () => {
 
 test.describe('mobile nav', () => {
   test.use({ viewport: { width: 390, height: 844 } });
-  test('signals overflow and keeps the current section in view', async ({ page }) => {
+  test('offers every project in a visible menu and keeps the current section marked', async ({ page }) => {
     await page.goto('/');
-    const list = page.locator('.nav ul');
-    await expect(list).toHaveClass(/more-end/);
+    const button=page.getByRole('button',{name:'Menu',exact:true});
+    await expect(button).toBeVisible();
+    await expect(page.locator('.nav ul')).toBeHidden();
+    await button.click();
+    for(const label of ['Work','FX','Fusion','Winking Star','Deal Model','uoaui.ai','How I work']){
+      await expect(page.locator('.nav').getByRole('link',{name:label,exact:true})).toBeInViewport();
+    }
+    await page.keyboard.press('Escape');await expect(button).toBeFocused();
+    await expect(button).toHaveAttribute('aria-expanded','false');
     await page.locator('#how').scrollIntoViewIfNeeded();
-    const link = page.locator('.nav a.l', { hasText: 'How I work' });
-    await expect(link).toHaveAttribute('aria-current', 'true');
-    await expect.poll(async () => {
-      const [l, a] = await Promise.all([list.boundingBox(), link.boundingBox()]);
-      return !!l && !!a && a.x >= l.x - 1 && a.x + a.width <= l.x + l.width + 1;
-    }, { timeout: 3000 }).toBe(true);
+    await button.focus();await button.click();
+    await expect(page.locator('.nav a.l', { hasText: 'How I work' })).toHaveAttribute('aria-current', 'true');
   });
 });
 

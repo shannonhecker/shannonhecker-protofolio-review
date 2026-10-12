@@ -807,3 +807,11 @@ Validation: production build passes, Astro check reports zero errors and warning
 I made the new decision maps and user flows fit the available width by default, so the whole diagram is visible on a phone. A shared Enlarge map control restores the readable detail view, centred on the main path with horizontal scrolling. Fit to screen returns to the overview. Both views follow the page theme and preserve the original graphic proportions.
 
 Validation: production build passes; Astro check reports zero errors and warnings; all 204 browser tests pass. Map checks cover 320, 390, 760 and 1440px widths in both themes, including the enlarge/fit controls in Chromium and iPhone WebKit.
+
+### Whole-site UX consistency review · 12 October 2026
+
+I reviewed the home and panel pages, all five cases, Privacy, the build log and the missing-page screen. I added a clear Menu on small screens so every project is discoverable, and I put each case's Sections links in the same order as the content. Winking Star's introduction is now included in its index.
+
+I brought the supporting pages into one shared layout with navigation, theme controls, a skip link and consistent reading spacing. The active project now stays highlighted in both themes. I also made the analytics notice follow the site colours and kept the missing-page return link readable when changing theme. The case copy, product screenshots and project-specific diagrams remain intact.
+
+Validation: production build passes; Astro check reports zero errors and warnings; all 216 browser tests pass across Chromium and iPhone WebKit. I checked phone and desktop layouts, both themes, real mobile-menu navigation, section order, utility-page accessibility, consent-notice contrast and the existing media/game regressions. The review record is in docs/UI-UX-REVIEW.md.

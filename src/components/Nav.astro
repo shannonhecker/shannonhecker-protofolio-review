@@ -4,7 +4,8 @@ import ThemePicker from './ThemePicker.astro';
 ---
 <nav class="nav" aria-label="Sections">
   <a class="brand" href="/panel" aria-label="Shannon Hecker, home"><span class="full">Shannon Hecker</span><span class="short"><Logo size={34} /></span></a>
-  <ul>
+  <button type="button" class="site-menu-toggle" aria-expanded="false" aria-controls="site-navigation">Menu</button>
+  <ul id="site-navigation">
     <li><a class="l" href="/panel#work">Work</a></li>
     <li><a class="l" href="/fx">FX</a></li>
     <li><a class="l" href="/fusion">Fusion</a></li>
@@ -18,3 +19,39 @@ import ThemePicker from './ThemePicker.astro';
     <a class="cta" href="#links">Contact</a>
   </div>
 </nav>
+
+<style>
+.nav[data-menu-open]{z-index:130}
+.nav a.l[aria-current]{color:var(--fg);background:var(--bg-2);font-weight:500}
+.site-menu-toggle{display:none;font:500 14px var(--body);min-height:44px;padding:10px 14px;color:var(--fg);background:var(--bg-2);border:1px solid var(--hair);border-radius:var(--radius);cursor:pointer}
+.site-menu-toggle:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:4px}
+@media(max-width:1100px){
+ :global(html.has-js) .nav{grid-template-columns:auto 1fr auto}
+ :global(html.has-js) .site-menu-toggle{display:block;justify-self:end}
+ :global(html.has-js) .nav>ul{display:none}
+ :global(html.has-js) .nav[data-menu-open]>ul{display:flex;position:absolute;top:calc(100% + 8px);left:16px;right:16px;margin:0;padding:12px;max-height:calc(100dvh - 100px);overflow:auto;flex-direction:column;gap:4px;background:var(--bg);border:1px solid var(--hair);border-radius:var(--radius);mask-image:none;-webkit-mask-image:none;box-shadow:0 12px 32px #0002}
+ .nav>ul a.l{display:block;min-height:44px;padding:12px 16px;font-size:16px;white-space:normal}
+ :global(html:not(.has-js)) .nav{grid-template-columns:auto 1fr}
+ :global(html:not(.has-js)) .nav>ul{grid-column:1/-1;grid-row:2;width:100%;justify-self:stretch}
+ :global(html:not(.has-js)) .nav .nav-actions{grid-column:2;grid-row:1}
+}
+</style>
+<script>
+ const navigation=document.querySelector<HTMLElement>('.nav');
+ const menuButton=navigation?.querySelector<HTMLButtonElement>('.site-menu-toggle');
+ const navigationLinks=navigation?.querySelector<HTMLElement>('#site-navigation');
+ if(navigation&&menuButton&&navigationLinks){
+  const closeMenu=(restoreFocus=false)=>{
+   navigation.removeAttribute('data-menu-open');menuButton.setAttribute('aria-expanded','false');
+   if(restoreFocus)menuButton.focus({preventScroll:true});
+  };
+  menuButton.addEventListener('click',()=>{
+   const open=navigation.toggleAttribute('data-menu-open');menuButton.setAttribute('aria-expanded',String(open));
+  });
+  navigation.addEventListener('click',event=>{if((event.target as Element).closest('a'))closeMenu();});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&navigation.hasAttribute('data-menu-open')){event.preventDefault();closeMenu(true);}});
+  document.addEventListener('click',event=>{if(!navigation.contains(event.target as Node))closeMenu();});
+  navigation.addEventListener('focusout',event=>{if(!navigation.contains(event.relatedTarget as Node|null))closeMenu();});
+  matchMedia('(max-width:1100px)').addEventListener('change',()=>closeMenu());
+ }
+</script>
