@@ -1,45 +1,16 @@
 import type { APIRoute } from 'astro';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { themedNames, explicitThemeArtwork } from '../../../lib/themed-art';
 
-// Exact source paths and geometry are retained. Only semantic paints change.
-// Embedded SVG media queries inherit the embedding document's color-scheme,
-// so the site's explicit theme toggle controls these images as well as HTML.
-const names = ['fusion', 'ai', 'winking', 'deal'].flatMap(project =>
-  ['experience', 'approach'].map(part => `${project}-${part}`)).concat(
-  ['fx-states-today', 'fx-states-designed', 'fx-fills-today', 'fx-fills-designed', 'fx-data-layers']);
-export const getStaticPaths = () => names.map(name => ({ params: { name } }));
-const darkPaints = `
-@media (prefers-color-scheme: dark) {
-  [fill="#272B32"] { fill:#edf1f5 }
-  [fill="#555D68"], [fill="#9AA3AD"] { fill:#b7c1ce }
-  [fill="#F7F8FA"] { fill:#222832 }
-  circle[fill="#2F6FB5"][fill-opacity] { fill:#9dccef }
-  [stroke="#E6E9EE"] { stroke:#3b4654 }
-  [stroke="#3A3F47"] { stroke:#edf1f5 }
-  [fill="#F3F8FA"], [fill="#F7F5FD"], [fill="#FFFDF8"], [fill="#FBF8F8"], rect[fill="white"] { fill:#222832 }
-  [stroke="#D9DDE2"], [stroke="#DED6C8"] { stroke:#3b4654 }
-  [stroke="#4F98B0"] { stroke:#8ac7d9 }
-  [stroke="#7C5CD6"], [stroke="#6A4BD0"] { stroke:#bda6f4 }
-  [stroke="#2F7A4A"] { stroke:#a6d3af }
-  [stroke="#8A2D3B"] { stroke:#e5a8b4 }
-}`;
+// Compatibility for cached pages. New pages select explicit theme files.
+export const getStaticPaths = () => themedNames.map(name => ({ params: { name } }));
 export const GET: APIRoute = ({ params }) => {
-  if (!names.includes(params.name ?? '')) return new Response(null, { status: 404 });
+  if (!themedNames.includes(params.name ?? '')) return new Response(null, { status: 404 });
   const original = readFileSync(resolve('public/art', `${params.name}.svg`), 'utf8');
-  const paints = params.name === 'fx-data-layers' ? `
-@media (prefers-color-scheme: light) {
-  [fill="#fff"] { fill:#272b32 }
-  [stroke="#454545"] { stroke:#a4abb4 }
-  [fill="#61a6fa"] { fill:#28639b }
-  [stroke="#61a6fa"] { stroke:#28639b }
-  [fill="#8c5cf5"] { fill:#6741b6 }
-  [stroke="#8c5cf5"] { stroke:#6741b6 }
-  [fill="#2ed4bf"] { fill:#19796c }
-  [stroke="#2ed4bf"] { stroke:#19796c }
-  [fill="#fa9e24"] { fill:#995d13 }
-  [stroke="#fa9e24"] { stroke:#995d13 }
-}` : darkPaints;
-  const themed = original.replace(/(<svg\b[^>]*>)/, `$1<style>${paints}</style>`);
-  return new Response(themed, { headers: { 'Content-Type': 'image/svg+xml; charset=utf-8' } });
+  const rules = (['light','dark'] as const).map(theme => {
+    const css = explicitThemeArtwork(original,params.name!,theme).match(/<style>([\s\S]*?)<\/style>/)?.[1] ?? '';
+    return `@media(prefers-color-scheme:${theme}){${css}}`;
+  }).join('\n');
+  return new Response(original.replace(/(<svg\b[^>]*>)/, `$1<style>${rules}</style>`), { headers: { 'Content-Type': 'image/svg+xml; charset=utf-8' } });
 };

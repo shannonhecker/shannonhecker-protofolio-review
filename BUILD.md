@@ -743,3 +743,31 @@ I made the product heroes fill their available column on phones. Winking Star's 
 The outer backdrops in my project compositions, individual Winking phone exports and home gallery now become transparent in dark mode. Light mode keeps the original colours. The screens themselves stay unchanged, and selecting an image still opens the full-resolution original. This uses the existing responsive images and adds no image downloads on a theme switch.
 
 Validation: Astro check reports 0 errors and 0 warnings, production build passes, and all 152 browser tests pass. The new checks cover five products at four widths, exact preservation of all 84 source/derivative SVGs, and rendered dark/light background pixels with unchanged phone-screen pixels.
+
+### Phone background correction · 12 October 2026
+
+My phone still showed the cream image surround after the first fix. The previous version depended on the browser passing the site theme into an external SVG. I now remove the audited outer fills in the delivered files, so the page shows through in both themes. New image URLs avoid the previously cached version; the original product screens and full-size source files stay intact.
+
+A controlled dark-page/light-image-container check failed on the previous implementation and passes with explicit transparency. The image regression suite now runs in Chromium and iPhone-configured WebKit. Current WebKit alone did not reproduce the original in-app behaviour, so the new checks also verify the files contain no theme-dependent background rule.
+
+Validation: Astro check has 0 errors and 0 warnings; the production build and all 155 browser tests pass, including the three media regressions under iPhone-configured WebKit.
+
+The remote release checks exposed startup rendering pressure on the homepage. I let the browser defer drawing off-screen product previews while their existing aspect ratios reserve the same space. All 155 browser checks pass again, including home-gallery geometry and scroll motion; the performance threshold remains unchanged.
+
+### All-project content and image audit · 12 October 2026
+
+I checked the home gallery and all five case pages, including images within the case content. Deal Model's overlapping hero is included in the transparent presentation backgrounds, alongside Fusion, Winking Star and uoaui.ai. FX's hero exports are already fitted to the product UI.
+
+I also removed the browser-theme dependency from 13 journey and schematic images. Each now has explicit light and dark versions selected by the page theme, preserving its geometry and alt text. Product screenshots keep their actual interface colours. Persona cards and HTML diagrams already use the page's theme tokens. The project-by-project inventory is in `docs/PRODUCT-MEDIA-THEMES.md`.
+
+I replaced the emoji-capable diagonal arrows in the shared Sections button and All projects link with a flat, current-colour SVG icon. All five case pages share that component, so iPhone can no longer substitute its blue emoji tile.
+
+Validation for the expanded audit and arrow fix: production build passes, Astro check reports 0 errors and 0 warnings, and all 157 browser tests pass. The phone-sized Deal Model and Sections-panel previews were inspected and saved. The previously reported remote performance gate remains unresolved; these changes have not been published to production.
+
+I extended the flat SVG arrow to every decision index, alternative marker and game-journal source link. The downward decision arrows keep their original direction, without relying on the phone emoji font. All diagonal-arrow characters are removed from the shared components.
+
+### Journey connector alignment · 12 October 2026
+
+I checked the journey graphics against the editable Figma source. Winking Star, Fusion, uoaui.ai and Deal Model had loop endpoints between dots and label rows that overlapped. I aligned the endpoints with the existing dots, gave each label a separate row, and preserved the authored text outlines and colours. FX already uses aligned endpoints and keeps its original map.
+
+I checked all five rendered journey studies. The production build and all 161 browser tests pass, including new checks for connector attachment and label separation in both themes. Astro check reports no errors or warnings. This release also includes the earlier product-surround transparency and flat SVG arrow corrections. Shannon explicitly requested publishing the complete set of changes.
