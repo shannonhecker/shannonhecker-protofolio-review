@@ -368,3 +368,6 @@ html[data-theme=dark] .case-page[data-project=deal-model]{--project-ink:#e5a8b4;
 
 /* Touch reveals are visible in CSS without a page-wide startup mutation. */
 @media (hover:none),(pointer:coarse){.js .rv.pre,.js .split .wd{opacity:1;transform:none;transition:none}}
+
+/* Keep the long Deal Model introduction at the standard reading size. */
+.case-page[data-project=deal-model] .chapter-head .lead{font-size:16px;line-height:1.7;max-width:40ch}

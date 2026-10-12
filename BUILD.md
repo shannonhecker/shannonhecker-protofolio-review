@@ -945,3 +945,5 @@ Validation: production build and Astro check pass with zero errors and warnings.
 I expanded the original Winking Star icon to fill a square image card, using responsive exports from the 1024px original, and moved its caption beneath the artwork. I separated the six FX workflow illustrations from their headings and descriptions so the copy uses normal site typography outside the graphic panels.
 
 Validation: production build and the Winking Star layout check pass. The FX summary check passes across four viewport widths and both themes. Browser inspection confirms the icon fills the card at 390px and 1440px without distortion.
+
+I also separated the three Deal Model explanation diagrams from their captions and reduced the long Deal Model introduction to the site's 16px body size. The Deal Model explanation browser check passes in both themes across four widths.
