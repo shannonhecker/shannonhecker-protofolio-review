@@ -547,7 +547,30 @@
         "docs/figma-current-composition-audit.json"
       ],
       "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
-      "freshComparison": []
+      "freshComparison": [],
+      "deliveryVariants": [
+        {
+          "path": "public/art/case-responsive/ai-hero-builder-composition-400.svg",
+          "width": 400,
+          "bytes": 29777
+        },
+        {
+          "path": "public/art/case-responsive/ai-hero-builder-composition-800.svg",
+          "width": 800,
+          "bytes": 75061
+        },
+        {
+          "path": "public/art/case-responsive/ai-hero-builder-composition-1600.svg",
+          "width": 1600,
+          "bytes": 171725
+        },
+        {
+          "path": "public/art/case-responsive/ai-hero-builder-composition-2400.svg",
+          "width": 2400,
+          "bytes": 171725
+        }
+      ],
+      "deliveryNote": "Responsive SVG display variants preserve vector geometry; resized embedded screenshots use quality95 WebP where recorded. Native-size variants and original full-size links preserve source images. See case-hero-responsive-delivery.json and case-hero-responsive-quality.json."
     },
     {
       "route": "/uoaui",
@@ -570,7 +593,30 @@
           "export": "ai-48-2035-fresh.svg",
           "status": "same embedded source pixels"
         }
-      ]
+      ],
+      "deliveryVariants": [
+        {
+          "path": "public/art/case-responsive/ai-hero-kit-composition-400.svg",
+          "width": 400,
+          "bytes": 31181
+        },
+        {
+          "path": "public/art/case-responsive/ai-hero-kit-composition-800.svg",
+          "width": 800,
+          "bytes": 100597
+        },
+        {
+          "path": "public/art/case-responsive/ai-hero-kit-composition-1600.svg",
+          "width": 1600,
+          "bytes": 83841
+        },
+        {
+          "path": "public/art/case-responsive/ai-hero-kit-composition-2400.svg",
+          "width": 2400,
+          "bytes": 83841
+        }
+      ],
+      "deliveryNote": "Responsive SVG display variants preserve vector geometry; resized embedded screenshots use quality95 WebP where recorded. Native-size variants and original full-size links preserve source images. See case-hero-responsive-delivery.json and case-hero-responsive-quality.json."
     },
     {
       "route": "/uoaui",
@@ -698,7 +744,30 @@
         "docs/figma-current-composition-audit.json"
       ],
       "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
-      "freshComparison": []
+      "freshComparison": [],
+      "deliveryVariants": [
+        {
+          "path": "public/art/case-responsive/winking-hero-composition-400.svg",
+          "width": 400,
+          "bytes": 44968
+        },
+        {
+          "path": "public/art/case-responsive/winking-hero-composition-800.svg",
+          "width": 800,
+          "bytes": 105908
+        },
+        {
+          "path": "public/art/case-responsive/winking-hero-composition-1600.svg",
+          "width": 1600,
+          "bytes": 388496
+        },
+        {
+          "path": "public/art/case-responsive/winking-hero-composition-2400.svg",
+          "width": 2400,
+          "bytes": 388496
+        }
+      ],
+      "deliveryNote": "Responsive SVG display variants preserve vector geometry; resized embedded screenshots use quality95 WebP where recorded. Native-size variants and original full-size links preserve source images. See case-hero-responsive-delivery.json and case-hero-responsive-quality.json."
     },
     {
       "route": "/winking-star",
@@ -836,7 +905,30 @@
         "docs/figma-current-composition-audit.json"
       ],
       "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
-      "freshComparison": []
+      "freshComparison": [],
+      "deliveryVariants": [
+        {
+          "path": "public/art/case-responsive/deal-hero-composition-400.svg",
+          "width": 400,
+          "bytes": 43525
+        },
+        {
+          "path": "public/art/case-responsive/deal-hero-composition-800.svg",
+          "width": 800,
+          "bytes": 123905
+        },
+        {
+          "path": "public/art/case-responsive/deal-hero-composition-1600.svg",
+          "width": 1600,
+          "bytes": 349229
+        },
+        {
+          "path": "public/art/case-responsive/deal-hero-composition-2400.svg",
+          "width": 2400,
+          "bytes": 603413
+        }
+      ],
+      "deliveryNote": "Responsive SVG display variants preserve vector geometry; resized embedded screenshots use quality95 WebP where recorded. Native-size variants and original full-size links preserve source images. See case-hero-responsive-delivery.json and case-hero-responsive-quality.json."
     },
     {
       "route": "/fx",

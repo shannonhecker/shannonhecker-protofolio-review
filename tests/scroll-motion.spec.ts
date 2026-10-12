@@ -36,7 +36,7 @@ test('home artwork and captions follow scroll in both directions',async({page})=
  await row.focus();expect(Math.abs(await y(artwork))).toBeLessThan(1);
  await page.waitForTimeout(600);expect(Math.abs(await y(artwork))).toBeLessThan(1);
  await row.blur();await position(.93);await page.waitForTimeout(900);expect(await y(artwork)).toBeGreaterThan(20);
- await page.emulateMedia({reducedMotion:'reduce'});expect(await y(artwork)).toBe(0);
+ await page.emulateMedia({reducedMotion:'reduce'});await expect.poll(()=>y(artwork),{timeout:1000}).toBe(0);
 });
 
 test('word masks follow scroll in both directions and clear for reduced motion',async({page})=>{

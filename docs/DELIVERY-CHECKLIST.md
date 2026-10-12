@@ -5,13 +5,18 @@ Older TASKS.md and QUALITY.md describe historical releases. Completion requires
 source, rendered implementation and deployed result to agree.
 
 **Current state:** PR [#49](https://github.com/shannonhecker/shannonhecker-protofolio-review/pull/49),
-head `d49eb9050a161b4ce996b1d22a25e9eba532931b`, is open and release is held.
+current head `5ec44caf0330d657f1a82e5fdbd26072ad0d3b32`, is open and release is held.
+Its CI38192705830 was cancelled by root because the broader delivery fix supersedes it. The prior d49eb90 result follows as diagnosis:
 CI38191526789 passed source checks, compiled API runtime, production build,
 all 149 browser tests (5.5 minutes) and links. It failed only the Fusion desktop
 Lighthouse performance budget: **94 against the required 95**. FCP 0.4s,
 LCP 0.853s, CLS 0; TBT 180ms is the principal score penalty. No gate waiver.
-A targeted responsive embedded-raster delivery fix for the Fusion compositions
-is pending; original full-resolution SVG compositions remain unchanged.
+The targeted Fusion responsive embedded-raster fix is in 5ec44ca; original
+full-resolution SVG compositions remain unchanged. The broader responsive-hero
+correction is now implemented locally: sixteen new delivery variants preserve
+original compositions. All fourteen local Lighthouse results pass the unchanged
+95-point budget; final current-source build/check and all 149 browser tests
+passed (53.6s). Commit and exact-head remote verification remain pending.
 The protected preview was visually checked on Fusion and Deal, but protected
 asset fetches returned login HTML, so byte verification belongs to production.
 **Hold merge until the targeted fix is tested, pushed and verified at its exact
@@ -35,12 +40,13 @@ Current pending sequence:
    `REVOLUT-CHECKLIST.md` is reconciled for all five cases. Missing original
    research/outcome records remain explicit factual limits. Figma editable text
    and vector-lettering synchronization is complete in `figma-final-content-sync.json`.
-3. Local sampled craft/scroll review complete in `UI-REVIEW.md`. Root reports
-   final current-source check/build and all 149 browser tests passed in 53.5s.
-   CI on d49eb90 passed all 149 tests but failed the Fusion desktop performance
-   budget. Recheck the targeted image fix locally and on its exact new head.
-4. Targeted Fusion image-delivery fix and fidelity/render verification, then
-   final exact-head commit/CI/preview, merge and production verification.
+3. Local sampled craft/scroll review complete in `UI-REVIEW.md`. All fourteen
+   local Lighthouse results now pass: mobile 95–96, desktop 99–100, all other
+   categories 100 and TBT 0. `local-release-performance.json` records every run,
+   including final Winking/Deal mobile reruns after image-footprint refinements.
+4. Current-source build/check and all 149 browser tests passed after final image
+   refinements (53.6s). Proceed to exact-head commit/CI/preview, merge and production
+   verification.
 
 New image checkpoint: twenty-two fresh Figma composition assets were losslessly
 packed with exact RGBA comparison, recorded in `figma-composition-encoding.json`.
@@ -51,8 +57,10 @@ Forty responsive Home SVG variants now preserve vector geometry while resizing
 embedded screenshot data; original full-resolution files remain available.
 Deal vector optimization reduces bytes by approximately 40%. Fidelity evidence
 is in `home-responsive-quality.json`, `home-responsive-delivery.json` and
-`home-vector-optimization.json`. Latest remote performance failed on Fusion desktop; the new targeted candidate
-must pass the unchanged 95-point budget.
+`home-vector-optimization.json`. Sixteen additional hero delivery variants reduce
+embedded-raster decoding on Fusion, Winking, Deal and uoaui.ai while retaining
+full-resolution originals. The local fourteen-run matrix passes; the new exact
+head must still pass the unchanged remote 95-point budget.
 
 Manual bot-excluded links verified in Chrome on 12 October: App Store
 `https://apps.apple.com/app/id6765767262` resolves to the Winking Star listing
@@ -80,7 +88,7 @@ profile and the same public profile URL. This was read-only; temporary tabs clos
 | Full-size image zoom/readability | Implemented, final coverage/release pending | ProductCapture and Deal hero links added; Fusion phone original-image tap and native zoom manually verified. Remaining route coverage belongs to final review |
 | Final whole-site UI/UX craft review | Current local sampled review complete; deployed check pending | All ten routes at 1440/390 inspected by PM; light/dark samples, section navigation and keyboard return checked. `UI-REVIEW.md` records exact scope and limits |
 | Final actual scroll-performance review | Local scroll/image review complete with transient-paint limitation; remote performance pending | Current Home and case imagery reviewed during native scroll. One rapid Home paint was blank then resolved and did not repeat; no persistent blocker. See `UI-REVIEW.md`; no frame-rate certification |
-| Final exact-head CI, merge and production verification | Blocked by Fusion desktop performance 94 on d49eb90 | Other checks green; targeted delivery fix pending. Earlier green heads do not certify subsequent revisions |
+| Final exact-head CI, merge and production verification | Local validation passes; push/remote release pending | Sixteen responsive hero variants implemented; all fourteen local audits pass. 5ec44ca CI cancelled as superseded. Final current-source 149-test suite passed in 53.6s; exact-head remote CI/preview/production evidence required |
 
 ## Shared UI and assets to recheck in the final review
 
@@ -249,4 +257,51 @@ result exists for this head because the budget stops at the first failure.
 
 ### Fusion follow-up validation
 
-Two raster-bearing Fusion hero SVGs now use six responsive delivery versions; their original full-size exports and vector wrappers remain unchanged. The configuration composition is pure vector and unchanged. Local check/build passed and 149 tests passed in 53.7s. Fusion desktop Lighthouse locally changed from 99 (LCP859ms/TBT0) to100 (LCP588ms/TBT0); this local comparison does not certify the remote TBT regression. A fresh exact-head CI run remains required. Reports: `fusion-responsive-delivery.json`, `fusion-responsive-quality.json`; local Lighthouse JSON under `/private/tmp/fusion-{before,after}-responsive-lh.json`.
+Two raster-bearing Fusion hero SVGs now use six responsive delivery versions; their original full-size exports and vector wrappers remain unchanged. The configuration composition is pure vector and unchanged. Local check/build passed and 149 tests passed in 53.7s. Fusion desktop Lighthouse locally changed from 99 (LCP859ms/TBT 0) to100 (LCP 588ms/TBT 0); this local comparison does not certify the remote TBT regression. A fresh exact-head CI run remains required. Reports: `fusion-responsive-delivery.json`, `fusion-responsive-quality.json`; local Lighthouse JSON under `/private/tmp/fusion-{before,after}-responsive-lh.json`.
+
+
+### Follow-up local performance findings after 5ec44ca
+
+The Fusion-only correction is pushed as `5ec44caf0330d657f1a82e5fdbd26072ad0d3b32`
+and CI38192705830 was cancelled by root before completion, superseded by
+the broader responsive-hero correction. Local Fusion desktop measured 100 in all
+categories, LCP 588ms and TBT 0; local build/check and 149 tests passed in 53.7s.
+These do not close the remaining-route budget.
+
+Root's additional local measurements found Winking mobile performance 88,
+LCP 3.8s (hero approximately 289KB transferred), and Deal mobile performance 76,
+LCP 7.1s (hero approximately 979KB transferred). Deal's hero embeds two rasters
+of approximately 17 megapixels combined; it is not entirely native vector UI.
+The asset owner subsequently implemented responsive embedded-raster derivatives
+for those compositions, preserving the SVG wrappers and original full-resolution links.
+AI measured mobile performance 92 / LCP 3.2s and desktop 100 locally; its
+responsive hero correction is now included. Release remains held. Run all seven
+routes at mobile and desktop locally without stopping at the first failure, then
+push the fully checked candidate and run final exact-head CI. These local findings are recorded separately
+from the exact-head CI scores above, not presented as completed remote results.
+
+
+### Final local responsive-hero matrix
+
+Sixteen hero delivery variants are implemented. All fourteen local production-build
+audits now pass, with Winking and Deal mobile repeated after their final footprint
+refinements; other results precede that image-only adjustment. Source:
+`local-release-performance.json`. All accessibility, best-practices and SEO scores
+are 100; all TBT measurements are 0. This is local evidence, not final CI or live
+deployment verification.
+
+| Route | Mobile performance | Desktop performance | Mobile LCP |
+|---|---:|---:|---:|
+| `/` | 96 | 99 | 2.630s |
+| `/panel` | 96 | 100 | 2.630s |
+| `/fx` | 95 | 100 | 2.705s |
+| `/fusion` | 96 | 100 | 2.708s |
+| `/winking-star` | 95 | 100 | 2.710s |
+| `/deal-model` | 95 | 100 | 2.707s |
+| `/uoaui` | 96 | 100 | 2.558s |
+
+Final current-source browser validation passed all 149 tests in 53.6s:
+`/private/tmp/portfolio-final-complete-tests.log`. The preceding 148/149 run caught
+a reduced-motion test asserting before the asynchronous media event; the test now
+polls for the same exact zero-motion state, with no product behavior change.
+Build/check passed. Push and exact-head CI remain pending.

@@ -723,3 +723,11 @@ The remote release check caught Fusion desktop at 94, below the required 95. Its
 I added six responsive SVG versions for the two Fusion hero compositions. The 800px performance version decodes about 0.4 million pixels instead of 9.8 million. The composition, shadows and vector geometry stay intact; selecting the image still opens the original full-resolution export. The configuration artwork remains a vector. Render comparisons and source hashes are recorded in the Fusion delivery reports.
 
 After this change, Astro check has 0 errors and 0 warnings, the build passed, and all 149 browser tests passed in 53.7 seconds. The remote performance gate must pass before publication; its threshold has not changed.
+
+### PR 49 final delivery sizing · Winking Star, Deal Model and uoaui.ai
+
+The complete local performance pass found oversized embedded hero screenshots on three more case pages. I added responsive SVG versions for those compositions as well, retaining their original paths, clipping, backgrounds and shadows. Smaller display versions use quality-95 WebP for resized screenshots where needed; this is display optimization, not vector conversion. The original full-resolution files remain available through the image links.
+
+The final 800px Winking and Deal hero versions transfer about 76.5 KB and 92 KB gzipped. I sized their embedded screenshots to the actual phone/screen footprint with extra sampling room. All 16 variants retain the original SVG geometry, and paired render proofs show the composition intact. All 14 local Lighthouse checks now meet the 95 minimum; other categories score 100. Remote exact-head validation and production checks remain required.
+
+Final local validation passed: 149 browser tests in 53.6 seconds, including the reduced-motion check. That test now waits up to one second for the browser's media-change event instead of asserting before the event is processed; it still requires the transform to return to zero.

@@ -18,14 +18,22 @@ const vectorSizes: Record<string, [number, number]> = {
   "/art/fusion-entity-comparison.svg": [985, 554],
 };
 const vectorSize = vectorSizes[name];
-const responsiveFusion = name === '/art/fusion-hero-discovery-composition.svg' || name === '/art/fusion-hero-performance-composition.svg';
-const fusionStem = name.split('/').pop()?.replace('.svg', '');
-const displaySrc = responsiveFusion ? `/art/fusion-responsive/${fusionStem}-800.svg` : name;
-const displaySrcset = responsiveFusion ? [800,1600,2400].map(width => `/art/fusion-responsive/${fusionStem}-${width}.svg ${width}w`).join(', ') : undefined;
+const delivery: Record<string,{directory:string;widths:number[];fallback:number}> = {
+ '/art/fusion-hero-discovery-composition.svg':{directory:'fusion-responsive',widths:[800,1600,2400],fallback:800},
+ '/art/fusion-hero-performance-composition.svg':{directory:'fusion-responsive',widths:[800,1600,2400],fallback:800},
+ '/art/winking-hero-composition.svg':{directory:'case-responsive',widths:[400,800,1600,2400],fallback:800},
+ '/art/deal-hero-composition.svg':{directory:'case-responsive',widths:[400,800,1600,2400],fallback:800},
+ '/art/ai-hero-builder-composition.svg':{directory:'case-responsive',widths:[400,800,1600,2400],fallback:800},
+ '/art/ai-hero-kit-composition.svg':{directory:'case-responsive',widths:[400,800,1600,2400],fallback:800},
+};
+const responsive = delivery[name];
+const stem = name.split('/').pop()?.replace('.svg', '');
+const displaySrc = responsive ? `/art/${responsive.directory}/${stem}-${responsive.fallback}.svg` : name;
+const displaySrcset = responsive ? responsive.widths.map(width => `/art/${responsive.directory}/${stem}-${width}.svg ${width}w`).join(', ') : undefined;
 
 ---
 <figure class:list={["product-capture", {"original-composition": name.endsWith("-composition.svg")} ]}>
-  <div class="shot evidence">{name.endsWith(".svg") ? <a class="full-size-image" href={name} target="_blank" rel="noopener" aria-label={`View full size: ${alt} (opens in new tab)`}><img src={displaySrc} srcset={displaySrcset} sizes={responsiveFusion ? "(max-width:1100px) 95vw, 55vw" : undefined} alt={alt} width={vectorSize?.[0]} height={vectorSize?.[1]} style={vectorSize ? `aspect-ratio: auto ${vectorSize[0]} / ${vectorSize[1]}` : undefined} loading={eager ? "eager" : "lazy"} decoding="async" fetchpriority={eager ? "high" : undefined} /></a> : <Pic name={name} alt={alt} sizes="(max-width: 900px) 92vw, (max-width: 1550px) 66vw, 1040px" eager={eager} fullSize />}</div>
+  <div class="shot evidence">{name.endsWith(".svg") ? <a class="full-size-image" href={name} target="_blank" rel="noopener" aria-label={`View full size: ${alt} (opens in new tab)`}><img src={displaySrc} srcset={displaySrcset} sizes={responsive ? "(max-width:1100px) 95vw, 55vw" : undefined} alt={alt} width={vectorSize?.[0]} height={vectorSize?.[1]} style={vectorSize ? `aspect-ratio: auto ${vectorSize[0]} / ${vectorSize[1]}` : undefined} loading={eager ? "eager" : "lazy"} decoding="async" fetchpriority={eager ? "high" : undefined} /></a> : <Pic name={name} alt={alt} sizes="(max-width: 900px) 92vw, (max-width: 1550px) 66vw, 1040px" eager={eager} fullSize />}</div>
 </figure>
 <style>
 .original-composition .shot{padding:0!important;background:transparent!important;border:0;box-shadow:none}
