@@ -6,7 +6,7 @@ interface Props { project: keyof typeof content }
 interface DecisionEvidence {
   key: string; question: string; problem: string; options: string[];
   evidence: string; status: string; result: string; source: string;
-  title?: string; reason?: string; tradeoff?: string; optionLabels?: string[]; imageLabels?: string[]; artNote?: string;
+  title?: string; reason?: string; tradeoff?: string; optionLabels?: string[]; imageLabels?: string[]; artNote?: string; hideImages?: boolean[];
 }
 const { project } = Astro.props;
 const data = content[project];
@@ -48,7 +48,7 @@ const decisions = data.decisions.map((decision, index) => {
 
     <div class="authored-choice-pair">{d.choices.map((choice, j) => <figure>
       <p class="authored-choice-label">{r.imageLabels?.[j] ?? (j === 0 ? 'I chose' : 'Alternative')}</p>
-      <AuthoredImage name={choice.image} alt={'alt' in choice ? choice.alt : choice.label} sizes="(max-width:760px) 90vw, 43vw" />
+      {!r.hideImages?.[j] && <AuthoredImage name={choice.image} alt={'alt' in choice ? choice.alt : choice.label} sizes="(max-width:760px) 90vw, 43vw" />}
       <figcaption><span class="choice-title">{r.optionLabels?.[j] ?? choice.label}</span><p>{r.options[j]}</p></figcaption>
     </figure>)}</div>
     {r.artNote && <p class="decision-art-note">{r.artNote}</p>}

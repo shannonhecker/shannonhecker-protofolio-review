@@ -134,7 +134,7 @@
         },
         {
           "id": "217:874",
-          "before": "Rebuilt by hand · 2 days",
+          "before": "Rebuilt by hand \u00b7 2 days",
           "after": "Rebuilt separately by hand"
         },
         {
@@ -184,7 +184,7 @@
         },
         {
           "id": "277:1690",
-          "before": "Rebuilt by hand · 2 days",
+          "before": "Rebuilt by hand \u00b7 2 days",
           "after": "Rebuilt separately by hand"
         },
         {
@@ -239,7 +239,7 @@
         },
         {
           "id": "217:1323",
-          "before": "Rebuilt by hand · 2 days",
+          "before": "Rebuilt by hand \u00b7 2 days",
           "after": "Rebuilt separately by hand"
         },
         {
@@ -289,7 +289,7 @@
         },
         {
           "id": "277:2205",
-          "before": "Rebuilt by hand · 2 days",
+          "before": "Rebuilt by hand \u00b7 2 days",
           "after": "Rebuilt separately by hand"
         },
         {
@@ -1195,8 +1195,8 @@
         },
         {
           "id": "237:1206",
-          "before": "Sign-off summary · written for you",
-          "after": "Winning-bid reason · written by owner"
+          "before": "Sign-off summary \u00b7 written for you",
+          "after": "Winning-bid reason \u00b7 written by owner"
         },
         {
           "id": "237:1207",
@@ -1236,7 +1236,7 @@
         {
           "id": "237:1348",
           "before": "Every iteration starts from a blank grid and a rate card. Experience lives in the deal owner's head, so a new starter prices slower and less consistently.",
-          "after": "Manual pricing starts from rate cards and the owner’s judgement. A suggestion could offer another starting point, subject to review."
+          "after": "Manual pricing starts from rate cards and the owner\u2019s judgement. A suggestion could offer another starting point, subject to review."
         },
         {
           "id": "278:905",
@@ -1265,8 +1265,8 @@
         },
         {
           "id": "278:1232",
-          "before": "Sign-off summary · written for you",
-          "after": "Winning-bid reason · written by owner"
+          "before": "Sign-off summary \u00b7 written for you",
+          "after": "Winning-bid reason \u00b7 written by owner"
         },
         {
           "id": "278:1233",
@@ -1306,7 +1306,7 @@
         {
           "id": "278:1375",
           "before": "Every iteration starts from a blank grid and a rate card. Experience lives in the deal owner's head, so a new starter prices slower and less consistently.",
-          "after": "Manual pricing starts from rate cards and the owner’s judgement. A suggestion could offer another starting point, subject to review."
+          "after": "Manual pricing starts from rate cards and the owner\u2019s judgement. A suggestion could offer another starting point, subject to review."
         },
         {
           "id": "240:1082",
@@ -1340,8 +1340,8 @@
         },
         {
           "id": "240:1399",
-          "before": "Sign-off summary · written for you",
-          "after": "Winning-bid reason · written by owner"
+          "before": "Sign-off summary \u00b7 written for you",
+          "after": "Winning-bid reason \u00b7 written by owner"
         },
         {
           "id": "240:1402",
@@ -1390,8 +1390,8 @@
         },
         {
           "id": "278:2091",
-          "before": "Sign-off summary · written for you",
-          "after": "Winning-bid reason · written by owner"
+          "before": "Sign-off summary \u00b7 written for you",
+          "after": "Winning-bid reason \u00b7 written by owner"
         },
         {
           "id": "278:2092",
@@ -1431,7 +1431,7 @@
         {
           "id": "278:2234",
           "before": "Every iteration starts from a blank grid and a rate card. Experience lives in the deal owner's head, so a new starter prices slower and less consistently.",
-          "after": "Manual pricing starts from rate cards and the owner’s judgement. A suggestion could offer another starting point, subject to review."
+          "after": "Manual pricing starts from rate cards and the owner\u2019s judgement. A suggestion could offer another starting point, subject to review."
         }
       ]
     }
@@ -1499,14 +1499,8 @@
     }
   ],
   "remainingDealRaster": {
-    "reason": "Five other raster illustrations remain scoped as illustrative, with unsupported factual claims handled in adjacent website copy. Hidden corrected vector children remain hidden to preserve updated graphics.",
-    "assets": [
-      "deal-decision-1-1.png",
-      "deal-decision-2-1.png",
-      "deal-decision-3-1.png",
-      "deal-decision-5-0.png",
-      "deal-decision-5-1.png"
-    ]
+    "reason": "Resolved: three unsupported alternative illustrations hidden in both layouts; original copies retained. Both smart-pricing illustrations replaced by exact original dialog exports.",
+    "assets": []
   },
   "validation": "Representative corrected Fusion, AI and Winking exports visually inspected. Deal approval pair now replaced with exact original source UI; desktop and mobile inspected. Five other Deal raster illustrations remain qualified. Four obsolete unavailable-font snapshot labels remain documented.",
   "approvalReplacement": {
@@ -1546,13 +1540,307 @@
       "278:2127"
     ],
     "labels": [
-      "Owner · publish the proposal",
-      "Approver · review and approve"
+      "Owner \u00b7 publish the proposal",
+      "Approver \u00b7 review and approve"
     ],
     "validation": "Both exact source exports uploaded successfully to desktop and mobile; original proportions preserved, extra white wrapper padding removed, no redraw. Desktop and mobile screenshots visually inspected without clipping or overlap. Approver shadow is from the original source export. Both images are chosen workflow roles, not rejected alternatives."
   },
-  "pendingFigmaWork": [
-    "Full-page spacing and overlap audit after asset updates",
-    "Sync remaining journey structures and source-faithful wording without replacing original artwork"
-  ]
+  "pendingFigmaWork": [],
+  "finalDealCorrection": {
+    "mutation": {
+      "changed": [
+        "278:842",
+        "278:1013",
+        "278:1167",
+        "278:1701",
+        "278:1872",
+        "278:2026",
+        "278:1282",
+        "278:1318",
+        "278:2141",
+        "278:2177",
+        "278:1316",
+        "278:1376",
+        "278:2175",
+        "278:2235",
+        "249:247615",
+        "351:6560",
+        "384:6709",
+        "351:6721",
+        "384:6808",
+        "278:1284",
+        "278:1320",
+        "278:2143",
+        "278:2179",
+        "237:460",
+        "233:463",
+        "233:462",
+        "233:461",
+        "233:460",
+        "240:675",
+        "239:496",
+        "239:495",
+        "239:494",
+        "239:493",
+        "240:526"
+      ],
+      "created": [
+        "391:14389",
+        "391:14390",
+        "391:14391",
+        "391:14392"
+      ],
+      "hidden": [
+        "278:842",
+        "278:1013",
+        "278:1167",
+        "278:1701",
+        "278:1872",
+        "278:2026"
+      ],
+      "edits": {
+        "278:1282": "Smart-pricing exploration",
+        "278:1318": "New-proposal exploration",
+        "278:2141": "Smart-pricing exploration",
+        "278:2177": "New-proposal exploration",
+        "278:1316": "Explored, not built in my time.",
+        "278:1376": "Explored, not built in my time.",
+        "278:2175": "Explored, not built in my time.",
+        "278:2235": "Explored, not built in my time.",
+        "249:247615": "Mapping translates the uploaded template into the deal data model.",
+        "351:6560": "Mapping translates the uploaded template into the deal data model.",
+        "384:6709": "Mapping translates the uploaded template into the deal data model.",
+        "351:6721": "Mapping translates the uploaded template into the deal data model.",
+        "384:6808": "Mapping translates the uploaded template into the deal data model."
+      },
+      "images": [
+        "278:1284",
+        "278:1320",
+        "278:2143",
+        "278:2179"
+      ]
+    },
+    "wording": [
+      {
+        "key": "fx",
+        "changed": [
+          {
+            "id": "166:1417",
+            "before": "\u2022 Complete bid/ask/mid studies\n\u2022 Interval regrouping\n\u2022 Table view with CSV export",
+            "after": "\u2022 Bid/ask/mid study inputs (specified)\n\u2022 Interval regrouping\n\u2022 Table view with CSV export"
+          },
+          {
+            "id": "293:1188",
+            "before": "\u2022 Complete bid/ask/mid studies\n\u2022 Interval regrouping\n\u2022 Table view with CSV export",
+            "after": "\u2022 Bid/ask/mid study inputs (specified)\n\u2022 Interval regrouping\n\u2022 Table view with CSV export"
+          },
+          {
+            "id": "I386:257524;386:257452",
+            "before": "\u2022 Complete bid/ask/mid studies\n\u2022 Interval regrouping\n\u2022 Table view with CSV export",
+            "after": "\u2022 Bid/ask/mid study inputs (specified)\n\u2022 Interval regrouping\n\u2022 Table view with CSV export"
+          },
+          {
+            "id": "339:5486",
+            "before": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+            "after": "Dana reviews liquidity for the session and sets the order limit. Arrival mid anchors the execution; session TWAP provides an evolving market benchmark."
+          },
+          {
+            "id": "339:5488",
+            "before": "\u2022 Order ticket with percentile presets\n\u2022 Benchmarks captured and frozen on the canvas",
+            "after": "\u2022 Order ticket with limit and notional\n\u2022 Fixed arrival mid and evolving session TWAP"
+          },
+          {
+            "id": "I384:5640;384:5632",
+            "before": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+            "after": "Dana reviews liquidity for the session and sets the order limit. Arrival mid anchors the execution; session TWAP provides an evolving market benchmark."
+          },
+          {
+            "id": "I384:5640;384:5634",
+            "before": "\u2022 Order ticket with percentile presets\n\u2022 Benchmarks captured and frozen on the canvas",
+            "after": "\u2022 Order ticket with limit and notional\n\u2022 Fixed arrival mid and evolving session TWAP"
+          },
+          {
+            "id": "I384:5640;384:5637",
+            "before": "The ticket carries percentile presets. Arrival mid and session TWAP are captured when the order goes live and frozen on the canvas.",
+            "after": "The ticket carries the limit and notional. Arrival mid stays fixed; session TWAP updates as market prices arrive."
+          },
+          {
+            "id": "166:1455",
+            "before": "\u2022 Complete bid/ask/mid studies\n\u2022 Interval regrouping\n\u2022 Table view with CSV export",
+            "after": "\u2022 Bid/ask/mid study inputs (specified)\n\u2022 Interval regrouping\n\u2022 Table view with CSV export"
+          },
+          {
+            "id": "293:1251",
+            "before": "\u2022 Complete bid/ask/mid studies\n\u2022 Interval regrouping\n\u2022 Table view with CSV export",
+            "after": "\u2022 Bid/ask/mid study inputs (specified)\n\u2022 Interval regrouping\n\u2022 Table view with CSV export"
+          },
+          {
+            "id": "I386:257605;386:257452",
+            "before": "\u2022 Complete bid/ask/mid studies\n\u2022 Interval regrouping\n\u2022 Table view with CSV export",
+            "after": "\u2022 Bid/ask/mid study inputs (specified)\n\u2022 Interval regrouping\n\u2022 Table view with CSV export"
+          },
+          {
+            "id": "167:800",
+            "before": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+            "after": "Dana reviews liquidity for the session and sets the order limit. Arrival mid anchors the execution; session TWAP provides an evolving market benchmark."
+          },
+          {
+            "id": "167:802",
+            "before": "\u2022 Order ticket with percentile presets\n\u2022 Benchmarks captured and frozen on the canvas",
+            "after": "\u2022 Order ticket with limit and notional\n\u2022 Fixed arrival mid and evolving session TWAP"
+          },
+          {
+            "id": "I384:5731;384:5632",
+            "before": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+            "after": "Dana reviews liquidity for the session and sets the order limit. Arrival mid anchors the execution; session TWAP provides an evolving market benchmark."
+          },
+          {
+            "id": "I384:5731;384:5634",
+            "before": "\u2022 Order ticket with percentile presets\n\u2022 Benchmarks captured and frozen on the canvas",
+            "after": "\u2022 Order ticket with limit and notional\n\u2022 Fixed arrival mid and evolving session TWAP"
+          },
+          {
+            "id": "I384:5731;384:5637",
+            "before": "The ticket carries percentile presets. Arrival mid and session TWAP are captured when the order goes live and frozen on the canvas.",
+            "after": "The ticket carries the limit and notional. Arrival mid stays fixed; session TWAP updates as market prices arrive."
+          },
+          {
+            "id": "384:5632",
+            "before": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+            "after": "Dana reviews liquidity for the session and sets the order limit. Arrival mid anchors the execution; session TWAP provides an evolving market benchmark."
+          },
+          {
+            "id": "384:5634",
+            "before": "\u2022 Order ticket with percentile presets\n\u2022 Benchmarks captured and frozen on the canvas",
+            "after": "\u2022 Order ticket with limit and notional\n\u2022 Fixed arrival mid and evolving session TWAP"
+          },
+          {
+            "id": "384:5637",
+            "before": "The ticket carries percentile presets. Arrival mid and session TWAP are captured when the order goes live and frozen on the canvas.",
+            "after": "The ticket carries the limit and notional. Arrival mid stays fixed; session TWAP updates as market prices arrive."
+          }
+        ],
+        "unavailable": []
+      },
+      {
+        "key": "fusion",
+        "changed": [
+          {
+            "id": "207:621",
+            "before": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch.",
+            "after": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
+          },
+          {
+            "id": "351:5229",
+            "before": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch.",
+            "after": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
+          },
+          {
+            "id": "384:5169",
+            "before": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch.",
+            "after": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
+          },
+          {
+            "id": "351:5393",
+            "before": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch.",
+            "after": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
+          },
+          {
+            "id": "384:5262",
+            "before": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch.",
+            "after": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
+          }
+        ],
+        "unavailable": []
+      },
+      {
+        "key": "deal",
+        "changed": [
+          {
+            "id": "248:717",
+            "before": "\u201cSixty people keep their own version. I need one.\u201d",
+            "after": "\u201cI need one version we can review together.\u201d"
+          },
+          {
+            "id": "293:1898",
+            "before": "\u201cSixty people keep their own version. I need one.\u201d",
+            "after": "\u201cI need one version we can review together.\u201d"
+          },
+          {
+            "id": "386:258001",
+            "before": "Sixty people keep their own version. I need one.",
+            "after": "I need one version we can review together."
+          },
+          {
+            "id": "251:717",
+            "before": "\u201cSixty people keep their own version. I need one.\u201d",
+            "after": "\u201cI need one version we can review together.\u201d"
+          },
+          {
+            "id": "293:1982",
+            "before": "\u201cSixty people keep their own version. I need one.\u201d",
+            "after": "\u201cI need one version we can review together.\u201d"
+          },
+          {
+            "id": "386:258109",
+            "before": "Sixty people keep their own version. I need one.",
+            "after": "I need one version we can review together."
+          }
+        ],
+        "unavailable": []
+      }
+    ],
+    "friction": [
+      "248:725",
+      "293:1907",
+      "I386:258015;386:257909",
+      "251:725",
+      "293:1991",
+      "I386:258123;386:257909"
+    ],
+    "sourceFile": "MhZ5D5sh8DZgOTYdLXX8It",
+    "exports": [
+      {
+        "sourceNode": "1:24110",
+        "path": "src/assets/img/figma-sync/deal-decision-5-0.png",
+        "sha256": "88413f87a38fb5d2c6ca7362bb552ae4a9e69fc8435e4d2ec987dc26a1f1eece"
+      },
+      {
+        "sourceNode": "1:24564",
+        "path": "src/assets/img/figma-sync/deal-decision-5-1.png",
+        "sha256": "e5568fbbb93edcdaf413d70c39c5f87ae1b86e65b29eeba6a90b4c6979501994"
+      }
+    ],
+    "uploads": [
+      {
+        "success": true,
+        "imageHash": "7ad2172f05f143e8b20d86dffb6da447cef62272",
+        "sizeBytes": 120947,
+        "contentType": "image/png",
+        "placedOnNodeId": "278:1284"
+      },
+      {
+        "success": true,
+        "imageHash": "6d046b978f2483f1d6fc52c9d477c0bbf2ca7af6",
+        "sizeBytes": 93823,
+        "contentType": "image/png",
+        "placedOnNodeId": "278:1320"
+      },
+      {
+        "success": true,
+        "imageHash": "7ad2172f05f143e8b20d86dffb6da447cef62272",
+        "sizeBytes": 120947,
+        "contentType": "image/png",
+        "placedOnNodeId": "278:2143"
+      },
+      {
+        "success": true,
+        "imageHash": "6d046b978f2483f1d6fc52c9d477c0bbf2ca7af6",
+        "sizeBytes": 93823,
+        "contentType": "image/png",
+        "placedOnNodeId": "278:2179"
+      }
+    ],
+    "verification": "Desktop/mobile exact concept pairs visually inspected. Source modal shadows retained. Both labelled exploration, not built. No fabricated UI or benchmark counts. Original rejected raster panels remain hidden; written alternatives remain visible."
+  }
 }

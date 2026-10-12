@@ -17,8 +17,8 @@ import Pic from './Pic.astro';
    <div class="meta">{data.meta.slice(1).map(m=><span><b>{m.split(' · ')[0]}</b> · {m.split(' · ').slice(1).join(' · ')}</span>)}</div>
   </div>
   <div class="project-hero deal-hero" aria-label="Updated Deal Model designs">
-   <figure class="deal-market"><Pic name="deal-market-comparison.png" alt="Original Deal Model design comparing market pricing across three bid iterations" eager sizes="(max-width:600px) 90vw, 620px" /></figure>
-   <figure class="deal-approval"><Pic name="deal-approval-overview.png" alt="Original Deal Model design with deal status, quick overview and approval action" sizes="(max-width:600px) 90vw, 720px" /></figure>
+   <figure class="deal-market"><Pic name="deal-market-comparison.png" alt="Original Deal Model design comparing market pricing across three bid iterations" eager sizes="(max-width:600px) 90vw, 620px" fullSize /></figure>
+   <figure class="deal-approval"><Pic name="deal-approval-overview.png" alt="Original Deal Model design with deal status, quick overview and approval action" sizes="(max-width:600px) 90vw, 720px" fullSize /></figure>
   </div>
  </header>
  <CaseContents project="deal" />

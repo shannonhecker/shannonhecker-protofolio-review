@@ -48,7 +48,7 @@
         ],
         "evidence": "This reversal came from rebuilding the surface in code with real-shaped data and checking the gaps with the vendor. It was a data and implementation finding, not a user-study result.",
         "status": "Reversed after implementation exploration",
-        "result": "I restricted studies to bid, ask and mid. The narrower picker makes the data boundary explicit.",
+        "result": "I specified bid, ask and mid as study inputs to make the data boundary explicit. The current public rebuild does not include that study picker.",
         "source": "src/components/CaseFx.astro#fx-decisions"
       }
     ]
@@ -318,7 +318,11 @@
         "status": "Design-review method",
         "result": "The reviews shaped the comparison and history views. I do not claim that the method eliminated rework.",
         "tradeoff": "More alternatives to prepare and explain in each review, with time needed to bring the useful parts together.",
-        "source": "src/data/deal-content.json#research"
+        "source": "src/data/deal-content.json#research",
+        "hideImages": [
+          false,
+          true
+        ]
       },
       {
         "key": "comparison",
@@ -331,7 +335,11 @@
         "evidence": "The original design includes the compare grid and column chooser. The case attributes the need to sales rebuilding comparisons; there is no measured reduction in spreadsheet use for this individual feature.",
         "status": "Designed for the internal pricing workflow",
         "result": "The comparison becomes a configurable view of the iterations. It supports a choice without requiring a new report layout for every role.",
-        "source": "src/data/deal-content.json#constraints"
+        "source": "src/data/deal-content.json#constraints",
+        "hideImages": [
+          false,
+          true
+        ]
       },
       {
         "key": "migration",
@@ -344,7 +352,11 @@
         "evidence": "The template idea came from a user session and was worked through with the BA. The case records a qualitative adoption signal as uploads declined, without a measured adoption rate.",
         "status": "Migration support in the product",
         "result": "The upload route let people keep a familiar way of preparing data while moving the record into the platform.",
-        "source": "src/data/deal-content.json#constraints"
+        "source": "src/data/deal-content.json#constraints",
+        "hideImages": [
+          false,
+          true
+        ]
       },
       {
         "key": "approval",
@@ -376,14 +388,22 @@
         "question": "Could past deals help an owner start the next pricing iteration?",
         "problem": "Starting from rate cards relies on the owner’s experience. A suggestion might give a starting point, but it would depend on reliable history and a person checking the result.",
         "options": [
-          "Suggest an iteration for the owner to edit or discard.",
-          "Keep every iteration entirely hand-priced from rate cards."
+          "The smart-pricing concept explores inputs for creating a new iteration. The owner remains responsible for reviewing the resulting proposal.",
+          "The new-proposal concept collects proposal details and portfolio scope before pricing. It is another part of the exploration, not a rejected alternative."
         ],
         "evidence": "The case records exploration with the data analyst and review with the four teams. Historical data was still being assembled. The feature was not built in my time.",
         "status": "Explored, not built in my time",
         "result": "The proposal kept the owner in control. No model accuracy, adoption or pricing improvement is claimed.",
-        "source": "src/data/authored-content.json#deal.decisions.5",
-        "artNote": "The sample deal count and suggested values in this exploration are illustrative, not a model evaluation."
+        "source": "Figma MhZ5D5sh8DZgOTYdLXX8It, SmartPricing frame 1:24108 and Add Proposal frame 1:24561",
+        "artNote": "These are exact screens from the original exploration. Both are design concepts, not evidence of a working recommendation model. The alternative was to continue pricing from rate cards.",
+        "imageLabels": [
+          "Smart-pricing exploration",
+          "New-proposal exploration"
+        ],
+        "optionLabels": [
+          "Explore a pricing starting point",
+          "Set up a new proposal"
+        ]
       }
     ]
   }

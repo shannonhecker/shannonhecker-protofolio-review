@@ -91,3 +91,7 @@ This review identifies high-impact truth mismatches, not a full functional test 
 these products. The portfolio build/browser checks and deployed-source alignment
 remain separate tasks. Verify the final screenshots and explanatory labels beside
 them, not just whether these repository paths exist.
+
+## Final reconciliation, 12 October
+
+The final independent read found remaining wording discrepancies in FX benchmarks/studies, Fusion client signings and Deal import blocking. These are corrected in current `authored-content.json`, `decision-evidence.json` and `CaseFusion.astro`; corresponding editable Figma text is synchronized. See `DECISION-AUDIT.md` and `figma-decision-art-corrections.json` for source references and replacement artwork. Original design concepts remain explicitly separate from public rebuild functionality and measured outcomes.

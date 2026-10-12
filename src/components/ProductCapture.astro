@@ -12,5 +12,9 @@ const vectorSizes: Record<string, [number, number]> = {
 const vectorSize = vectorSizes[name];
 ---
 <figure class="product-capture">
-  <div class="shot evidence">{name.endsWith(".svg") ? <img src={name} alt={alt} width={vectorSize?.[0]} height={vectorSize?.[1]} style={vectorSize ? `aspect-ratio: auto ${vectorSize[0]} / ${vectorSize[1]}` : undefined} loading={eager ? "eager" : "lazy"} /> : <Pic name={name} alt={alt} sizes="(max-width: 900px) 92vw, (max-width: 1550px) 66vw, 1040px" eager={eager} />}</div>
+  <div class="shot evidence">{name.endsWith(".svg") ? <a class="full-size-image" href={name} target="_blank" rel="noopener" aria-label={`View full size: ${alt} (opens in new tab)`}><img src={name} alt={alt} width={vectorSize?.[0]} height={vectorSize?.[1]} style={vectorSize ? `aspect-ratio: auto ${vectorSize[0]} / ${vectorSize[1]}` : undefined} loading={eager ? "eager" : "lazy"} /></a> : <Pic name={name} alt={alt} sizes="(max-width: 900px) 92vw, (max-width: 1550px) 66vw, 1040px" eager={eager} fullSize />}</div>
 </figure>
+<style>
+.full-size-image{display:block;max-width:100%;cursor:zoom-in;outline-offset:6px}
+.full-size-image:focus-visible{outline:2px solid var(--project-ink,var(--fg))}
+</style>

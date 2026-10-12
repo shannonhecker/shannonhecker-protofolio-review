@@ -55,3 +55,21 @@ Normal CUA scrolling and navigation completed without stuck content during these
 Two plausible profiling targets remain if physical-device lag persists: `motion.ts:33–38` measures all unrevealed `.rv.pre,.split.pre` elements each scroll update; `scroll-effects.ts:46–48` animates clip paths on individual heading words with scrub smoothing. They are hypotheses, not measured root causes. Do not remove motion or claim a performance fix solely from this source review.
 
 For the user's narrower complaint that the **images feel laggy**, a targeted change is justified without claiming a frame-rate diagnosis: remove only the product-capture and project-hero scroll tweens in `scroll-effects.ts:56–63`. Their `scrub:.7` deliberately makes screenshots catch up after native scrolling, and `scale:.975` resamples fine UI text during that motion. Keeping screenshots stationary would remove that designed trailing sensation while retaining the text motion. This is an interaction-quality recommendation; no measured CPU/GPU performance gain is asserted.
+
+## Evidence follow-up, 12 October
+
+- ProductCapture raster/vector images and both Deal hero screens now link to their original asset, with a keyboard focus ring and descriptive new-tab label. No caption bars were added.
+- Manual browser check at 390×844: tapping Fusion's discovery screenshot opens the 1465×1125 original in a new tab; tapping again displays native-size detail and allows scrolling. Proof: `/private/tmp/portfolio-evidence-review/fusion-original-zoom-phone.png`.
+- Source review corrections: fixed arrival/evolving TWAP wording; FX study picker attributed to specification; removed unverified Fusion signings and Deal import-blocking statements.
+- Three unsupported Deal alternative illustrations are no longer rendered. Their written alternatives remain. Two smart-pricing panels now use exact original Figma dialog exports, labelled explorations rather than implemented recommendations.
+
+## Independent final visual follow-up, 12 October
+
+Reviewed current local `http://127.0.0.1:4341` in Chrome through the browser skill/runtime at 1440×960 and 390×844. This is viewport emulation, not physical-device certification. No new material visual defect found in this follow-up.
+
+- **Deal decisions:** both original smart-pricing dialog exports display intact; exploration status and supporting rationale are readable. At desktop the two captions naturally follow images with different aspect ratios; mobile stacks without collision or viewport overflow. The comparison decision's written-only alternative has no empty image placeholder. Dense source-screen labels require the provided full-size link. Proof: `/private/tmp/portfolio-final-review/deal-smart-pricing-desktop.jpg` and `deal-smart-pricing-phone.jpg`.
+- **AI hero after portrait removal:** desktop and phone now lead directly with the product evidence, while retaining title, role, private-alpha status and introduction. Phone has no horizontal overflow. Proof: `/private/tmp/portfolio-final-review/ai-hero-desktop.jpg` and `ai-hero-phone.jpg`.
+- **Home `/`:** inspected desktop hero, all five work cards, method grid and shared footer; inspected all five work cards, method stack and footer at phone width. Visible images load, text wraps, and the document has no horizontal overflow. The game was covered in the preceding checkpoint. `/panel` shares these components and was covered previously; it was not separately repeated in this follow-up.
+- **Utility routes:** confirmed route files for `/404`, `/build`, and `/privacy`. Error-page heading and return link fit desktop and phone. Privacy content and shared footer are readable at both widths. Build-log introduction and headings fit both widths; a DOM geometry check across its content found no horizontal overflow at phone width. The roughly 44,000px desktop build log was not visually read entry by entry.
+
+No awards outcome, exhaustive accessibility certification, or measured performance result is claimed. This review adds route coverage to the prior case-page, persona, map and full-size-image checks; the automated suite remains a separate verification owned by the parent agent.

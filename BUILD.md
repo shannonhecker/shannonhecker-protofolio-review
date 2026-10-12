@@ -676,3 +676,13 @@ passed in 59.9 seconds. Source-art updates are included in this run.
 - Validation: production build passed; 149 browser tests passed in 58.2 seconds. Persona checks cover all 15 cards at four widths, including text fit, portrait framing and consistent colour.
 
 - Removed the 0.7-second screenshot and hero scroll catch-up so dense product UI stays steady. Final production build and all 149 browser tests passed in 58.9 seconds after this change.
+
+### PR 49 final review · Original evidence and readable detail
+
+**What Codex changed at my request**
+
+- Product screenshots open their original files when selected, including the Deal hero. There are no extra caption bars. The phone check confirmed that the original image can be enlarged to inspect its detail.
+- Removed three Deal alternative illustrations with unsupported claims. Kept the written trade-offs. Replaced the two smart-pricing panels with the original Figma dialogs and labelled both as exploration, not built in my time.
+- Corrected the remaining FX benchmark and study wording, removed an unverified Fusion client-signing claim, and kept Deal template mapping separate from an unsupported blocking rule. Synced the corresponding editable Figma copy.
+- Removed an unintended decorative avatar from the uoaui.ai introduction. The explanatory text and product screens now lead the page, matching the Figma structure.
+- Validation: Astro check has 0 errors and 0 warnings; production build passed; all 149 browser tests passed in 1.1 minutes. Desktop and phone reviews cover the changed evidence, personas, home and utility pages. Production CI and live verification remain the release gate.

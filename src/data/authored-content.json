@@ -95,7 +95,7 @@
             {
               "label": "In this app",
               "items": [
-                "Complete bid/ask/mid studies",
+                "Bid/ask/mid study inputs (specified)",
                 "Interval regrouping",
                 "Table view with CSV export"
               ]
@@ -139,12 +139,12 @@
       "steps": [
         {
           "title": "Pre-trade",
-          "description": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+          "description": "Dana reviews liquidity for the session and sets the order limit. Arrival mid anchors the execution; session TWAP provides an evolving market benchmark.",
           "recommendations": [
-            "Order ticket with percentile presets",
-            "Benchmarks captured and frozen on the canvas"
+            "Order ticket with limit and notional",
+            "Fixed arrival mid and evolving session TWAP"
           ],
-          "backstage": "The ticket carries percentile presets. Arrival mid and session TWAP are captured when the order goes live and frozen on the canvas."
+          "backstage": "The ticket carries the limit and notional. Arrival mid stays fixed; session TWAP updates as market prices arrive."
         },
         {
           "title": "Staging the order",
@@ -470,7 +470,7 @@
         },
         {
           "label": "How I measure it",
-          "text": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch."
+          "text": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
         }
       ]
     },
@@ -593,7 +593,7 @@
         ],
         "reason": "Phase two brought in clients who'd had no training. We chose one product with entitlement-based views over a simplified client version, so patterns stayed consistent and the team kept one codebase.",
         "tradeoff": "Client constraints live in the same codebase as the internal views.",
-        "outcome": "Clients onboarded with no training, and several signed after the phase two launch."
+        "outcome": "Phase two opened the product to external clients."
       }
     ],
     "decisionFlow": "fusion-decision-flow.png",
@@ -1572,7 +1572,7 @@
         {
           "name": "The product owner",
           "role": "Product\nOwns the portfolio and the platform",
-          "quote": "“Sixty people keep their own version. I need one.”",
+          "quote": "“I need one version we can review together.”",
           "image": null,
           "groups": [
             {
@@ -1586,7 +1586,7 @@
             {
               "label": "Frictions",
               "items": [
-                "Sixty copies of one Excel app",
+                "Separate copies of the same pricing work",
                 "Hand-keyed portfolios",
                 "Migration that loses people"
               ]
@@ -1653,7 +1653,7 @@
             "Load-data flow",
             "Upload template, mapped by the system"
           ],
-          "backstage": "Mapping rules translate the template to the data model. Unmapped columns block the import."
+          "backstage": "Mapping translates the uploaded template into the deal data model."
         },
         {
           "title": "Price and iterate",
@@ -1763,14 +1763,7 @@
           },
           {
             "label": "One proposal, sign-off at the end",
-            "image": "deal-decision-1-1.png",
-            "transcript": [
-              "Securities Services",
-              "Review · Pricing grid",
-              "1 proposal",
-              "Proposed design",
-              "Four teams say \"fine\" in the room and reopen it by email the next week."
-            ]
+            "image": "deal-decision-1-1.png"
           }
         ],
         "reason": "I ran every review with three versions. People said what was wrong instead of saying yes. Sales got the comparison table, legal got the iteration list, because they asked for them in those rooms.",
@@ -1806,14 +1799,7 @@
           },
           {
             "label": "A fixed comparison report",
-            "image": "deal-decision-2-1.png",
-            "transcript": [
-              "Securities Services",
-              "Pricing · Comparison report",
-              "Fixed",
-              "Comparison report · all columns",
-              "Every team rebuilt its own version in Excel anyway."
-            ]
+            "image": "deal-decision-2-1.png"
           }
         ],
         "reason": "Sales rebuilt the comparison in Excel every time because the report never had the right columns. A grid with a column chooser, saved per user, made the comparison a view instead of a rebuild.",
@@ -1846,16 +1832,7 @@
           },
           {
             "label": "Cut everyone over on day one",
-            "image": "deal-decision-3-1.png",
-            "transcript": [
-              "Securities Services",
-              "Portfolio · Load data",
-              "Cut-over",
-              "Enter holdings manually",
-              "Row 5 of 780",
-              "The spreadsheet never dies",
-              "Sixty people keep a private copy and the platform becomes the second source of truth."
-            ]
+            "image": "deal-decision-3-1.png"
           }
         ],
         "reason": "Some people kept the spreadsheet. We built an upload template they could fill in, and the system mapped it to the data model. Meet people where they are, then bring them over.",
@@ -1898,42 +1875,43 @@
         "title": "Smart pricing, explored",
         "choices": [
           {
-            "label": "Model suggests a tier, the person decides",
+            "label": "Smart-pricing exploration",
             "image": "deal-decision-5-0.png",
             "transcript": [
-              "Securities Services",
-              "Smart pricing · explored",
-              "Not shipped",
-              "Suggested iteration",
-              "Tiered · 5 % final bid, EM reduction 12 %",
-              "Based on 38 similar deals, same region and segment, past two years.",
-              "Use as draft",
-              "Edit",
-              "Model scope",
-              "Region · Segment · All portfolio",
-              "The model drafts, the deal owner decides.",
-              "Training data",
-              "Won deals · 2 yrs",
-              "Rate cards",
-              "Reductions by tier",
-              "Outcome (won / lost)",
-              "Status · designed with the data analyst, reviewed, not built in my time"
-            ]
+              "New Iteration",
+              "SmartPricing Reductions",
+              "Reduction on",
+              "Iteration Name",
+              "Reductions (%)",
+              "Reductions Total ($)",
+              "Target Fee Type",
+              "Target Markets",
+              "Pricing Influence",
+              "Create"
+            ],
+            "alt": "Original SmartPricing Reductions concept: a New Iteration dialog with reduction inputs, target fee type, markets and pricing influence."
           },
           {
-            "label": "Hand-priced from rate cards only",
+            "label": "New-proposal exploration",
             "image": "deal-decision-5-1.png",
             "transcript": [
-              "Securities Services",
-              "Pricing · from rate cards",
-              "Manual only",
-              "Benchmark rate cards",
-              "Tier",
-              "AUC band",
-              "Fee bps",
-              "Reduction",
-              "Every iteration starts from a blank grid and a rate card. Experience lives in the deal owner's head, so a new starter prices slower and less consistently."
-            ]
+              "New Iteration",
+              "SmartPricing New Proposal",
+              "Details",
+              "Select portfolio",
+              "Default Portfolio",
+              "Model scope",
+              "Region",
+              "Price all markets",
+              "Iterations",
+              "Level 1",
+              "Level 2",
+              "Level 3",
+              "Level 4",
+              "Level 5",
+              "Create"
+            ],
+            "alt": "Original SmartPricing New Proposal concept: portfolio selection, model scope, a price-all-markets checkbox and five iteration levels."
           }
         ],
         "reason": "At the end we explored training a model on past deals to suggest an iteration, with the deal owner editing or discarding it. Designed with the data analyst and reviewed with the four teams.",

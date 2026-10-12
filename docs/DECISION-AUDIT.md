@@ -147,3 +147,18 @@ The revised journey/decision component build passed. The browser suite passed
 Subsequent exact-art replacements still require the final build and browser run.
 Desktop FX decision layout and mobile uoaui decision index were visually inspected.
 The production release remains pending; this is not a live-site completion claim.
+
+## Final source-art corrections, 12 October 2026
+
+The three unsupported Deal alternative illustrations at decisions 2, 3 and 4 are hidden in the website and both Figma layouts. Their written alternatives remain; they are no longer illustrated with invented adoption numbers or events. The old assets remain in source history and hidden Figma archive layers.
+
+Smart-pricing images now come from original dialogs `1:24110` and `1:24564` in `MhZ5D5sh8DZgOTYdLXX8It`, inside the source frames `1:24108` and `1:24561`. Labels and alt text describe the two explored interfaces rather than chosen/rejected product implementations. The 38-deal statement and new-starter performance claim are removed from this visible evidence. `figma-decision-art-corrections.json` records exact hashes and target fills.
+
+A final source review also corrected:
+
+- FX arrival mid is fixed; session TWAP evolves with market prices (`executionData.js:165–169,296–321`; `ExecutionPanel.jsx:1073` at ce8de50). The old frozen-TWAP/percentile-presets journey copy is replaced.
+- FX study inputs are attributed to the specification; the current public rebuild has no study picker.
+- Fusion retains external-client rollout but removes the uncorroborated signings claim.
+- Deal template mapping remains; an unsupported import-blocking rule is removed. Composite persona copy no longer invents sixty separate spreadsheet copies.
+
+Editable Figma text was synchronized. The visible original journey chart/approach excerpts contain none of these corrected clauses. Product screenshots retain source imagery and are not redrawn as inferred implementations.
