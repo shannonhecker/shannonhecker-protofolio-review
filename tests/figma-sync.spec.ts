@@ -96,9 +96,9 @@ test('FX data layers preserve the four authored branches at every width',async({
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.goto('/fx');
   await page.getByRole('button',{name:'No thanks'}).click();
-  const diagram=page.locator('.fx-source-layers img');
+  const diagram=page.locator('.fx-source-layers img:visible');
   await expect(diagram).toBeVisible();
-  await expect(diagram).toHaveAttribute('src','/art/themed/fx-data-layers.svg');
+  await expect(diagram).toHaveAttribute('src','/art/themes/dark/fx-data-layers.svg');
   await expect(page.locator('.fx-source-layers details')).toHaveCount(0);
   for(const width of [320,390,820,1440]){
     await page.setViewportSize({width,height:900});

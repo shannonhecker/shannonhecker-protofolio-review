@@ -753,3 +753,13 @@ A controlled dark-page/light-image-container check failed on the previous implem
 Validation: Astro check has 0 errors and 0 warnings; the production build and all 155 browser tests pass, including the three media regressions under iPhone-configured WebKit.
 
 The remote release checks exposed startup rendering pressure on the homepage. I let the browser defer drawing off-screen product previews while their existing aspect ratios reserve the same space. All 155 browser checks pass again, including home-gallery geometry and scroll motion; the performance threshold remains unchanged.
+
+### All-project content and image audit · 12 October 2026
+
+I checked the home gallery and all five case pages, including images within the case content. Deal Model's overlapping hero is included in the transparent presentation backgrounds, alongside Fusion, Winking Star and uoaui.ai. FX's hero exports are already fitted to the product UI.
+
+I also removed the browser-theme dependency from 13 journey and schematic images. Each now has explicit light and dark versions selected by the page theme, preserving its geometry and alt text. Product screenshots keep their actual interface colours. Persona cards and HTML diagrams already use the page's theme tokens. The project-by-project inventory is in `docs/PRODUCT-MEDIA-THEMES.md`.
+
+I replaced the emoji-capable diagonal arrows in the shared Sections button and All projects link with a flat, current-colour SVG icon. All five case pages share that component, so iPhone can no longer substitute its blue emoji tile.
+
+Validation for the expanded audit and arrow fix: production build passes, Astro check reports 0 errors and 0 warnings, and all 157 browser tests pass. The phone-sized Deal Model and Sections-panel previews were inspected and saved. The previously reported remote performance gate remains unresolved; these changes have not been published to production.

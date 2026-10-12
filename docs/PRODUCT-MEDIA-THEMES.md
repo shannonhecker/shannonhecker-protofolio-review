@@ -11,3 +11,19 @@ PR #50 used an SVG `prefers-color-scheme` rule that passed Chrome and current We
 Actual product UI backgrounds, phone frames, screenshots and illustrations keep their authored colours. Full-resolution links still open the untouched originals. No inversion, multiply filter, new raster encoding, generated artwork or Figma edits are involved. Raster-only screenshots with backgrounds inside the product remain intact; recolouring those would misrepresent the product.
 
 Regression checks cover full hero width and page overflow at 320, 390, 430 and 820px across all five products; exact source recovery after restoring only audited fill attributes; and rendered background/phone-screen pixels when the site theme changes while the image container is forced to a light colour scheme. The focused media suite runs under both Chromium and iPhone-configured WebKit in CI. This is browser-engine coverage, not a claim of physical-device testing.
+
+## Full project-content audit
+
+The audit covers the home gallery and all five case pages, including hero art, in-body captures, journeys, decision comparisons, personas, diagrams and next-project previews.
+
+| Project | Presentation artwork | Content treatment |
+| --- | --- | --- |
+| FX | Home compositions are transparent; the three hero exports are tightly fitted product UI | Data-layer diagram and four before/after schematics use explicit theme variants. Original dark journey, decision-loop evidence and product screenshots retain their source colours. |
+| Fusion | Both hero compositions and the in-body configuration composition are transparent | Journey and approach use explicit theme variants. Individual full-screen product captures preserve their UI. |
+| Winking Star | Hero, four-phone composition and each individual phone have transparent surrounds | Journey and approach use explicit theme variants. Web captures, app icon and illustrated theme banners retain product colours. |
+| Deal Model | The overlapping hero from the phone screenshot and both home compositions have transparent surrounds | Journey and approach use explicit theme variants. The 13 product-flow screens and decision evidence retain actual interface backgrounds. |
+| uoaui.ai | Both hero compositions and home compositions have transparent surrounds | Journey and approach use explicit theme variants. Builder, UI-kit and comparison captures retain product colours. |
+
+The 13 semantic diagrams previously used an external-SVG colour-scheme query. New pages use `ThemedArtwork.astro`, which selects one of two explicit SVG variants with CSS tied directly to `html[data-theme]`. Only the visible version is exposed to accessibility tools; sizes and alt text are preserved. Both files contain unconditional paints. The old conditional endpoint remains solely for cached-page compatibility. Paint mappings are shared in one module.
+
+HTML content, persona cards and authored diagrams already use page theme tokens or `html[data-theme]`; those do not rely on the external SVG mechanism. Original screenshots and evidence exports are not indiscriminately inverted or recoloured. Full-size source links still open the originals.
