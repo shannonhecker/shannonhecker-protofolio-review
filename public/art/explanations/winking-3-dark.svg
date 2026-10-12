@@ -1,0 +1,22 @@
+<svg width="336" height="368" viewBox="0 0 336 368" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="367" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="367" rx="3.5" stroke="#46515F"/>
+<path d="M103 29H25C22.7909 29 21 30.7909 21 33V149C21 151.209 22.7909 153 25 153H103C105.209 153 107 151.209 107 149V33C107 30.7909 105.209 29 103 29Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="33" y="50.5">Offline</tspan></text>
+<path d="M33 72H95" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M33 89H95" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M33 106H95" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M313 29H235C232.791 29 231 30.7909 231 33V149C231 151.209 232.791 153 235 153H313C315.209 153 317 151.209 317 149V33C317 30.7909 315.209 29 313 29Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="243" y="50.5">Synced</tspan></text>
+<path d="M243 72H305" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M243 89H305" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M243 106H305" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M252 81H86C83.7909 81 82 82.7909 82 85V109C82 111.209 83.7909 113 86 113H252C254.209 113 256 111.209 256 109V85C256 82.7909 254.209 81 252 81Z" fill="#B9D5B8" stroke="#B9D5B8"/>
+<text fill="#222933" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="92" y="101.864">Queued ticks</tspan></text>
+<path d="M121 136H216" stroke="#B9D5B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="128" y="163.864">Reconnect</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="56" y="188.864">Two adults &#xb7; one child</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">Offline, then reconnected</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">An offline banner explains the state. </tspan><tspan x="13" y="298.618">Ticks queue and sync on reconnect. Two </tspan><tspan x="13" y="321.818">adults can tick the same child from two </tspan><tspan x="13" y="345.018">phones.</tspan></text>
+</svg>
+

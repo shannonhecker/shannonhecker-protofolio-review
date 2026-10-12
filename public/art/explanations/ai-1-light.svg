@@ -1,0 +1,36 @@
+<svg width="336" height="461" viewBox="0 0 336 461" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="460" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="460" rx="3.5" stroke="#D6DCE1"/>
+<path d="M285 23H53C50.7909 23 49 24.7909 49 27V51C49 53.2091 50.7909 55 53 55H285C287.209 55 289 53.2091 289 51V27C289 24.7909 287.209 23 285 23Z" fill="#8B5168" stroke="#8B5168"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="59" y="43.8636">Tokens &#xb7; density &#xb7; theme</tspan></text>
+<path d="M168 60V76M172 72L168 76L164 72" stroke="#8B5168" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M71 92H23C20.7909 92 19 93.7909 19 96V155C19 157.209 20.7909 159 23 159H71C73.2091 159 75 157.209 75 155V96C75 93.7909 73.2091 92 71 92Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="24" y="113.773">Salt</tspan></text>
+<path d="M27 127H65" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M27 144H65" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M27 161H65" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M132 92H84C81.7909 92 80 93.7909 80 96V155C80 157.209 81.7909 159 84 159H132C134.209 159 136 157.209 136 155V96C136 93.7909 134.209 92 132 92Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="85" y="113.773">Material</tspan></text>
+<path d="M88 127H126" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M88 144H126" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M88 161H126" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M193 92H145C142.791 92 141 93.7909 141 96V155C141 157.209 142.791 159 145 159H193C195.209 159 197 157.209 197 155V96C197 93.7909 195.209 92 193 92Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="146" y="113.773">Fluent</tspan></text>
+<path d="M149 127H187" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M149 144H187" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M149 161H187" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M254 92H206C203.791 92 202 93.7909 202 96V155C202 157.209 203.791 159 206 159H254C256.209 159 258 157.209 258 155V96C258 93.7909 256.209 92 254 92Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="207" y="113.773">Carbon</tspan></text>
+<path d="M210 127H248" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M210 144H248" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M210 161H248" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M315 92H267C264.791 92 263 93.7909 263 96V155C263 157.209 264.791 159 267 159H315C317.209 159 319 157.209 319 155V96C319 93.7909 317.209 92 315 92Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="268" y="113.773">Own</tspan></text>
+<path d="M271 127H309" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M271 144H309" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M271 161H309" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="26" y="184.864">Components or explicit fallbacks</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">One structure, five systems</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">I designed the token, density and theme </tspan><tspan x="13" y="298.618">mapping. It resolves system-specific </tspan><tspan x="13" y="321.818">props across Salt, Material, Fluent, </tspan><tspan x="13" y="345.018">Carbon and my own system. Published </tspan><tspan x="13" y="368.218">React components are used where </tspan><tspan x="13" y="391.418">available; missing equivalents use </tspan><tspan x="13" y="414.618">explicit markup fallbacks, alongside a </tspan><tspan x="13" y="437.818">class-based in-house system.</tspan></text>
+</svg>
+

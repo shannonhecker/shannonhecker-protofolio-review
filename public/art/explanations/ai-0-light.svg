@@ -1,0 +1,21 @@
+<svg width="336" height="461" viewBox="0 0 336 461" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="460" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="460" rx="3.5" stroke="#D6DCE1"/>
+<path d="M152 32H22C19.7909 32 18 33.7909 18 36V60C18 62.2091 19.7909 64 22 64H152C154.209 64 156 62.2091 156 60V36C156 33.7909 154.209 32 152 32Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="28" y="52.8636">Claude drafts</tspan></text>
+<path d="M159 48H179M174 53L179 48L174 43" stroke="#8B5168" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M316 32H190C187.791 32 186 33.7909 186 36V60C186 62.2091 187.791 64 190 64H316C318.209 64 320 62.2091 320 60V36C320 33.7909 318.209 32 316 32Z" fill="#8B5168" stroke="#8B5168"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="196" y="52.8636">I compare</tspan></text>
+<path d="M251 71V87M255 83L251 87L247 83" stroke="#8B5168" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M316 96H190C187.791 96 186 97.7909 186 100V124C186 126.209 187.791 128 190 128H316C318.209 128 320 126.209 320 124V100C320 97.7909 318.209 96 316 96Z" fill="#8B5168" stroke="#8B5168"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="196" y="116.864">I tune</tspan></text>
+<path d="M251 134V150M255 146L251 150L247 146" stroke="#8B5168" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M316 159H190C187.791 159 186 160.791 186 163V187C186 189.209 187.791 191 190 191H316C318.209 191 320 189.209 320 187V163C320 160.791 318.209 159 316 159Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="196" y="179.864">React export</tspan></text>
+<path d="M24 87H144V175H170" stroke="#D6DCE1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="30" y="110.864">First answer</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="30" y="129.864">stays a draft</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">Draft &#x2192; compare &#x2192; tune</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">I write the prompt. Claude drafts a </tspan><tspan x="13" y="298.618">screen, never the final answer. I compare </tspan><tspan x="13" y="321.818">and tune before exporting React a </tspan><tspan x="13" y="345.018">developer can inspect.</tspan></text>
+</svg>
+

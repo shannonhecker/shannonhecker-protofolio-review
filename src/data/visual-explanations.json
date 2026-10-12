@@ -1,0 +1,122 @@
+{
+  "fusion": {
+    "name": "Fusion",
+    "title": "One foundation, a reusable Fusion layer",
+    "caption": "I kept Fusion on Salt so it could follow the firm's updates, and contributed missing patterns back. The diagram describes the original product; the public rebuild is not connected to FactSet or entitlement services.",
+    "cards": [
+      {
+        "title": "Salt → Fusion → widgets",
+        "art": "layers",
+        "body": "I built tokens, components, patterns and accessibility layers on Salt: data tables, chart frames, filter bars and widget shells. Gaps went back upstream. Other Fusion teams reused the same components and patterns."
+      },
+      {
+        "title": "Many cubes, familiar views",
+        "art": "cubes",
+        "body": "FactSet supplies performance, attribution and risk data. The same widgets serve different cubes and permission levels. People configure their own dashboard pages; entitlements control what they see. Import and export run through FactSet."
+      }
+    ]
+  },
+  "ai": {
+    "name": "uoaui.ai",
+    "title": "The model drafts. The person decides.",
+    "caption": "Switch system, density or theme and the screen rebuilds: the layers below the model are mapped, not generated. This is my review workflow; the builder also allows direct export.",
+    "cards": [
+      {
+        "title": "Draft → compare → tune",
+        "art": "human",
+        "body": "I write the prompt. Claude drafts a screen, never the final answer. I compare and tune before exporting React a developer can inspect."
+      },
+      {
+        "title": "One structure, five systems",
+        "art": "systems",
+        "body": "I designed the token, density and theme mapping. It resolves system-specific props across Salt, Material, Fluent, Carbon and my own system. Published React components are used where available; missing equivalents use explicit markup fallbacks, alongside a class-based in-house system."
+      }
+    ]
+  },
+  "fx": {
+    "name": "FX",
+    "title": "The constraints behind the canvas",
+    "caption": "FX is in beta. Confirmation and audit describe the original Barclays specification; my public rebuild does not implement the audit backend. The illustrations use schematic, non-client data.",
+    "cards": [
+      {
+        "title": "Two audiences, one platform",
+        "art": "roles",
+        "body": "Internal traders and external clients use the same system with different entitlements. I had to support both on old technology without a second codebase."
+      },
+      {
+        "title": "A fixed engine",
+        "art": "engine",
+        "body": "The charting vendor's capabilities shaped the options. Some ideas were possible, some were not, and some were possible but wrong. I treated those limits as design inputs."
+      },
+      {
+        "title": "Confirm, then record",
+        "art": "fxaudit",
+        "body": "In the original order-changing flow, I kept confirmation and an audit trail beside the action. Compliance stayed inside the workflow."
+      },
+      {
+        "title": "Ship, then repair the foundation",
+        "art": "repair",
+        "body": "A light-theme tidy-up exposed hardcoded colours in the code, tokens and naming. I costed two options with product and engineering. We shipped features first, then phased the fix in the background, starting with the simple, single-themed blotter."
+      }
+    ]
+  },
+  "deal": {
+    "name": "Deal Model",
+    "title": "One deal, four views, a bridge from Excel",
+    "caption": "I asked what each team needed to see and change, rather than asking them to agree on one design. The upload-template idea came from a user session; I worked it through with the BA.",
+    "cards": [
+      {
+        "title": "A shared object, role-specific views",
+        "art": "dealroles",
+        "body": "Sales, legal, custody operations and product had different definitions of a deal. Each needed its own view of the same object."
+      },
+      {
+        "title": "Keep the familiar starting point",
+        "art": "bridge",
+        "body": "People kept Excel because they did not yet trust the platform or recognise its layout. Download the template, fill it in as usual, then upload it. The system maps it into the deal."
+      },
+      {
+        "title": "A record built as people work",
+        "art": "audit",
+        "body": "Every price needs a source, every change a person, and every deal a sign-off trail. Checks run as people work; the record comes from the tool."
+      }
+    ]
+  },
+  "winking": {
+    "name": "Winking Star",
+    "title": "Small moments beyond the happy path",
+    "caption": "Illustrated iPhone states, with the different web entry point called out. These are explanations of behaviour, not additional product screenshots.",
+    "cards": [
+      {
+        "title": "First run",
+        "art": "entry",
+        "body": "iPhone offers Try the Sample Family beside family creation. Web starts with a theme and a grown-up check, then child details. The two entry points are shown separately."
+      },
+      {
+        "title": "A missed day",
+        "art": "missed",
+        "body": "Fewer stars, never negative stars or red warnings. The pet keeps the growth earned from routines already completed."
+      },
+      {
+        "title": "Local midnight",
+        "art": "midnight",
+        "body": "The day rolls over at local midnight, even while the app is open, so a late tick lands on the right day. Shipped as a fix in iOS 1.0.4."
+      },
+      {
+        "title": "Offline, then reconnected",
+        "art": "offline",
+        "body": "An offline banner explains the state. Ticks queue and sync on reconnect. Two adults can tick the same child from two phones."
+      },
+      {
+        "title": "Two homes and birthday week",
+        "art": "homes",
+        "body": "A custody label, “at Mum's this week”, gives the board context in either house. A birthday banner lasts for the whole birthday week."
+      },
+      {
+        "title": "Accessible and calm",
+        "art": "access",
+        "body": "VoiceOver reads tab labels and selected state. Dynamic Type supports text up to 1.6×. Reduce Motion or Calm Mode keeps confetti off."
+      }
+    ]
+  }
+}

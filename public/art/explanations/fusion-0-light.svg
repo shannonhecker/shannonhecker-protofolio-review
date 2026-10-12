@@ -1,0 +1,17 @@
+<svg width="336" height="438" viewBox="0 0 336 438" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="437" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="437" rx="3.5" stroke="#D6DCE1"/>
+<path d="M269 25H69C66.7909 25 65 26.7909 65 29V53C65 55.2091 66.7909 57 69 57H269C271.209 57 273 55.2091 273 53V29C273 26.7909 271.209 25 269 25Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="75" y="45.8636">Widgets: tables &#xb7; charts</tspan></text>
+<path d="M168 61V77M172 73L168 77L164 73" stroke="#705D8D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M269 81H69C66.7909 81 65 82.7909 65 85V109C65 111.209 66.7909 113 69 113H269C271.209 113 273 111.209 273 109V85C273 82.7909 271.209 81 269 81Z" fill="#705D8D" stroke="#705D8D"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="75" y="101.864">Fusion layer I built</tspan></text>
+<path d="M168 117V133M172 129L168 133L164 129" stroke="#705D8D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M269 137H69C66.7909 137 65 138.791 65 141V165C65 167.209 66.7909 169 69 169H269C271.209 169 273 167.209 273 165V141C273 138.791 271.209 137 269 137Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="75" y="157.864">Salt foundation</tspan></text>
+<path d="M281 154H305V97H279" stroke="#56616B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="192.864">Missing patterns contributed back</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">Salt &#x2192; Fusion &#x2192; widgets</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">I built tokens, components, patterns and </tspan><tspan x="13" y="298.618">accessibility layers on Salt: data tables, </tspan><tspan x="13" y="321.818">chart frames, filter bars and widget </tspan><tspan x="13" y="345.018">shells. Gaps went back upstream. Other </tspan><tspan x="13" y="368.218">Fusion teams reused the same </tspan><tspan x="13" y="391.418">components and patterns.</tspan></text>
+</svg>
+

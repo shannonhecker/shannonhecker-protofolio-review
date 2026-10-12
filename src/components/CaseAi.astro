@@ -19,7 +19,7 @@ import Journey from './dg/AuthoredJourney.astro';
 import ProductCapture from './ProductCapture.astro';
 import Demo from './Demo.astro';
 import FigmaUserFlow from './dg/FigmaUserFlow.astro';
-import Stack from './dg/Stack.astro';
+import VisualExplanation from './dg/VisualExplanation.astro';
 ---
 <section id="ai" data-tone="dark" class="band">
   <div class="wrap">
@@ -73,18 +73,7 @@ import Stack from './dg/Stack.astro';
       <div class="body">
         <DecisionMap project="ai" />
 
-        <Stack
-          label="How a screen is built, from the person to the exported code"
-          layers={[
-            { t: 'The person', d: 'I write the prompt, then compare and tune before exporting.', side: 'Where decisions happen' },
-            { t: 'The model', d: 'Claude drafts the screen. A draft, never the final answer.' },
-            { t: 'Token mapping', d: 'Tokens, density scales and theming for five systems in one structure. The mapping resolves system-specific props and uses fallbacks where an equivalent is missing.', mine: true, side: 'The part I designed' },
-            { t: 'Component mapping', d: "Published React components where available; explicit markup fallbacks and a class-based in-house system.", side: 'Salt · Material · Fluent · Carbon · my own' },
-            { t: 'Export', d: 'React a developer can inspect.' },
-          ]}
-          legend="The layer I designed"
-          caption="Switch system, density or theme and the screen rebuilds, because every layer below the model is mapped, not generated."
-        />
+        <VisualExplanation project="ai" />
       </div>
     </div>
 

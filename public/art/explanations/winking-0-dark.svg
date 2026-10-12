@@ -1,0 +1,23 @@
+<svg width="336" height="391" viewBox="0 0 336 391" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="390" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="390" rx="3.5" stroke="#46515F"/>
+<path d="M100 37H22C19.7909 37 18 38.7909 18 41V157C18 159.209 19.7909 161 22 161H100C102.209 161 104 159.209 104 157V41C104 38.7909 102.209 37 100 37Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="30" y="58.5">iPhone</tspan></text>
+<path d="M30 80H92" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M30 97H92" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M30 114H92" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M310 37H232C229.791 37 228 38.7909 228 41V157C228 159.209 229.791 161 232 161H310C312.209 161 314 159.209 314 157V41C314 38.7909 312.209 37 310 37Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="240" y="58.5">Web</tspan></text>
+<path d="M240 80H302" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M240 97H302" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M240 114H302" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M150 78H22C19.7909 78 18 79.7909 18 82V106C18 108.209 19.7909 110 22 110H150C152.209 110 154 108.209 154 106V82C154 79.7909 152.209 78 150 78Z" fill="#B9D5B8" stroke="#B9D5B8"/>
+<text fill="#222933" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="28" y="98.8636">Sample or create</tspan></text>
+<path d="M310 78H176C173.791 78 172 79.7909 172 82V106C172 108.209 173.791 110 176 110H310C312.209 110 314 108.209 314 106V82C314 79.7909 312.209 78 310 78Z" fill="#B9D5B8" stroke="#B9D5B8"/>
+<text fill="#222933" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="182" y="98.8636">Theme &#x2192; gate</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="171" y="141.5">Then child details</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="13" letter-spacing="0em"><tspan x="35" y="189.727">Two distinct starting points</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">First run</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">iPhone offers Try the Sample Family </tspan><tspan x="13" y="298.618">beside family creation. Web starts with a </tspan><tspan x="13" y="321.818">theme and a grown-up check, then child </tspan><tspan x="13" y="345.018">details. The two entry points are shown </tspan><tspan x="13" y="368.218">separately.</tspan></text>
+</svg>
+
