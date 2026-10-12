@@ -889,3 +889,9 @@ Validation: production build and Astro check pass with zero errors and warnings.
 I removed the User flow in detail and Actions, branches and returns sections from all five case pages. The visual flow and illustrated Workflow at a glance remain together, without the duplicated prose between them. I also removed the image description promising a text section that no longer follows.
 
 Validation: production build and Astro check pass. The full browser run passed 231 checks; 21 Safari checks failed during a widespread slowdown involving menu clicks, navigation and theme changes. Three passed on a sequential retry; the remaining run was stopped after continued stalls. Chromium verifies the section removal on all five projects. Safari verification remains incomplete.
+
+### Remove public Figma links · 12 October 2026
+
+I removed View in Figma links from the flow maps, decision maps, workflow summaries and explanation graphics across every case. I also removed the unused external source URLs from the product artwork metadata. Figma source manifests remain in the repository for editing.
+
+Validation: production build and Astro check pass. All five built case pages contain no Figma links. The attempted browser checks timed out amid continued local browser slowdown and were stopped; browser regression verification is incomplete.

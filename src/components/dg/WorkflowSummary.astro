@@ -1,16 +1,12 @@
 ---
 import content from '../../data/workflow-summaries.json';
-import manifest from '../../data/figma-workflow-summaries.json';
-import FlatArrow from '../FlatArrow.astro';
 interface Props { project: keyof typeof content }
 const {project}=Astro.props;
 const artwork=import.meta.glob<string>('../../../public/art/workflow-summaries/*.svg',{query:'?raw',import:'default',eager:true});
 const summary: {label:string;caption:string;steps:{t:string;d:string;branch?:{t:string;d:string}}[]}=content[project];
-const frame=manifest.frames.find(f=>f.key===project&&f.theme==='dark')!;
-const source=`https://www.figma.com/design/${manifest.fileKey}?node-id=${frame.nodeId.replace(':','-')}`;
 ---
 <section class="workflow-summary" aria-labelledby={`${project}-summary-title`}>
- <div class="summary-heading"><h4 id={`${project}-summary-title`}>Workflow at a glance</h4><a href={source} target="_blank" rel="noopener">View in Figma <FlatArrow /></a></div>
+ <div class="summary-heading"><h4 id={`${project}-summary-title`}>Workflow at a glance</h4></div>
  <p class="summary-intro">Illustrated summary · read in numbered order</p>
  <ol aria-label={summary.label}>
   {summary.steps.map((step,index)=><li>
@@ -23,7 +19,7 @@ const source=`https://www.figma.com/design/${manifest.fileKey}?node-id=${frame.n
 .workflow-summary{margin-top:40px;min-width:0}
 .summary-heading{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:12px}
 .summary-heading h4{margin:0;font-size:22px;line-height:1.4;font-weight:500;color:var(--fg)}
-.summary-heading a{display:inline-flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap}
+
 .summary-intro,.summary-caption{font-size:14px;line-height:1.65;color:var(--fg-2);margin:0 0 20px}
 .summary-caption{margin:20px 0 0;max-width:70ch}
 ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;list-style:none;padding:0;margin:0}

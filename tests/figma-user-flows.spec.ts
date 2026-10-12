@@ -3,7 +3,6 @@ import {test,expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 const explanations=JSON.parse(readFileSync(new URL('../src/data/visual-explanations.json',import.meta.url),'utf8'));
 const summaries=JSON.parse(readFileSync(new URL('../src/data/workflow-summaries.json',import.meta.url),'utf8'));
-const maps=JSON.parse(readFileSync(new URL('../src/data/figma-user-flows.json',import.meta.url),'utf8'));
 const content=JSON.parse(readFileSync(new URL('../src/data/user-flow-content.json',import.meta.url),'utf8')) as typeof import('../src/data/user-flow-content.json'); 
 
 for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],['winking','/winking-star'],['deal','/deal-model']] as const){
@@ -40,7 +39,7 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
   await expect(flow.getByRole('heading',{name:'Actions, branches and returns',exact:true})).toHaveCount(0);
   await expect(flow.locator('details')).toHaveCount(0);
   await expect(flow.locator('.workflow-summary')).toBeVisible();
-  await expect(flow.locator('.flow-tools a')).toHaveAttribute('href',new RegExp(maps.fileKey));
+  await expect(page.locator('a[href*="figma.com"]')).toHaveCount(0);
   await expect(flow.locator('.flow-scope')).toContainText(content[project].scope);
  });
  test(`${project} illustrated summary stays readable and changes theme`,async({page})=>{
