@@ -93,7 +93,7 @@ test('touch devices show all heading words without waiting for desktop motion', 
   await context.close();
 });
 
-test('optional game follows the introduction on both landing URLs',async({page})=>{
+test('optional game follows the introduction and panel selected work',async({page})=>{
   for(const width of [390,1440]){
     await page.setViewportSize({width,height:900});
     for(const route of ['/','/panel']){
@@ -103,6 +103,10 @@ test('optional game follows the introduction on both landing URLs',async({page})
       const game=await page.locator('.hero-bonus').boundingBox();
       expect(game!.y).toBeGreaterThan(story!.y+story!.height);
       expect(game!.y).toBeGreaterThan(avatar!.y+avatar!.height);
+      if(route==='/panel'){
+        const work=await page.locator('#work').boundingBox();
+        expect(game!.y).toBeGreaterThan(work!.y+work!.height);
+      }
     }
   }
 });

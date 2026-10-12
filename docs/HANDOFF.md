@@ -125,3 +125,11 @@ Finale weapon: starlight wand is equipped in stage 7. X/J, gamepad button 2, or 
 Latest instruction: finish the website changes and push them all live; Claude is independently improving Figma, so do not overwrite those frames. Website scroll motion uses the existing GSAP ScrollTrigger plugin, loaded on first scroll. Reversible masked words and staggered image/caption timelines use shorter touch movement and matchMedia cleanup for reduced motion. Keep product screenshots complete. The home intro uses a ~1.3s sequence; derive elapsed time from document.timeline and animation.startTime, because finished animation.currentTime is clamped.
 
 Music scores live in `src/game/music-score.ts`: eight stage songs plus a map waltz, each with original phrasing, metre, bass and percussion. Stage switching stops all old music voices and resets the score; tests observe Web Audio scheduling rather than only track names. Baby milestones are **2018 and 2021**, per Shannon's correction on 11 October.
+
+### Evidence-led hiring review follow-up · 12 October 2026
+
+Shannon approved the hiring-review plan. The case order is now Fusion, Winking Star, FX, Deal Model, uoaui.ai, with the optional game after selected work on `/panel`. This supersedes the old panel-hero game placement. Full case copy remains, with new summaries after the opening images.
+
+Shannon confirmed that custom-component proliferation was a Fusion problem, and that she audited/grouped the components and regularly reviewed fixes with developers. No numerical impact was supplied. She also confirmed Yu-Hsuan Chen is her legal name and Shannon Hecker her professional name; Winking Star now explains the App Store seller name.
+
+Continue the one-question-at-a-time evidence interview using docs/REVOLUT-EVIDENCE.md. Winking Star results have been requested and are pending. Do not invent missing adoption, testing, audit scope or dates; presentation improvements do not by themselves close the hiring-review evidence gaps.

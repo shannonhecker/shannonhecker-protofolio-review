@@ -1,6 +1,7 @@
 ---
 import data from '../data/deal-content.json';
 import CaseContents from './CaseContents.astro';
+import CaseEvidenceSummary from './CaseEvidenceSummary.astro';
 import AuthoredImage from './AuthoredImage.astro';
 import Personas from './dg/AuthoredPersonas.astro';
 import Journey from './dg/AuthoredJourney.astro';
@@ -21,6 +22,7 @@ import ProductCapture from './ProductCapture.astro';
    <ProductCapture name="/art/deal-hero-composition.svg" alt="Original Deal Model composition with overlapping market pricing comparison and deal approval overview screens" href="https://www.figma.com/design/l6noy7onfsRiuBgjqSsKbt?node-id=345-343583" label="Original Deal Model design composition" eager />
   </div>
  </header>
+    <CaseEvidenceSummary project="deal" />
  <CaseContents project="deal" />
  <div class="beat rv" id="deal-problem"><div class="label"><h2 class="k"><b>01</b> Problem</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.problem.title}/><ul class="rows">{data.problem.rows.map(r=><li><b>{r.label}</b><p>{r.text}</p></li>)}</ul></div></div>
  <div class="beat rv" id="deal-research"><div class="label"><h2 class="k"><b>02</b> Users and research</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.research.title}/><ul class="rows">{data.research.rows.map(r=><li><b>{r.label}</b><p>{r.text}</p></li>)}</ul><Personas project="deal"/></div></div>

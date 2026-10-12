@@ -63,9 +63,9 @@ for (const [label, path, title] of [
 test('each case page ends with the next case', async ({ page }) => {
   await page.goto('/uoaui');
   const next = page.locator('.next-case a.row');
-  await expect(next).toHaveAttribute('href', '/fx');
+  await expect(next).toHaveAttribute('href', '/fusion');
   await next.click();
-  await expect(page).toHaveURL(/\/fx$/);
+  await expect(page).toHaveURL(/\/fusion$/);
 });
 
 test('Winking Star tick demo reaches 6 of 6', async ({ page }) => {

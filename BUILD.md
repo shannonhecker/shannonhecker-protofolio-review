@@ -815,3 +815,11 @@ I reviewed the home and panel pages, all five cases, Privacy, the build log and 
 I brought the supporting pages into one shared layout with navigation, theme controls, a skip link and consistent reading spacing. The active project now stays highlighted in both themes. I also made the analytics notice follow the site colours and kept the missing-page return link readable when changing theme. The case copy, product screenshots and project-specific diagrams remain intact.
 
 Validation: production build passes; Astro check reports zero errors and warnings; all 216 browser tests pass across Chromium and iPhone WebKit. I checked phone and desktop layouts, both themes, real mobile-menu navigation, section order, utility-page accessibility, consent-notice contrast and the existing media/game regressions. The review record is in docs/UI-UX-REVIEW.md.
+
+### Evidence-led panel presentation · 12 October 2026
+
+I now lead with Fusion and Winking Star, followed by FX, Deal Model and uoaui.ai. The navigation, case numbers and next-case links follow that order. Each case has a concise contribution, delivery and evidence summary after its opening product images, while the detailed narrative stays intact. The optional career game follows selected work on the panel page.
+
+I added my confirmed Fusion component-audit and developer-review work, the Winking Star launch year, and the connection between my legal publishing name, Yu-Hsuan Chen, and Shannon Hecker. I have not added unmeasured outcomes. Outstanding evidence questions are tracked in docs/REVOLUT-EVIDENCE.md.
+
+Validation: production build and Astro check pass, with zero errors and warnings. All 218 browser checks passed for the presentation changes; the final publishing-name copy is also checked with the responsive shell and evidence-summary checks. The tests cover the new reading order, the relocated game link, summary placement and contrast in both themes. I reviewed the desktop and phone presentation.
