@@ -71,7 +71,7 @@
   "deal": {
     "name": "Deal Model",
     "title": "One deal, four views, a bridge from Excel",
-    "caption": "I asked what each team needed to see and change, rather than asking them to agree on one design. The upload-template idea came from a user session; I worked it through with the BA.",
+    "caption": "I asked what each team needed to see and change, rather than asking them to agree on one design.",
     "cards": [
       {
         "title": "A shared object, role-specific views",

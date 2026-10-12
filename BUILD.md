@@ -1029,3 +1029,9 @@ Copy: I removed the repeats, not the facts. The "How I tested" lists under the F
 The FX decision section is labelled "Decision map" like the other four cases; it was the one page calling it "Design decisions", and the navigation test for it had been failing.
 
 Validation: production build passes and all 256 Playwright tests pass. Four test expectations changed with the design: the header blur and opacity, the next case after uoaui.ai, the dark-theme image surface, and the count of themed journey artwork.
+
+### Spacing consistency and reading comfort · 12 October 2026
+
+I measured every computed padding, gap, font size and line height across all pages at phone, tablet and desktop. Body text sits at 16 to 17px with 1.65 to 1.8 line height, which is comfortable, so the fixes are about consistency. Sub-heading labels now sit 12px above their text everywhere; before, the same role used 8, 10 or 12px depending on the component. Leads are capped at 52ch and the case summary note at 70ch, because both ran past 80 characters a line on desktop. Captions, status lines and art notes that were 13px are 14px. The Deal Model constraints caption no longer repeats the upload-template sentence that "What was mine" already says.
+
+Validation: production build passes and all 256 Playwright tests pass.
