@@ -1,19 +1,21 @@
-<svg width="336" height="391" viewBox="0 0 336 391" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="0.5" y="0.5" width="335" height="390" rx="3.5" fill="white"/>
-<rect x="0.5" y="0.5" width="335" height="390" rx="3.5" stroke="#D6DCE1"/>
-<path d="M299 35H39C36.7909 35 35 36.7909 35 39V167C35 169.209 36.7909 171 39 171H299C301.209 171 303 169.209 303 167V39C303 36.7909 301.209 35 299 35Z" fill="white" stroke="#D6DCE1"/>
-<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="54" y="59.5909">The week keeps growing</tspan></text>
-<path d="M59 105C64.5228 105 69 100.523 69 95C69 89.4772 64.5228 85 59 85C53.4772 85 49 89.4772 49 95C49 100.523 53.4772 105 59 105Z" fill="#4F7352"/>
-<path d="M95 105C100.523 105 105 100.523 105 95C105 89.4772 100.523 85 95 85C89.4772 85 85 89.4772 85 95C85 100.523 89.4772 105 95 105Z" fill="#4F7352"/>
-<path d="M131 105C136.523 105 141 100.523 141 95C141 89.4772 136.523 85 131 85C125.477 85 121 89.4772 121 95C121 100.523 125.477 105 131 105Z" fill="#4F7352"/>
-<path d="M167 105C172.523 105 177 100.523 177 95C177 89.4772 172.523 85 167 85C161.477 85 157 89.4772 157 95C157 100.523 161.477 105 167 105Z" fill="#D6DCE1"/>
-<path d="M203 105C208.523 105 213 100.523 213 95C213 89.4772 208.523 85 203 85C197.477 85 193 89.4772 193 95C193 100.523 197.477 105 203 105Z" fill="#4F7352"/>
-<path d="M239 105C244.523 105 249 100.523 249 95C249 89.4772 244.523 85 239 85C233.477 85 229 89.4772 229 95C229 100.523 233.477 105 239 105Z" fill="#4F7352"/>
-<path d="M275 105C280.523 105 285 100.523 285 95C285 89.4772 280.523 85 275 85C269.477 85 265 89.4772 265 95C265 100.523 269.477 105 275 105Z" fill="#4F7352"/>
-<path d="M52 130H283" stroke="#D6DCE1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M52 130H202" stroke="#4F7352" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="54" y="157.864">Earned progress stays</tspan></text>
-<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">A missed day</tspan></text>
-<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">Fewer stars, never negative stars or red </tspan><tspan x="13" y="298.618">warnings. The pet keeps the growth </tspan><tspan x="13" y="321.818">earned from routines already completed.</tspan></text>
+<svg width="336" height="527" viewBox="0 0 336 527" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="526" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="526" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="33.8636">MISSED ROUTINE &#x2192; PROGRESS RETAINED</tspan></text>
+<path d="M302 51H36C33.2386 51 31 53.2386 31 56V104C31 106.761 33.2386 109 36 109H302C304.761 109 307 106.761 307 104V56C307 53.2386 304.761 51 302 51Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="73.5909">A routine is not completed</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="94.8636">The child earns fewer stars</tspan></text>
+<path d="M169 109V130M173 124L169 130L165 124" stroke="#4F7352" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M302 130H36C33.2386 130 31 132.239 31 135V183C31 185.761 33.2386 188 36 188H302C304.761 188 307 185.761 307 183V135C307 132.239 304.761 130 302 130Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="152.591">Keep the progress already earned</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="173.864">No negative stars or red warnings</tspan></text>
+<path d="M169 188V209M173 203L169 209L165 203" stroke="#4F7352" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M302 209H36C33.2386 209 31 211.239 31 214V262C31 264.761 33.2386 267 36 267H302C304.761 267 307 264.761 307 262V214C307 211.239 304.761 209 302 209Z" fill="white" stroke="#4F7352" stroke-width="1.5"/>
+<text fill="#4F7352" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="231.591">Continue across the week</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="252.864">The pet keeps its existing growth</tspan></text>
+<path d="M17 287H321" stroke="#D6DCE1" stroke-width="1.5" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="306.864">A quiet day does not erase earlier effort.</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="325.864">No reset or punishment is implied.</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="372.773">A missed day</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="411.418">Fewer stars, never negative stars or red </tspan><tspan x="13" y="434.618">warnings. The pet keeps the growth </tspan><tspan x="13" y="457.818">earned from routines already completed.</tspan></text>
 </svg>
-

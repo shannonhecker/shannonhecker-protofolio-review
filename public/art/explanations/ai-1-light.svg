@@ -1,36 +1,31 @@
-<svg width="336" height="461" viewBox="0 0 336 461" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="0.5" y="0.5" width="335" height="460" rx="3.5" fill="white"/>
-<rect x="0.5" y="0.5" width="335" height="460" rx="3.5" stroke="#D6DCE1"/>
-<path d="M285 23H53C50.7909 23 49 24.7909 49 27V51C49 53.2091 50.7909 55 53 55H285C287.209 55 289 53.2091 289 51V27C289 24.7909 287.209 23 285 23Z" fill="#8B5168" stroke="#8B5168"/>
-<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="59" y="43.8636">Tokens &#xb7; density &#xb7; theme</tspan></text>
-<path d="M168 60V76M172 72L168 76L164 72" stroke="#8B5168" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M71 92H23C20.7909 92 19 93.7909 19 96V155C19 157.209 20.7909 159 23 159H71C73.2091 159 75 157.209 75 155V96C75 93.7909 73.2091 92 71 92Z" fill="white" stroke="#D6DCE1"/>
-<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="24" y="113.773">Salt</tspan></text>
-<path d="M27 127H65" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M27 144H65" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M27 161H65" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M132 92H84C81.7909 92 80 93.7909 80 96V155C80 157.209 81.7909 159 84 159H132C134.209 159 136 157.209 136 155V96C136 93.7909 134.209 92 132 92Z" fill="white" stroke="#D6DCE1"/>
-<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="85" y="113.773">Material</tspan></text>
-<path d="M88 127H126" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M88 144H126" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M88 161H126" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M193 92H145C142.791 92 141 93.7909 141 96V155C141 157.209 142.791 159 145 159H193C195.209 159 197 157.209 197 155V96C197 93.7909 195.209 92 193 92Z" fill="white" stroke="#D6DCE1"/>
-<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="146" y="113.773">Fluent</tspan></text>
-<path d="M149 127H187" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M149 144H187" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M149 161H187" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M254 92H206C203.791 92 202 93.7909 202 96V155C202 157.209 203.791 159 206 159H254C256.209 159 258 157.209 258 155V96C258 93.7909 256.209 92 254 92Z" fill="white" stroke="#D6DCE1"/>
-<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="207" y="113.773">Carbon</tspan></text>
-<path d="M210 127H248" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M210 144H248" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M210 161H248" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M315 92H267C264.791 92 263 93.7909 263 96V155C263 157.209 264.791 159 267 159H315C317.209 159 319 157.209 319 155V96C319 93.7909 317.209 92 315 92Z" fill="white" stroke="#D6DCE1"/>
-<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="268" y="113.773">Own</tspan></text>
-<path d="M271 127H309" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M271 144H309" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M271 161H309" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="26" y="184.864">Components or explicit fallbacks</tspan></text>
-<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">One structure, five systems</tspan></text>
-<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">I designed the token, density and theme </tspan><tspan x="13" y="298.618">mapping. It resolves system-specific </tspan><tspan x="13" y="321.818">props across Salt, Material, Fluent, </tspan><tspan x="13" y="345.018">Carbon and my own system. Published </tspan><tspan x="13" y="368.218">React components are used where </tspan><tspan x="13" y="391.418">available; missing equivalents use </tspan><tspan x="13" y="414.618">explicit markup fallbacks, alongside a </tspan><tspan x="13" y="437.818">class-based in-house system.</tspan></text>
+<svg width="336" height="597" viewBox="0 0 336 597" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="596" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="596" rx="3.5" stroke="#D6DCE1"/>
+<g clip-path="url(#clip0_463_9440)">
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="33.8636">MAPPED LAYERS &#xb7; NOT GENERATED TOKENS</tspan></text>
+<path d="M302 51H36C33.2386 51 31 53.2386 31 56V104C31 106.761 33.2386 109 36 109H302C304.761 109 307 106.761 307 104V56C307 53.2386 304.761 51 302 51Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="73.5909">Screen structure from the model</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="94.8636">System &#xb7; density &#xb7; theme selected</tspan></text>
+<path d="M169 109V130M173 124L169 130L165 124" stroke="#8B5168" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M302 130H36C33.2386 130 31 132.239 31 135V183C31 185.761 33.2386 188 36 188H302C304.761 188 307 185.761 307 183V135C307 132.239 304.761 130 302 130Z" fill="white" stroke="#8B5168" stroke-width="1.5"/>
+<text fill="#8B5168" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="152.591">Mapping I designed</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="173.864">Tokens and system-specific props</tspan></text>
+<path d="M158 209H22C19.2386 209 17 211.239 17 214V262C17 264.761 19.2386 267 22 267H158C160.761 267 163 264.761 163 262V214C163 211.239 160.761 209 158 209Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="27" y="231.591">Component exists</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="27" y="252.864">Published React</tspan></text>
+<path d="M316 209H180C177.239 209 175 211.239 175 214V262C175 264.761 177.239 267 180 267H316C318.761 267 321 264.761 321 262V214C321 211.239 318.761 209 316 209Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="185" y="231.591">No equivalent</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="185" y="252.864">Explicit fallback</tspan></text>
+<path d="M17 287H321" stroke="#D6DCE1" stroke-width="1.5" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="306.864">Salt &#xb7; Material &#xb7; Fluent &#xb7; Carbon</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="325.864">Own system: class-based implementation.</tspan></text>
+<path d="M169 188V198M169 198H90V209M169 198H248V209M94 203L90 209L86 203M252 203L248 209L244 203" stroke="#8B5168" stroke-width="1.5"/>
+</g>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="372.773">One structure, five systems</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="411.418">I designed the token, density and theme </tspan><tspan x="13" y="434.618">mapping. It resolves system-specific </tspan><tspan x="13" y="457.818">props across Salt, Material, Fluent, </tspan><tspan x="13" y="481.018">Carbon and my own system. Published </tspan><tspan x="13" y="504.218">React components are used where </tspan><tspan x="13" y="527.418">available; missing equivalents use </tspan><tspan x="13" y="550.618">explicit markup fallbacks, alongside a </tspan><tspan x="13" y="573.818">class-based in-house system.</tspan></text>
+<defs>
+<clipPath id="clip0_463_9440">
+<rect width="312" height="320" fill="white" transform="translate(13 17)"/>
+</clipPath>
+</defs>
 </svg>
-

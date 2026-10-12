@@ -877,3 +877,9 @@ I reviewed the five cases for prose that describes relationships or behaviour, u
 The graphics replace the selected prose rather than sit beside duplicate paragraphs. My research accounts, design trade-offs, outcomes and evidence limitations remain explicit. Both themes use the site's typography and readable phone layouts; no content is placed behind accordions. The source manifest is src/data/figma-explanations.json.
 
 Validation: production build and Astro check pass with zero errors and warnings. All 252 Playwright checks pass, including Chromium and WebKit coverage of the new artwork at 320, 390, 820 and 1440 pixels in both themes. I reviewed the editable Figma compositions and the phone and desktop website renderings.
+
+### Detailed and scoped explanation diagrams · 12 October 2026
+
+I refined all 17 Figma explanation diagrams to name the actors, dependencies, transitions and implementation scope. Fusion now explains the direction of its layer dependencies; Deal Model shows four views of a shared record rather than a handoff; uoaui.ai shows the component/fallback branch and my review loop. Winking Star separates web and iPhone entry and describes the offline queue, midnight rollover and accessibility settings. I kept unspecified behaviour labelled and retained the original case evidence. The accessible descriptions now include the diagram labels.
+
+Validation: production build and Astro check pass with zero errors and warnings. I inspected all five revised Figma compositions, corrected the mapping branch endpoints, and reviewed phone dark mode and desktop light mode in the browser. Responsive tests cover both themes at 320, 390, 820 and 1440 pixels.
