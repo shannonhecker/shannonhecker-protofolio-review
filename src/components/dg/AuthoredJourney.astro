@@ -16,12 +16,7 @@ const portrait=portraits[`../../assets/img/personas/${project}-${portraitIndex}.
  <header class="process-heading"><h3 id={`${id}-title`}>User journey</h3><p>{data.line}</p></header>
  <div class="experience-context"><div><h4>Persona</h4><div class="experience-identity"><Image src={portrait} width={64} height={64} alt=""/><div><strong>{data.persona}</strong><p>{persona.role}</p></div></div></div><div><h4>Scenario</h4><p>{data.scenario}</p></div><div><h4>Goal</h4><p>{data.goal}</p></div></div>
  <ProductJourney project={project}/>
- {project!=='winking' && <section class="original-study" aria-labelledby={`${id}-original-title`}>
-  <header><h4 id={`${id}-original-title`}>Original journey study</h4><p>My original scenario map, retained here as design exploration. The curves are qualitative, not measured emotion scores.</p></header>
-  {project==='fx' ? <div class="experience-scroll" tabindex="0" role="region" aria-label="Original FX journey artwork. Scroll horizontally on smaller screens."><div class="fx-artwork-window"><img src="/art/fx-journey-original.svg" width="985" height="750" loading="lazy" decoding="async" alt="Original FX scenario study showing thoughts, feelings and approach feedback loops."/></div></div> : <div class="experience-scroll" tabindex="0" role="region" aria-label="Original thoughts, feelings and approach graphics. Scroll horizontally on smaller screens."><div class="experience-artwork"><ThemedArtwork name={`${project}-experience`} width={985} height={357} alt={`Original qualitative scenario study for ${data.persona}`}/><ThemedArtwork name={`${project}-approach`} width={872} height={156} alt={data.approachText.join('. ')}/></div></div>}
-  <section class="experience-transcript"><h4>Thoughts and turning points in the scenario</h4><ol>{data.quotes.map(q=><li>{q}</li>)}</ol></section>
- </section>}
- <div class="experience-takeaways">{data.takeaways.map(t=><div><h4>{t.label}</h4><p>{t.text}</p></div>)}</div>
+ {data.takeaways.length>0 && <div class="experience-takeaways">{data.takeaways.map(t=><div><h4>{t.label}</h4><p>{t.text}</p></div>)}</div>}
 </section>
 <style>
 .authored-journey{min-width:0;margin-block:64px 96px;scroll-margin-top:140px}

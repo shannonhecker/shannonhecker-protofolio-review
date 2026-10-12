@@ -31,7 +31,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
     <header class="chapter-head">
       <div class="g" style="row-gap:28px;align-items:end">
         <div style="grid-column:1/9;display:grid;gap:24px">
-          <p class="eyebrow">Case three · Barclays · 2025 to now</p>
+          <p class="eyebrow">Case one · Barclays · 2025 to now</p>
           <HT class="h-chapter" style="view-transition-name:t-fx">FX execution analytics</HT>
         </div>
         <p class="lead muted" style="grid-column:1/9">A trader works a large FX order over hours and keeps deciding whether to step in or leave it. The desk did that across a static chart, five spreadsheets and a separate execution tool.</p>
@@ -97,12 +97,6 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="Three calls that defined the product. Each one had a real alternative." />
         <DecisionMap project="fx"><FxOriginalFlow slot="flow" /></DecisionMap>
-        <ul class="rows" aria-label="How each call was tested">
-          <li><b>What informed the canvas call</b><p>I sat with traders during live trading and asked what they were looking at, what they were waiting for and what would make them act. I chose one canvas so price and progress stayed in the same field of view. That was a design judgement informed by observation; I did not run a measured comparison of the two layouts.</p></li>
-          <li><b>How I tested reprice</b><p>The limit price log first: orders changed mid-flight, several times each. Then a menu-based edit beside drag-to-reprice in the spec review with the business and the vendor. The spec was written line by line so each side could say yes or no to it, and drag went in as the build contract.</p></li>
-          <li><b>How I tested the studies</b><p>In code exploration, not a user study. Working with real-shaped data exposed gaps in the order’s own fills, which the vendor confirmed. I reversed the specification so studies used market prices. The current public rebuild does not include the study-source picker.</p></li>
-          <li><b>What rollout adds</b><p>Three measures agreed with the business: price move to trader action, tool switches per order, usage per feature. Until those run, the records above are what I have.</p></li>
-        </ul>
       </div>
     </div>
 
@@ -159,14 +153,14 @@ import BeforeAfter from './dg/BeforeAfter.astro';
     </div>
 
     <div class="beat rv" id="fx-outcome">
-      <div class="label"><HL class="k"><b>08</b> Outcome</HL></div>
+      <div class="label"><HL class="k"><b>08</b> Status and planned measures</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Where it is today, and how it will be measured." />
-        <div class="metrics">
-          <div class="metric"><span class="big" data-count="6">6</span><span>build phases. The spec was accepted by business and vendor as the contract</span></div>
-          <div class="metric"><span class="big w">Beta</span><span>in use with internal users at Barclays today</span></div>
-          <div class="metric"><span class="big" data-count="3">3</span><span>measures agreed for rollout. Price move to action, tool switches per order, usage per feature</span></div>
-        </div>
+        <ul class="rows outcome-rows" aria-label="Status and planned measures">
+          <li><b>6 build phases</b><p>The spec was accepted by business and vendor as the contract.</p></li>
+          <li><b>Beta</b><p>In use with internal users at Barclays today.</p></li>
+          <li><b>3 measures agreed for rollout</b><p>Price move to action, tool switches per order, usage per feature.</p></li>
+        </ul>
         <Demo src="/media/fx-current.webm" poster="live-fx-compare.png" width={1600} height={1000} label="Enhanced view, filter controls, comparison and the order ticket. All data is simulated." description="Silent recording. It opens the Enhanced view, works through the filter controls, compares orders, then opens the order ticket." />
         <ProductCapture name="live-fx-filters.png" alt="The current FX filters for venue, fill side and execution states" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Filter controls" />
         <p class="muted measure">No adoption numbers yet. Rollout brings three measures, and I'll hold the design to them the way I hold the data. What I'd do differently: direct trader access earlier, instead of going through the business first. And the vendor's engine limits discovered in week one, not mid-spec.</p>

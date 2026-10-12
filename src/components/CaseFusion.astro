@@ -25,7 +25,7 @@ import VisualExplanation from './dg/VisualExplanation.astro';
     <header class="chapter-head">
       <div class="g" style="row-gap:28px;align-items:end">
         <div style="grid-column:1/9;display:grid;gap:24px">
-          <p class="eyebrow">Case one · J.P. Morgan · 2023 to 2025 · shipped</p>
+          <p class="eyebrow">Case two · J.P. Morgan · 2023 to 2025 · shipped</p>
           <HT class="h-chapter" style="view-transition-name:t-fusion">Fusion analytics dashboard</HT>
         </div>
         <p class="lead muted" style="grid-column:1/9">Portfolio managers and analysts were drowning in fragmented data. Their real need was trust in the numbers, not more features. Performance, attribution and risk they could take into a board meeting.</p>
@@ -83,11 +83,6 @@ import VisualExplanation from './dg/VisualExplanation.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="What I tried, what I dropped, and why." />
         <DecisionMap project="fusion" />
-        <ul class="rows" aria-label="How each call was tested">
-          <li><b>How I tested the widget grid</b><p>Internal users first, weekly reviews on their real portfolios. I built the configurable page so they could set it up themselves, and I watched what they chose. That gave me the default layout, and it is why the grid held.</p></li>
-          <li><b>How I tested the tier cut</b><p>Watching people use the three configuration levels in those same reviews. The middle tier added choices without changing what anyone built. I removed it and the first useful view came faster. No timed study, so no number.</p></li>
-          <li><b>How I tested the shared screens</b><p>Through the client-facing team, because they knew what a client gets asked at a board meeting. Two clients tested before phase two went wide. That is the full record. I don't present it as a study.</p></li>
-        </ul>
 
         <ProductCapture name="live-fusion-config.png" alt="The current Fusion performance table beside its configuration panel" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Configure performance" />
       </div>
@@ -113,11 +108,11 @@ import VisualExplanation from './dg/VisualExplanation.astro';
       <div class="label"><HL class="k"><b>06</b> Outcome</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Shipped, adopted, and opened to clients." />
-        <div class="metrics">
-          <div class="metric"><span class="big w">Reviewed</span><span>I worked closely with an ADA specialist on a specific flow and used developer tools to run accessibility checks. This describes the flow reviewed, not a product-wide audit or WCAG certification.</span></div>
-          <div class="metric"><span class="big w">Adopted</span><span>widget and filtering patterns reused across other Fusion modules</span></div>
-          <div class="metric"><span class="big w">Phase 2</span><span>opened the product to external clients</span></div>
-        </div>
+        <ul class="rows outcome-rows" aria-label="Outcome">
+          <li><b>Reviewed</b><p>I worked closely with an ADA specialist on a specific flow and used developer tools to run accessibility checks. This describes the flow reviewed, not a product-wide audit or WCAG certification.</p></li>
+          <li><b>Adopted</b><p>Widget and filtering patterns reused across other Fusion modules.</p></li>
+          <li><b>Phase 2</b><p>Opened the product to external clients.</p></li>
+        </ul>
         <ProductCapture name="/art/fusion-screening.svg" alt="Original Fusion screening workspace showing screening changes and their status" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Screening" />
         <ProductCapture name="/art/fusion-entity-comparison.svg" alt="Original Fusion Sustainable Investment design comparing two entities across ESG, emissions and controversies" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Original Fusion Sustainable Investment design" />
       </div>

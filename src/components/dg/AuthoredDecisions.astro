@@ -21,7 +21,7 @@ const decisions = data.decisions.map((decision, index) => {
 ---
 <section class="authored-decisions" id={`${project}-decision-map`} aria-labelledby={`${project}-decision-map-title`}>
   <header class="process-heading">
-    <h3 id={`${project}-decision-map-title`}>{project === 'fx' ? 'Design decisions' : 'Decision map'}</h3>
+    <h3 id={`${project}-decision-map-title`}>Decision map</h3>
     <p>{review.intro}</p>
   </header>
 
@@ -63,7 +63,6 @@ const decisions = data.decisions.map((decision, index) => {
     </div>
     <div class="decision-evidence">
       <div><h5>What informed the decision</h5><p>{r.evidence}</p></div>
-      <div><h5>Where it stands</h5><p>{r.result}</p></div>
     </div>
   </li>)}</ol>
 </section>
@@ -99,6 +98,7 @@ const decisions = data.decisions.map((decision, index) => {
 /* Raster comparison labels are authored for a light surface in both themes. */
 .authored-choice-pair :global(.authored-image-link){background:#fff;padding:clamp(10px,1.4vw,20px);border:0;box-sizing:border-box;border-radius:var(--radius);overflow:hidden}
 .authored-choice-pair :global(.authored-image-link img){border-radius:0}
+:global(html[data-theme=dark]) .authored-choice-pair :global(.authored-image-link){background:var(--bg-2);border:1px solid var(--divider)}
 .authored-choice-pair figcaption{margin-top:18px}
 .choice-title{display:block;font-size:18px;line-height:1.45;font-weight:500}
 .authored-choice-pair figcaption p{font-size:15px;line-height:1.6;color:var(--fg-2);margin:10px 0 0;max-width:54ch}
@@ -106,7 +106,7 @@ const decisions = data.decisions.map((decision, index) => {
 .authored-decision-reason,.decision-evidence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;margin-top:32px}
 .authored-decision-reason>div,.decision-evidence>div{min-width:0}
 .authored-decision-reason p,.decision-evidence p{font-size:16px;line-height:1.65;color:var(--fg-2);margin:0;max-width:62ch}
-.decision-evidence{padding-top:28px;border-top:1px solid var(--divider)}
+.decision-evidence{padding-top:28px;border-top:1px solid var(--divider);grid-template-columns:1fr}
 @media(max-width:760px){
  .decision-index ol,.decision-connections,.authored-choice-pair,.authored-decision-reason,.decision-evidence{grid-template-columns:1fr;gap:28px}
  .decision-index ol{gap:0}.decision-index a{padding-block:16px}

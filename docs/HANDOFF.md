@@ -139,3 +139,13 @@ Shannon clarified Fusion accessibility: a specific flow, close work with an ADA 
 ## Always-visible case-study content · 12 October 2026
 
 Shannon does not want case-study content hidden behind accordions or expandable disclosures. Keep all explanations, workflow summaries, caregiver steps and reference diagrams visible in the page. Do not reintroduce collapsed details/summary blocks to shorten the cases. Mobile navigation and map zoom controls remain separate interactive controls.
+
+## Hiring-review fixes · 12 October 2026 (evening)
+
+Shannon answered the review questions one at a time:
+- Copy: trim repeats, keep every fact, one hedge per claim. The 10 October "no cuts" rule is superseded by this scoped trim; new claims are still forbidden.
+- Case order: FX, Fusion, Deal Model, Winking Star, uoaui.ai. The game sits after selected work on home and panel.
+- Deal Model years: 2022 to 2023, as Shannon typed them.
+- uoaui.ai: landing, comparison and UI Kit are public; the builder needs an invited sign-in. The status line says so.
+- Deal Model screens: trim empty canvas only, keep every control and the footer. Trimmed copies are `source-242-*-trim.png`; originals remain for sync.
+- Outcome tiles: statements, not tiles, for Fusion and FX; FX section labelled "Status and planned measures". Winking Star keeps its figures.

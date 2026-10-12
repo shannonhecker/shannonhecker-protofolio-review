@@ -1,7 +1,6 @@
 ---
 interface Props { panel?: boolean }
 const { panel = false } = Astro.props;
-import OptionalAdventure from './OptionalAdventure.astro';
 import LandingCompanion from './LandingCompanion.astro';
 ---
 <header id="top" data-tone="light" class="hero adventure-hero">
@@ -13,6 +12,5 @@ import LandingCompanion from './LandingCompanion.astro';
       <a class="explore-work" href="#work">Explore my work<span aria-hidden="true">↓</span></a>
     </div>
     <LandingCompanion />
-    {!panel && <OptionalAdventure />}
   </div>
 </header>

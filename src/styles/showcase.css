@@ -332,12 +332,16 @@ html .nav,html[data-theme=dark] .nav{background:var(--bg)!important;-webkit-back
 .nav.solid a.l{color:var(--fg)}
 @supports ((backdrop-filter:blur(16px)) or (-webkit-backdrop-filter:blur(16px))){
  html .nav.solid,html[data-theme=dark] .nav.solid{
-  background:color-mix(in srgb,var(--bg) 78%,transparent)!important;
-  -webkit-backdrop-filter:blur(16px) saturate(115%);backdrop-filter:blur(16px) saturate(115%);
+  background:color-mix(in srgb,var(--bg) 92%,transparent)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(115%);backdrop-filter:blur(20px) saturate(115%);
   box-shadow:inset 0 1px 0 rgb(255 255 255 / 12%);
  }
 }
 @media(prefers-reduced-transparency:reduce),(forced-colors:active){
+ html .nav.solid,html[data-theme=dark] .nav.solid{background:var(--bg)!important;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+}
+/* Phones scroll large headings under the bar; keep it fully opaque there. */
+@media(max-width:760px){
  html .nav.solid,html[data-theme=dark] .nav.solid{background:var(--bg)!important;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
 }
 @media(prefers-reduced-motion:reduce){html .nav{transition:none}}

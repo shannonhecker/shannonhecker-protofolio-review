@@ -11,6 +11,7 @@ test('avatar cursor follows the pointer, changes outfit by page and yields to na
  await page.keyboard.press('Tab');
  await expect(page.locator('html')).not.toHaveClass(/avatar-cursor-active/);
  await page.goto('/fusion');
+ const consent=page.getByRole('button',{name:'No thanks'});if(await consent.isVisible())await consent.click();
  await page.mouse.move(700,400);
  await expect(page.locator('.avatar-cursor')).toHaveAttribute('data-outfit','tower');
  await page.mouse.move(780,450);

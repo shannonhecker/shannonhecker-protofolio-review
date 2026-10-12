@@ -69,7 +69,8 @@ test('every project selects explicit diagram colours from the site theme', async
   for (const route of ['/fx','/fusion','/winking-star','/deal-model','/uoaui']) {
     await page.goto(route);
     await page.addStyleTag({content:'.theme-artwork{color-scheme:light!important}'});
-    const count=route==='/fx'?5:2;
+    // Only FX keeps themed artwork after the journey curves were removed on 12 October 2026.
+    const count=route==='/fx'?5:0;
     for (const theme of ['dark','light']) {
       await setTheme(page,theme==='dark');
       await expect(page.locator(`[data-artwork-theme="${theme}"]:visible`)).toHaveCount(count);
@@ -117,7 +118,8 @@ test('comparison artwork keeps a readable support surface in both themes across 
           };
         })));
         for (const image of rendered) {
-          expect(image.surface, `${route} at ${width}px, dark=${dark}`).toBe('rgb(255, 255, 255)');
+          // Dark theme frames the light screenshots on the raised surface instead of a white slab.
+          expect(image.surface, `${route} at ${width}px, dark=${dark}`).toBe(dark ? 'rgb(34, 40, 50)' : 'rgb(255, 255, 255)');
           expect(image.filter).toBe('none');
           expect(image.fullImage, `${route} ${width}: ${image.dimensions}`).toBe(true);
           expect(image.covered).toBe(true);

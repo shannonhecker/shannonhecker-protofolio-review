@@ -1015,3 +1015,17 @@ Validation: production build and all five case-summary browser checks pass. The 
 I inspected the original stakeholder-summary file and traced the unwanted glow to two purple, upward-offset shadows in the existing hero export. I replaced them with one neutral 14% black shadow, a 6px downward offset and 7px blur in the source SVG and all four responsive versions. The embedded product screens and their placement remain unchanged.
 
 Validation: production build and Deal Model layout check pass. I inspected fresh light and dark renders and refreshed the responsive asset provenance hashes.
+
+### Hiring-review fixes · 12 October 2026
+
+I reviewed the live site as a Revolut hiring panel would and fixed what that review found. The case order is now FX, Fusion, Deal Model, Winking Star, uoaui.ai, with the optional game after the selected work on both the home page and the panel page. Deal Model shows 2022 to 2023 in its eyebrow and index line. The uoaui.ai status says which parts are public and which need an invited sign-in.
+
+The scrolled navigation is now 92% opaque with a stronger blur, so headings no longer read through it on a phone. Decision images keep their white padding in the light theme and sit on the raised dark surface with a hairline in the dark theme. Five Deal Model screens that had a tall band of empty canvas between the table and the footer are trimmed to the content plus a 48px margin, with the footer kept; the originals stay beside them as the sync sources. Section reveals take 450ms with a 16px rise instead of one second and 32px. The analytics choice box is smaller so it covers less of a phone screen.
+
+Fusion and FX outcomes are plain statements rather than stat tiles with words in them, and the FX section is labelled "Status and planned measures" because the measures have not run yet. Winking Star keeps its three real figures.
+
+Copy: I removed the repeats, not the facts. The "How I tested" lists under the Fusion and FX decision maps said what the decision records already say. The "Original journey study" curves and quotes were labelled as not evidence, so they are gone. The journey takeaways now keep only "Opportunities" where it is not repeated in the outcome; "Insight", "Who was in the room" and "How I measure it" restated the problem, the role and the outcome sections. Each decision keeps "Why I chose it", "What it cost" and "What informed the decision"; "Where it stands" repeated the status line above it.
+
+The FX decision section is labelled "Decision map" like the other four cases; it was the one page calling it "Design decisions", and the navigation test for it had been failing.
+
+Validation: production build passes and all 256 Playwright tests pass. Four test expectations changed with the design: the header blur and opacity, the next case after uoaui.ai, the dark-theme image surface, and the count of themed journey artwork.

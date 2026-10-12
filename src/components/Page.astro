@@ -15,7 +15,7 @@ const { panel = false } = Astro.props;
 <main id="main">
   <Hero panel={panel} />
   <Work />
-  {panel && <section id="adventure" class="band adventure-hero" aria-label="Optional career adventure"><div class="wrap"><OptionalAdventure /></div></section>}
+  <section id="adventure" class="band adventure-hero" aria-label="Optional career adventure"><div class="wrap"><OptionalAdventure /></div></section>
   <HowIWork />
 </main>
 <Footer />

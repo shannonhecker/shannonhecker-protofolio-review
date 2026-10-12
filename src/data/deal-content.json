@@ -2,7 +2,7 @@
   "intro": "Four teams with four ideas of what a deal is. Custody ops, sales, legal and product priced global custody deals from one large spreadsheet and email chains. Slow, easy to get wrong, and no audit trail. I was embedded with the four teams for a year. One web platform, one deal object, four views.",
   "status": "Original design-file screens alongside schematic comparisons. Deal Model is internal to J.P. Morgan; these are design artefacts.",
   "meta": [
-    "Case four · J.P. Morgan · Securities Services · internal product",
+    "Case three · J.P. Morgan · Securities Services · 2022 to 2023 · internal product",
     "Role · UI lead",
     "Team · Two UX designers, a junior designer, a BA, a researcher, a data analyst, engineers",
     "Status · In use internally. Six design phases",
@@ -182,12 +182,12 @@
   "screensIntro": "Original screens from the Deal Model stakeholder design file, phases one to six. These are design artefacts, not live production captures.",
   "screens": [
     {
-      "image": "source-242-530.png",
+      "image": "source-242-530-trim.png",
       "title": "01 · Deals landing",
       "description": "Every deal, its iteration, status and lead in one list. Filters by region, segment and status."
     },
     {
-      "image": "source-242-535.png",
+      "image": "source-242-535-trim.png",
       "title": "02 · Portfolio landing",
       "description": "The portfolios behind a deal: default, additional, new."
     },
@@ -202,7 +202,7 @@
       "description": "Holdings, primary and secondary transactions, physical securities, collateral."
     },
     {
-      "image": "source-242-550.png",
+      "image": "source-242-550-trim.png",
       "title": "05 · New iteration",
       "description": "Create an iteration on a benchmark rate card. Checks as you go."
     },
@@ -222,7 +222,7 @@
       "description": "The grid is a view, not a rebuild. Saved per user."
     },
     {
-      "image": "source-242-570.png",
+      "image": "source-242-570-trim.png",
       "title": "09 · Tiering",
       "description": "AUC versus primary transactions, blended bps, tiers only, hide totals."
     },
@@ -237,7 +237,7 @@
       "description": "Fees, costs, gross margin and the deal team, per deal."
     },
     {
-      "image": "source-242-585.png",
+      "image": "source-242-585-trim.png",
       "title": "12 · Approver workflow",
       "description": "Market comparison and approval for the custody ops lead."
     },
