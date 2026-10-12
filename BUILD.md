@@ -823,3 +823,9 @@ I now lead with Fusion and Winking Star, followed by FX, Deal Model and uoaui.ai
 I added my confirmed Fusion component-audit and developer-review work, the Winking Star launch year, and the connection between my legal publishing name, Yu-Hsuan Chen, and Shannon Hecker. I have not added unmeasured outcomes. Outstanding evidence questions are tracked in docs/REVOLUT-EVIDENCE.md.
 
 Validation: production build and Astro check pass, with zero errors and warnings. All 218 browser checks passed for the presentation changes; the final publishing-name copy is also checked with the responsive shell and evidence-summary checks. The tests cover the new reading order, the relocated game link, summary placement and contrast in both themes. I reviewed the desktop and phone presentation.
+
+### Confirmed project timeline · 12 October 2026
+
+I confirmed that Deal Model came before my move to Fusion in 2023, without overlap. I removed the incorrect January 2024 involvement endpoint from the Deal Model status, narrative and summary. I have not inferred a start date.
+
+I split the case-summary browser check by project so Safari does not have to load ten pages and run twenty accessibility scans inside a single 30-second test. The assertions and viewport/theme coverage are unchanged. Production build and Astro check pass; the full suite now contains 226 checks.

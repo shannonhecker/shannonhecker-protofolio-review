@@ -2,11 +2,11 @@ import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const routes=['/','/panel','/fx','/fusion','/winking-star','/deal-model','/uoaui','/privacy','/build','/404'];
-test('case summaries follow complete hero media and link to the outcome',async({page})=>{
+for(const route of ['/fusion','/winking-star','/fx','/deal-model','/uoaui']){
+test(`${route} summary follows complete hero media and links to the outcome`,async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
  for(const width of [390,1440]){
   await page.setViewportSize({width,height:900});
-  for(const route of ['/fusion','/winking-star','/fx','/deal-model','/uoaui']){
    await page.goto(route);
    const summary=page.getByRole('complementary',{name:'Case summary'});
    const hero=(await page.locator('.chapter-head').boundingBox())!;
@@ -19,9 +19,9 @@ test('case summaries follow complete hero media and link to the outcome',async({
     await page.getByRole('switch',{name:'Dark mode'}).setChecked(theme==='dark');
     expect((await new AxeBuilder({page}).include('.case-evidence').withTags(['wcag2a','wcag2aa']).analyze()).violations).toEqual([]);
    }
-  }
  }
 });
+}
 test('every page shares usable navigation, theme controls and an overflow-free shell',async({page})=>{
  test.setTimeout(90000);
  await page.emulateMedia({reducedMotion:'reduce'});
