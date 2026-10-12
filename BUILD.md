@@ -841,3 +841,9 @@ Validation: production build and all 226 browser checks pass. A source search co
 I replaced the inset mobile menu card with an edge-to-edge panel attached to the header. The same menu now spans tablet widths too, with generous link rows and subtle separators in both themes. In landscape, the links scroll within the available screen height while the menu toggle remains reachable.
 
 Validation: I reviewed phone, tablet and short landscape previews. The browser checks now assert full-width placement across every page and exercise scrolling to the last link on a short screen, alongside the existing navigation and keyboard checks.
+
+### A simpler header and a dedicated mobile menu · 12 October 2026
+
+I reduced the phone and tablet header to my logo and a familiar hamburger icon. Opening it reveals a full-screen menu with larger project links, an explicit close icon, and a separate area for Appearance and Contact. The background page stays still and cannot receive keyboard focus while the menu is open.
+
+The close control stays visible while the menu contents scroll in landscape. Escape restores focus, project links dismiss the menu, and returning to desktop releases the page. The light and dark menu surfaces switch together so text stays legible. I reviewed phone, tablet and landscape layouts and added checks for focus containment, page isolation and responsive cleanup. Existing theme tests now use the appearance control inside the mobile menu.

@@ -1,11 +1,11 @@
+import {setTheme} from './theme-helper';
 import { test, expect } from '@playwright/test';
 
 test('all fifteen personas retain the approved card hierarchy across screen sizes',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});
   for(const [route,count] of [['/fx',3],['/fusion',3],['/uoaui',2],['/winking-star',3],['/deal-model',4]] as const){
     await page.goto(route);
-    const theme=page.getByRole('switch',{name:'Dark mode'});
-    if(await theme.getAttribute('aria-checked')==='true') await theme.click();
+    await setTheme(page,false);
     const cards=page.locator('.persona-card');
     await expect(cards).toHaveCount(count);
     const portraits=cards.locator('.persona-art img');
@@ -73,7 +73,7 @@ test('all fifteen personas retain the approved card hierarchy across screen size
       expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     }
     const before=await cards.evaluateAll(nodes=>nodes.map(card=>getComputedStyle(card).backgroundColor));
-    await page.getByRole('switch',{name:'Dark mode'}).click();
+    await setTheme(page,await page.locator('html').getAttribute('data-theme')!=='dark');
     const dark=await cards.evaluateAll(nodes=>nodes.map(card=>({
       surface:getComputedStyle(card).backgroundColor,
       portrait:getComputedStyle(card.querySelector('.persona-art')!).backgroundColor,
@@ -88,7 +88,7 @@ test('all fifteen personas retain the approved card hierarchy across screen size
       expect(card.heading).toBe(card.panel);
       expect(card.filter).toBe('none');
     });
-    await page.getByRole('switch',{name:'Dark mode'}).click();
+    await setTheme(page,await page.locator('html').getAttribute('data-theme')!=='dark');
   }
 });
 

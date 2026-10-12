@@ -1,9 +1,9 @@
+import {setTheme} from './theme-helper';
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 async function chooseTheme(page:Page,label:string){
-  const toggle=page.getByRole('switch',{name:'Dark mode'});
-  if(await toggle.getAttribute('aria-checked')!==String(label==='Dark'))await toggle.click();
+  await setTheme(page,label==='Dark');
 }
 
 for (const width of [390, 1440]) {
@@ -17,7 +17,7 @@ for (const width of [390, 1440]) {
       expect(violations.map(v=>`${v.id}: ${v.nodes.map(n=>n.target.join(' ')).slice(0,4).join(' | ')}`)).toEqual([]);
       expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
       const logo=await page.locator('.nav .brand').boundingBox();
-      const contact=await page.locator('.nav .cta').boundingBox();
+      const contact=await page.locator(width<=1100?'.site-menu-toggle':'.nav .cta').boundingBox();
       expect(Math.abs((logo!.y+logo!.height/2)-(contact!.y+contact!.height/2))).toBeLessThan(2);
     });
   }
@@ -36,7 +36,7 @@ test('dark is the default and explicit theme preferences persist across projects
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme','light');
   await page.goto('/fusion');
-  await expect(page.getByRole('switch',{name:'Dark mode'})).toHaveAttribute('aria-checked','false');
+  await expect(page.locator('.theme-toggle')).toHaveAttribute('aria-checked','false');
   await chooseTheme(page,'Dark');
   await page.goto('/panel');
   await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
@@ -115,6 +115,7 @@ for(const width of [390,1440]){
   test(`theme switch is immediate, keyboard accessible and has no menu at ${width}px`,async({page})=>{
     await page.setViewportSize({width,height:900});
     await page.goto('/fx');
+    if(width<=1100)await page.getByRole('button',{name:'Menu',exact:true}).click();
     const toggle=page.getByRole('switch',{name:'Dark mode'});
     await expect(toggle).toHaveAttribute('aria-checked','true');
     await toggle.focus();
