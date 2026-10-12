@@ -9,6 +9,7 @@ test(`${route} summary follows complete hero media and links to the outcome`,asy
  for(const width of [390,1440]){
   await page.setViewportSize({width,height:900});
    await page.goto(route);
+   await expect(page.locator('.chapter-head .lead')).toHaveCSS('font-size','16px');
    const summary=page.getByRole('complementary',{name:'Case summary'});
    const hero=(await page.locator('.chapter-head').boundingBox())!;
    const bounds=(await summary.boundingBox())!;

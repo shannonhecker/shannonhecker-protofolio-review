@@ -1003,3 +1003,9 @@ Validation: production build passes. Browser checks cover the heading throughout
 I matched the Winking Star preview to the supplied warm cream reference and Deal Model to the neutral grey surface in Figma node 288:466. I removed the added Deal Model inset to restore the edge-to-edge composition. These artwork surfaces keep their reference colours in both site themes.
 
 Validation: production build and homepage artwork framing/theme checks pass at phone and desktop widths.
+
+### Consistent case introduction typography · 12 October 2026
+
+I reduced the Fusion introduction and the matching FX, Winking Star and uoaui introductions to 16px with 1.7 line-height, matching Deal Model. This replaces a viewport-based size that reached 23px and keeps the reading measure at 40 characters.
+
+Validation: production build and all five case-summary browser checks pass. The checks now assert 16px introduction text at phone and desktop widths.
