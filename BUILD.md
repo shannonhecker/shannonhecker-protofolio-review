@@ -763,3 +763,5 @@ I also removed the browser-theme dependency from 13 journey and schematic images
 I replaced the emoji-capable diagonal arrows in the shared Sections button and All projects link with a flat, current-colour SVG icon. All five case pages share that component, so iPhone can no longer substitute its blue emoji tile.
 
 Validation for the expanded audit and arrow fix: production build passes, Astro check reports 0 errors and 0 warnings, and all 157 browser tests pass. The phone-sized Deal Model and Sections-panel previews were inspected and saved. The previously reported remote performance gate remains unresolved; these changes have not been published to production.
+
+I extended the flat SVG arrow to every decision index, alternative marker and game-journal source link. The downward decision arrows keep their original direction, without relying on the phone emoji font. All diagonal-arrow characters are removed from the shared components.
