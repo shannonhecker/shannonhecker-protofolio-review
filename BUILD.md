@@ -907,3 +907,9 @@ Validation: production build and Astro check pass. The homepage artwork check pa
 I replaced the bitmap hero captures with native SVG screens from my supplied Analytics M1 Figma source. Discovery sits above and to the right of Performance, following my working-page composition. I reduced the overlap enough to preserve the discovery table in the shorter source design. Both screens scale proportionally on phones, retain their product surfaces in both themes and open at full size. The source nodes and export framing are recorded in docs/fusion-vector-hero.json.
 
 Validation: production build and Astro check pass with zero errors and warnings. All five focused media and hero checks pass across Chromium and WebKit. I inspected the composition at 390 and 1440 pixels in light and dark mode and confirmed both SVGs contain vector paths with no embedded images.
+
+### Restore diagram card typography scale · 12 October 2026
+
+I stopped workflow and explanation SVG cards from stretching beyond their authored 336px width. Their headings now stay at 20px and body copy at 16px, matching the surrounding site instead of growing with wide desktop columns. Both shared components use the same compact two-column grid and switch to one column on small phones. This applies across all five projects and both themes, with the original artwork and wording preserved.
+
+Validation: production build and Astro check pass. All ten Chromium checks pass across five projects, four viewport widths and both themes, covering text bounds, overflow and the new maximum artwork size. I visually reviewed the Fusion explanation cards at their corrected scale.
