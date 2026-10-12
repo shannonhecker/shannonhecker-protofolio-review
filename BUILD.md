@@ -771,3 +771,11 @@ I extended the flat SVG arrow to every decision index, alternative marker and ga
 I checked the journey graphics against the editable Figma source. Winking Star, Fusion, uoaui.ai and Deal Model had loop endpoints between dots and label rows that overlapped. I aligned the endpoints with the existing dots, gave each label a separate row, and preserved the authored text outlines and colours. FX already uses aligned endpoints and keeps its original map.
 
 I checked all five rendered journey studies. The production build and all 161 browser tests pass, including new checks for connector attachment and label separation in both themes. Astro check reports no errors or warnings. This release also includes the earlier product-surround transparency and flat SVG arrow corrections. Shannon explicitly requested publishing the complete set of changes.
+
+### Figma decision maps · 12 October 2026
+
+I drew all five decision maps in Figma first, using the original FX loop as the visual reference. Each map follows the current project content, with deliberate decision points, exception branches and return loops. The text and nodes remain editable in Figma.
+
+I added the exported light and dark graphics to each project, with a Figma source link, full-size view, keyboard-accessible horizontal scrolling and a complete text version. On phones the map starts on the central path. I embedded the site's Inter font so browser rendering keeps the Figma typography. The original FX diagram remains available as a reference.
+
+Validation: production build passes; Astro check has zero errors and warnings; all 181 browser tests pass, including the new map checks in Chromium and iPhone WebKit. I visually checked the Figma maps and the website at desktop and phone sizes.

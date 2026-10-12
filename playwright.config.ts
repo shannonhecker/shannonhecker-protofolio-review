@@ -17,7 +17,7 @@ export default defineConfig({
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'], launchOptions: { executablePath } } },
     // Cover the phone-image regression with Safari's engine as well as Chrome.
-    { name: 'webkit-media', testMatch: 'product-media.spec.ts', use: { ...devices['iPhone 13'], launchOptions: {} } },
+    { name: 'webkit-media', testMatch: ['product-media.spec.ts', 'figma-decision-maps.spec.ts'], use: { ...devices['iPhone 13'], launchOptions: {} } },
   ],
   // Always a fresh server on its own port, so tests can never hit a stale
   // preview left running from another build.

@@ -1,0 +1,42 @@
+---
+import maps from '../../data/figma-decision-maps.json';
+import content from '../../data/decision-map-content.json';
+import FlatArrow from '../FlatArrow.astro';
+interface Props { project: keyof typeof content }
+const {project}=Astro.props;
+const graph=content[project];
+const dark=maps.maps.find(m=>m.key===project&&m.theme==='dark')!;
+const source=`https://www.figma.com/design/${maps.fileKey}?node-id=${dark.nodeId.replace(':','-')}`;
+---
+<figure class="figma-decision-map">
+ <div class="map-tools"><p class="map-hint">Follow the branches. Scroll across the map on smaller screens.</p><a href={source} target="_blank" rel="noopener">View in Figma <FlatArrow /></a></div>
+ <div class="map-scroll" tabindex="0" role="region" aria-label={`${graph.title} decision map. Scroll horizontally to explore.`}>
+  {(['light','dark'] as const).map(theme=><a class={`map-image map-${theme}`} href={`/art/decision-maps/${project}-${theme}.svg`} target="_blank" rel="noopener" aria-label={`Open the full-size ${graph.title} decision map`}><img src={`/art/decision-maps/${project}-${theme}.svg`} width="1120" height={graph.height} loading="lazy" decoding="async" alt={`${graph.title} decision map. ${graph.subtitle} A complete text version follows.`}/></a>)}
+ </div>
+ <details class="map-transcript"><summary>Read the map as text</summary>
+  <p>{graph.subtitle}</p>
+  <ul>{graph.nodes.map(n=><li><strong>{n[3]}.</strong> {n[4]}</li>)}</ul>
+  <h5>Branches and return loops</h5>
+  <ul>{graph.edges.map(e=><li>{graph.nodes.find(n=>n[0]===e[0])?.[3]} → {graph.nodes.find(n=>n[0]===e[1])?.[3]}{e[6]?` (${e[6]})`:''}.</li>)}</ul>
+ </details>
+</figure>
+<style>
+.figma-decision-map{margin:36px 0 56px;min-width:0}.map-tools{display:flex;gap:20px;justify-content:space-between;align-items:baseline;margin-bottom:16px;font-size:13px;line-height:1.5}.map-hint{margin:0;color:var(--fg-2)}.map-tools a{white-space:nowrap;display:inline-flex;align-items:center;gap:6px}.map-scroll{overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--divider);border-radius:var(--radius)}.map-scroll:focus-visible{outline:2px solid var(--project-ink);outline-offset:4px}.map-image{display:block;width:100%}.map-image img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}.map-dark{display:none}:global(html[data-theme="dark"]) .map-light{display:none}:global(html[data-theme="dark"]) .map-dark{display:block}.map-transcript{margin-top:18px;font-size:15px;line-height:1.7;color:var(--fg-2)}summary{cursor:pointer;color:var(--fg)}.map-transcript ul{padding-left:20px}.map-transcript li{margin-block:8px}.map-transcript h5{font-size:15px;margin-top:24px}@media(max-width:760px){.map-image{min-width:1120px}.map-tools{align-items:flex-start;flex-direction:column;gap:8px}.figma-decision-map{margin-block:28px 40px}}
+</style>
+<script>
+ // Begin a narrow viewport on the main decision path, while preserving free panning.
+ const narrow = window.matchMedia('(max-width:760px)');
+ const positionMaps = () => document.querySelectorAll<HTMLElement>('.map-scroll').forEach(region => {
+  region.scrollLeft = narrow.matches ? (region.scrollWidth - region.clientWidth) / 2 : 0;
+ });
+ document.querySelectorAll<HTMLElement>('.map-scroll').forEach(region => {
+  region.addEventListener('keydown', event => {
+   if(event.target !== region || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+   if(event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+   event.preventDefault();
+   region.scrollBy({left:event.key === 'ArrowRight' ? 80 : -80, behavior:'instant'});
+  });
+ });
+ requestAnimationFrame(positionMaps);
+ narrow.addEventListener('change', positionMaps);
+</script>

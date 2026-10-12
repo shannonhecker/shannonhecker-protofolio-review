@@ -1,0 +1,57 @@
+import {test,expect} from '@playwright/test';
+import {readFileSync} from 'node:fs';
+const maps=JSON.parse(readFileSync(new URL('../src/data/figma-decision-maps.json',import.meta.url),'utf8')); 
+
+for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],['winking','/winking-star'],['deal','/deal-model']]) {
+ test(`${project} Figma map follows theme and stays usable on phones`,async({page})=>{
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.goto(route);
+  const consent=page.getByRole('button',{name:'No thanks'});
+  if(await consent.isVisible())await consent.click();
+  for(const width of [390,1440]){
+   await page.setViewportSize({width,height:900});
+   if(width===390)await expect.poll(()=>page.locator('.map-scroll').evaluate(n=>Math.abs(n.scrollLeft-(n.scrollWidth-n.clientWidth)/2))).toBeLessThan(2);
+   for(const theme of ['light','dark']){
+    const toggle=page.getByRole('switch',{name:'Dark mode'});
+    if((await toggle.getAttribute('aria-checked')==='true') !== (theme==='dark'))await toggle.click();
+    const image=page.locator('.figma-decision-map img:visible');
+    await expect(image).toHaveCount(1);
+    await expect(image).toHaveAttribute('src',`/art/decision-maps/${project}-${theme}.svg`);
+    await image.evaluate(async(node:HTMLImageElement)=>{node.loading='eager';await node.decode();});
+    const sizes=await image.evaluate((node:HTMLImageElement)=>({w:node.clientWidth,h:node.clientHeight,nw:node.naturalWidth,nh:node.naturalHeight}));
+    expect(Math.abs(sizes.w/sizes.h-sizes.nw/sizes.nh)).toBeLessThan(.01);
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    if(width===390){
+     const region=page.locator('.map-scroll');await region.focus();
+     const before=await region.evaluate(n=>n.scrollLeft);await page.keyboard.press('ArrowRight');
+     await expect.poll(()=>region.evaluate(n=>n.scrollLeft)).toBeGreaterThan(before);
+    }
+   }
+  }
+  await page.locator('.map-transcript summary').click();
+  await expect(page.locator('.map-transcript')).toContainText('Branches and return loops');
+  await expect(page.locator('.map-tools a')).toHaveAttribute('href',new RegExp(maps.fileKey));
+ });
+ test(`${project} exported Figma text fits its nodes in both themes`,async({page})=>{
+  for(const theme of ['light','dark']){
+   await page.goto(`/art/decision-maps/${project}-${theme}.svg`);
+   await expect(page.locator('[id="Editable decision nodes"] > g')).toHaveCount(maps.maps.find((m:any)=>m.key===project&&m.theme===theme).nodeCount);
+   await page.evaluate(()=>document.fonts.ready);
+   const issues=await page.evaluate(()=>{
+    const layer=[...document.querySelectorAll('g')].find(g=>g.id==='Editable decision nodes')!;
+    const errors:string[]=[];
+    for(const node of [...layer.children]){
+     const shape=node.querySelector('rect');if(!shape)continue;
+     const box=shape.getBoundingClientRect();let bottom=box.top;
+     for(const t of [...node.querySelectorAll('text')]){
+      const b=t.getBoundingClientRect();
+      if(b.left<box.left-1||b.right>box.right+1||b.top<bottom-1||b.bottom>box.bottom+1)errors.push(t.textContent||'');
+      bottom=b.bottom;
+     }
+    }
+    return errors;
+   });
+   expect(issues).toEqual([]);
+  }
+ });
+}
