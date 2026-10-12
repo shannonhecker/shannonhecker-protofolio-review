@@ -143,3 +143,24 @@ test('mobile menu links navigate and dismiss the disclosure',async({page})=>{
  await expect(page.locator('#main')).not.toHaveAttribute('inert','');
  await expect(contact).toBeVisible();
  });
+
+test('Winking Star journey separates setup, daily repetition and independent handoff',async({page})=>{
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.goto('/winking-star');
+ const journey=page.locator('#winking-journey');
+ await expect(journey.locator('.original-study')).toHaveCount(0);
+ await expect(journey).not.toContainText('ten seconds');
+ await expect(journey).not.toContainText('Not another chart');
+ for(const width of [320,390,1440]){
+  await page.setViewportSize({width,height:1000});
+  for(const theme of ['light','dark']){
+   await page.evaluate(t=>document.documentElement.setAttribute('data-theme',t),theme);
+   const steps=journey.locator('.daily-loop li,.routine-progress li');
+   await expect(steps).toHaveCount(9);
+   for(const step of await steps.all())await expect(step).toBeVisible();
+   expect(await journey.locator('.routine-journey').evaluate(n=>[...n.querySelectorAll('li')].every(e=>e.scrollWidth<=e.clientWidth+1))).toBe(true);
+   expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+  }
+ }
+ await expect(journey).toContainText('It does not depend on finishing a week.');
+});

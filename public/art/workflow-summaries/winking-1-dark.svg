@@ -1,29 +1,46 @@
-<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="#222933"/>
-<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#46515F"/>
+<svg width="336" height="348" viewBox="0 0 336 348" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="347" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="347" rx="3.5" stroke="#46515F"/>
 <text fill="#B9D5B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">02 / 04</tspan></text>
-<path d="M292 62H46C43.7909 62 42 63.7909 42 66V168C42 170.209 43.7909 172 46 172H292C294.209 172 296 170.209 296 168V66C296 63.7909 294.209 62 292 62Z" fill="#222933" stroke="#46515F"/>
-<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="56" y="82.6364">THIS WEEK</tspan></text>
-<path d="M57 104H123" stroke="#B8C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M156 92H144C142.343 92 141 93.3431 141 95V107C141 108.657 142.343 110 144 110H156C157.657 110 159 108.657 159 107V95C159 93.3431 157.657 92 156 92Z" fill="#222933" stroke="#46515F"/>
-<path d="M184 92H172C170.343 92 169 93.3431 169 95V107C169 108.657 170.343 110 172 110H184C185.657 110 187 108.657 187 107V95C187 93.3431 185.657 92 184 92Z" fill="#222933" stroke="#46515F"/>
-<path d="M212 92H200C198.343 92 197 93.3431 197 95V107C197 108.657 198.343 110 200 110H212C213.657 110 215 108.657 215 107V95C215 93.3431 213.657 92 212 92Z" fill="#222933" stroke="#46515F"/>
-<path d="M240 92H228C226.343 92 225 93.3431 225 95V107C225 108.657 226.343 110 228 110H240C241.657 110 243 108.657 243 107V95C243 93.3431 241.657 92 240 92Z" fill="#222933" stroke="#46515F"/>
-<path d="M268 92H256C254.343 92 253 93.3431 253 95V107C253 108.657 254.343 110 256 110H268C269.657 110 271 108.657 271 107V95C271 93.3431 269.657 92 268 92Z" fill="#222933" stroke="#46515F"/>
-<path d="M57 128H123" stroke="#B8C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M156 116H144C142.343 116 141 117.343 141 119V131C141 132.657 142.343 134 144 134H156C157.657 134 159 132.657 159 131V119C159 117.343 157.657 116 156 116Z" fill="#222933" stroke="#46515F"/>
-<path d="M184 116H172C170.343 116 169 117.343 169 119V131C169 132.657 170.343 134 172 134H184C185.657 134 187 132.657 187 131V119C187 117.343 185.657 116 184 116Z" fill="#222933" stroke="#46515F"/>
-<path d="M212 116H200C198.343 116 197 117.343 197 119V131C197 132.657 198.343 134 200 134H212C213.657 134 215 132.657 215 131V119C215 117.343 213.657 116 212 116Z" fill="#B9D5B8" stroke="#46515F"/>
-<path d="M240 116H228C226.343 116 225 117.343 225 119V131C225 132.657 226.343 134 228 134H240C241.657 134 243 132.657 243 131V119C243 117.343 241.657 116 240 116Z" fill="#222933" stroke="#46515F"/>
-<path d="M268 116H256C254.343 116 253 117.343 253 119V131C253 132.657 254.343 134 256 134H268C269.657 134 271 132.657 271 131V119C271 117.343 269.657 116 268 116Z" fill="#222933" stroke="#46515F"/>
-<path d="M57 152H123" stroke="#B8C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M156 140H144C142.343 140 141 141.343 141 143V155C141 156.657 142.343 158 144 158H156C157.657 158 159 156.657 159 155V143C159 141.343 157.657 140 156 140Z" fill="#222933" stroke="#46515F"/>
-<path d="M184 140H172C170.343 140 169 141.343 169 143V155C169 156.657 170.343 158 172 158H184C185.657 158 187 156.657 187 155V143C187 141.343 185.657 140 184 140Z" fill="#222933" stroke="#46515F"/>
-<path d="M212 140H200C198.343 140 197 141.343 197 143V155C197 156.657 198.343 158 200 158H212C213.657 158 215 156.657 215 155V143C215 141.343 213.657 140 212 140Z" fill="#222933" stroke="#46515F"/>
-<path d="M240 140H228C226.343 140 225 141.343 225 143V155C225 156.657 226.343 158 228 158H240C241.657 158 243 156.657 243 155V143C243 141.343 241.657 140 240 140Z" fill="#222933" stroke="#46515F"/>
-<path d="M268 140H256C254.343 140 253 141.343 253 143V155C253 156.657 254.343 158 256 158H268C269.657 158 271 156.657 271 155V143C271 141.343 269.657 140 268 140Z" fill="#222933" stroke="#46515F"/>
-<path d="M201 123L205 127L213 118" stroke="#B9D5B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Mark the routine</tspan></text>
-<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Tap the activity for the right day. A </tspan><tspan x="13" y="281.418">sticker shows it is done.</tspan></text>
+<path d="M316 48H22C19.2386 48 17 50.2386 17 53V210C17 212.761 19.2386 215 22 215H316C318.761 215 321 212.761 321 210V53C321 50.2386 318.761 48 316 48Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="27" y="67.8636">Leo &#xb7; this week</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="27" y="87.6364">Tap the routine for the right day</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="127" y="107.636">M</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="153" y="107.636">T</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="179" y="107.636">W</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="205" y="107.636">T</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="231" y="107.636">F</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="257" y="107.636">S</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="283" y="107.636">S</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="27" y="130.5">Teeth</tspan></text>
+<path d="M136 117H126C123.239 117 121 119.239 121 122V132C121 134.761 123.239 137 126 137H136C138.761 137 141 134.761 141 132V122C141 119.239 138.761 117 136 117Z" fill="#B9D5B8" stroke="#B9D5B8"/>
+<path d="M126 127L129 130L135 123" stroke="#222933" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M162 117H152C149.239 117 147 119.239 147 122V132C147 134.761 149.239 137 152 137H162C164.761 137 167 134.761 167 132V122C167 119.239 164.761 117 162 117Z" fill="#B9D5B8" stroke="#B9D5B8"/>
+<path d="M152 127L155 130L161 123" stroke="#222933" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M188 117H178C175.239 117 173 119.239 173 122V132C173 134.761 175.239 137 178 137H188C190.761 137 193 134.761 193 132V122C193 119.239 190.761 117 188 117Z" fill="#B9D5B8" stroke="#B9D5B8"/>
+<path d="M178 127L181 130L187 123" stroke="#222933" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M214 117H204C201.239 117 199 119.239 199 122V132C199 134.761 201.239 137 204 137H214C216.761 137 219 134.761 219 132V122C219 119.239 216.761 117 214 117Z" fill="#222933" stroke="#46515F"/>
+<path d="M240 117H230C227.239 117 225 119.239 225 122V132C225 134.761 227.239 137 230 137H240C242.761 137 245 134.761 245 132V122C245 119.239 242.761 117 240 117Z" fill="#222933" stroke="#46515F"/>
+<path d="M266 117H256C253.239 117 251 119.239 251 122V132C251 134.761 253.239 137 256 137H266C268.761 137 271 134.761 271 132V122C271 119.239 268.761 117 266 117Z" fill="#222933" stroke="#46515F"/>
+<path d="M292 117H282C279.239 117 277 119.239 277 122V132C277 134.761 279.239 137 282 137H292C294.761 137 297 134.761 297 132V122C297 119.239 294.761 117 292 117Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="27" y="156.5">Reading</tspan></text>
+<path d="M136 143H126C123.239 143 121 145.239 121 148V158C121 160.761 123.239 163 126 163H136C138.761 163 141 160.761 141 158V148C141 145.239 138.761 143 136 143Z" fill="#B9D5B8" stroke="#B9D5B8"/>
+<path d="M126 153L129 156L135 149" stroke="#222933" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M162 143H152C149.239 143 147 145.239 147 148V158C147 160.761 149.239 163 152 163H162C164.761 163 167 160.761 167 158V148C167 145.239 164.761 143 162 143Z" fill="#B9D5B8" stroke="#B9D5B8"/>
+<path d="M152 153L155 156L161 149" stroke="#222933" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M188 143H178C175.239 143 173 145.239 173 148V158C173 160.761 175.239 163 178 163H188C190.761 163 193 160.761 193 158V148C193 145.239 190.761 143 188 143Z" fill="#222933" stroke="#46515F"/>
+<path d="M214 143H204C201.239 143 199 145.239 199 148V158C199 160.761 201.239 163 204 163H214C216.761 163 219 160.761 219 158V148C219 145.239 216.761 143 214 143Z" fill="#222933" stroke="#46515F"/>
+<path d="M240 143H230C227.239 143 225 145.239 225 148V158C225 160.761 227.239 163 230 163H240C242.761 163 245 160.761 245 158V148C245 145.239 242.761 143 240 143Z" fill="#222933" stroke="#46515F"/>
+<path d="M266 143H256C253.239 143 251 145.239 251 148V158C251 160.761 253.239 163 256 163H266C268.761 163 271 160.761 271 158V148C271 145.239 268.761 143 266 143Z" fill="#222933" stroke="#46515F"/>
+<path d="M292 143H282C279.239 143 277 145.239 277 148V158C277 160.761 279.239 163 282 163H292C294.761 163 297 160.761 297 158V148C297 145.239 294.761 143 292 143Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="27" y="182.5">Bath</tspan></text>
+<path d="M136 169H126C123.239 169 121 171.239 121 174V184C121 186.761 123.239 189 126 189H136C138.761 189 141 186.761 141 184V174C141 171.239 138.761 169 136 169Z" fill="#222933" stroke="#46515F"/>
+<path d="M162 169H152C149.239 169 147 171.239 147 174V184C147 186.761 149.239 189 152 189H162C164.761 189 167 186.761 167 184V174C167 171.239 164.761 169 162 169Z" fill="#222933" stroke="#46515F"/>
+<path d="M188 169H178C175.239 169 173 171.239 173 174V184C173 186.761 175.239 189 178 189H188C190.761 189 193 186.761 193 184V174C193 171.239 190.761 169 188 169Z" fill="#222933" stroke="#46515F"/>
+<path d="M214 169H204C201.239 169 199 171.239 199 174V184C199 186.761 201.239 189 204 189H214C216.761 189 219 186.761 219 184V174C219 171.239 216.761 169 214 169Z" fill="#222933" stroke="#46515F"/>
+<path d="M240 169H230C227.239 169 225 171.239 225 174V184C225 186.761 227.239 189 230 189H240C242.761 189 245 186.761 245 184V174C245 171.239 242.761 169 240 169Z" fill="#222933" stroke="#46515F"/>
+<path d="M266 169H256C253.239 169 251 171.239 251 174V184C251 186.761 253.239 189 256 189H266C268.761 189 271 186.761 271 184V174C271 171.239 268.761 169 266 169Z" fill="#222933" stroke="#46515F"/>
+<path d="M292 169H282C279.239 169 277 171.239 277 174V184C277 186.761 279.239 189 282 189H292C294.761 189 297 186.761 297 184V174C297 171.239 294.761 169 292 169Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" font-weight="500" letter-spacing="0em"><tspan x="13" y="250.818">Mark the routine</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="13" y="281.091">Tap the activity for the right day. A sticker </tspan><tspan x="13" y="301.091">shows it is done.</tspan></text>
 </svg>
-

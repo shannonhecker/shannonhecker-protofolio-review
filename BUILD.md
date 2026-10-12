@@ -931,3 +931,11 @@ Validation: production build and the Winking Star layout check pass. Browser ins
 I removed the two requested captions, “Composite roles, not research participants” and “Role illustrations, not photographs of research participants”, wherever those lines appeared. Empty note paragraphs no longer render. Persona cards and their content remain.
 
 Validation: production build passes; five case layout checks pass. The two requested strings are absent from the source.
+
+### A family-specific Winking Star journey · 12 October 2026
+
+I replaced Winking Star's qualitative emotion curves, invented scenario quotes and timing labels with a journey grounded in the family routine. It separates optional sample entry from creating a board, the repeating daily routine, weekly progress and a second adult joining at any time after setup. The other project journey studies remain unchanged.
+
+I also refined all four Winking Star workflow cards in their Figma source, in both themes: named child selection, a labelled seven-day routine grid, growth stages and an invite-to-shared-board handoff. The card titles are now 16px and descriptions 14px. The site uses fresh SVG exports, with the existing source node IDs recorded in the manifest.
+
+Validation: production build and Astro check pass with zero errors and warnings. Five focused Chromium and WebKit checks pass for the journey relationships, visible steps, card text bounds and theme switching. I reviewed the Figma cards and the site at phone and desktop sizes.

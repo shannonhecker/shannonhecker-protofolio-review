@@ -62,7 +62,7 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
      expect(clipped).toEqual([]);
      expect(size.w).toBeGreaterThan(250);
      expect(size.w).toBeLessThanOrEqual(337);
-     expect(Math.abs(size.w/size.h-336/370)).toBeLessThan(.01);
+     expect(Math.abs(size.w/size.h-336/(project==='winking'?348:370))).toBeLessThan(.01);
     }
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
    }

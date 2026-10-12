@@ -1,6 +1,7 @@
 ---
 import content from '../../data/authored-content.json';
 import JourneyStep from './JourneyStep.astro';
+import WinkingRoutineJourney from './WinkingRoutineJourney.astro';
 interface Props {project:keyof typeof content}
 const {project}=Astro.props;
 const data=content[project].journey;
@@ -11,7 +12,7 @@ const steps=project==='deal' ? data.steps.map((step,i)=>i===4 ? {...step,
  recommendations:['Owner-authored deal description','Proposal comparison and comment thread'],
  backstage:'Separate deal-owner and approver views keep the proposal and approval discussion attached to the deal.'
 }:step) : data.steps;
-const family=[{title:'Getting started',role:'Parent',indices:[0,1]},{title:'Every day',role:'Parent → child',indices:[2,3]},{title:'A reason to return',role:'Child → parent',indices:[4]},{title:'The handoff',role:'Parent → caregiver',indices:[5]}];
+
 ---
 <div class:list={['product-journey',`product-journey-${project}`]}>
  {project==='fusion' && <>
@@ -23,10 +24,7 @@ const family=[{title:'Getting started',role:'Parent',indices:[0,1]},{title:'Ever
   <div class="exchange-heading"><h4>The designer decides. The model drafts.</h4><p>Native components and explicit fallbacks support the draft. Compare and tune are optional review tools; export is available directly.</p></div>
   <ol class="ai-exchanges">{steps.map((step,i)=><li class:list={[`exchange-${i}`,{'model-turn':i===1}]}><div class="exchange-actor"><span>{String(i+1).padStart(2,'0')}</span><strong>{i===1?'Model':i===4?'Designer → developer':'Designer'}</strong></div><JourneyStep step={step}/>{i===1 && <p class="exchange-return">Draft misses the intent? Return to the prompt.</p>}{i===3 && <p class="exchange-return">Changed density or theme? I compare again before handover.</p>}</li>)}</ol>
  </>}
- {project==='winking' && <>
-  <div class="family-intro"><h4>A routine passes between people</h4><p>The iPhone landing screen offers Create family and an optional Try Sample Family. This scenario follows that sample route into the daily habit, weekly return and caregiver handoff.</p></div>
-  <div class="family-rhythm">{family.map((part,i)=><section class:list={['family-part',`family-part-${i}`]}><header><h4>{part.title}</h4><p>{part.role}</p></header><div class="family-actions">{part.indices.map(index=><JourneyStep step={steps[index]} number={index+1}/>)}</div>{i===1 && <p class="loop-note">Repeat with the next routine. A missed day does not deduct stars.</p>}{i===2 && <p class="loop-note">A new egg on Monday starts the next week.</p>}</section>)}</div>
- </>}
+ {project==='winking' && <WinkingRoutineJourney />}
  {project==='deal' && <>
   <div class="deal-object"><h4>One deal, shared across the teams</h4><p>Sales, custody operations, legal and product work from the same deal. Each iteration carries the pricing decision forward.</p></div>
   <div class="deal-blueprint"><div class="blueprint-head" aria-hidden="true"><span>The deal owner’s work</span><span>Behind the surface</span></div>{steps.map((step,i)=><section class="blueprint-row"><div><JourneyStep step={step} number={i+1} system={false}/></div><div class="blueprint-system"><h5>What the system does</h5><p>{step.backstage}</p>{i===2 && <p class="return-path">Rate difference → review the TXN rate against the SK rate.</p>}</div></section>)}</div>
