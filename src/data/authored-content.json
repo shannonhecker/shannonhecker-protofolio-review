@@ -470,7 +470,7 @@
         },
         {
           "label": "How I measure it",
-          "text": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
+          "text": "I reviewed a specific flow with an ADA specialist and ran developer-tool accessibility checks. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
         }
       ]
     },

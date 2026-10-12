@@ -20,7 +20,7 @@ The App Store seller Yu-Hsuan Chen is Shannon’s legal name; Shannon Hecker is 
 
 ## Questions still requiring evidence
 
-1. Fusion: an available audit/release record, scope of the accessibility claim, examples of components corrected, and any documented reuse or user feedback.
+1. Fusion: Shannon confirmed accessibility checks covered a specific flow, working with an ADA specialist and developer tools. The product-wide zero-violations claim has been replaced with this scope. The flow name, tools, formal sign-off and numerical results were not supplied. Examples of corrected components and documented reuse or feedback remain useful follow-up evidence.
 2. Winking Star: Shannon confirmed no results or external family feedback yet. Keep reach, adoption and retention unmeasured; do not equate release count with retention.
 3. Deal Model: Shannon confirmed she moved to Fusion in 2023, with Deal Model preceding it and no overlap. The unsupported January 2024 involvement endpoint has been removed. The exact Deal Model start date and method for observing declining template uploads remain unspecified. Time saving remains an estimate.
 4. uoaui.ai: project dates. External validation is not yet recorded.
