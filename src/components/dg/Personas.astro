@@ -10,5 +10,4 @@ const items = personas[project] ?? [];
   <div class="persona-roles">
     {items.map((p,i) => <article><div class="persona-identity"><Pic name={`persona-${project}-${i}.png`} alt="" sizes="160px" widths={[160,320]} /><h4>{p.role}</h4></div><dl><dt>Job</dt><dd>{p.job}</dd><dt>Need</dt><dd>{p.need}</dd></dl></article>)}
   </div>
-  <p class="art-note">Role illustrations, not photographs of research participants.</p>
 </section>

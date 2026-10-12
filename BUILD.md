@@ -925,3 +925,9 @@ Validation: production build and Astro check pass. All five Chromium map checks 
 I gave the four product labels fully rounded pill corners so they read as tags. Their wording, colours and noninteractive span markup remain the same.
 
 Validation: production build and the Winking Star layout check pass. Browser inspection confirms all four labels use the pill radius.
+
+### Remove repeated persona captions · 12 October 2026
+
+I removed the two requested captions, “Composite roles, not research participants” and “Role illustrations, not photographs of research participants”, wherever those lines appeared. Empty note paragraphs no longer render. Persona cards and their content remain.
+
+Validation: production build passes; five case layout checks pass. The two requested strings are absent from the source.
