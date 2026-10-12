@@ -18,7 +18,6 @@ import AuthoredJourney from './dg/AuthoredJourney.astro';
 import CoParent from './dg/CoParent.astro';
 import WinkingScreens from './WinkingScreens.astro';
 import ProductCapture from './ProductCapture.astro';
-import Flow from './dg/Flow.astro';
 import FigmaUserFlow from './dg/FigmaUserFlow.astro';
 
 ---
@@ -78,12 +77,7 @@ import FigmaUserFlow from './dg/FigmaUserFlow.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="One family board. Two ways to use it." />
         <p>I keep the same job across web and iPhone: find your child, mark the routine, see what changed. The web puts the week on one board. The iPhone app separates Home, Activity, Treasure and Progress into focused tabs.</p>
-        <FigmaUserFlow project="winking"><Flow label="The current Winking Star family workflow" steps={[
-          {t:'Choose a superstar',d:'Their name, avatar and theme make the board recognisable.'},
-          {t:'Mark the routine',d:'Tap the activity for the right day. A sticker shows it is done.'},
-          {t:'See the week grow',d:'Stars connect the small daily action to a pet and a family reward.'},
-          {t:'Share the board',d:'A second adult joins the same family, with the same routines.'},
-        ]}/></FigmaUserFlow>
+        <FigmaUserFlow project="winking" />
         <WinkingScreens />
       </div>
     </div>

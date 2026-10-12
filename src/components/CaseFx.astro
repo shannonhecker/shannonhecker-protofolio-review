@@ -21,7 +21,6 @@ import Personas from './dg/AuthoredPersonas.astro';
 
 import FxOriginalJourney from './dg/FxOriginalJourney.astro';
 
-import Flow from './dg/Flow.astro';
 import FigmaUserFlow from './dg/FigmaUserFlow.astro';
 import Matrix from './dg/Matrix.astro';
 import BeforeAfter from './dg/BeforeAfter.astro';
@@ -126,18 +125,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
         <ProductCapture name="live-fx-compare.png" alt="Two simulated FX orders compared side by side in the current public rebuild" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Compare orders" />
         <ProductCapture name="live-fx-ticket.png" alt="Pre-filled FX order ticket opened on the chart, using simulated data" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Order ticket" />
         <p class="lead muted">I specified a progressive flow from inspection to action: drag the limit, review the pre-filled ticket, confirm, then record the change. The sequence below is that design. In my current public rebuild, dragging the limit immediately changes the local simulated price. Dragging the BID pill opens a demo order ticket; submitting it shows feedback without placing a real order or writing an audit record.</p>
-        <FigmaUserFlow project="fx"><Flow
-          label="Original specified monitoring-to-action flow"
-          steps={[
-            { t: 'Hover a fill', d: 'See the detail for that clip' },
-            { t: 'Right-click', d: 'Act on the exact time and price under the cursor' },
-            { t: 'Drag the limit line', d: 'Reprice where the decision was made' },
-            { t: 'Pre-filled ticket', d: 'What changes, before anything does', branch: { t: 'Cancel', d: 'Nothing changes' } },
-            { t: 'Confirm', d: 'The compliance step, still on the chart' },
-            { t: 'Audit trail', d: 'Every change to the order is recorded' },
-          ]}
-          caption="The original specified flow keeps confirmation and audit on the chart. The current public rebuild demonstrates only part of this sequence."
-        /></FigmaUserFlow>
+        <FigmaUserFlow project="fx" />
         <ul class="rows">
           <li><b>Built in six phases</b><p>Theming and data integration first, then display, then interaction, and order submission last. Each phase reduced the risk of the next, and the desk got something usable early.</p></li>
           <li><b>Too much on the axis, by design, for now</b><p>Phase one puts every attribute on screen on purpose, so the desk can tell us what matters instead of us guessing. Phase two adds entitlement-based templates per user type and a preference panel to hide attributes. Start wide, then narrow with evidence.</p></li>
