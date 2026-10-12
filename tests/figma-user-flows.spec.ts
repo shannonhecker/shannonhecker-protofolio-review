@@ -1,6 +1,7 @@
 import {setTheme} from './theme-helper';
 import {test,expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
+const explanations=JSON.parse(readFileSync(new URL('../src/data/visual-explanations.json',import.meta.url),'utf8'));
 const summaries=JSON.parse(readFileSync(new URL('../src/data/workflow-summaries.json',import.meta.url),'utf8'));
 const maps=JSON.parse(readFileSync(new URL('../src/data/figma-user-flows.json',import.meta.url),'utf8'));
 const content=JSON.parse(readFileSync(new URL('../src/data/user-flow-content.json',import.meta.url),'utf8')) as typeof import('../src/data/user-flow-content.json'); 
@@ -65,6 +66,28 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
    }
   }
+ });
+ test(`${project} explanation artwork fits, follows theme and retains scope`,async({page})=>{
+  await page.emulateMedia({reducedMotion:'reduce'});await page.goto(route);
+  const consent=page.getByRole('button',{name:'No thanks'});if(await consent.isVisible())await consent.click();
+  const section=page.locator('.visual-explanation');
+  for(const width of [320,390,820,1440]){
+   await page.setViewportSize({width,height:900});
+   for(const theme of ['light','dark']){
+    await setTheme(page,theme==='dark');await page.evaluate(()=>document.fonts.ready);
+    const arts=section.locator('[role=img]:visible');
+    await expect(arts).toHaveCount(explanations[project].cards.length);
+    for(const [i,art]of(await arts.all()).entries()){
+     await expect(art).toHaveClass(new RegExp(`explanation-${theme}`));
+     await expect(art).toHaveAttribute('aria-label',explanations[project].cards[i].title+'. '+explanations[project].cards[i].body);
+     const bounds=await art.evaluate(n=>{const r=n.getBoundingClientRect();return {w:r.width,clipped:[...n.querySelectorAll('text')].filter(t=>{const b=t.getBoundingClientRect();return b.left<r.left-1||b.right>r.right+1||b.bottom>r.bottom+1||b.top<r.top-1;}).map(t=>t.textContent)};});
+     expect(bounds.w).toBeGreaterThan(250);expect(bounds.clipped).toEqual([]);
+    }
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+   }
+  }
+  await expect(section.locator('.explanation-caption')).toHaveText(explanations[project].caption);
+  await expect(page.locator('main details')).toHaveCount(0);
  });
  test(`${project} user-flow labels fit and connectors attach to the correct nodes`,async({page})=>{
   const graph=content[project];

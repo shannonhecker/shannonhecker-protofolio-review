@@ -1,0 +1,18 @@
+<svg width="336" height="438" viewBox="0 0 336 438" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="437" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="437" rx="3.5" stroke="#D6DCE1"/>
+<path d="M311 25H27C24.7909 25 23 26.7909 23 29V53C23 55.2091 24.7909 57 27 57H311C313.209 57 315 55.2091 315 53V29C315 26.7909 313.209 25 311 25Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="33" y="45.8636">Hardcoded colours &#x2192; fragile fixes</tspan></text>
+<path d="M168 60V76M172 72L168 76L164 72" stroke="#496A83" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M155 82H27C24.7909 82 23 83.7909 23 86V110C23 112.209 24.7909 114 27 114H155C157.209 114 159 112.209 159 110V86C159 83.7909 157.209 82 155 82Z" fill="#496A83" stroke="#496A83"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="33" y="102.864">Feature work</tspan></text>
+<path d="M311 82H183C180.791 82 179 83.7909 179 86V110C179 112.209 180.791 114 183 114H311C313.209 114 315 112.209 315 110V86C315 83.7909 313.209 82 311 82Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="189" y="102.864">Foundation fix</tspan></text>
+<text fill="#496A83" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="52" y="133.864">Ship first</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="186" y="133.5">Phase alongside</tspan></text>
+<path d="M247 144V160M251 156L247 160L243 156" stroke="#496A83" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="179" y="186.864">Start: blotter</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">Ship, then repair the foundation</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">A light-theme tidy-up exposed </tspan><tspan x="13" y="298.618">hardcoded colours in the code, tokens </tspan><tspan x="13" y="321.818">and naming. I costed two options with </tspan><tspan x="13" y="345.018">product and engineering. We shipped </tspan><tspan x="13" y="368.218">features first, then phased the fix in the </tspan><tspan x="13" y="391.418">background, starting with the simple, </tspan><tspan x="13" y="414.618">single-themed blotter.</tspan></text>
+</svg>
+

@@ -1,0 +1,18 @@
+<svg width="336" height="397" viewBox="0 0 336 397" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="396" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="396" rx="3.5" stroke="#46515F"/>
+<path d="M139 24H21C18.7909 24 17 25.7909 17 28V52C17 54.2091 18.7909 56 21 56H139C141.209 56 143 54.2091 143 52V28C143 25.7909 141.209 24 139 24Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="27" y="44.8636">Sales</tspan></text>
+<path d="M318 24H200C197.791 24 196 25.7909 196 28V52C196 54.2091 197.791 56 200 56H318C320.209 56 322 54.2091 322 52V28C322 25.7909 320.209 24 318 24Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="206" y="44.8636">Legal</tspan></text>
+<path d="M139 157H21C18.7909 157 17 158.791 17 161V185C17 187.209 18.7909 189 21 189H139C141.209 189 143 187.209 143 185V161C143 158.791 141.209 157 139 157Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="27" y="177.864">Custody ops</tspan></text>
+<path d="M318 157H200C197.791 157 196 158.791 196 161V185C196 187.209 197.791 189 200 189H318C320.209 189 322 187.209 322 185V161C322 158.791 320.209 157 318 157Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="206" y="177.864">Product</tspan></text>
+<path d="M79 60V85H258V60M79 155V130H258V155" stroke="#E3B3C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M231 82H107C104.791 82 103 83.7909 103 86V130C103 132.209 104.791 134 107 134H231C233.209 134 235 132.209 235 130V86C235 83.7909 233.209 82 231 82Z" fill="#E3B3C6" stroke="#E3B3C6"/>
+<text fill="#222933" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="133" y="112.318">One deal</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">A shared object, role-specific </tspan><tspan x="13" y="265.773">views</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="304.418">Sales, legal, custody operations and </tspan><tspan x="13" y="327.618">product had different definitions of a </tspan><tspan x="13" y="350.818">deal. Each needed its own view of the </tspan><tspan x="13" y="374.018">same object.</tspan></text>
+</svg>
+

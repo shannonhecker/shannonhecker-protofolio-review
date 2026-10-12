@@ -1,0 +1,15 @@
+<svg width="336" height="368" viewBox="0 0 336 368" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="367" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="367" rx="3.5" stroke="#D6DCE1"/>
+<path d="M148 41H37C34.7909 41 33 42.7909 33 45V149C33 151.209 34.7909 153 37 153H148C150.209 153 152 151.209 152 149V45C152 42.7909 150.209 41 148 41Z" fill="white" stroke="#D6DCE1"/>
+<path d="M301 41H190C187.791 41 186 42.7909 186 45V149C186 151.209 187.791 153 190 153H301C303.209 153 305 151.209 305 149V45C305 42.7909 303.209 41 301 41Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="26" letter-spacing="0em"><tspan x="56" y="78.9545">23:59</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="26" letter-spacing="0em"><tspan x="206" y="78.9545">00:00</tspan></text>
+<path d="M157 97H180M175 102L180 97L175 92" stroke="#4F7352" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="52" y="126.591">Today</tspan></text>
+<text fill="#4F7352" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="203" y="126.591">New day</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="63" y="185.864">Local time &#xb7; app stays open</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">Local midnight</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">The day rolls over at local midnight, even </tspan><tspan x="13" y="298.618">while the app is open, so a late tick lands </tspan><tspan x="13" y="321.818">on the right day. Shipped as a fix in iOS </tspan><tspan x="13" y="345.018">1.0.4.</tspan></text>
+</svg>
+

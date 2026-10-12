@@ -19,6 +19,7 @@ import CoParent from './dg/CoParent.astro';
 import WinkingScreens from './WinkingScreens.astro';
 import ProductCapture from './ProductCapture.astro';
 import FigmaUserFlow from './dg/FigmaUserFlow.astro';
+import VisualExplanation from './dg/VisualExplanation.astro';
 
 ---
 <section id="winking" data-tone="light" class="band">
@@ -142,14 +143,7 @@ import FigmaUserFlow from './dg/FigmaUserFlow.astro';
       <div class="label"><HL class="k"><b>06</b> Edge cases and states</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="The iPhone states beyond the happy path." />
-        <ul class="rows two">
-          <li><b>First run, no family yet</b><p>The iPhone app offers “Try the Sample Family” alongside family creation, so a parent can see the loop before setting up their own board. On the web, a parent chooses a theme and completes a grown-up check before adding child details. Those are different entry points, so the case study shows them separately.</p></li>
-          <li><b>A missed routine, or a missed day</b><p>Stars never go negative and nothing turns red. The day just has fewer stars. The pet still grows on what was done.</p></li>
-          <li><b>Midnight</b><p>The day rolls over at local midnight even with the app open, so a late tick lands on the right day. That one shipped as a fix in 1.0.4.</p></li>
-          <li><b>Offline in the bathroom</b><p>An offline banner, ticks queued, synced on reconnect. Two adults can tick the same kid from two phones.</p></li>
-          <li><b>Split homes and birthdays</b><p>A custody label, "at Mum's this week", so the board reads right in both houses. A birthday banner for the whole birthday week.</p></li>
-          <li><b>Accessibility</b><p>Tabs expose their labels and selected state to VoiceOver. Text supports Dynamic Type up to 1.6×, and confetti stays off when Reduce Motion or Calm Mode is enabled.</p></li>
-        </ul>
+        <VisualExplanation project="winking" />
         <CoParent />
       </div>
     </div>

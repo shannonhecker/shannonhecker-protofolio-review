@@ -1,0 +1,18 @@
+<svg width="336" height="438" viewBox="0 0 336 438" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="437" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="437" rx="3.5" stroke="#46515F"/>
+<path d="M99 37H22C19.7909 37 18 38.7909 18 41V65C18 67.2091 19.7909 69 22 69H99C101.209 69 103 67.2091 103 65V41C103 38.7909 101.209 37 99 37Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="28" y="57.8636">Change</tspan></text>
+<path d="M107 53H129M124 58L129 53L124 48" stroke="#A4CBE6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M216 37H139C136.791 37 135 38.7909 135 41V65C135 67.2091 136.791 69 139 69H216C218.209 69 220 67.2091 220 65V41C220 38.7909 218.209 37 216 37Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="145" y="57.8636">Confirm</tspan></text>
+<path d="M224 53H240M235 58L240 53L235 48" stroke="#A4CBE6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M317 37H250C247.791 37 246 38.7909 246 41V65C246 67.2091 247.791 69 250 69H317C319.209 69 321 67.2091 321 65V41C321 38.7909 319.209 37 317 37Z" fill="#A4CBE6" stroke="#A4CBE6"/>
+<text fill="#222933" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="256" y="57.8636">Record</tspan></text>
+<path d="M296 103H42C39.7909 103 38 104.791 38 107V177C38 179.209 39.7909 181 42 181H296C298.209 181 300 179.209 300 177V107C300 104.791 298.209 103 296 103Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="13" letter-spacing="0em"><tspan x="55" y="126.727">Original design specification</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="55" y="155.864">Audit backend not in rebuild</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">Confirm, then record</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">In the original order-changing flow, I kept </tspan><tspan x="13" y="298.618">confirmation and an audit trail beside the </tspan><tspan x="13" y="321.818">action. Compliance stayed inside the </tspan><tspan x="13" y="345.018">workflow.</tspan></text>
+</svg>
+

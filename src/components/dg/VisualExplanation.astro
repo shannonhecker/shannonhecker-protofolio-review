@@ -1,0 +1,33 @@
+---
+import content from '../../data/visual-explanations.json';
+import manifest from '../../data/figma-explanations.json';
+import FlatArrow from '../FlatArrow.astro';
+interface Props { project: keyof typeof content }
+const {project}=Astro.props;
+const item=content[project];
+const artwork=import.meta.glob<string>('../../../public/art/explanations/*.svg',{query:'?raw',import:'default',eager:true});
+const frame=manifest.frames.find(f=>f.key===project&&f.theme==='dark')!;
+const source=`https://www.figma.com/design/${manifest.fileKey}?node-id=${frame.nodeId.replace(':','-')}`;
+---
+<section class="visual-explanation" aria-labelledby={`${project}-explanation-title`}>
+ <div class="explanation-heading"><h4 id={`${project}-explanation-title`}>{item.title}</h4><a href={source} target="_blank" rel="noopener">View in Figma <FlatArrow /></a></div>
+ <ul aria-label={`${item.name} illustrated explanation`}>
+  {item.cards.map((card,index)=><li>
+   {(['light','dark'] as const).map(theme=><div class={`explanation-art explanation-${theme}`} role="img" aria-label={`${card.title}. ${card.body}`}><Fragment set:html={artwork[`../../../public/art/explanations/${project}-${index}-${theme}.svg`]} /></div>)}
+  </li>)}
+ </ul>
+ <p class="explanation-caption">{item.caption}</p>
+</section>
+<style>
+.visual-explanation{margin-block:32px 40px;min-width:0}
+.explanation-heading{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin-bottom:24px}
+.explanation-heading h4{font-size:24px;line-height:1.4;font-weight:500;color:var(--fg);margin:0;max-width:32ch}
+.explanation-heading a{display:inline-flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap}
+ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;list-style:none;padding:0;margin:0}
+li{min-width:0;margin:0;padding:0}.explanation-art{width:100%;min-width:0}
+.explanation-art :global(svg){display:block;width:100%;height:auto;border-radius:var(--radius)}
+.explanation-art :global(text){font-family:Inter,Arial,sans-serif}
+.explanation-dark{display:none}:global(html[data-theme=dark]) .explanation-light{display:none}:global(html[data-theme=dark]) .explanation-dark{display:block}
+.explanation-caption{font-size:14px;line-height:1.7;color:var(--fg-2);margin:20px 0 0;max-width:75ch}
+@media(max-width:760px){ul{grid-template-columns:minmax(0,1fr);gap:20px}.explanation-heading{flex-direction:column;align-items:flex-start;gap:8px}.explanation-heading h4{font-size:20px}}
+</style>

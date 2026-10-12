@@ -1,0 +1,18 @@
+<svg width="336" height="397" viewBox="0 0 336 397" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="396" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="396" rx="3.5" stroke="#D6DCE1"/>
+<path d="M149 31H24C21.7909 31 20 32.7909 20 35V59C20 61.2091 21.7909 63 24 63H149C151.209 63 153 61.2091 153 59V35C153 32.7909 151.209 31 149 31Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="30" y="51.8636">Excel template</tspan></text>
+<path d="M158 47H180M175 52L180 47L175 42" stroke="#8B5168" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M317 31H192C189.791 31 188 32.7909 188 35V59C188 61.2091 189.791 63 192 63H317C319.209 63 321 61.2091 321 59V35C321 32.7909 319.209 31 317 31Z" fill="#8B5168" stroke="#8B5168"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="198" y="51.8636">Shared deal</tspan></text>
+<path d="M299 83H41C38.7909 83 37 84.7909 37 87V181C37 183.209 38.7909 185 41 185H299C301.209 185 303 183.209 303 181V87C303 84.7909 301.209 83 299 83Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="13" letter-spacing="0em"><tspan x="54" y="105.727">Download &#x2192; Fill &#x2192; Upload</tspan></text>
+<path d="M54 129H286" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M54 146H286" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M54 163H286" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="57" y="176.5">Mapped into the platform</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">Keep the familiar starting point</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">People kept Excel because they did not </tspan><tspan x="13" y="298.618">yet trust the platform or recognise its </tspan><tspan x="13" y="321.818">layout. Download the template, fill it in as </tspan><tspan x="13" y="345.018">usual, then upload it. The system maps it </tspan><tspan x="13" y="368.218">into the deal.</tspan></text>
+</svg>
+

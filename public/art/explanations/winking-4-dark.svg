@@ -1,0 +1,14 @@
+<svg width="336" height="368" viewBox="0 0 336 368" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="367" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="367" rx="3.5" stroke="#46515F"/>
+<path d="M29 92L66 58L103 92M40 82V143H92V82M236 92L273 58L310 92M247 82V143H299V82" stroke="#B9D5B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M274 151H65C62.7909 151 61 152.791 61 155V179C61 181.209 62.7909 183 65 183H274C276.209 183 278 181.209 278 179V155C278 152.791 276.209 151 274 151Z" fill="#B9D5B8" stroke="#B9D5B8"/>
+<text fill="#222933" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="71" y="171.864">Same family board</tspan></text>
+<path d="M223 28H116C113.791 28 112 29.7909 112 32V117C112 119.209 113.791 121 116 121H223C225.209 121 227 119.209 227 117V32C227 29.7909 225.209 28 223 28Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="123" y="49.8636">This week</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="123" y="70.8636">At Mum&#x2019;s</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="123" y="100.5">Birthday week</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">Two homes and birthday week</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">A custody label, &#x201c;at Mum&#39;s this week&#x201d;, </tspan><tspan x="13" y="298.618">gives the board context in either house. </tspan><tspan x="13" y="321.818">A birthday banner lasts for the whole </tspan><tspan x="13" y="345.018">birthday week.</tspan></text>
+</svg>
+

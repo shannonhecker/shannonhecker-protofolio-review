@@ -22,6 +22,7 @@ import Personas from './dg/AuthoredPersonas.astro';
 import FxOriginalJourney from './dg/FxOriginalJourney.astro';
 
 import FigmaUserFlow from './dg/FigmaUserFlow.astro';
+import VisualExplanation from './dg/VisualExplanation.astro';
 import Matrix from './dg/Matrix.astro';
 import BeforeAfter from './dg/BeforeAfter.astro';
 ---
@@ -79,12 +80,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="label"><HL class="k"><b>03</b> Constraints</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Four things shaped every decision. None of them were mine to remove." />
-        <ul class="rows">
-          <li><b>One platform, two audiences, old technology</b><p>Internal traders and external clients on the same system with different entitlements. One design had to serve both without a second codebase.</p></li>
-          <li><b>A charting vendor's engine</b><p>Some ideas were possible, some weren't, and some were possible but wrong. The vendor's limits became inputs, not blockers.</p></li>
-          <li><b>Compliance in the flow</b><p>In the Barclays specification, I kept confirmation and an audit trail in the order-changing flow. These are requirements of the original design; my public rebuild does not implement the audit backend.</p></li>
-          <li><b>I found the problem underneath the theme</b><p>The brief was to tidy the light theme. I read the code, the tokens and the naming and found hardcoded colours throughout, so one fix would break the next. I gave the product owner and engineering two options with costs. We shipped the feature work first, then phased the fix in the background, starting with the blotter because it was simple and single-themed.</p></li>
-        </ul>
+        <VisualExplanation project="fx" />
       </div>
     </div>
 

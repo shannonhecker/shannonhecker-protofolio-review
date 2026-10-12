@@ -1,0 +1,14 @@
+<svg width="336" height="368" viewBox="0 0 336 368" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="367" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="367" rx="3.5" stroke="#46515F"/>
+<path d="M305 40H35C32.7909 40 31 41.7909 31 44V168C31 170.209 32.7909 172 35 172H305C307.209 172 309 170.209 309 168V44C309 41.7909 307.209 40 305 40Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="23" letter-spacing="0em"><tspan x="52" y="77.3636">Aa</tspan></text>
+<text fill="#B9D5B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="37" letter-spacing="0em"><tspan x="124" y="76.9545">Aa</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="18" letter-spacing="0em"><tspan x="214" y="77.5455">1.6&#xd7;</tspan></text>
+<path d="M47 98H294" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="13" letter-spacing="0em"><tspan x="48" y="127.727">VoiceOver: labelled tabs</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="48" y="153.5">Calm / Reduce Motion: no confetti</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">Accessible and calm</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">VoiceOver reads tab labels and selected </tspan><tspan x="13" y="298.618">state. Dynamic Type supports text up to </tspan><tspan x="13" y="321.818">1.6&#xd7;. Reduce Motion or Calm Mode </tspan><tspan x="13" y="345.018">keeps confetti off.</tspan></text>
+</svg>
+

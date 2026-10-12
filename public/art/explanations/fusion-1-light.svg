@@ -1,0 +1,20 @@
+<svg width="336" height="438" viewBox="0 0 336 438" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="437" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="437" rx="3.5" stroke="#D6DCE1"/>
+<path d="M107 34H21C18.7909 34 17 35.7909 17 38V62C17 64.2091 18.7909 66 21 66H107C109.209 66 111 64.2091 111 62V38C111 35.7909 109.209 34 107 34Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="27" y="54.8636">FactSet</tspan></text>
+<path d="M116 50H138M133 55L138 50L133 45" stroke="#705D8D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M317 34H149C146.791 34 145 35.7909 145 38V62C145 64.2091 146.791 66 149 66H317C319.209 66 321 64.2091 321 62V38C321 35.7909 319.209 34 317 34Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="155" y="54.8636">Reusable widget</tspan></text>
+<path d="M232 70V86M236 82L232 86L228 82" stroke="#705D8D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M317 95H149C146.791 95 145 96.7909 145 99V123C145 125.209 146.791 127 149 127H317C319.209 127 321 125.209 321 123V99C321 96.7909 319.209 95 317 95Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="155" y="115.864">Dashboard page</tspan></text>
+<path d="M232 131V147M236 143L232 147L228 143" stroke="#705D8D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M317 156H149C146.791 156 145 157.791 145 160V184C145 186.209 146.791 188 149 188H317C319.209 188 321 186.209 321 184V160C321 157.791 319.209 156 317 156Z" fill="#705D8D" stroke="#705D8D"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="155" y="176.864">Permitted view</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="18" y="110.5">Many cubes</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="18" y="128.5">Import / export</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="236.773">Many cubes, familiar views</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="275.418">FactSet supplies performance, </tspan><tspan x="13" y="298.618">attribution and risk data. The same </tspan><tspan x="13" y="321.818">widgets serve different cubes and </tspan><tspan x="13" y="345.018">permission levels. People configure their </tspan><tspan x="13" y="368.218">own dashboard pages; entitlements </tspan><tspan x="13" y="391.418">control what they see. Import and export </tspan><tspan x="13" y="414.618">run through FactSet.</tspan></text>
+</svg>
+

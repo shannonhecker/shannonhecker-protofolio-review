@@ -869,3 +869,11 @@ I replaced the text-only original workflow summaries across all five projects wi
 The editable Figma page contains light and dark versions. Individual SVG exports reflow into a single readable column on phones and two columns on larger screens, without a zoom requirement or collapsed content. Each case links to its Figma source. The manifest in src/data/figma-workflow-summaries.json records the source nodes and reference.
 
 Validation: Astro check reports zero errors and warnings. The regression run passed 240 checks; two Safari checks interrupted during the typography rebuild passed on rerun. All 56 final workflow and UX checks pass in Chromium and WebKit, including readable scaling, both themes, text bounds, navigation and accessibility. I reviewed the Figma compositions and the phone/desktop website renderings.
+
+### Illustrating the explanations · 12 October 2026
+
+I reviewed the five cases for prose that describes relationships or behaviour, using C4 relationship diagrams and NN/g service-blueprint examples as references. I replaced Fusion's repeated system-layer explanation, uoaui.ai's mapping stack, FX's constraints, Deal Model's shared-object/template/compliance explanations, and Winking Star's six edge-state paragraphs with editable Figma illustrations and concise labels.
+
+The graphics replace the selected prose rather than sit beside duplicate paragraphs. My research accounts, design trade-offs, outcomes and evidence limitations remain explicit. Both themes use the site's typography and readable phone layouts; no content is placed behind accordions. The source manifest is src/data/figma-explanations.json.
+
+Validation: production build and Astro check pass with zero errors and warnings. All 252 Playwright checks pass, including Chromium and WebKit coverage of the new artwork at 320, 390, 820 and 1440 pixels in both themes. I reviewed the editable Figma compositions and the phone and desktop website renderings.
