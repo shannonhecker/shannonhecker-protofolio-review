@@ -8,9 +8,8 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
   await page.goto(route);
   const consent=page.getByRole('button',{name:'No thanks'});
   if(await consent.isVisible())await consent.click();
-  for(const width of [390,1440]){
+  for(const width of [320,390,760,1440]){
    await page.setViewportSize({width,height:900});
-   if(width===390)await expect.poll(()=>page.locator('.map-scroll').evaluate(n=>Math.abs(n.scrollLeft-(n.scrollWidth-n.clientWidth)/2))).toBeLessThan(2);
    for(const theme of ['light','dark']){
     const toggle=page.getByRole('switch',{name:'Dark mode'});
     if((await toggle.getAttribute('aria-checked')==='true') !== (theme==='dark'))await toggle.click();
@@ -21,10 +20,19 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
     const sizes=await image.evaluate((node:HTMLImageElement)=>({w:node.clientWidth,h:node.clientHeight,nw:node.naturalWidth,nh:node.naturalHeight}));
     expect(Math.abs(sizes.w/sizes.h-sizes.nw/sizes.nh)).toBeLessThan(.01);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
-    if(width===390){
-     const region=page.locator('.map-scroll');await region.focus();
-     const before=await region.evaluate(n=>n.scrollLeft);await page.keyboard.press('ArrowRight');
+    if(width<=760){
+     const figure=page.locator('.figma-decision-map');
+     const region=figure.locator('.map-scroll');
+     expect(sizes.w).toBeLessThanOrEqual(width);
+     expect(await region.evaluate(n=>n.scrollWidth-n.clientWidth)).toBeLessThanOrEqual(1);
+     await figure.getByRole('button',{name:'Enlarge map',exact:true}).click();
+     await expect.poll(()=>image.evaluate(n=>n.clientWidth)).toBe(1120);
+     await expect.poll(()=>region.evaluate(n=>Math.abs(n.scrollLeft-(n.scrollWidth-n.clientWidth)/2))).toBeLessThan(2);
+     await region.focus();const before=await region.evaluate(n=>n.scrollLeft);await page.keyboard.press('ArrowRight');
      await expect.poll(()=>region.evaluate(n=>n.scrollLeft)).toBeGreaterThan(before);
+     await figure.getByRole('button',{name:'Fit to screen',exact:true}).click();
+     await expect(figure.getByRole('button',{name:'Enlarge map',exact:true})).toHaveAttribute('aria-pressed','false');
+     expect(await region.evaluate(n=>n.scrollWidth-n.clientWidth)).toBeLessThanOrEqual(1);
     }
    }
   }
