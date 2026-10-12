@@ -991,3 +991,9 @@ Validation: production build and three review-polish checks pass. Browser inspec
 I masked the bright outer pixel baked into the Deal Model gallery screenshots and replaced it with the subtle theme-aware divider colour. Full-size originals remain available through the image links.
 
 Validation: production build and Deal Model layout check pass. I inspected the rendered screenshot edge.
+
+### Aligned section-title motion · 12 October 2026
+
+I replaced staggered, scroll-scrubbed word masks with a single 500ms heading entrance using a small 12px rise and fade. Words stay on their shared baseline throughout the animation, and headings remain settled when scrolling back. The CSS fallback also fades words together without moving them separately.
+
+Validation: production build passes. Browser checks cover the heading throughout its animation, reduced motion, touch overflow and existing homepage scroll effects. All four checks pass after adapting the heading test to the site's deferred scroll initialization.

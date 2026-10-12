@@ -229,7 +229,7 @@ footer.band{background:var(--bg-2)}
 .rv{opacity:1}
 .js .rv.pre{opacity:0;transform:translateY(32px)}
 .rv.in{opacity:1;transform:none;transition:opacity 1s var(--ease),transform 1s var(--ease)}
-.js .split .wd{display:inline-block;opacity:0;transform:translateY(.4em);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--i) * 40ms)}
+.js .split .wd{display:inline-block;opacity:0;transition:opacity .5s var(--ease)}
 .js .split.in .wd{opacity:1;transform:none}
 
 @media (prefers-reduced-motion:reduce){

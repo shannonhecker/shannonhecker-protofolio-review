@@ -39,23 +39,23 @@ test('home artwork and captions follow scroll in both directions',async({page})=
  await page.emulateMedia({reducedMotion:'reduce'});await expect.poll(()=>y(artwork),{timeout:1000}).toBe(0);
 });
 
-test('word masks follow scroll in both directions and clear for reduced motion',async({page})=>{
- await page.setViewportSize({width:1440,height:1000});await page.goto('/fx');
- const heading=page.locator('#fx-problem .h-sub');
- const position=async(fraction:number)=>heading.evaluate((el,f)=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-innerHeight*f),fraction);
- await position(.94);
+test('section headings keep words aligned throughout their one-time entrance',async({page})=>{
+ await page.setViewportSize({width:1440,height:1000});await page.goto('/panel');
+ const heading=page.locator('#how .split');
+ await heading.evaluate(el=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-innerHeight*.8));
  await expect(heading).toHaveAttribute('data-scroll-motion','true');
- const word=heading.locator('.wd').first();
- await page.waitForTimeout(900);
- const entrance=await word.evaluate(el=>getComputedStyle(el).clipPath);
- await position(.45);await page.waitForTimeout(900);
- const settled=await word.evaluate(el=>getComputedStyle(el).clipPath);
- expect(settled).toBe('inset(0%)');expect(entrance).not.toBe(settled);
- await position(.94);await page.waitForTimeout(900);
- expect(await word.evaluate(el=>getComputedStyle(el).clipPath)).not.toBe(settled);
+ const aligned=await heading.evaluate(async el=>{
+  for(let i=0;i<35;i++){
+   await new Promise(requestAnimationFrame);
+   if([...el.querySelectorAll('.wd')].some(w=>getComputedStyle(w).transform!=='none'||getComputedStyle(w).clipPath!=='none'))return false;
+  }return true;
+ });
+ expect(aligned).toBe(true);
+ await expect(heading).toHaveCSS('opacity','1');
+ await page.evaluate(()=>window.scrollTo(0,0));
+ await expect(heading).toHaveCSS('opacity','1');
  await page.emulateMedia({reducedMotion:'reduce'});
- await expect.poll(()=>word.evaluate(el=>getComputedStyle(el).clipPath)).toBe('none');
- expect(await word.evaluate(el=>getComputedStyle(el).transform)).toBe('none');
+ await expect(heading.locator('.wd').first()).toHaveCSS('transform','none');
 });
 
 test('touch scroll settles every heading without horizontal overflow',async({browser})=>{
@@ -66,7 +66,7 @@ test('touch scroll settles every heading without horizontal overflow',async({bro
  await expect(heading).toHaveAttribute('data-scroll-motion','true');
  await heading.evaluate(el=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-180));
  await page.waitForTimeout(500);
- expect(await heading.locator('.wd').first().evaluate(el=>getComputedStyle(el).clipPath)).toBe('inset(0%)');
+ expect(await heading.locator('.wd').first().evaluate(el=>getComputedStyle(el).clipPath)).toBe('none');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBe(390);
  await context.close();
 });
