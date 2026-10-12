@@ -21,11 +21,11 @@ const decisions = data.decisions.map((decision, index) => {
 ---
 <section class="authored-decisions" id={`${project}-decision-map`} aria-labelledby={`${project}-decision-map-title`}>
   <header class="process-heading">
-    <h3 id={`${project}-decision-map-title`}>Decision map</h3>
+    <h3 id={`${project}-decision-map-title`}>{project === 'fx' ? 'Design decisions' : 'Decision map'}</h3>
     <p>{review.intro}</p>
   </header>
 
-  <FigmaDecisionMap project={project} />
+  {project !== 'fx' && <FigmaDecisionMap project={project} />}
 
   <nav class="decision-index" aria-label={`${project === 'ai' ? 'uoaui.ai' : project} design decisions`}>
     <ol>{decisions.map(({decision, record, id}, i) => <li>
