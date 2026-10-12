@@ -62,8 +62,8 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
      expect(clipped).toEqual([]);
      expect(size.w).toBeGreaterThan(250);
      expect(size.w).toBeLessThanOrEqual(337);
-     expect(Math.abs(size.w/size.h-336/(project==='fx'?200:project==='winking'?348:370))).toBeLessThan(.01);
-     if(project==='fx'){
+     expect(Math.abs(size.w/size.h-336/(project==='winking'?226:200))).toBeLessThan(.01);
+     {
       await expect(summary.locator('.summary-copy h5').nth(i)).toHaveText(summaries[project].steps[i].t);
       await expect(img.locator('text[font-size="20"]')).toHaveCount(0);
      }
@@ -87,6 +87,8 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
      await expect(art).toHaveAttribute('aria-label',explanations[project].cards[i].title+'. '+explanations[project].cards[i].diagramDescription+'. '+explanations[project].cards[i].body);
      const bounds=await art.evaluate(n=>{const r=n.getBoundingClientRect();return {w:r.width,clipped:[...n.querySelectorAll('text')].filter(t=>{const b=t.getBoundingClientRect();return b.left<r.left-1||b.right>r.right+1||b.bottom>r.bottom+1||b.top<r.top-1;}).map(t=>t.textContent)};});
      expect(bounds.w).toBeGreaterThan(250);expect(bounds.w).toBeLessThanOrEqual(337);expect(bounds.clipped).toEqual([]);
+     await expect(section.locator('.explanation-copy h5').nth(i)).toHaveText(explanations[project].cards[i].title);
+     await expect(art.locator('text[font-size="20"]')).toHaveCount(0);
     }
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
    }

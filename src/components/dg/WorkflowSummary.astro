@@ -4,15 +4,17 @@ interface Props { project: keyof typeof content }
 const {project}=Astro.props;
 const artwork=import.meta.glob<string>('../../../public/art/workflow-summaries/*.svg',{query:'?raw',import:'default',eager:true});
 const summary: {label:string;caption:string;steps:{t:string;d:string;branch?:{t:string;d:string}}[]}=content[project];
-const separateCopy=project==='fx';
+const separateCopy=true;
+const illustrationHeight=project==='winking'?226:200;
 function illustration(svg:string){
  if(!separateCopy)return svg;
  // Keep the numbered illustration from the Figma export; render its caption as HTML.
- return svg.replace('height="370"','height="200"').replace('viewBox="0 0 336 370"','viewBox="0 0 336 200"')
-  .replaceAll('height="369"','height="199"')
+ const height=Number(svg.match(/<svg[^>]*height="(\d+)"/)?.[1]);
+ return svg.replace(`height="${height}"`,`height="${illustrationHeight}"`).replace(`viewBox="0 0 336 ${height}"`,`viewBox="0 0 336 ${illustrationHeight}"`)
+  .replaceAll(`height="${height-1}"`,`height="${illustrationHeight-1}"`)
   .replace(/<text\b[^>]*>[\s\S]*?<\/text>/g,text=>{
    const y=text.match(/<tspan\b[^>]*\by="([\d.]+)"/);
-   return y&&Number(y[1])>200?'':text;
+   return y&&Number(y[1])>illustrationHeight?'':text;
   });
 }
 ---

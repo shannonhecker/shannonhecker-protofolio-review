@@ -953,3 +953,9 @@ I also separated the three Deal Model explanation diagrams from their captions a
 I moved the Sample Family branch below the entry decision's bottom border and left a 6px gap at the outgoing and incoming box edges. The Try it label follows the new route. Both theme exports and the branch source coordinates are updated.
 
 Validation: production build and two Winking Star map checks pass; I inspected the connector spacing in the rendered SVG.
+
+### Separate diagram captions across all projects · 12 October 2026
+
+I extended the separate graphic-and-copy treatment to every workflow summary and visual explanation across Fusion, FX, Winking Star, Deal Model and uoaui.ai. Titles and descriptions now render as normal HTML beneath the illustration; diagram labels remain inside the artwork. Text wraps naturally at 18px for headings and 16px for descriptions.
+
+Validation: production build and ten targeted browser checks pass across all five projects, four viewport widths and both themes.
