@@ -4,24 +4,22 @@ Current audit: 12 October 2026. This is the authoritative current checklist.
 Older TASKS.md and QUALITY.md describe historical releases. Completion requires
 source, rendered implementation and deployed result to agree.
 
-**Current state:** PR [#49](https://github.com/shannonhecker/shannonhecker-protofolio-review/pull/49),
-current head `5ec44caf0330d657f1a82e5fdbd26072ad0d3b32`, is open and release is held.
-Its CI38192705830 was cancelled by root because the broader delivery fix supersedes it. The prior d49eb90 result follows as diagnosis:
-CI38191526789 passed source checks, compiled API runtime, production build,
-all 149 browser tests (5.5 minutes) and links. It failed only the Fusion desktop
-Lighthouse performance budget: **94 against the required 95**. FCP 0.4s,
-LCP 0.853s, CLS 0; TBT 180ms is the principal score penalty. No gate waiver.
-The targeted Fusion responsive embedded-raster fix is in 5ec44ca; original
-full-resolution SVG compositions remain unchanged. The broader responsive-hero
-correction is now implemented locally: sixteen new delivery variants preserve
-original compositions. All fourteen local Lighthouse results pass the unchanged
-95-point budget; final current-source build/check and all 149 browser tests
-passed (53.6s). Commit and exact-head remote verification remain pending.
-The protected preview was visually checked on Fusion and Deal, but protected
-asset fetches returned login HTML, so byte verification belongs to production.
-**Hold merge until the targeted fix is tested, pushed and verified at its exact
-head.** PM records evidence; root owns implementation and release. No external
-award validation is claimed.
+**Current state:** PR [#49](https://github.com/shannonhecker/shannonhecker-protofolio-review/pull/49)
+is open; latest pushed head `b82758c4923095e8c6d4680d843109e06ec2f273` failed
+CI38193672253 in browser tests: 147 passed, one flaky motion check and one failed
+AI-stage completion test (7.7 minutes). Build/check/API/links passed; Lighthouse
+did not run. Trace review found repeated bridge-platform overshoots and returns
+to checkpoint 47, not blocked geometry at the final reported tile 59.
+
+Local test-driver fixes now brake at bridge waypoints through real keyboard
+input, preserving engine behavior, time budget and completion assertion. Three
+focused AI-stage repeats passed (18.2/18.3/18.4s). The motion test waits up to two
+seconds for the existing <1px settled transform rather than assuming 900ms.
+Final current-source check/build/149-test rerun is pending. The unchanged local
+fourteen-run Lighthouse matrix passes, including sixteen responsive hero delivery
+variants that retain original compositions and full-size originals. **Hold merge
+until the fully checked correction is pushed and its exact-head CI is green.**
+PM records evidence; root owns release. No external award validation is claimed.
 
 Status terms: **Implemented, release pending** is verified local work, not live.
 **Previously live, final recheck** needs the final review. **Open** requires work.
@@ -44,9 +42,9 @@ Current pending sequence:
    local Lighthouse results now pass: mobile 95–96, desktop 99–100, all other
    categories 100 and TBT 0. `local-release-performance.json` records every run,
    including final Winking/Deal mobile reruns after image-footprint refinements.
-4. Current-source build/check and all 149 browser tests passed after final image
-   refinements (53.6s). Proceed to exact-head commit/CI/preview, merge and production
-   verification.
+4. Final test-driver correction is validated in focused repeats; current-source
+   check/build/full-suite rerun is pending, then exact-head commit/CI/preview,
+   merge and production verification.
 
 New image checkpoint: twenty-two fresh Figma composition assets were losslessly
 packed with exact RGBA comparison, recorded in `figma-composition-encoding.json`.
@@ -88,7 +86,7 @@ profile and the same public profile URL. This was read-only; temporary tabs clos
 | Full-size image zoom/readability | Implemented, final coverage/release pending | ProductCapture and Deal hero links added; Fusion phone original-image tap and native zoom manually verified. Remaining route coverage belongs to final review |
 | Final whole-site UI/UX craft review | Current local sampled review complete; deployed check pending | All ten routes at 1440/390 inspected by PM; light/dark samples, section navigation and keyboard return checked. `UI-REVIEW.md` records exact scope and limits |
 | Final actual scroll-performance review | Local scroll/image review complete with transient-paint limitation; remote performance pending | Current Home and case imagery reviewed during native scroll. One rapid Home paint was blank then resolved and did not repeat; no persistent blocker. See `UI-REVIEW.md`; no frame-rate certification |
-| Final exact-head CI, merge and production verification | Local validation passes; push/remote release pending | Sixteen responsive hero variants implemented; all fourteen local audits pass. 5ec44ca CI cancelled as superseded. Final current-source 149-test suite passed in 53.6s; exact-head remote CI/preview/production evidence required |
+| Final exact-head CI, merge and production verification | Browser-driver correction under final validation; release held | Sixteen responsive hero variants and fourteen local Lighthouse audits pass. b82758c failed AI bridge completion; focused corrected-driver repeats pass. Final full suite, next exact-head CI and preview/production evidence required |
 
 ## Shared UI and assets to recheck in the final review
 
@@ -305,3 +303,23 @@ Final current-source browser validation passed all 149 tests in 53.6s:
 a reduced-motion test asserting before the asynchronous media event; the test now
 polls for the same exact zero-motion state, with no product behavior change.
 Build/check passed. Push and exact-head CI remain pending.
+
+
+### b82758c browser failure and targeted correction
+
+CI38193672253 passed source check, compiled API runtime, build and links (11s).
+Browser results were 147 passed, one flaky scroll-motion check and one failed
+world-7 AI completion check in 7.7 minutes; Lighthouse never ran. Both AI attempts
+repeatedly fell at bridge platforms and respawned at checkpoint 47 (30/32 returns).
+The final tile-59 state was grounded travel after respawn, not a blocking wall.
+Trace evidence: `/private/tmp/pr49-b82758c-ci.log` and
+`/private/tmp/pr49-b82758c-artifacts`.
+
+The corrected test driver uses real keyboard braking at bridge waypoints; engine
+physics, assistance, time budget and finish assertions are unchanged. Three
+focused repeats passed in 18.2/18.3/18.4 seconds. The motion test now polls up to
+two seconds for its unchanged <1px settled-transform requirement. Full validation
+is running in `/private/tmp/portfolio-last-{check,build,tests}.log`. These focused
+results do not yet close the full-suite or exact-head remote release gates.
+
+Final test-driver validation: Astro check has 0 errors and 0 warnings; production build passed; all149 browser tests passed in53.3s after the AI landing-controller and bounded motion assertions. Evidence: `/private/tmp/portfolio-last-{check,build,tests}.log`. Application code and artwork are unchanged from the locally passing fourteen-route performance matrix. Next exact-head remote run and production verification remain required.

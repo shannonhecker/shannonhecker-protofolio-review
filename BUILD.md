@@ -731,3 +731,7 @@ The complete local performance pass found oversized embedded hero screenshots on
 The final 800px Winking and Deal hero versions transfer about 76.5 KB and 92 KB gzipped. I sized their embedded screenshots to the actual phone/screen footprint with extra sampling room. All 16 variants retain the original SVG geometry, and paired render proofs show the composition intact. All 14 local Lighthouse checks now meet the 95 minimum; other categories score 100. Remote exact-head validation and production checks remain required.
 
 Final local validation passed: 149 browser tests in 53.6 seconds, including the reduced-motion check. That test now waits up to one second for the browser's media-change event instead of asserting before the event is processed; it still requires the transform to return to zero.
+
+### PR 49 release-test reliability
+
+The remote browser run exposed a test-driver problem on the AI game's narrow platforms. The trace showed the automated player overshooting a landing and returning to its checkpoint, rather than a blocked tile. The driver now reads the level's landing surfaces and brakes with ordinary keyboard input. Three consecutive completion runs passed; the engine, assistance settings, time budget and completion assertions are unchanged. The artwork motion test now waits for its existing settling condition instead of assuming a fixed delay is sufficient on a busy runner.

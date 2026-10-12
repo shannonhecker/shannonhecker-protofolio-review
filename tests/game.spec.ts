@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import { LEVELS } from '../src/game/levels';
 import { NODES } from '../src/game/map';
+import { T } from '../src/game/tuning';
 
 const state = (page: Page) => page.evaluate(() => (window as unknown as { __game: () => any }).__game());
 
@@ -75,7 +76,58 @@ test('Escape pauses, and Tab still leaves the game (no keyboard trap)', async ({
   await expect(page.locator('#game')).not.toBeFocused();
 });
 
+// The AI bridges rise and fall. Run toward each landing rather than holding
+// right through the apex: that overshoots the narrow draft platforms on CI.
+async function runAiBridges(page: Page) {
+  const rows = LEVELS[6].rows;
+  const surfaces: {left:number;right:number;row:number}[] = [];
+  rows.forEach((line,row) => {
+    for (const match of line.matchAll(/D+|#+/g)) {
+      const left=match.index!;
+      if(match[0][0]==='#' && rows[row-1]?.[left]==='#') continue;
+      surfaces.push({left:left*32,right:(left+match[0].length)*32,row});
+    }
+  });
+  surfaces.sort((a,b)=>a.left-b.left);
+  let direction=0, target:typeof surfaces[number]|undefined, jumping=false;
+  const steer=async(next:number)=>{
+    if(next===direction)return;
+    if(direction)await page.keyboard.up(direction>0?'ArrowRight':'ArrowLeft');
+    if(next)await page.keyboard.down(next>0?'ArrowRight':'ArrowLeft');
+    direction=next;
+  };
+  try {
+    for(let i=0;i<2000;i++) {
+      const s=await state(page);
+      if(s.finished)return s;
+      const center=s.x+10;
+      if(s.grounded){
+        if(jumping){await page.keyboard.up('Space');jumping=false;target=undefined;await page.waitForTimeout(30);continue;}
+        const support=surfaces.find(p=>Math.abs(s.y+44-p.row*32)<2 && center>=p.left && center<p.right);
+        if(!support){await page.waitForTimeout(30);continue;}
+        const next=surfaces.find(p=>p.left>=support.right);
+        if(!next){await steer(1);await page.waitForTimeout(30);continue;}
+        if(center<support.right-32){await steer(1);await page.waitForTimeout(30);continue;}
+        target=next;jumping=true;await page.keyboard.down('Space');
+      }
+      if(target){
+        const landing=Math.min((target.left+target.right)/2,target.left+64);
+        const distance=landing-center;
+        // Releasing a direction still coasts under the real engine's air friction.
+        const stopping=Math.max(8,s.vx*s.vx/(2*T.friction*T.airMult));
+        await steer(distance>stopping?1:distance<-stopping?-1:0);
+        if(s.vy>=0 && !s.grounded)await page.keyboard.up('Space');
+      }
+      await page.waitForTimeout(30);
+    }
+    return state(page);
+  } finally {
+    await page.keyboard.up('ArrowRight');await page.keyboard.up('ArrowLeft');await page.keyboard.up('Space');
+  }
+}
+
 async function runLevel(page: Page, n: number) {
+  if(n===6)return runAiBridges(page);
   const L = LEVELS[n].rows;
   const solid = (x: number, y: number) => L[y]?.[x] === '#';
   const standable = (x: number, y: number) => solid(x, y) || ['=', 'M', 'D'].includes(L[y]?.[x] ?? ' ');
