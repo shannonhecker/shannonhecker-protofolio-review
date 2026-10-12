@@ -895,3 +895,9 @@ Validation: production build and Astro check pass. The full browser run passed 2
 I removed View in Figma links from the flow maps, decision maps, workflow summaries and explanation graphics across every case. I also removed the unused external source URLs from the product artwork metadata. Figma source manifests remain in the repository for editing.
 
 Validation: production build and Astro check pass. All five built case pages contain no Figma links. The attempted browser checks timed out amid continued local browser slowdown and were stopped; browser regression verification is incomplete.
+
+### Restore the homepage Winking Star backdrop · 12 October 2026
+
+I added a consistent support surface behind the Winking Star homepage preview at every viewport: warm cream in light mode and muted green in dark mode. Both sizes now use the same Winking Star composition because the separate mobile artwork retained a baked-in beige tint. The image scales proportionally, and neither size floats directly on the page background. Case-study artwork is unchanged.
+
+Validation: production build and Astro check pass. The homepage artwork check passes at 390, 1280 and 1512 pixels with both theme backgrounds. I inspected the resulting screenshots and confirmed the mobile beige tint is gone.
