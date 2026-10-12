@@ -1,4 +1,5 @@
 import {test,expect} from '@playwright/test';
+import {setTheme} from './theme-helper';
 
 test('game title does not obscure the world label or start prompt',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
@@ -24,6 +25,14 @@ test('home artwork covers its frame and follows the hero alignment',async({page}
    return Math.abs(hero.left-heading.left);
   });
   expect(alignment,`${width}px shared content alignment`).toBeLessThan(1);
+  const tile=page.locator('#work .home-artwork-winking');
+  for(const dark of [false,true]){
+   await setTheme(page,dark);
+   await expect(tile).toHaveCSS('background-color',dark?'rgb(38, 51, 44)':'rgb(246, 241, 225)');
+   await tile.scrollIntoViewIfNeeded();
+   await tile.screenshot({path:`/tmp/winking-home-${width}-${dark?'dark':'light'}.png`});
+  }
+
   for(const edges of geometry){expect(edges.top).toBeLessThanOrEqual(.1);expect(edges.left).toBeLessThanOrEqual(.1);expect(edges.right).toBeGreaterThanOrEqual(-.1);expect(edges.bottom).toBeGreaterThanOrEqual(-.1);}
  }
 });
