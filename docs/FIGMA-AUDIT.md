@@ -158,3 +158,21 @@ The screenshot-only comparison missed six native FX chart drawings. They are now
 | 140:5168 | fx-decision-3-alternative.png |
 
 Each asset is a direct 6× render of the editable source, delivered through AuthoredImage. The re-audit covers Home, Panel and all five case pages, including native vector containers as well as image fills. FX's data-layer chart, journey, original decision loop, hero details and before/after states are retained. Fusion, uoaui.ai, Winking Star and Deal Model's authored comparisons, qualitative plots and product images were already present. Their transparent comparison artwork now sits on a white surface to preserve its dark embedded labels in either page theme.
+
+## Decision maps drawn in Figma first, 12 October 2026
+
+I used the original FX decision loop (`17Rsi3vWFtaYwlrRf5iO8E`, `2068:1768`) as the visual reference, then drew five editable maps in the portfolio design file. The new page is **Decision maps · October 2026**, `438:10271`, in `l6noy7onfsRiuBgjqSsKbt`. Existing case frames remain intact.
+
+| Project | Dark frame | Light frame |
+| --- | --- | --- |
+| Fusion | 438:10272 | 438:10341 |
+| uoaui.ai | 438:10410 | 438:10488 |
+| Winking Star | 438:10566 | 438:10675 |
+| Deal Model | 438:10784 | 438:10875 |
+| FX | 438:10966 | 438:11080 |
+
+The maps use editable Inter text and auto-layout nodes, with routed vector connectors, arrowheads, labelled branches and dashed return loops. Blue marks decisions, green marks starts/outcomes and amber marks exceptions. The design follows current authored content and decision evidence: Sample Family and alpha review are optional; smart pricing remains explicitly explored; FX remains beta. All existing decision comparisons and their evidence remain below the maps. The original FX artwork is retained in an expandable reference section.
+
+The site uses direct SVG_STRING exports from these ten frames. `scripts/prepare-decision-svg.py` normalizes the export's encoded Unicode and embeds the existing licensed Inter font, without redrawing geometry. The font license accompanies the exports. `src/data/figma-decision-maps.json` records the source IDs; `decision-map-content.json` provides the accessible text version. For later edits, change the Figma frame, export it again, run the preparation script and validate both themes.
+
+Visual review corrected wrapped-text heights, a branch-label overflow and connectors crossing node interiors. Browser tests check all five map assets, theme switching, keyboard panning, image proportions, page overflow, accessible transcripts and rendered text bounds. Mobile starts on the central decision path and allows horizontal panning at full label size.
