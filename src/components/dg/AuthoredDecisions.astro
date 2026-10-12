@@ -96,7 +96,8 @@ const decisions = data.decisions.map((decision, index) => {
 .authored-choice-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
 .authored-choice-pair figure{margin:0;min-width:0}
 .authored-choice-label{font-size:14px;color:var(--project-ink);margin:0 0 16px}
-.authored-choice-pair :global(.authored-image-link){background:transparent;padding:0;border:0;box-sizing:border-box;border-radius:var(--radius)}
+/* Raster comparison labels are authored for a light surface in both themes. */
+.authored-choice-pair :global(.authored-image-link){background:#fff;padding:0;border:0;box-sizing:border-box;border-radius:var(--radius)}
 .authored-choice-pair figcaption{margin-top:18px}
 .choice-title{display:block;font-size:18px;line-height:1.45;font-weight:500}
 .authored-choice-pair figcaption p{font-size:15px;line-height:1.6;color:var(--fg-2);margin:10px 0 0;max-width:54ch}

@@ -88,3 +88,43 @@ test('every project selects explicit diagram colours from the site theme', async
     for (const src of compositions) expect(src).toContain('/art/transparent/');
   }
 });
+
+
+test('comparison artwork keeps a readable support surface in both themes across all projects', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  for (const route of ['/fx', '/fusion', '/uoaui', '/winking-star', '/deal-model']) {
+    await page.goto(route);
+    const consent = page.getByRole('button', { name: 'No thanks' });
+    if (await consent.isVisible()) await consent.click();
+    const art = page.locator('.authored-choice-pair .authored-image-link');
+    expect(await art.count()).toBeGreaterThan(0);
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      for (const dark of [false, true]) {
+        const theme = page.getByRole('switch', { name: 'Dark mode' });
+        if ((await theme.getAttribute('aria-checked') === 'true') !== dark) await theme.click();
+        const rendered = await art.evaluateAll(async links => Promise.all(links.map(async link => {
+          const image = link.querySelector('img')!;
+          image.loading = 'eager';
+          await image.decode();
+          const bounds = image.getBoundingClientRect();
+          const backing = link.getBoundingClientRect();
+          return {
+            surface: getComputedStyle(link).backgroundColor,
+            filter: getComputedStyle(image).filter,
+            dimensions: [bounds.width, bounds.height, image.naturalWidth, image.naturalHeight],
+            // Density-corrected natural dimensions are rounded to whole pixels.
+            fullImage: Math.abs(bounds.height - bounds.width * image.naturalHeight / image.naturalWidth) < 1,
+            covered: bounds.left >= backing.left - 1 && bounds.right <= backing.right + 1 && bounds.top >= backing.top - 1 && bounds.bottom <= backing.bottom + 1,
+          };
+        })));
+        for (const image of rendered) {
+          expect(image.surface, `${route} at ${width}px, dark=${dark}`).toBe('rgb(255, 255, 255)');
+          expect(image.filter).toBe('none');
+          expect(image.fullImage, `${route} ${width}: ${image.dimensions}`).toBe(true);
+          expect(image.covered).toBe(true);
+        }
+      }
+    }
+  }
+});
