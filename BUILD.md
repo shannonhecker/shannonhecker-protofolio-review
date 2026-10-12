@@ -765,3 +765,9 @@ I replaced the emoji-capable diagonal arrows in the shared Sections button and A
 Validation for the expanded audit and arrow fix: production build passes, Astro check reports 0 errors and 0 warnings, and all 157 browser tests pass. The phone-sized Deal Model and Sections-panel previews were inspected and saved. The previously reported remote performance gate remains unresolved; these changes have not been published to production.
 
 I extended the flat SVG arrow to every decision index, alternative marker and game-journal source link. The downward decision arrows keep their original direction, without relying on the phone emoji font. All diagonal-arrow characters are removed from the shared components.
+
+### Journey connector alignment · 12 October 2026
+
+I checked the journey graphics against the editable Figma source. Winking Star, Fusion, uoaui.ai and Deal Model had loop endpoints between dots and label rows that overlapped. I aligned the endpoints with the existing dots, gave each label a separate row, and preserved the authored text outlines and colours. FX already uses aligned endpoints and keeps its original map.
+
+I checked all five rendered journey studies. The production build and all 161 browser tests pass, including new checks for connector attachment and label separation in both themes. Astro check reports no errors or warnings. This release also includes the earlier product-surround transparency and flat SVG arrow corrections. Shannon explicitly requested publishing the complete set of changes.

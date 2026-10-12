@@ -27,3 +27,9 @@ The audit covers the home gallery and all five case pages, including hero art, i
 The 13 semantic diagrams previously used an external-SVG colour-scheme query. New pages use `ThemedArtwork.astro`, which selects one of two explicit SVG variants with CSS tied directly to `html[data-theme]`. Only the visible version is exposed to accessibility tools; sizes and alt text are preserved. Both files contain unconditional paints. The old conditional endpoint remains solely for cached-page compatibility. Paint mappings are shared in one module.
 
 HTML content, persona cards and authored diagrams already use page theme tokens or `html[data-theme]`; those do not rely on the external SVG mechanism. Original screenshots and evidence exports are not indiscriminately inverted or recoloured. Full-size source links still open the originals.
+
+## Journey geometry audit, 12 October 2026
+
+The editable Figma Winking Star approach strip (`l6noy7onfsRiuBgjqSsKbt`, node `352:5861`) reproduces the reported issue: six baseline dots use different x positions from the three loop endpoints, and 22px labels sit on rows only 18px apart. The Fusion, uoaui.ai and Deal Model exported approach strips have the same coordinate mismatch. Their existing dot order and authored glyph paths are retained; connector endpoints now meet the nearest existing dot's upper stroke edge. Labels have 34px row spacing in a 156px canvas and paint above connectors. Upper experience curves remain unchanged. FX's authored connector endpoints already share its dot x coordinates and its labels occupy separate rows.
+
+`tests/journey-geometry.spec.ts` checks every corrected connector endpoint and rendered label rectangle in explicit light and dark SVGs. The page image dimensions reserve the revised height before load.
