@@ -3,7 +3,7 @@
     "sourcePage": "32:9",
     "personas": {
       "intro": "My three design personas: execution, desk oversight and algo tuning. Illustrations, not photographs of research participants.",
-      "note": "Composite roles, not research participants.",
+      "note": "",
       "items": [
         {
           "name": "Dana Chen",
@@ -271,7 +271,7 @@
     "sourcePage": "32:11",
     "personas": {
       "intro": "My three design personas: the portfolio manager who presents, the analyst who slices, and the client who never had training. Composite roles from the case, not research participants.",
-      "note": "Composite roles, not research participants.",
+      "note": "",
       "items": [
         {
           "name": "Helen Marsh",
@@ -615,7 +615,7 @@
     "sourcePage": "32:14",
     "personas": {
       "intro": "My two design personas: a designer like me and the developer who inspects the output. Role-based working assumptions the private alpha exists to test, not research participants.",
-      "note": "Composite roles, not research participants.",
+      "note": "",
       "items": [
         {
           "name": "Mei Lin",
@@ -943,7 +943,7 @@
     "sourcePage": "32:17",
     "personas": {
       "intro": "Three users, one star: the child who ticks, the parent who sets it up, and the second adult who never opted in. Composite roles from the case, not research participants.",
-      "note": "Composite roles, not research participants.",
+      "note": "",
       "items": [
         {
           "name": "Leo, 6",
@@ -1467,7 +1467,7 @@
   "deal": {
     "sourcePage": "230:592",
     "personas": {
-      "intro": "Four composite roles from the four teams I sat with for a year: the deal owner who prices, the ops lead who approves, legal who checks the terms, and the product owner who keeps the portfolio. Composite roles, not research participants.",
+      "intro": "Four composite roles from the four teams I sat with for a year: the deal owner who prices, the ops lead who approves, legal who checks the terms, and the product owner who keeps the portfolio.",
       "note": "Composite roles drawn from a year with the four teams. Not research participants, and no individual is depicted.",
       "items": [
         {

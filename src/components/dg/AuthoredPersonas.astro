@@ -15,7 +15,7 @@ const accents = {
 <section class="authored-personas" id={id} aria-labelledby={`${id}-title`}>
  <header class="process-heading"><h3 id={`${id}-title`}>User personas</h3><p>{data.intro}</p></header>
  <div class="authored-persona-list">{data.items.map((p,index)=><PersonaCard name={p.name} role={p.role} quote={p.quote} portrait={`${project}-${index}`} bio={p.bio} groups={p.groups} accent={accents[project][index]}/>)}</div>
- <p class="art-note">{data.note}</p>
+ {data.note && <p class="art-note">{data.note}</p>}
 </section>
 <style>
 .authored-personas{min-width:0;margin-block:48px 80px;scroll-margin-top:140px}.authored-persona-list{display:grid;gap:56px;margin-top:40px}.art-note{margin-top:28px;color:var(--fg-2);font-size:13px;line-height:1.6}
