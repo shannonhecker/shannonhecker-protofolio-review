@@ -1009,3 +1009,9 @@ Validation: production build and homepage artwork framing/theme checks pass at p
 I reduced the Fusion introduction and the matching FX, Winking Star and uoaui introductions to 16px with 1.7 line-height, matching Deal Model. This replaces a viewport-based size that reached 23px and keeps the reading measure at 40 characters.
 
 Validation: production build and all five case-summary browser checks pass. The checks now assert 16px introduction text at phone and desktop widths.
+
+### Re-render Deal Model hero shadows · 12 October 2026
+
+I inspected the original stakeholder-summary file and traced the unwanted glow to two purple, upward-offset shadows in the existing hero export. I replaced them with one neutral 14% black shadow, a 6px downward offset and 7px blur in the source SVG and all four responsive versions. The embedded product screens and their placement remain unchanged.
+
+Validation: production build and Deal Model layout check pass. I inspected fresh light and dark renders and refreshed the responsive asset provenance hashes.
