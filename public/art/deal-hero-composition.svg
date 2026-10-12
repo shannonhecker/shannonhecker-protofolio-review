@@ -22,37 +22,11 @@
 </g>
 </g>
 <defs>
-<filter id="filter0_dd_230_592" x="246.9" y="-70.6452" width="509.489" height="601.758" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dy="-4"/>
-<feGaussianBlur stdDeviation="14.15"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.164706 0 0 0 0 0.121569 0 0 0 0 0.745098 0 0 0 0.1 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_230_592"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="-22" dy="-19"/>
-<feGaussianBlur stdDeviation="26.55"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.164725 0 0 0 0 0.12319 0 0 0 0 0.746214 0 0 0 0.1 0"/>
-<feBlend mode="normal" in2="effect1_dropShadow_230_592" result="effect2_dropShadow_230_592"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_230_592" result="shape"/>
-</filter>
+<filter id="filter0_dd_230_592" x="-15%" y="-15%" width="130%" height="140%" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#000000" flood-opacity="0.14"/></filter>
 <pattern id="pattern0_230_592" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_230_592" transform="matrix(0.000347465 0 0 0.000282518 -0.00600277 -0.00350467)"/>
 </pattern>
-<filter id="filter1_dd_230_592" x="-30.1" y="157.9" width="571.992" height="383.961" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dy="-4"/>
-<feGaussianBlur stdDeviation="14.15"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.164706 0 0 0 0 0.121569 0 0 0 0 0.745098 0 0 0 0.1 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_230_592"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="-22" dy="-19"/>
-<feGaussianBlur stdDeviation="26.55"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.164725 0 0 0 0 0.12319 0 0 0 0 0.746214 0 0 0 0.1 0"/>
-<feBlend mode="normal" in2="effect1_dropShadow_230_592" result="effect2_dropShadow_230_592"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_230_592" result="shape"/>
-</filter>
+<filter id="filter1_dd_230_592" x="-15%" y="-15%" width="130%" height="140%" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#000000" flood-opacity="0.14"/></filter>
 <pattern id="pattern1_230_592" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image1_230_592" transform="matrix(0.000297947 0 0 0.000499205 -0.00478931 -0.00240385)"/>
 </pattern>

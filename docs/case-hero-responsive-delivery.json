@@ -152,12 +152,12 @@
     },
     {
       "source": "public/art/deal-hero-composition.svg",
-      "sourceSha256": "c39c183631ae643965eac30044e72b94a390b1e760781955d54dc5d9676d1745",
+      "sourceSha256": "d4170f9450cd65f1b166769f3c0cafe75b950bd742b5f5b612b83369c38a2e4b",
       "output": "public/art/case-responsive/deal-hero-composition-400.svg",
       "displayWidth": 400,
       "rasterFootprintRatio": 0.75,
-      "sourceBytes": 1382659,
-      "bytes": 43525,
+      "sourceBytes": 1380962,
+      "bytes": 41828,
       "geometryIdentical": true,
       "images": [
         {
@@ -177,16 +177,17 @@
           "encoding": "WebP quality95 display derivative"
         }
       ],
-      "gzipBytes": 31115
+      "gzipBytes": 31115,
+      "shadow": "Neutral black, 14% opacity, 6px downward offset, 7px blur; replaces two purple upward shadows."
     },
     {
       "source": "public/art/deal-hero-composition.svg",
-      "sourceSha256": "c39c183631ae643965eac30044e72b94a390b1e760781955d54dc5d9676d1745",
+      "sourceSha256": "d4170f9450cd65f1b166769f3c0cafe75b950bd742b5f5b612b83369c38a2e4b",
       "output": "public/art/case-responsive/deal-hero-composition-800.svg",
       "displayWidth": 800,
       "rasterFootprintRatio": 0.75,
-      "sourceBytes": 1382659,
-      "bytes": 123905,
+      "sourceBytes": 1380962,
+      "bytes": 122208,
       "geometryIdentical": true,
       "images": [
         {
@@ -206,16 +207,17 @@
           "encoding": "WebP quality95 display derivative"
         }
       ],
-      "gzipBytes": 92000
+      "gzipBytes": 92000,
+      "shadow": "Neutral black, 14% opacity, 6px downward offset, 7px blur; replaces two purple upward shadows."
     },
     {
       "source": "public/art/deal-hero-composition.svg",
-      "sourceSha256": "c39c183631ae643965eac30044e72b94a390b1e760781955d54dc5d9676d1745",
+      "sourceSha256": "d4170f9450cd65f1b166769f3c0cafe75b950bd742b5f5b612b83369c38a2e4b",
       "output": "public/art/case-responsive/deal-hero-composition-1600.svg",
       "displayWidth": 1600,
       "rasterFootprintRatio": 0.75,
-      "sourceBytes": 1382659,
-      "bytes": 349229,
+      "sourceBytes": 1380962,
+      "bytes": 347532,
       "geometryIdentical": true,
       "images": [
         {
@@ -235,16 +237,17 @@
           "encoding": "WebP quality95 display derivative"
         }
       ],
-      "gzipBytes": 261196
+      "gzipBytes": 261196,
+      "shadow": "Neutral black, 14% opacity, 6px downward offset, 7px blur; replaces two purple upward shadows."
     },
     {
       "source": "public/art/deal-hero-composition.svg",
-      "sourceSha256": "c39c183631ae643965eac30044e72b94a390b1e760781955d54dc5d9676d1745",
+      "sourceSha256": "d4170f9450cd65f1b166769f3c0cafe75b950bd742b5f5b612b83369c38a2e4b",
       "output": "public/art/case-responsive/deal-hero-composition-2400.svg",
       "displayWidth": 2400,
       "rasterFootprintRatio": 0.75,
-      "sourceBytes": 1382659,
-      "bytes": 603413,
+      "sourceBytes": 1380962,
+      "bytes": 601716,
       "geometryIdentical": true,
       "images": [
         {
@@ -264,7 +267,8 @@
           "encoding": "WebP quality95 display derivative"
         }
       ],
-      "gzipBytes": 449422
+      "gzipBytes": 449422,
+      "shadow": "Neutral black, 14% opacity, 6px downward offset, 7px blur; replaces two purple upward shadows."
     },
     {
       "source": "public/art/ai-hero-builder-composition.svg",
