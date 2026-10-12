@@ -1,15 +1,13 @@
 ---
-import Base from '../layouts/Base.astro';
+import UtilityPage from '../layouts/UtilityPage.astro';
 import { Content } from '../../BUILD.md';
 ---
-<Base title="Build log · Shannon Hecker">
-  <main id="main" class="band">
-    <div class="wrap build-log measure">
+<UtilityPage title="Build log">
+    <div class="build-log measure">
       <p class="eyebrow"><a href="/panel">← Shannon Hecker</a></p>
       <Content />
     </div>
-  </main>
-</Base>
+</UtilityPage>
 <style is:global>
   .build-log{display:grid;gap:20px;max-width:72ch;margin-inline:auto}
   .build-log h1{font-size:clamp(44px,6vw,96px);letter-spacing:-.05em;margin-bottom:12px}
