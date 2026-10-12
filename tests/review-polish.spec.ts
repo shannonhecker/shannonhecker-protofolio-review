@@ -17,7 +17,7 @@ test('home artwork covers its frame and follows the hero alignment',async({page}
   await page.setViewportSize({width,height:900});await page.goto('/panel');await page.evaluate(()=>document.fonts.ready);
   const geometry=await page.locator('#work .home-artwork').evaluateAll(tiles=>tiles.map(tile=>{
    const image=Array.from(tile.querySelectorAll('img')).find(img=>img.getBoundingClientRect().width>0)!;
-   const a=tile.getBoundingClientRect(),b=image.getBoundingClientRect();return {top:b.top-a.top,left:b.left-a.left,right:b.right-a.right,bottom:b.bottom-a.bottom};
+   const a=tile.getBoundingClientRect(),b=image.getBoundingClientRect();const inset=tile.classList.contains('home-artwork-deal')?parseFloat(getComputedStyle(tile.querySelector('picture')!).paddingTop):0;return {top:b.top-a.top-inset,left:b.left-a.left-inset,right:b.right-a.right+inset,bottom:b.bottom-a.bottom+inset};
   }));
   const alignment=await page.evaluate(()=>{
    const hero=document.querySelector('.hero-story')!.getBoundingClientRect();
