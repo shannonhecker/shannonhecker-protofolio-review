@@ -829,3 +829,9 @@ Validation: production build and Astro check pass, with zero errors and warnings
 I confirmed that Deal Model came before my move to Fusion in 2023, without overlap. I removed the incorrect January 2024 involvement endpoint from the Deal Model status, narrative and summary. I have not inferred a start date.
 
 I split the case-summary browser check by project so Safari does not have to load ten pages and run twenty accessibility scans inside a single 30-second test. The assertions and viewport/theme coverage are unchanged. Production build and Astro check pass; the full suite now contains 226 checks.
+
+### Scoped Fusion accessibility evidence · 12 October 2026
+
+I clarified that my Fusion accessibility work covered a specific flow, working closely with an ADA specialist and using developer-tool checks. I replaced the broad zero-violations claim in the outcome, journey takeaway and How I work section. I do not claim a product-wide audit or formal certification from those checks.
+
+Validation: production build and all 226 browser checks pass. A source search confirms the unscoped zero-violations wording is removed from the rendered portfolio content.
