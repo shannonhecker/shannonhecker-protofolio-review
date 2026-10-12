@@ -466,6 +466,10 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.012em;li
 .brand-logo-dark{background:#0a0e1a;min-height:260px;align-content:center}
 .brand-logo-dark img{width:min(100%,440px)}
 .brand-logo-dark figcaption{color:#c7c8d1}
+.brand-icon-figure{margin:0;min-width:0}
+.brand-icon-figure picture{display:block;width:100%;aspect-ratio:1;overflow:hidden;border-radius:var(--radius)}
+.brand-icon-figure img{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:1;object-fit:cover}
+.brand-icon-figure figcaption{margin-top:12px;font-size:13px;line-height:1.5;color:var(--fg-2);text-align:center}
 .brand-intent h4,.brand-rules h4{font-size:24px;line-height:1.4;margin-bottom:20px}
 .brand-intent p,.brand-rules p{font-size:16px;line-height:1.85;max-width:60ch}
 .brand-type-label{margin-top:24px;color:var(--fg-2)}

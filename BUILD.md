@@ -939,3 +939,9 @@ I replaced Winking Star's qualitative emotion curves, invented scenario quotes a
 I also refined all four Winking Star workflow cards in their Figma source, in both themes: named child selection, a labelled seven-day routine grid, growth stages and an invite-to-shared-board handoff. The card titles are now 16px and descriptions 14px. The site uses fresh SVG exports, with the existing source node IDs recorded in the manifest.
 
 Validation: production build and Astro check pass with zero errors and warnings. Five focused Chromium and WebKit checks pass for the journey relationships, visible steps, card text bounds and theme switching. I reviewed the Figma cards and the site at phone and desktop sizes.
+
+### Full-card app icon and separate FX captions · 12 October 2026
+
+I expanded the original Winking Star icon to fill a square image card, using responsive exports from the 1024px original, and moved its caption beneath the artwork. I separated the six FX workflow illustrations from their headings and descriptions so the copy uses normal site typography outside the graphic panels.
+
+Validation: production build and the Winking Star layout check pass. The FX summary check passes across four viewport widths and both themes. Browser inspection confirms the icon fills the card at 390px and 1440px without distortion.
