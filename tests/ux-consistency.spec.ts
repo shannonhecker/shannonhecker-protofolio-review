@@ -164,3 +164,24 @@ test('Winking Star journey separates setup, daily repetition and independent han
  }
  await expect(journey).toContainText('It does not depend on finishing a week.');
 });
+
+test('case summaries and content blocks keep consistent breathing room',async({page})=>{
+ await page.emulateMedia({reducedMotion:'reduce'});
+ for(const width of [390,820,1440]){
+  await page.setViewportSize({width,height:1000});
+  for(const route of ['/fusion','/fx','/winking-star','/deal-model','/uoaui']){
+   await page.goto(route);
+   const spacing=await page.evaluate(()=>{
+    const summary=document.querySelector('.case-evidence')!;
+    const note=summary.querySelector('.evidence-note')!;
+    const gaps=[...document.querySelectorAll('.beat .body')].flatMap(parent=>{
+     const children=[...parent.children].filter(el=>{const style=getComputedStyle(el);return el.getBoundingClientRect().height>0&&!['absolute','fixed'].includes(style.position)});
+     return children.slice(1).flatMap((el,i)=>{const a=children[i].getBoundingClientRect(),b=el.getBoundingClientRect();return b.left<a.right&&b.right>a.left?[b.top-a.bottom]:[]});
+    });
+    return {bottom:summary.getBoundingClientRect().bottom-note.getBoundingClientRect().bottom,gaps};
+   });
+   expect(spacing.bottom,route).toBeGreaterThanOrEqual(31);
+   expect(spacing.gaps.every(gap=>gap>=31),`${route} at ${width}: ${spacing.gaps}`).toBe(true);
+  }
+ }
+});
