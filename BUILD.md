@@ -985,3 +985,9 @@ Validation: production build and a browser regression check confirm the duplicat
 I added a muted rose background behind the Deal Model screen composition, with a deeper surface in dark mode. The background fills the image frame at mobile and desktop sizes.
 
 Validation: production build and three review-polish checks pass. Browser inspection confirms the background colours in both themes at 390px and 1440px.
+
+### Subtle Deal Model screenshot edges · 12 October 2026
+
+I masked the bright outer pixel baked into the Deal Model gallery screenshots and replaced it with the subtle theme-aware divider colour. Full-size originals remain available through the image links.
+
+Validation: production build and Deal Model layout check pass. I inspected the rendered screenshot edge.

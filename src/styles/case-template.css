@@ -51,3 +51,7 @@
   .case-page .project-hero .shot { padding:0; }
   .case-page .product-capture img { width:100%; }
 }
+
+/* Soften the bright edge baked into the original Deal Model exports. */
+.deal-screen-gallery .authored-image-link{background:var(--divider);overflow:hidden}
+.deal-screen-gallery .authored-image-link img{clip-path:inset(1px round var(--radius))}
