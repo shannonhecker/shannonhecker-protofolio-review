@@ -779,3 +779,9 @@ I drew all five decision maps in Figma first, using the original FX loop as the 
 I added the exported light and dark graphics to each project, with a Figma source link, full-size view, keyboard-accessible horizontal scrolling and a complete text version. On phones the map starts on the central path. I embedded the site's Inter font so browser rendering keeps the Figma typography. The original FX diagram remains available as a reference.
 
 Validation: production build passes; Astro check has zero errors and warnings; all 181 browser tests pass, including the new map checks in Chromium and iPhone WebKit. I visually checked the Figma maps and the website at desktop and phone sizes.
+
+### Readable comparison artwork in dark mode · 12 October 2026
+
+I restored a white backing behind the decision-comparison artwork across all five projects. Some images contain dark labels over transparent areas, which disappeared against the dark page. The backing preserves those labels and the original artwork colours. Product heroes remain transparent; journey and decision maps keep their explicit theme variants.
+
+I visually checked the reported payment, onboarding and weekly-pet comparisons on a phone-sized preview. Browser regressions check every comparison in both themes at phone and desktop widths, including iPhone WebKit, while the existing checks protect transparent hero artwork.
