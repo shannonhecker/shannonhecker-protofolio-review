@@ -835,3 +835,9 @@ I split the case-summary browser check by project so Safari does not have to loa
 I clarified that my Fusion accessibility work covered a specific flow, working closely with an ADA specialist and using developer-tool checks. I replaced the broad zero-violations claim in the outcome, journey takeaway and How I work section. I do not claim a product-wide audit or formal certification from those checks.
 
 Validation: production build and all 226 browser checks pass. A source search confirms the unscoped zero-violations wording is removed from the rendered portfolio content.
+
+### Full-width mobile navigation · 12 October 2026
+
+I replaced the inset mobile menu card with an edge-to-edge panel attached to the header. The same menu now spans tablet widths too, with generous link rows and subtle separators in both themes. In landscape, the links scroll within the available screen height while the menu toggle remains reachable.
+
+Validation: I reviewed phone, tablet and short landscape previews. The browser checks now assert full-width placement across every page and exercise scrolling to the last link on a short screen, alongside the existing navigation and keyboard checks.

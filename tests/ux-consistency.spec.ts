@@ -38,6 +38,10 @@ test('every page shares usable navigation, theme controls and an overflow-free s
    if(width<=1100){
     await page.getByRole('button',{name:'Menu',exact:true}).click();
     await expect(page.locator('.nav ul')).toBeVisible();
+    const menu=(await page.locator('.nav ul').boundingBox())!;
+    const header=(await page.locator('.nav').boundingBox())!;
+    expect(menu.x).toBe(0);expect(menu.width).toBe(width);
+    expect(Math.abs(menu.y-(header.y+header.height))).toBeLessThanOrEqual(1);
     for(const link of await page.locator('.nav ul a').all())await expect(link).toBeInViewport();
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'Menu',exact:true})).toBeFocused();
@@ -99,3 +103,17 @@ test('mobile menu links navigate and dismiss the disclosure',async({page})=>{
   await expect(page.getByRole('button',{name:'Menu',exact:true})).toHaveAttribute('aria-expanded','false');
  }
 });
+
+ test('mobile menu scrolls within a short viewport and keeps its toggle reachable',async({page})=>{
+ await page.setViewportSize({width:667,height:320});
+ await page.goto('/privacy');
+ const toggle=page.getByRole('button',{name:'Menu',exact:true});
+ await toggle.click();
+ const menu=page.locator('#site-navigation');
+ const bounds=(await menu.boundingBox())!;
+ expect(bounds.y+bounds.height).toBeLessThanOrEqual(320);
+ await menu.getByRole('link',{name:'How I work',exact:true}).scrollIntoViewIfNeeded();
+ await expect(menu.getByRole('link',{name:'How I work',exact:true})).toBeInViewport();
+ await expect(toggle).toBeInViewport();
+ await toggle.click();await expect(menu).toBeHidden();
+ });
