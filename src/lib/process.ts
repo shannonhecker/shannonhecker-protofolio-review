@@ -56,7 +56,7 @@ export const decisions: Record<Project, Decision[]> = {
     { question: 'Phase two', chosen: 'One product with entitlement-based views', alternative: 'A simplified client version', reason: 'Patterns stayed consistent and the team kept one codebase.' },
   ],
   ai: [
-    { question: 'Generation', chosen: 'Official components only, never overridden', alternative: 'Letting the model draw free-form UI', reason: 'The output is something a developer recognises, at the cost of the model having fewer moves.' },
+    { question: 'Generation', chosen: 'Official component mappings with fallbacks', alternative: 'Letting the model draw free-form UI', reason: 'The output is something a developer recognises, at the cost of the model having fewer moves.' },
     { question: 'Switching systems', chosen: 'Five systems, one model underneath', alternative: 'A screen rebuilt by hand', reason: 'I mapped their tokens, density scales and theming into one structure.' },
     { question: 'Export', chosen: 'Compare and tune before export', alternative: "The model's first answer", reason: "That's where the person decides, and where I correct the model most often." },
   ],

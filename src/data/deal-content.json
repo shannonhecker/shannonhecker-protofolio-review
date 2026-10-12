@@ -1,9 +1,9 @@
 {
   "intro": "Four teams with four ideas of what a deal is. Custody ops, sales, legal and product priced global custody deals from one large spreadsheet and email chains. Slow, easy to get wrong, and no audit trail. I was embedded with the four teams for a year. One web platform, one deal object, four views.",
-  "status": "Shown as redrawn schematics with sample data. The product is internal to J.P. Morgan, so no production screens, names or figures appear here.",
+  "status": "Original design-file screens alongside schematic comparisons. Deal Model is internal to J.P. Morgan; these are design artefacts.",
   "meta": [
     "Case four · J.P. Morgan · Securities Services · internal product",
-    "Role · UI lead, one of two designers",
+    "Role · UI lead",
     "Team · Two UX designers, a junior designer, a BA, a researcher, a data analyst, engineers",
     "Status · In use internally. Six design phases, to January 2024",
     "Platform · Web, desktop"
@@ -70,7 +70,7 @@
       },
       {
         "label": "What was mine",
-        "text": "I led UI: the compare grid, the column chooser, the iteration list, the validation states and the three-versions review format. The five-step flow was shared with the two UX designers. The upload template came out of the BA and me."
+        "text": "I led UI: the compare grid, the column chooser, the iteration list, the validation states and the three-versions review format. The five-step flow was shared with the two UX designers. The upload-template idea came from a user session. I worked it through with the BA."
       },
       {
         "label": "Six phases",
@@ -80,45 +80,45 @@
   },
   "flow": {
     "title": "From a spreadsheet to a signed-off deal in five steps.",
-    "intro": "Create the deal. Load the portfolio. Price and iterate. Compare and tier. Approve and sign off. Each step shows only what you need at that stage, with checks as you go. Step five writes the sign-off summary for you."
+    "intro": "Create the deal. Load the portfolio. Price and iterate. Compare and tier. Approve and sign off. Each step shows only what you need at that stage, with checks as you go. The owner publishes a proposal with a description; the approver reviews the comparison and comments."
   },
   "edge": {
     "title": "The states a deal hits when things are not normal.",
     "rows": [
       [
-        "Price outside tolerance",
-        "A warning at the field as soon as it changes, naming the tolerance and the rate card. Legal sign-off is added to the route.",
-        "Found at the field, not three days later at approval."
+        "Custody and transaction rates differ",
+        "The new-iteration form shows a warning beside the pricing choices when the selected transaction rate differs from the custody rate.",
+        "Check the mismatch while the pricing inputs are still visible."
       ],
       [
-        "Rate card missing or stale",
-        "The iteration is blocked at that field with the card owner named, so the deal owner knows who to ask.",
-        "A price must have a source. The trail starts with the card."
+        "Iteration creation succeeds",
+        "A success notification confirms how many iterations were added.",
+        "The owner knows the action completed."
       ],
       [
-        "Template with unmapped columns",
-        "The mapping screen lists every unmapped column. Import waits until each one is mapped or skipped on purpose.",
-        "No silent data loss on the way in."
+        "Iteration creation fails",
+        "An error notification explains that the iteration could not be created and asks the owner to try again.",
+        "Keep failure explicit rather than implying the new proposal exists."
       ],
       [
-        "No portfolio or no iteration yet",
-        "A default portfolio and a \"new proposal\" entry, so the first useful view appears before any data is loaded.",
-        "Value before setup, the same rule as everywhere else I design."
+        "No iterations yet",
+        "The empty pricing view points to the New Iterations action, with options for a new iteration or one from benchmarks.",
+        "Make the next action clear before there are proposals to compare."
       ],
       [
-        "Approval returned",
-        "The deal comes back with the reason inline and the fields that changed highlighted, not an email thread.",
-        "The record is the tool, not the inbox."
+        "Publishing and approval",
+        "The owner publishes the proposal with a written winning-bid reason. The approver reviews the comparison and comments.",
+        "Keep the reasoning beside the proposal being reviewed."
       ],
       [
         "Keyboard and screen reader",
-        "Landmarks, tabbing order, content hierarchy and alt text specified per screen, reviewed with the ADA specialist before build.",
-        "Accessibility was a review step, not a final check."
+        "Landmarks, tab order, hierarchy and alternative text are documented in the ADA specification.",
+        "Accessibility is part of the design review."
       ],
       [
-        "Forty columns on one grid",
-        "Column chooser with saved settings, legends, and a secondary-transactions view split out.",
-        "Honest at ten columns and at forty."
+        "A wide pricing grid",
+        "The pricing area includes a column chooser, comparison grid and separate tiering view.",
+        "Give each pricing task the controls and context it needs."
       ]
     ]
   },
@@ -127,8 +127,8 @@
     "title": "In use internally. The numbers are mine, not measured.",
     "rows": [
       {
-        "label": "Delivered",
-        "text": "Six design phases to January 2024: deals, portfolio, pricing, tiering, ADA specs, smart pricing, then the deal-owner dashboard and the approver workflow. Reviewed with the four teams at every phase."
+        "label": "Design scope",
+        "text": "Six design phases to January 2024, covering deals, portfolio, pricing, tiering, ADA specs, the deal-owner dashboard and the approver workflow. Smart pricing was explored with the data analyst but was not built in my time. I reviewed the work with the four teams at each phase."
       },
       {
         "label": "Live",
@@ -154,31 +154,31 @@
   },
   "validation": [
     {
-      "name": "Default",
-      "label": "Reduction",
-      "value": "12 %",
-      "message": "Within Tier B tolerance (max 15 %)."
+      "name": "Empty",
+      "label": "Pricing iterations",
+      "value": "No iterations",
+      "message": "Start a new iteration or use a benchmark."
     },
     {
       "name": "Warning",
-      "label": "Reduction",
-      "value": "16 %",
-      "message": "Above Tier B tolerance (15 %). Legal sign-off will be added to the route."
+      "label": "Pricing sources",
+      "value": "Different custody and transaction rates",
+      "message": "Check the selected rate cards before adding the iteration."
+    },
+    {
+      "name": "Success",
+      "label": "Create iterations",
+      "value": "2 iterations added",
+      "message": "Confirmation appears after the action completes."
     },
     {
       "name": "Error",
-      "label": "Reduction",
-      "value": "abc",
-      "message": "Enter a percentage between 0 and 100."
-    },
-    {
-      "name": "Blocked",
-      "label": "Rate card",
-      "value": "No card for APAC · Tier B",
-      "message": "Ask the rate card owner before pricing this market."
+      "label": "Create iteration",
+      "value": "Could not create iteration",
+      "message": "Please try again."
     }
   ],
-  "screensIntro": "Screens from the Deal Model stakeholder summary, phases one to six. Client names, people and internal links are replaced.",
+  "screensIntro": "Original screens from the Deal Model stakeholder design file, phases one to six. These are design artefacts, not live production captures.",
   "screens": [
     {
       "image": "source-242-530.png",

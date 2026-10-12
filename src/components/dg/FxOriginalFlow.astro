@@ -1,10 +1,12 @@
 ---
+import content from '../../data/authored-content.json';
 const original = '/art/fx-original-decision-loop.png';
 ---
 <figure class="fx-original-flow">
   <a class="diagram-image" href={original} target="_blank" rel="noopener" aria-label="Open the complete original FX decision loop image in a new tab">
     <img src={original} width="3057" height="2667" loading="lazy" decoding="async" alt="Original FX decision loop: watch order progress and fill prices, assess schedule and benchmarks, then remain passive or intervene. The complete branches are transcribed below." />
   </a>
+  <div class="flow-transcript"><h5>The branches in the original loop</h5><ul>{content.fx.decisionFlowText.map(text=><li>{text}</li>)}</ul></div>
 </figure>
 <style>
   .fx-original-flow { margin: 0; min-width: 0; }

@@ -35,7 +35,8 @@
                 "Venue cross-filter"
               ]
             }
-          ]
+          ],
+          "bio": "Works a large FX order through the session, watching price and progress to decide when to intervene."
         },
         {
           "name": "Marcus Webb",
@@ -67,7 +68,8 @@
                 "Passive / aggressive gauge"
               ]
             }
-          ]
+          ],
+          "bio": "Oversees the trading desk and reviews execution quality across orders and venues."
         },
         {
           "name": "Priya Nair",
@@ -93,12 +95,13 @@
             {
               "label": "In this app",
               "items": [
-                "Complete bid/ask/mid studies",
+                "Bid/ask/mid study inputs (specified)",
                 "Interval regrouping",
                 "Table view with CSV export"
               ]
             }
-          ]
+          ],
+          "bio": "Studies fill placement and pacing to tune how an execution algorithm behaves."
         }
       ]
     },
@@ -136,12 +139,12 @@
       "steps": [
         {
           "title": "Pre-trade",
-          "description": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+          "description": "Dana reviews liquidity for the session and sets the order limit. Arrival mid anchors the execution; session TWAP provides an evolving market benchmark.",
           "recommendations": [
-            "Order ticket with percentile presets",
-            "Benchmarks captured and frozen on the canvas"
+            "Order ticket with limit and notional",
+            "Fixed arrival mid and evolving session TWAP"
           ],
-          "backstage": "The ticket carries percentile presets. Arrival mid and session TWAP are captured when the order goes live and frozen on the canvas."
+          "backstage": "The ticket carries the limit and notional. Arrival mid stays fixed; session TWAP updates as market prices arrive."
         },
         {
           "title": "Staging the order",
@@ -191,11 +194,11 @@
         },
         {
           "label": "Who was in the room",
-          "text": "Lead designer, one of one. Around twenty engineers, the business, and the charting vendor. A few clients, watched while they decided to trade now or wait."
+          "text": "Lead designer, one of one. Around twenty engineers, the business, and the charting vendor. Traders observed on the desk."
         },
         {
           "label": "How I measure it",
-          "text": "No adoption numbers yet. Three measures agreed with the business for rollout: price move to trader action, tool switches per order, usage per feature. Until those run, the test records under the decision map are what I have."
+          "text": "No adoption numbers yet. Three measures agreed with the business for rollout: price move to trader action, tool switches per order, usage per feature. Until those run, the decision records under the decision map are what I have."
         }
       ]
     },
@@ -214,7 +217,7 @@
             "alt": "Two linked panels separate market prices from execution progress."
           }
         ],
-        "reason": "We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.",
+        "reason": "I explored two linked panels and one combined chart. I chose the combined canvas to keep price and progress in the same field of view. The trade-off was a denser chart that needed careful hierarchy.",
         "tradeoff": "A denser screen that needed careful hierarchy.",
         "outcome": "One canvas with a dual axis went in as the build contract. Readable in two seconds, actionable in one click."
       },
@@ -232,7 +235,7 @@
             "alt": "A separate order-settings menu edits the limit price away from the chart."
           }
         ],
-        "reason": "The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line. Drag won because the decision and the action sit in the same place.",
+        "reason": "The limit price log showed orders being changed mid-flight. I reviewed a menu-based edit and drag-to-reprice with the business and charting vendor. I chose drag so the action stayed beside the price the trader was watching.",
         "tradeoff": "Drag needs a safety step, so a pre-filled ticket sits between the gesture and the change.",
         "outcome": "Drag-to-reprice went into the spec as the build contract. Each step commits you a little more, so you can’t reprice by accident."
       },
@@ -252,7 +255,7 @@
         ],
         "reason": "My spec let analytics studies run on any series, including the order’s own fills. The vendor showed that order data has gaps, so a study on it looks confident and is wrong. I reversed it.",
         "tradeoff": "Less flexibility. Studies cannot run on the order’s own fills, even when someone asks for it.",
-        "outcome": "Studies run on bid, ask and mid only, and the picker says why. Flexibility that produces plausible but wrong output isn’t a feature."
+        "outcome": "I changed the specification to use bid, ask and mid as study inputs. The current public rebuild does not include the study-source picker."
       }
     ],
     "decisionFlow": "fx-original-decision-loop.png",
@@ -300,7 +303,8 @@
                 "Configurable pages built from widgets"
               ]
             }
-          ]
+          ],
+          "bio": "Prepares performance, attribution and risk for board meetings, and presents the analysis live."
         },
         {
           "name": "Tom Reilly",
@@ -332,7 +336,8 @@
                 "Import and export through FactSet"
               ]
             }
-          ]
+          ],
+          "bio": "Explores returns, attribution and risk across data cubes to build an analytical view."
         },
         {
           "name": "Amara Osei",
@@ -364,7 +369,8 @@
                 "One codebase, consistent patterns"
               ]
             }
-          ]
+          ],
+          "bio": "Uses the client-facing view in phase two, without the training available to internal analysts."
         }
       ]
     },
@@ -452,7 +458,7 @@
       "takeaways": [
         {
           "label": "Opportunities",
-          "text": "Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules, and bring the accessibility specialist in from week one."
+          "text": "Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules, and keep the accessibility specialist involved from the first review."
         },
         {
           "label": "Insight",
@@ -464,7 +470,7 @@
         },
         {
           "label": "How I measure it",
-          "text": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch."
+          "text": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
         }
       ]
     },
@@ -580,14 +586,14 @@
               "Client version",
               "Simplified. Separate",
               "patterns, second codebase.",
-              "Drift from the product",
-              "within a year"
+              "Risk of divergence",
+              "over time"
             ]
           }
         ],
         "reason": "Phase two brought in clients who'd had no training. We chose one product with entitlement-based views over a simplified client version, so patterns stayed consistent and the team kept one codebase.",
         "tradeoff": "Client constraints live in the same codebase as the internal views.",
-        "outcome": "Clients onboarded with no training, and several signed after the phase two launch."
+        "outcome": "Phase two opened the product to external clients."
       }
     ],
     "decisionFlow": "fusion-decision-flow.png",
@@ -638,10 +644,11 @@
               "items": [
                 "A compare step across systems",
                 "Tune density, theme and charts",
-                "Official components only, never overridden"
+                "Mapped system components, with explicit fallbacks"
               ]
             }
-          ]
+          ],
+          "bio": "Designs screens inside an established design system, comparing and refining generated drafts."
         },
         {
           "name": "Dev Patel",
@@ -653,7 +660,7 @@
               "label": "Goals",
               "items": [
                 "Inspect the exported React",
-                "Recognise each system's official components",
+                "Recognise mapped components and inspect the fallbacks",
                 "Close the gap between a Figma file and code"
               ]
             },
@@ -669,18 +676,19 @@
               "label": "In this app",
               "items": [
                 "Export React a developer recognises",
-                "Each system's published React components",
+                "Native component mappings and explicit export fallbacks",
                 "Token mapping underneath, mapped not generated"
               ]
             }
-          ]
+          ],
+          "bio": "Receives exported React and needs to understand the components, structure and remaining work."
         }
       ]
     },
     "journey": {
       "line": "Mei Lin · Product Designer · Works inside a design system · One screen in Salt, a Material version due, one afternoon",
       "persona": "Mei Lin",
-      "scenario": "Mei has a screen to design in Salt by Friday and a Material version due for a sister team. She describes the screen, lets the model draft it from official components, compares the systems, tunes density and theme, and exports React a developer can inspect.",
+      "scenario": "Mei has a screen to design in Salt by Friday and a Material version due for a sister team. She describes the screen, reviews the generated canvas, compares the systems, tunes density and theme, and chooses when to export React for a developer to inspect.",
       "goal": "Reach a useful, inspectable screen in a real design system without rebuilding it by hand for every system.",
       "plot": "ai-experience.png",
       "approach": "ai-approach.png",
@@ -702,7 +710,7 @@
       "phases": [
         {
           "title": "Draft",
-          "description": "Prompt and generate from official components"
+          "description": "Prompt and generate a structured canvas"
         },
         {
           "title": "Decide",
@@ -725,28 +733,28 @@
         },
         {
           "title": "Generate",
-          "description": "The model drafts the screen from the system's official React components. Free-form UI looked impressive and was unusable.",
+          "description": "The model adds structured blocks to the canvas. Supported combinations render real system components; other combinations use explicit fallbacks.",
           "recommendations": [
-            "Official components only, never overridden",
+            "Map supported blocks to native components",
             "The first answer is a draft"
           ],
-          "backstage": "Claude drafts the screen from the system's official React components. Free-form drawing is never allowed."
+          "backstage": "Claude uses the builder’s block catalogue and canvas tools. Component mappings and fallback renderers turn that structure into the screen."
         },
         {
           "title": "Compare systems",
           "description": "The same screen in Salt, Material, Fluent and Carbon. The hard part is where the systems disagree.",
           "recommendations": [
             "Side-by-side compare across systems",
-            "Strictest definition wins on a disagreement"
+            "Inspect where the systems differ"
           ],
-          "backstage": "Token mapping holds five systems in one structure. Where two systems disagree, the strictest definition wins."
+          "backstage": "The same canvas maps to five systems. Each mapping uses the system’s component and layout APIs where available, with CSS or generic output for unsupported combinations."
         },
         {
           "title": "Tune",
           "description": "Density, theme and charts. This is where the person decides, and where Mei corrects the model most often.",
           "recommendations": [
             "Density, theme and chart controls",
-            "Compare and tune before anything exports"
+            "Compare and tune before choosing to export"
           ],
           "backstage": "Density, theme and chart props re-render the same component tree. Nothing is redrawn by hand."
         },
@@ -757,7 +765,7 @@
             "Export React",
             "Inspectable component tree and tokens"
           ],
-          "backstage": "React export with the component tree and tokens a developer can inspect. It does not ship the product."
+          "backstage": "React export includes component mappings and styles, with fallbacks where needed. Export is available directly; the product does not enforce a compare-and-tune gate."
         }
       ],
       "takeaways": [
@@ -767,11 +775,11 @@
         },
         {
           "label": "Insight",
-          "text": "Free-form generated UI looked impressive and was unusable. Official components only, never overridden, gave output a developer recognises at the cost of the model having fewer moves."
+          "text": "A structured canvas gives the model defined blocks to work with. Supported blocks map to native system components, while explicit fallbacks cover the gaps. The designer still needs to inspect what comes out."
         },
         {
           "label": "Who was in the room",
-          "text": "Me, solo. Claude as the drafting model. A developer inspecting the export as the test of whether a screen is real. Designers like me as the first users, which is the trap the alpha exists to check."
+          "text": "I designed and built it solo, with Claude drafting the canvas. A developer inspecting the export is the handover I am designing for, not an external test result."
         },
         {
           "label": "How I measure it",
@@ -784,7 +792,7 @@
         "title": "Generation",
         "choices": [
           {
-            "label": "Official components only, never overridden",
+            "label": "Mapped components with explicit fallbacks",
             "image": "ai-decision-0-0.png",
             "transcript": [
               "uoaui.ai · Screen builder",
@@ -799,7 +807,7 @@
               "Orders · generated",
               "Primary",
               "Search",
-              "Every element maps to a published component"
+              "Supported blocks map to native components; uncovered combinations use fallbacks"
             ]
           },
           {
@@ -813,12 +821,12 @@
               "Components used",
               "None recognised",
               "Off the table",
-              "Looks impressive, nothing a developer can ship"
+              "A visual draft without recognised component mappings"
             ]
           }
         ],
-        "reason": "We explored letting the model draw free-form UI and restricting it to each system's published React components. Free-form looked impressive and was unusable. Official-only won. The output is something a developer recognises, at the cost of the model having fewer moves.",
-        "tradeoff": "The model has fewer moves, so some layouts it could draw are off the table.",
+        "reason": "I chose a structured block model rather than arbitrary generated UI. Supported blocks map to native system components. The renderer and exporter use explicit fallbacks where a system has no equivalent.",
+        "tradeoff": "Mappings need maintenance, and fallback output still needs inspection before handover.",
         "outcome": "The output is something a developer recognises and can inspect."
       },
       {
@@ -843,7 +851,7 @@
               "Density scale",
               "Theme",
               "Components",
-              "Strictest definition wins",
+              "Per-system mappings, with explicit fallbacks",
               "Switch system, density or theme without a hand rebuild"
             ]
           },
@@ -860,12 +868,12 @@
               "Search",
               "→",
               "Orders · M3 (rebuilt)",
-              "Rebuilt by hand · 2 days"
+              "Separate screen rebuilt by hand"
             ]
           }
         ],
-        "reason": "I mapped their tokens, density scales and theming into one structure so a screen can switch system without being rebuilt by hand. The hard part was where the systems disagree, and I chose the strictest definition each time.",
-        "tradeoff": "The strictest definition wins, so a looser system loses some of its own defaults.",
+        "reason": "I mapped the same canvas to the supported systems, each with its own components, density and theme rules. Switching systems preserves the structure so the designer can inspect the differences.",
+        "tradeoff": "The systems do not map one to one. Unsupported combinations need a fallback and a design decision.",
         "outcome": "Switch system, density or theme and the screen rebuilds without a hand rebuild."
       },
       {
@@ -910,30 +918,25 @@
               "Export React",
               "No compare step",
               "No tune step",
-              "The model's guess ships as it came, and the person corrects it in code"
+              "A first draft can be exported directly; review remains the designer’s responsibility"
             ]
           }
         ],
-        "reason": "The model's first answer is a draft. The flow forces a compare step across systems and a tune step on the screen before anything exports. That's where the person decides, and where I correct the model most often.",
-        "tradeoff": "Nothing exports from the first answer. The flow is slower by design.",
+        "reason": "I treat the first answer as a draft. Comparing systems and tuning the screen helps me review it before handover. The product leaves export available, so the person chooses when to use it.",
+        "tradeoff": "Review takes time, and keeping export available means the person can also export without reviewing.",
         "outcome": "The compare and tune steps are where the person decides, and where I correct the model most often."
       }
     ],
     "decisionFlow": "ai-decision-flow.png",
     "decisionFlowText": [
-      "Ready to hand over",
-      "Review again",
       "Describe the screen",
-      "Generate a draft",
-      "Official components",
-      "The person decides",
-      "Compare systems",
-      "Tune density,",
-      "theme and charts",
-      "Export React",
-      "Developer handover",
-      "The model drafts",
-      "I decide"
+      "Generate structured canvas blocks",
+      "Map supported blocks to native components",
+      "Use explicit fallbacks where needed",
+      "Compare systems and inspect differences",
+      "Tune density, theme and charts",
+      "Choose when to export React",
+      "Export is available directly; review is not an enforced gate"
     ]
   },
   "winking": {
@@ -968,11 +971,12 @@
               "label": "Design answer",
               "items": [
                 "A big illustrated banner per theme",
-                "Celebration on every tick",
+                "Celebration feedback, with quieter options",
                 "A weekly pet so one bad day doesn't end the game"
               ]
             }
-          ]
+          ],
+          "bio": "Uses the routine board with a parent. Large pictures and immediate feedback help before reading is fluent."
         },
         {
           "name": "The parent",
@@ -999,12 +1003,13 @@
             {
               "label": "Design answer",
               "items": [
-                "A sample family on first open, so value shows before any setup",
+                "Optional Sample Family to try before personal setup",
                 "Kid Mode and a parental gate",
                 "Custom activities, so Mandarin sits next to teeth"
               ]
             }
-          ]
+          ],
+          "bio": "Sets up the family board and decides whether it helps with the household’s daily routines."
         },
         {
           "name": "The second adult",
@@ -1034,14 +1039,15 @@
                 "From their own phone"
               ]
             }
-          ]
+          ],
+          "bio": "Joins an existing family board as a partner, grandparent or childminder."
         }
       ]
     },
     "journey": {
       "line": "The parent · Sets it up · Two children, two adults · From a bad bedtime to week two, with Leo, 6, underneath",
       "persona": "The parent",
-      "scenario": "After another bad bedtime the parent downloads Winking Star, finds the Sample Family already set up, hands the phone to Leo for the first tick, and by the end of the week a Mystery Pet has grown and grandma has joined the board.",
+      "scenario": "After another bad bedtime the parent downloads Winking Star and chooses Try the Sample Family. After exploring the example, they create their own family board and hand the phone to Leo for the first tick. The scenario follows their first week and a second adult joining.",
       "goal": "Routines done without nagging, a child who asks to tick his own stars, and a second adult on the same board.",
       "plot": "winking-experience.png",
       "approach": "winking-approach.png",
@@ -1073,7 +1079,7 @@
       "steps": [
         {
           "title": "Another bad bedtime",
-          "description": "Searches for a chore chart app. Most are checklists, subscriptions or ads. Child feels fed up.",
+          "description": "Looks for a routine board after another difficult bedtime. The charts this family has tried have not held the child’s attention.",
           "recommendations": [
             "Ad-free, kid-first on the store page"
           ],
@@ -1081,12 +1087,12 @@
         },
         {
           "title": "First open",
-          "description": "Opens the app and finds the Sample Family already set up. Child feels curious.",
+          "description": "Chooses Try the Sample Family on the welcome screen to inspect the routines and pet, then starts their own family setup.",
           "recommendations": [
             "A working sample board first",
             "Add your own family when you like it"
           ],
-          "backstage": "Sample Family seeded on first open. No account, no tour, no permission prompt."
+          "backstage": "The optional demo route loads a predefined Sample Family. Create Family is a separate route; the demo is not automatically seeded into a new board."
         },
         {
           "title": "First tick",
@@ -1095,16 +1101,16 @@
             "Icon per activity, big targets",
             "Kid Mode locks editing"
           ],
-          "backstage": "The tick writes to the shared board. Celebration fires unless Calm Mode is on."
+          "backstage": "The tick writes to the shared board. Confetti stays off when Calm Mode or Reduce Motion is enabled."
         },
         {
           "title": "End of day",
-          "description": "Checks Home. The pet grew a stage. A treasure dropped. Child feels proud, or a bit flat.",
+          "description": "Checks Home for the week’s progress. In this scenario enough stars have been earned for the pet to grow, and enough completed routines for a treasure.",
           "recommendations": [
-            "Stars count up, never down",
+            "No star penalty for a missed day",
             "The pet grows on what was done"
           ],
-          "backstage": "Pet stage computed from the week's stars. A treasure drops. Day rolls over at local midnight."
+          "backstage": "The pet grows at star thresholds; treasures unlock from cumulative completed routines. The day rolls over at local midnight."
         },
         {
           "title": "End of week",
@@ -1128,7 +1134,7 @@
       "takeaways": [
         {
           "label": "Opportunities",
-          "text": "The pet card still truncates its helper text at the smallest sizes, and the pet family labels are not translated yet. Both found in my own usability pass and on the list."
+          "text": "I want to check the pet helper text at small sizes and review the translated pet names with native speakers. The source now includes translations, but that does not establish that every label reads well."
         },
         {
           "label": "Insight",
@@ -1167,8 +1173,8 @@
               "Stars hatch a pet",
               "Tap a routine, a star lands",
               "Celebrate",
-              "Research with five to seven year olds",
-              "Big icons, stickers and celebration win. A star you can tap beats a box you tick.",
+              "What I saw in my own family",
+              "I explored icons, stickers and celebration to make a completed routine visible.",
               "A star board",
               "Each tap is a small win the child can see",
               "What it feeds",
@@ -1187,23 +1193,23 @@
               "Bedtime",
               "2 of 5 done",
               "A plain tick list",
-              "Reads like homework. Nothing happens when the list is done, so the child stops caring by Wednesday.",
-              "What testing showed",
-              "Checkboxes read as chores",
+              "A plain list marks completion. I wanted a more visible reward after the tap.",
+              "Design concerns",
+              "Completion feels routine",
               "No reward moment",
-              "Parents nag, kids stall"
+              "Limited visible feedback"
             ]
           }
         ],
         "reason": "Explored a plain tick list. Research on five to seven year olds said big icons, stickers and celebration win. The checklist lost in our own house within a week.",
-        "tradeoff": "More art and motion to build and keep consistent: fourteen banners and four pet stages.",
+        "tradeoff": "More art, motion and growth states to build and keep consistent than a plain checklist.",
         "outcome": "Routines ticked without nagging in our own house."
       },
       {
         "title": "First open",
         "choices": [
           {
-            "label": "A sample family before any setup",
+            "label": "Optional Sample Family before personal setup",
             "image": "winking-decision-1-0.png",
             "transcript": [
               "The Sample Family",
@@ -1212,9 +1218,9 @@
               "Leo",
               "Mia",
               "Sam",
-              "Replace with your family",
-              "Value before any setup",
-              "The first screen is a full week for a family that already exists. You see what the app does, then swap in your own kids.",
+              "Create your own family",
+              "An example before personal setup",
+              "The welcome screen offers a Sample Family to try, or a direct route to create your own family.",
               "What is already filled in",
               "Three children with themes",
               "A week of routines and stars",
@@ -1240,9 +1246,9 @@
             ]
           }
         ],
-        "reason": "Explored a tour and an empty state. Both asked parents to invest before they'd seen the loop. The Sample Family shows a full week on first open, and you replace it when you're ready.",
-        "tradeoff": "First-run sample data has to be replaced, so there is a clear swap step.",
-        "outcome": "Value shows before any setup."
+        "reason": "I offer the Sample Family before personal setup so a parent can inspect the loop. Trying it is optional: the welcome screen also lets them create their family directly.",
+        "tradeoff": "The example and the family’s own board are separate. The transition needs to make clear which actions will save real progress.",
+        "outcome": "The welcome screen offers both a sample experience and direct family creation."
       },
       {
         "title": "Access and trust",
@@ -1280,11 +1286,11 @@
               "Start free trial",
               "Cancel anytime in settings",
               "A small subscription",
-              "Recurring revenue, and a recurring reason to distrust the app. Every renewal is a chance to feel tricked.",
-              "What it costs the family",
+              "Recurring payment adds another subscription for a parent to manage. I chose a one-off unlock.",
+              "What I considered",
               "A trial that turns into a charge",
               "Something to remember to cancel",
-              "A paywall between a child and their pet"
+              "Access depends on the plan"
             ]
           }
         ],
@@ -1304,10 +1310,10 @@
               "Mia · Unicorn",
               "Sam · Dinosaur",
               "Add a child",
-              "Kids find their own card",
-              "Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.",
-              "Fourteen banners",
-              "Colour and picture before they can read"
+              "A recognisable card",
+              "Illustrated themes include Football, Dinosaur, Ocean, Unicorn and Robot, with a photo avatar option.",
+              "Illustrated themes",
+              "Colour and picture beside the name"
             ]
           },
           {
@@ -1320,9 +1326,9 @@
               "Child 3",
               "Add a child",
               "One look for all",
-              "Cheaper to build and keep consistent. Every card is the same grey, so a six year old cannot tell which one is theirs.",
+              "One treatment is simpler to maintain. It gives children fewer visual cues beside their name.",
               "One banner",
-              "Kids need a parent to point at their card"
+              "Fewer cues to recognise a card"
             ]
           }
         ],
@@ -1345,7 +1351,7 @@
               "Continue",
               "Kid Mode stays locked",
               "A speed bump, not a lock",
-              "A sum a seven year old cannot guess and a parent does not need to remember. It only guards edits, so there is nothing to forget.",
+              "A quick question adds friction to protected actions. It is not age verification or a security guarantee.",
               "What it guards",
               "Edit a routine",
               "Delete a child",
@@ -1369,11 +1375,11 @@
               "0",
               "Forgot your PIN?",
               "A PIN, or a locked app",
-              "Parents forget PINs and kids watch them type. A locked app also locks the parent out of a quick edit at bedtime.",
-              "Failure modes",
-              "Kid shoulder-surfs the code",
-              "Parent locked out at bedtime",
-              "Reset flow needs an account"
+              "A PIN adds a code to remember and a recovery flow. I wanted a quicker route for the adult.",
+              "Potential friction",
+              "Code can be observed",
+              "Forgotten code blocks edits",
+              "Recovery needs a route"
             ]
           }
         ],
@@ -1425,15 +1431,15 @@
               "Thursday · 4 stars",
               "Missed bath and reading. Score reset.",
               "A daily score",
-              "Every missed routine is a loss the child sees at bedtime. The number resets, so a bad day erases a good one.",
-              "What a child feels",
-              "Pressure every evening",
+              "A daily score resets at midnight. I wanted completed routines to contribute across the week.",
+              "Design concerns",
+              "Focus on each evening",
               "Nothing carries over",
-              "No reason to try again on Friday"
+              "Less weekly continuity"
             ]
           }
         ],
-        "reason": "Daily stars count up and never down. The pet grows across the week on what was done, so one missed bath doesn't end the week, and Monday always brings a new egg.",
+        "reason": "I wanted the pet to grow from completed routines across the week. Missing a routine does not deduct stars, although a completed tick can be undone. Monday starts a new weekly pet.",
         "tradeoff": "No daily pressure means less urgency on a quiet day.",
         "outcome": "One missed bath does not end the week, and Monday always brings a new egg."
       }
@@ -1444,8 +1450,8 @@
       "Next week",
       "Open the app",
       "A shared family board",
-      "First open",
-      "Sample Family",
+      "Welcome screen",
+      "Optional Sample Family, or create your own family",
       "Your own family",
       "Second adult",
       "joins by invitation",
@@ -1494,7 +1500,8 @@
                 "Status and deal lead on the landing page"
               ]
             }
-          ]
+          ],
+          "bio": "Builds and prices a custody deal, compares iterations and explains the proposal sent for approval."
         },
         {
           "name": "The approver",
@@ -1515,22 +1522,23 @@
               "items": [
                 "No audit trail outside an inbox",
                 "Reviewing the full sheet for one change",
-                "Tolerance breaches found late"
+                "Pricing differences that need explanation"
               ]
             },
             {
               "label": "In this app",
               "items": [
                 "Iteration list with what changed",
-                "Checks as you go, before approval",
-                "Step five writes the sign-off summary"
+                "Comparison and comments alongside the chosen iteration",
+                "Owner-written winning-bid reason before publishing"
               ]
             }
-          ]
+          ],
+          "bio": "Reviews the proposed deal, its financial comparison and the owner’s reason before signing off."
         },
         {
           "name": "The legal reviewer",
-          "role": "Legal\nChecks terms and tolerances",
+          "role": "Legal\nReviews terms and the deal record",
           "quote": "“Which rate card is this on, and who changed it?”",
           "image": null,
           "groups": [
@@ -1538,7 +1546,7 @@
               "label": "Goals",
               "items": [
                 "Trace every rate to a card and a person",
-                "Catch out-of-tolerance pricing early",
+                "Understand the terms behind the selected price",
                 "Keep the terms consistent across deals"
               ]
             },
@@ -1554,16 +1562,17 @@
               "label": "In this app",
               "items": [
                 "Benchmark rate cards in the flow",
-                "Validation states on tolerance rules",
+                "Pricing warnings and the iteration history",
                 "History per iteration"
               ]
             }
-          ]
+          ],
+          "bio": "Reviews the terms and supporting deal record alongside the other teams."
         },
         {
           "name": "The product owner",
           "role": "Product\nOwns the portfolio and the platform",
-          "quote": "“Sixty people keep their own version. I need one.”",
+          "quote": "“I need one version we can review together.”",
           "image": null,
           "groups": [
             {
@@ -1577,7 +1586,7 @@
             {
               "label": "Frictions",
               "items": [
-                "Sixty copies of one Excel app",
+                "Separate copies of the same pricing work",
                 "Hand-keyed portfolios",
                 "Migration that loses people"
               ]
@@ -1590,7 +1599,8 @@
                 "Tiering across AUC and transactions"
               ]
             }
-          ]
+          ],
+          "bio": "Owns the portfolio and platform, balancing the needs of sales, operations and legal."
         }
       ]
     },
@@ -1598,7 +1608,7 @@
       "line": "The deal owner · Custody sales · London · Global custody deal, four teams, one platform",
       "persona": "The deal owner",
       "scenario": "A client asks for a reprice before a call. The deal owner opens the deal, loads the portfolio, builds a new iteration on the benchmark rate card, compares it with the last two, and sends it for approval.",
-      "goal": "Price the deal in one sitting, know it is within tolerance, and get sign-off with a trail that survives an audit.",
+      "goal": "Price the deal, explain the selected iteration, and get a recorded approval with the comparison and comments in view.",
       "plot": "deal-experience.png",
       "approach": "deal-approach.png",
       "approachText": [
@@ -1610,10 +1620,10 @@
         "“Which version is the current one?”",
         "“Will product recognise this as a deal?”",
         "“Do I have to key all this in again?”",
-        "“Is this out of tolerance?”",
+        "“Why does this transaction rate differ?”",
         "“Which iteration actually wins?”",
         "“Three versions, so I can say what is wrong.”",
-        "“The summary wrote itself.”",
+        "“My reason stays with this iteration.”",
         "“Audit can have this as it is.”"
       ],
       "phases": [
@@ -1643,16 +1653,16 @@
             "Load-data flow",
             "Upload template, mapped by the system"
           ],
-          "backstage": "Mapping rules translate the template to the data model. Unmapped columns block the import."
+          "backstage": "Mapping translates the uploaded template into the deal data model."
         },
         {
           "title": "Price and iterate",
-          "description": "Builds iterations on benchmark rate cards. Tolerance checks run as each field changes, not at approval.",
+          "description": "Builds iterations from rate cards. The original design warns when the transaction rate differs from the SK rate, so the owner can review that difference.",
           "recommendations": [
-            "Validation states at the field",
-            "Rate cards in the flow"
+            "Review the rate difference",
+            "Confirm which iterations were created"
           ],
-          "backstage": "Tolerance rules and benchmark rate cards run on every change."
+          "backstage": "Iteration creation reports success or failure. The pricing design includes a warning when TXN rate differs from SK rate."
         },
         {
           "title": "Compare and tier",
@@ -1665,18 +1675,18 @@
         },
         {
           "title": "Approve and sign off",
-          "description": "Sends for approval. The approver sees what changed. Step five writes the sign-off summary.",
+          "description": "Writes a short winning-bid reason and publishes the selected iteration. The approver reviews the comparison and comments, then records a decision.",
           "recommendations": [
-            "Iteration list with what changed",
-            "Summary written for you"
+            "Comparison and comments visible during review",
+            "Owner-written reason kept with the iteration"
           ],
-          "backstage": "Approver workflow routes by role. History written per iteration."
+          "backstage": "The published iteration carries the owner’s reason. The approver reviews the comparison and comments; the product records the approval decision."
         }
       ],
       "takeaways": [
         {
           "label": "Opportunities",
-          "text": "Catch tolerance breaches at the field, not at approval. Make the comparison a view, not a rebuild. Let the tool write the sign-off."
+          "text": "Keep pricing warnings close to the work. Make comparison a view, not a rebuild. Keep the owner’s reason with the iteration the approver reviews."
         },
         {
           "label": "Insight",
@@ -1753,19 +1763,12 @@
           },
           {
             "label": "One proposal, sign-off at the end",
-            "image": "deal-decision-1-1.png",
-            "transcript": [
-              "Securities Services",
-              "Review · Pricing grid",
-              "1 proposal",
-              "Proposed design",
-              "Four teams say \"fine\" in the room and reopen it by email the next week."
-            ]
+            "image": "deal-decision-1-1.png"
           }
         ],
         "reason": "I ran every review with three versions. People said what was wrong instead of saying yes. Sales got the comparison table, legal got the iteration list, because they asked for them in those rooms.",
         "tradeoff": "Three versions is three times the preparation, every review, for a year.",
-        "outcome": "Decisions held after the room. Nothing was reopened by email."
+        "outcome": "The reviews shaped the comparison table and iteration list. I did not measure how much rework the method saved."
       },
       {
         "title": "A compare grid with a column chooser",
@@ -1796,19 +1799,12 @@
           },
           {
             "label": "A fixed comparison report",
-            "image": "deal-decision-2-1.png",
-            "transcript": [
-              "Securities Services",
-              "Pricing · Comparison report",
-              "Fixed",
-              "Comparison report · all columns",
-              "Every team rebuilt its own version in Excel anyway."
-            ]
+            "image": "deal-decision-2-1.png"
           }
         ],
         "reason": "Sales rebuilt the comparison in Excel every time because the report never had the right columns. A grid with a column chooser, saved per user, made the comparison a view instead of a rebuild.",
         "tradeoff": "Saved settings per user and more states to design: empty, too many columns, a column that no longer exists.",
-        "outcome": "Sales stopped rebuilding comparisons outside the tool."
+        "outcome": "The comparison became a configurable view of the iterations. I did not measure a separate impact for this feature."
       },
       {
         "title": "An upload template, not a forced migration",
@@ -1836,16 +1832,7 @@
           },
           {
             "label": "Cut everyone over on day one",
-            "image": "deal-decision-3-1.png",
-            "transcript": [
-              "Securities Services",
-              "Portfolio · Load data",
-              "Cut-over",
-              "Enter holdings manually",
-              "Row 5 of 780",
-              "The spreadsheet never dies",
-              "Sixty people keep a private copy and the platform becomes the second source of truth."
-            ]
+            "image": "deal-decision-3-1.png"
           }
         ],
         "reason": "Some people kept the spreadsheet. We built an upload template they could fill in, and the system mapped it to the data model. Meet people where they are, then bring them over.",
@@ -1853,97 +1840,78 @@
         "outcome": "The last people came across. If asked about adoption, the template is the answer."
       },
       {
-        "title": "Checks as you go, and the tool writes the sign-off",
+        "title": "Pricing feedback and an owner-written reason",
         "choices": [
           {
-            "label": "Validation at the field, summary written for you",
+            "label": "Owner: publish the proposal with a reason",
             "image": "deal-decision-4-0.png",
             "transcript": [
-              "Securities Services",
-              "Pricing · New iteration",
-              "Step 3 of 5",
-              "Rate card",
-              "Benchmark 2024 · Tier B",
-              "Final bid",
-              "5.00 %",
-              "Reduction",
-              "18 %",
-              "Outside tolerance for Tier B (max 15 %). Needs legal sign-off.",
-              "Trans rate (sec)",
-              "0.85 bps",
-              "Sign-off summary · written for you",
-              "Iteration 3 lowers the final bid to 5.00 % on Benchmark 2024 Tier B. Reduction 18 % exceeds tolerance (15 %), flagged for legal review. Change by R. Mensah.",
-              "Send for approval",
-              "Checks at the field. Nothing waits for approval to be found."
-            ]
+              "Publish the deal",
+              "Select the proposed pricing iteration",
+              "Review the financial summary and approval level",
+              "Add comments and publish"
+            ],
+            "alt": "Original Deal Model owner screen selecting an iteration and publishing the proposal for approval."
           },
           {
-            "label": "Validate at approval",
+            "label": "Approver: review the proposal and comments",
             "image": "deal-decision-4-1.png",
             "transcript": [
-              "Securities Services",
-              "Pricing · New iteration",
-              "Validate at end",
-              "Rate card",
-              "Benchmark 2024 · Tier B",
-              "Final bid",
-              "5.00 %",
-              "Reduction",
-              "18 %",
-              "Trans rate (sec)",
-              "0.85 bps",
-              "Submit",
-              "Returned by approver",
-              "\"Reduction out of tolerance. Please correct and resubmit.\" Three days later.",
-              "Sign-off summary",
-              "Written by hand, in email."
-            ]
+              "Approve the deal",
+              "Comments",
+              "Quick overview",
+              "Proposed bid",
+              "Owner-written winning-bid reason",
+              "Cancel or approve"
+            ],
+            "alt": "Original Deal Model approver dialog showing comments, a quick overview, the proposed bid and the owner-written winning-bid reason."
           }
         ],
-        "reason": "Tolerance breaches used to be found at approval, days later, by email. The flow checks each field as it changes against the rate card and tolerance rules, and step five writes the sign-off summary from what changed.",
-        "tradeoff": "The tolerance rules had to live in the product, so they changed whenever the rate cards did.",
-        "outcome": "Breaches surfaced at the field. Legal got a trail that comes out of the tool."
+        "reason": "I kept pricing feedback close to the work and the owner’s explanation with the selected iteration. The original flow has the owner write the winning-bid reason and publish it; the approver sees the comparison and comments before deciding.",
+        "tradeoff": "The owner still has to explain the choice. Pricing warnings, creation errors and approval need distinct states so one is not mistaken for another.",
+        "outcome": "The original design keeps the owner’s reason and iteration comparison available to the approver. It does not automatically write the sign-off narrative."
       },
       {
         "title": "Smart pricing, explored",
         "choices": [
           {
-            "label": "Model suggests a tier, the person decides",
+            "label": "Smart-pricing exploration",
             "image": "deal-decision-5-0.png",
             "transcript": [
-              "Securities Services",
-              "Smart pricing · explored",
-              "Not shipped",
-              "Suggested iteration",
-              "Tiered · 5 % final bid, EM reduction 12 %",
-              "Based on 38 similar deals, same region and segment, past two years.",
-              "Use as draft",
-              "Edit",
-              "Model scope",
-              "Region · Segment · All portfolio",
-              "The model drafts, the deal owner decides.",
-              "Training data",
-              "Won deals · 2 yrs",
-              "Rate cards",
-              "Reductions by tier",
-              "Outcome (won / lost)",
-              "Status · designed with the data analyst, reviewed, not built in my time"
-            ]
+              "New Iteration",
+              "SmartPricing Reductions",
+              "Reduction on",
+              "Iteration Name",
+              "Reductions (%)",
+              "Reductions Total ($)",
+              "Target Fee Type",
+              "Target Markets",
+              "Pricing Influence",
+              "Create"
+            ],
+            "alt": "Original SmartPricing Reductions concept: a New Iteration dialog with reduction inputs, target fee type, markets and pricing influence."
           },
           {
-            "label": "Hand-priced from rate cards only",
+            "label": "New-proposal exploration",
             "image": "deal-decision-5-1.png",
             "transcript": [
-              "Securities Services",
-              "Pricing · from rate cards",
-              "Manual only",
-              "Benchmark rate cards",
-              "Tier",
-              "AUC band",
-              "Fee bps",
-              "Reduction",
-              "Every iteration starts from a blank grid and a rate card. Experience lives in the deal owner's head, so a new starter prices slower and less consistently."
-            ]
+              "New Iteration",
+              "SmartPricing New Proposal",
+              "Details",
+              "Select portfolio",
+              "Default Portfolio",
+              "Model scope",
+              "Region",
+              "Price all markets",
+              "Iterations",
+              "Level 1",
+              "Level 2",
+              "Level 3",
+              "Level 4",
+              "Level 5",
+              "Create"
+            ],
+            "alt": "Original SmartPricing New Proposal concept: portfolio selection, model scope, a price-all-markets checkbox and five iteration levels."
           }
         ],
         "reason": "At the end we explored training a model on past deals to suggest an iteration, with the deal owner editing or discarding it. Designed with the data analyst and reviewed with the four teams.",
@@ -1959,9 +1927,9 @@
       "Load the portfolio",
       "Start from a default\nportfolio",
       "Price and iterate\nChecks as you go",
-      "Out of tolerance\nFix at the field, not at approval",
+      "Rate difference\nReview the TXN rate against SK rate",
       "Compare and tier\nGrid, column chooser",
-      "Approve and sign off\nThe tool writes the summary",
+      "Publish and approve\nOwner writes the reason; approver reviews comparison and comments",
       "Smart pricing (explored)\nModel suggests, person decides"
     ]
   }

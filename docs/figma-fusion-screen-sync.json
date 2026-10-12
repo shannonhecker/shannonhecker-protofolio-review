@@ -12,10 +12,17 @@
   "screenshots": {
     "305:336547": "live-fusion-config.png",
     "345:343429": "live-fusion-tablet.png",
-    "345:343432": "live-fusion-mobile.png"
+    "345:343432": "live-fusion-mobile.png",
+    "305:322434": "figma-fusion-discovery.png",
+    "305:322444": "figma-fusion-performance.png"
   },
   "additionalSourceReferences": {
     "configuration": "https://www.figma.com/design/VFnkVIFXoYCqoqniUoUJBC?node-id=1-21632",
     "entityComparison": "https://www.figma.com/design/1bHE7ups2JJ1zl1uzp6HuX?node-id=5-49188"
+  },
+  "portraits": {
+    "293:649": "personas/fusion-0.png",
+    "293:669": "personas/fusion-1.png",
+    "293:689": "personas/fusion-2.png"
   }
 }

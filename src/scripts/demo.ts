@@ -49,10 +49,10 @@ if (demo) {
     }
     msg.textContent =
       stage === 3
-        ? 'Grown. In the app this is the end of the week, the pet joins Pet Pals, and Monday brings a new egg.'
+        ? 'Grown in this preview. In the app, stars unlock growth during the week; the weekly rollover starts a new pet.'
         : stage === 0
-          ? 'The pet grows through four stages as the week fills. In the app that takes seven days. Here you can tick all six and watch it now.'
-          : 6 - n + ' more to fully grow. Stars count up and never down, so an untick here is only for the demo.';
+          ? 'This is a simplified four-stage illustration. The current app grows the pet at star thresholds across the week. Tick all six routines here to preview the idea.'
+          : 6 - n + ' more to fully grow in this preview. You can correct a tick here and in the app.';
   };
 
   btns.forEach((b) =>

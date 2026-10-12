@@ -162,9 +162,10 @@ test.describe('JavaScript disabled', () => {
       [...document.querySelectorAll('.rv, .split .wd')].filter((el) => getComputedStyle(el).opacity !== '1').length,
     );
     expect(hidden).toBe(0);
-    // The phone strip scrolls natively
+    // Product screens remain readable without a carousel or JavaScript.
     await page.goto('/winking-star');
-    expect(await page.locator('.strip-wrap').evaluate((el) => getComputedStyle(el).overflowX)).toBe('auto');
+    await expect(page.getByRole('heading', { name: 'The iPhone flow', exact: true })).toBeVisible();
+    await expect(page.locator('.ws-app-steps figure')).toHaveCount(4);
   });
 });
 

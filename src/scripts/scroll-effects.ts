@@ -55,13 +55,7 @@ export function initScrollEffects() {
     });
 
     if(desktop){
-      // The complete product frame moves. Its UI remains uncropped.
-      document.querySelectorAll<HTMLElement>('.case-page .body > .product-capture, .case-page .screen-sequence > .product-capture').forEach((frame,index)=>{
-        gsap.fromTo(frame,{y:index%2?72:48,scale:.975},{y:0,scale:1,ease:'none',immediateRender:false,scrollTrigger:{trigger:frame,start:'top 100%',end:'top 32%',scrub:.7}});
-      });
-      document.querySelectorAll<HTMLElement>('.case-page .project-hero').forEach(frame=>{
-        gsap.to(frame,{y:-48,ease:'none',scrollTrigger:{trigger:frame,start:'top 18%',end:'bottom top',scrub:.7}});
-      });
+      // Product evidence stays fixed to native scrolling so dense UI remains sharp.
       // Separate scene layers drift at different speeds as the intro leaves.
       const companion=document.querySelector('.landing-companion');
       if(companion){

@@ -30,8 +30,8 @@ import Stack from './dg/Stack.astro';
         <div class="meta" style="grid-column:1/13"><span><b>Role</b> · VP, Product Design. Led the design</span><span><b>System</b> · Salt, plus a Fusion layer I built</span><span><b>Status</b> · Shipped, opened to clients</span><span><b>Live</b> · <a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener">My public rebuild<span class="vh"> (opens in new tab)</span> →</a></span></div>
       </div>
       <div class="project-hero">
-<ProductCapture name="figma-fusion-discovery.png" alt="The live Fusion public rebuild with report discovery, featured dashboards and the report table" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" eager label="My public rebuild" />
-<ProductCapture name="/art/fusion-performance.svg" alt="Original Fusion design showing the complete Performance workspace" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Performance workspace" />
+<ProductCapture name="/art/fusion-hero-discovery-composition.svg" alt="Original Fusion Analytics Dashboard design with report discovery, featured dashboards and the report table" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" eager label="Original Fusion Analytics Dashboard design" />
+<ProductCapture name="/art/fusion-hero-performance-composition.svg" alt="Original Fusion Performance design showing the complete workspace" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Original Fusion Performance design" />
       </div>
     </header>
     <CaseContents project="fusion" />
@@ -105,15 +105,16 @@ import Stack from './dg/Stack.astro';
       <div class="label"><HL class="k"><b>05</b> Design and system</HL></div>
       <div class="body">
         <Split as="h3" class="h-sub" text="Configurable pages built from modular widgets, on a layer I made on top of Salt." />
+        <p class="muted">The screens below are my original Fusion designs. The recording shows my public rebuild using sample data. FactSet integration and entitlement-based access describe the original project; those services are not connected to the rebuild.</p>
         <Demo src="/media/fusion-current.webm" poster="live-fusion.png" width={1600} height={1000} label="Report discovery, Performance, its configuration panel and Sustainable Investment." description="Silent recording. It moves from report discovery into the Performance workspace, opens its configuration panel, then shows Sustainable Investment." />
-        <ProductCapture name="/art/fusion-configuration.svg" alt="Original Fusion design with widget configuration and a custom date range" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Widget configuration" />
-        <ProductCapture name="/art/fusion-performance.svg" alt="Original Fusion Performance design with performance results and analytical widgets" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Performance workspace" />
-        <ProductCapture name="/art/fusion-risk.svg" alt="Original Fusion Risk design with portfolio risk charts, tables and analytical widgets" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Risk workspace" />
+        <ProductCapture name="/art/fusion-configuration-composition.svg" alt="Original Fusion design with widget configuration and a custom date range" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Widget configuration" />
+        <ProductCapture name="/art/fusion-performance.svg" alt="Original Fusion Performance design with performance results and analytical widgets" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Original Fusion Performance design" />
+        <ProductCapture name="/art/fusion-risk.svg" alt="Original Fusion Risk design with portfolio risk charts, tables and analytical widgets" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Original Fusion Risk design" />
         <ul class="rows">
           <li><b>One widget, many cubes</b><p>The same widget works across different data cubes and permission levels. One design serves a portfolio manager and a client who can only see part of the book. Users build their own views and import and export through FactSet.</p></li>
           <li><b>What I built</b><p>Tokens, components and patterns for Fusion on top of Salt. Data tables, chart frames, filter bars, widget shells, the accessibility layers. Where Salt had a gap, I built it and contributed it back upstream.</p></li>
           <li><b>Before Fusion, I helped define the foundation</b><p>I worked on UITK, now Salt, on the design language, the look and the feel. I ran the design system workshops in London and New York with design, product and development in the same room. The point wasn't to present. It was to agree what a component is before anyone built it. On Execute, I worked with developers from day one, weekly working sessions and daily when needed.</p></li>
-          <li><b>Why a layer, not a fork</b><p>A fork would have drifted from the firm's standard within a year. A layer meant every Fusion screen stayed on the platform standard and the platform got better from our work.</p></li>
+          <li><b>Why a layer, not a fork</b><p>I kept Fusion on Salt so it could follow the firm's updates, and contributed missing patterns back.</p></li>
           <li><b>How it was adopted</b><p>Other Fusion product teams built their journeys on the same components, which is how the analytics patterns spread across modules without me in every room.</p></li>
         </ul>
         <Stack
@@ -138,10 +139,10 @@ import Stack from './dg/Stack.astro';
         <div class="metrics">
           <div class="metric"><span class="big" data-count="0">0</span><span>accessibility violations at ship, WCAG AA. The method was the review cycle: an accessibility specialist checked every release, and anything that failed went back before engineering</span></div>
           <div class="metric"><span class="big w">Adopted</span><span>widget and filtering patterns reused across other Fusion modules</span></div>
-          <div class="metric"><span class="big w">Phase 2</span><span>opened the product to external clients, and several signed after that launch</span></div>
+          <div class="metric"><span class="big w">Phase 2</span><span>opened the product to external clients</span></div>
         </div>
         <ProductCapture name="/art/fusion-screening.svg" alt="Original Fusion screening workspace showing screening changes and their status" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Screening" />
-        <ProductCapture name="/art/fusion-entity-comparison.svg" alt="Original Fusion Sustainable Investment design comparing two entities across ESG, emissions and controversies" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Sustainable Investment" />
+        <ProductCapture name="/art/fusion-entity-comparison.svg" alt="Original Fusion Sustainable Investment design comparing two entities across ESG, emissions and controversies" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Original Fusion Sustainable Investment design" />
       </div>
     </div>
     <ResponsiveEvidence project="fusion" />

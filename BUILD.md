@@ -2,6 +2,8 @@
 
 How this site was made, kept honest. Shannon writes the entries marked **Shannon**. Claude Code's entries say what the model did. Nothing here is a claim about design authorship: every design decision on the page is Shannon's.
 
+This is a chronological development history. Earlier entries describe the version at that point, including decisions I later changed. Later corrections take precedence over earlier dates, feature descriptions and measurements. Test counts and performance scores belong to the recorded version, not automatically to the current site.
+
 ## Process
 
 - **Prototype:** `prototype/site-v4/index.html`, signed off by Shannon for content, order, tone, tokens and motion. It is kept in the repo so every production file can be diffed against it.
@@ -629,3 +631,107 @@ I removed the vertical colour bars beside journey phase headings across the case
 Validation: type check and production build, desktop and mobile visual checks, and the browser suite. The persona check now expects my revised uoaui.ai card colour.
 
 I repaired the uoaui.ai desktop and mobile Figma spacing using content columns with consistent gaps. Empty caption space and legacy duplicate mobile persona content are hidden. The artwork, image fills and copy remain intact. I checked the resulting section bounds and both persona layouts.
+
+### 11 October · Current Winking screens and tighter personas
+
+I brought in my updated Winking Star iPhone screens and original theme artwork, then compared the app's four tabs with the web's weekly board. The web captures use my original components with fictional sample data. I found and recorded the web, iOS and shared source repositories so the images can be traced back to their originals.
+
+I tightened the type and spacing in all fifteen persona cards and kept my updated portraits and colours. Fusion's opening Performance image now uses the current Figma screenshot; its detailed vector screens remain in the design section. The Fusion and Winking portraits now match the latest Figma assets.
+
+I also created a current completion checklist. Distinct project journeys, the newly supplied Deal Model images, interview voice review and final whole-site design audit remain queued; this release does not claim those are finished.
+
+## 12 October 2026 · Project-specific evidence and decisions
+
+Replaced repeated journey structures with a trading intervention loop, analytical
+workspace journey, AI review loop, family routine cycle, and Deal owner/system
+blueprint. Expanded 21 decisions with alternatives, rationale, trade-offs, evidence
+and delivery status. Cross-checked public product repositories and original Deal
+Figma frames; corrected automatic Sample Family, component-only/export-gate,
+auto-written approval and rebuild-versus-specification claims. Updated exact
+Figma exports, including the original Deal owner and approver workflows.
+
+Kept FX artwork as SVG and compacted exported paths and unused metadata. Hero
+assets use three-decimal precision; high-resolution raster comparisons show mean
+channel differences under 0.005/255. The data-encoding diagram is pixel-identical
+in the comparison. Combined compressed hero bytes fell from 391,343 to 129,158;
+the data diagram fell from 124,689 to 48,241. Explicit dimensions and image priority
+protect the main image. Local mobile Lighthouse improved from 84 to 95, with LCP from 4.5s to 2.7s.
+This loading result does not close the separate final scroll-smoothness review.
+
+Verification logs: `/private/tmp/portfolio-final-check.log`,
+`/private/tmp/portfolio-final-build.log`, `/private/tmp/portfolio-final-tests.log`.
+See `docs/DELIVERY-CHECKLIST.md`, `docs/DECISION-AUDIT.md` and
+`docs/IMPLEMENTATION-CROSSCHECK.md` for remaining scope and evidence boundaries.
+
+Final local validation: Astro check returned 0 errors and 0 warnings (4 existing
+unused-variable hints); the production build passed; all 149 Playwright tests
+passed in 59.9 seconds. Source-art updates are included in this run.
+
+### PR 49 follow-up · One colour per persona
+
+**What Codex changed at my request**
+
+- I wanted the persona cards to follow my reference: a portrait and identity on the left, a quote, context, goals and pain points on the right, with one coloured response panel.
+- Each card now has white surfaces and one accent colour. The separate pastel portrait backgrounds are gone, and the four Deal portraits have transparent backgrounds.
+- The same template is applied to all 30 desktop and mobile Figma cards. Existing product artwork is preserved.
+- Fixed the Deal hero width so its overlapping screens appear on desktop and stack on phones. Corrected the Deal journey return path to the documented TXN/SK rate review.
+- Validation: production build passed; 149 browser tests passed in 58.2 seconds. Persona checks cover all 15 cards at four widths, including text fit, portrait framing and consistent colour.
+
+- Removed the 0.7-second screenshot and hero scroll catch-up so dense product UI stays steady. Final production build and all 149 browser tests passed in 58.9 seconds after this change.
+
+### PR 49 final review · Original evidence and readable detail
+
+**What Codex changed at my request**
+
+- Product screenshots open their original files when selected, including the Deal hero. There are no extra caption bars. The phone check confirmed that the original image can be enlarged to inspect its detail.
+- Removed three Deal alternative illustrations with unsupported claims. Kept the written trade-offs. Replaced the two smart-pricing panels with the original Figma dialogs and labelled both as exploration, not built in my time.
+- Corrected the remaining FX benchmark and study wording, removed an unverified Fusion client-signing claim, and kept Deal template mapping separate from an unsupported blocking rule. Synced the corresponding editable Figma copy.
+- Removed an unintended decorative avatar from the uoaui.ai introduction. The explanatory text and product screens now lead the page, matching the Figma structure.
+- Validation: Astro check has 0 errors and 0 warnings; production build passed; all 149 browser tests passed in 1.1 minutes. Desktop and phone reviews cover the changed evidence, personas, home and utility pages. Production CI and live verification remain the release gate.
+
+### PR 49 follow-up · Persona accents and theme-aware graphics
+
+**What Codex changed at my request**
+
+- Each persona has its own accent. The transparent portrait sits on the same colour as the response panel, and headings and quote marks match.
+- Persona cards now adapt to light and dark mode. Dark cards use lighter versions of the same accents with dark panel text. Original portrait colours stay intact.
+- Corrected the FX research attribution to observing traders on the desk. Winking accessibility copy now describes the implemented tab labels, text scaling and quieter celebration controls.
+- Synced Figma persona colours to each page's actual theme and recorded both colour variants. Theme-aware journey and diagram exports preserve original paths while adapting neutral surfaces and text.
+- Removed inherited portrait margins and flex gaps that added 52px above persona names. Kept a 20px name gap, increased content padding and spacing between cards.
+- Removed the one-second fade from whole case-study sections so product evidence and body copy are visible as they enter the viewport. Heading motion remains separate.
+- Added a 1px inner outline at 50% opacity using each persona's current theme accent. It overlays the card edge without changing layout dimensions.
+- Final local verification after the inside outline: Astro check has 0 errors and 0 warnings; production build passed; all 149 browser tests passed in 52.9 seconds. Thirteen themed SVG outputs retain the exact original content after their added colour stylesheet is removed.
+
+### PR 49 follow-up · Current Figma compositions
+
+I restored the current Figma compositions across the home gallery, uoaui.ai, Winking Star and Deal Model. The original grouping, padding, overlaps and shadows are part of each export. Desktop and mobile home artwork have separate source exports. Winking’s lower iPhone sequence keeps its original four-phone composition on desktop and full individual phones on small screens.
+
+I kept vector geometry intact and re-encoded embedded screenshots only when their decoded RGBA pixels matched exactly. The current twenty-two files total 64.8 MB at source and 38.1 MB after lossless encoding across both responsive variants. Original-resolution images remain available to open. The body-image comparison also restored three Fusion compositions whose source framing and shadows were missing. Mobile Deal now uses the current screen collage. The final performance check is still in progress.
+
+### PR 49 final source and delivery review
+
+I checked every project against the current Figma artwork and my interview notes after the image work. The audit covers 108 source groups and 146 active image references. I corrected unsupported research and outcome wording, kept estimates labelled, and separated original designs, public rebuilds and earlier explorations. The corresponding Figma text and spacing have been updated.
+
+The home gallery now chooses smaller SVG files for its display size while retaining the original geometry and full-resolution source exports. Embedded screenshots are resized inside the SVGs; this does not turn raster detail into vectors. The four raster-bearing desktop covers fall from 8.31 MB to 2.48 MB at the reviewed size. The Deal covers remain vectors and are about 40% smaller, with only tiny subpixel differences in render comparisons.
+
+Final local verification after the last source-art and responsive-size changes: Astro check has 0 errors and 0 warnings (4 existing hints), the production build passed, and all 149 browser tests passed in 53.5 seconds. Exact-head CI and production verification remain the release gates.
+
+### PR 49 performance follow-up · Fusion image decoding
+
+The remote release check caught Fusion desktop at 94, below the required 95. Its largest image painted in 0.9 seconds, but main-thread blocking reached 180ms. The second hero carried a 4096×2392 embedded screenshot at a much smaller display size.
+
+I added six responsive SVG versions for the two Fusion hero compositions. The 800px performance version decodes about 0.4 million pixels instead of 9.8 million. The composition, shadows and vector geometry stay intact; selecting the image still opens the original full-resolution export. The configuration artwork remains a vector. Render comparisons and source hashes are recorded in the Fusion delivery reports.
+
+After this change, Astro check has 0 errors and 0 warnings, the build passed, and all 149 browser tests passed in 53.7 seconds. The remote performance gate must pass before publication; its threshold has not changed.
+
+### PR 49 final delivery sizing · Winking Star, Deal Model and uoaui.ai
+
+The complete local performance pass found oversized embedded hero screenshots on three more case pages. I added responsive SVG versions for those compositions as well, retaining their original paths, clipping, backgrounds and shadows. Smaller display versions use quality-95 WebP for resized screenshots where needed; this is display optimization, not vector conversion. The original full-resolution files remain available through the image links.
+
+The final 800px Winking and Deal hero versions transfer about 76.5 KB and 92 KB gzipped. I sized their embedded screenshots to the actual phone/screen footprint with extra sampling room. All 16 variants retain the original SVG geometry, and paired render proofs show the composition intact. All 14 local Lighthouse checks now meet the 95 minimum; other categories score 100. Remote exact-head validation and production checks remain required.
+
+Final local validation passed: 149 browser tests in 53.6 seconds, including the reduced-motion check. That test now waits up to one second for the browser's media-change event instead of asserting before the event is processed; it still requires the transform to return to zero.
+
+### PR 49 release-test reliability
+
+The remote browser run exposed a test-driver problem on the AI game's narrow platforms. The trace showed the automated player overshooting a landing and returning to its checkpoint, rather than a blocked tile. The driver now reads the level's landing surfaces and brakes with ordinary keyboard input. Three consecutive completion runs passed; the engine, assistance settings, time budget and completion assertions are unchanged. The artwork motion test now waits for its existing settling condition instead of assuming a fixed delay is sufficient on a busy runner.

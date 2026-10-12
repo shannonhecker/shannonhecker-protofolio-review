@@ -59,11 +59,11 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <li><b>Professionals whose job is the tool</b><p>A trader will tolerate density because power is worth the learning curve. So the problem is hierarchy under pressure, not simplification.</p></li>
           <li><b>Five spreadsheets, read line by line</b><p>Fills, market data, limit price changes, arrival price, risk transfer price. I grouped them into four kinds of data and that grouping became the layers of the chart. Every mark maps to a data type. Nothing is decorative.</p></li>
           <li><b>The limit price log was the clue</b><p>Orders were being changed mid-flight, several times each. So repricing is a core action, not an edge case, and it had to live on the chart.</p></li>
-          <li><b>Watching people decide</b><p>I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.</p></li>
+          <li><b>Watching people decide</b><p>I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.</p></li>
         </ul>
         <figure class="fx-source-layers">
           <div class="fx-layer-scroll" tabindex="0" role="region" aria-label="Original data-to-encoding diagram. Scroll horizontally on small screens.">
-            <img src="/art/fx-data-layers.svg" width="1406" height="739" loading="lazy" alt="Market data becomes continuous lines; limit-price changes become steps; order states become ranges; fills become sized dots; benchmarks become fixed reference lines. Each shape gets its own encoding." />
+            <img src="/art/themed/fx-data-layers.svg" width="1406" height="739" loading="lazy" decoding="async" fetchpriority="low" alt="Market data becomes continuous lines; limit-price changes become steps; order states become ranges; fills become sized dots; benchmarks become fixed reference lines. Each shape gets its own encoding." />
           </div>
         </figure>
 
@@ -79,8 +79,8 @@ import BeforeAfter from './dg/BeforeAfter.astro';
         <ul class="rows">
           <li><b>One platform, two audiences, old technology</b><p>Internal traders and external clients on the same system with different entitlements. One design had to serve both without a second codebase.</p></li>
           <li><b>A charting vendor's engine</b><p>Some ideas were possible, some weren't, and some were possible but wrong. The vendor's limits became inputs, not blockers.</p></li>
-          <li><b>Compliance in the flow</b><p>Every action that changes an order needs a confirmation step and an audit trail. Safety could not mean leaving the chart.</p></li>
-          <li><b>The foundation was broken, so I fixed it first</b><p>The brief was to tidy the light theme. I read the code, the tokens and the naming and found hardcoded colours throughout, so one fix would break the next. I gave the product owner and engineering two options with costs. We shipped the feature work first, then phased the fix in the background, starting with the blotter because it was simple and single-themed.</p></li>
+          <li><b>Compliance in the flow</b><p>In the Barclays specification, I kept confirmation and an audit trail in the order-changing flow. These are requirements of the original design; my public rebuild does not implement the audit backend.</p></li>
+          <li><b>I found the problem underneath the theme</b><p>The brief was to tidy the light theme. I read the code, the tokens and the naming and found hardcoded colours throughout, so one fix would break the next. I gave the product owner and engineering two options with costs. We shipped the feature work first, then phased the fix in the background, starting with the blotter because it was simple and single-themed.</p></li>
         </ul>
       </div>
     </div>
@@ -99,9 +99,9 @@ import BeforeAfter from './dg/BeforeAfter.astro';
         <Split as="h3" class="h-sub" text="Three calls that defined the product. Each one had a real alternative." />
         <DecisionMap project="fx"><FxOriginalFlow slot="flow" /></DecisionMap>
         <ul class="rows" aria-label="How each call was tested">
-          <li><b>How I tested the canvas call</b><p>Two mockups in front of traders on the desk, during live trading. One question at a time: what are you looking at, what are you waiting for, what would make you act now. With two panels they flicked between them under pressure and missed the moment. That was enough to decide. No written protocol and no participant count, so I don't quote one.</p></li>
+          <li><b>What informed the canvas call</b><p>I sat with traders during live trading and asked what they were looking at, what they were waiting for and what would make them act. I chose one canvas so price and progress stayed in the same field of view. That was a design judgement informed by observation; I did not run a measured comparison of the two layouts.</p></li>
           <li><b>How I tested reprice</b><p>The limit price log first: orders changed mid-flight, several times each. Then a menu-based edit beside drag-to-reprice in the spec review with the business and the vendor. The spec was written line by line so each side could say yes or no to it, and drag went in as the build contract.</p></li>
-          <li><b>How I tested the studies</b><p>In code, not with users. I rebuilt the surface with real-shaped data, and a study on the order's own fills looked confident and was wrong. The vendor confirmed the gaps. I reversed the decision.</p></li>
+          <li><b>How I tested the studies</b><p>In code exploration, not a user study. Working with real-shaped data exposed gaps in the order’s own fills, which the vendor confirmed. I reversed the specification so studies used market prices. The current public rebuild does not include the study-source picker.</p></li>
           <li><b>What rollout adds</b><p>Three measures agreed with the business: price move to trader action, tool switches per order, usage per feature. Until those run, the records above are what I have.</p></li>
         </ul>
       </div>
@@ -113,7 +113,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
         <Split as="h3" class="h-sub" text="From monitoring to action, without leaving the chart." />
     <section class="screen-sequence" aria-labelledby="fx-live-modes">
       <h3 id="fx-live-modes">One workflow, two presentations</h3>
-      <p class="muted">Classic represents my Barclays design. These are captures of my public rebuild with simulated data, not private bank screens.</p>
+      <p class="muted">Classic represents the visual design I made at Barclays; Enhanced is my extension. These captures show my public rebuild with simulated data. It demonstrates chart interactions, not the full production confirmation and audit workflow.</p>
       <ProductCapture name="live-fx-classic.png" alt="Classic FX public rebuild in dark mode, showing the complete order and execution chart" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Classic · Dark mode · Simulated data" />
       <ProductCapture name="live-fx-classic-light.png" alt="The same Classic FX workspace in light mode" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Classic · Light mode · Simulated data" />
       <ProductCapture name="live-fx-hover.png" alt="Classic FX canvas with the pinned price and execution tooltip" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Hover a fill" />
@@ -121,9 +121,9 @@ import BeforeAfter from './dg/BeforeAfter.astro';
     </section>
         <ProductCapture name="live-fx-compare.png" alt="Two simulated FX orders compared side by side in the current public rebuild" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Compare orders" />
         <ProductCapture name="live-fx-ticket.png" alt="Pre-filled FX order ticket opened on the chart, using simulated data" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Order ticket" />
-        <p class="lead muted">Hover a fill to see the detail. Right-click to act. Drag a price line to reprice, and it opens a filled-in order ticket. Each step commits you a little more, so you can't reprice by accident. We turned a chart you watch into a chart you can trade from.</p>
+        <p class="lead muted">I specified a progressive flow from inspection to action: drag the limit, review the pre-filled ticket, confirm, then record the change. The sequence below is that design. In my current public rebuild, dragging the limit immediately changes the local simulated price. Dragging the BID pill opens a demo order ticket; submitting it shows feedback without placing a real order or writing an audit record.</p>
         <Flow
-          label="Monitoring to action, step by step"
+          label="Original specified monitoring-to-action flow"
           steps={[
             { t: 'Hover a fill', d: 'See the detail for that clip' },
             { t: 'Right-click', d: 'Act on the exact time and price under the cursor' },
@@ -132,7 +132,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
             { t: 'Confirm', d: 'The compliance step, still on the chart' },
             { t: 'Audit trail', d: 'Every change to the order is recorded' },
           ]}
-          caption="Each step commits you a little more. Confirmation and audit never mean leaving the chart."
+          caption="The original specified flow keeps confirmation and audit on the chart. The current public rebuild demonstrates only part of this sequence."
         />
         <ul class="rows">
           <li><b>Built in six phases</b><p>Theming and data integration first, then display, then interaction, and order submission last. Each phase reduced the risk of the next, and the desk got something usable early.</p></li>
@@ -141,12 +141,12 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <li><b>A compare view, because quality is relative</b><p>Execution quality only means something against a benchmark or another order, so I put a patient working order beside an urgent completed one, with the benchmark metrics in one table.</p></li>
         </ul>
         <BeforeAfter label="Version-one debt: order states" before="States tiled the canvas" beforeNote="Patterned regions sat behind the prices, so the exceptional read as normal." after="States in their own lane" afterNote="A lane under the time axis. The price field stays quiet.">
-          <img slot="before" src="/art/fx-states-today.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: hatched state regions behind the price line" />
-          <img slot="after" src="/art/fx-states-designed.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: a clean price line with states in a labelled lane under the axis" />
+          <img slot="before" src="/art/themed/fx-states-today.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: hatched state regions behind the price line" />
+          <img slot="after" src="/art/themed/fx-states-designed.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: a clean price line with states in a labelled lane under the axis" />
         </BeforeAfter>
         <BeforeAfter label="Version-one debt: fills at scale" before="A dot per fill" beforeNote="Volume-sized dots were honest at twenty clips and a smear at three hundred." after="Counted clusters" afterNote="Fills group into clusters with a count, and expand on zoom.">
-          <img slot="before" src="/art/fx-fills-today.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: hundreds of overlapping fill dots forming a smear" />
-          <img slot="after" src="/art/fx-fills-designed.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: five counted clusters of fills" />
+          <img slot="before" src="/art/themed/fx-fills-today.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: individual fill dots crowding the plot" />
+          <img slot="after" src="/art/themed/fx-fills-designed.svg" width="430" height="161" loading="lazy" decoding="async" alt="Schematic: five counted clusters of fills" />
         </BeforeAfter>
       </div>
     </div>
@@ -156,12 +156,12 @@ import BeforeAfter from './dg/BeforeAfter.astro';
       <div class="body">
         <Split as="h3" class="h-sub" text="The states a trader hits when things are not normal." />
         <Matrix
-          caption="Designed edge and validation states. The current public rebuild demonstrates a subset; the state lane and counted clusters are shown as design schematics above."
+          caption="Original specified and proposed states. The current public rebuild demonstrates a subset: it does not include confirmation on limit dragging, an audit backend, the separate state lane or counted clusters."
           cols={['State', 'What the screen does', 'Why']}
           rows={[
             ['Suspended, delayed start, outside limit', 'Each gets its own labelled band in a lane under the time axis.', 'The price field stays quiet, and the state is readable at a glance.'],
-            ['Drag to reprice', 'Opens a pre-filled ticket. Nothing changes until it is confirmed.', 'You cannot reprice by accident. Each step commits you a little more.'],
-            ['Colour-blind trader, washed-out screen', 'Bid, ask, mid, limit and fills each have their own shape and dash. Favourable and adverse say so in words.', 'Colour never carries meaning alone.'],
+            ['Drag to reprice', 'Opens a pre-filled ticket. Nothing changes until it is confirmed.', 'The specified confirmation gives the trader a chance to review the change before committing.'],
+            ['Colour-blind trader, washed-out screen', 'The design combines colour with line styles, fill markers and labelled order states. Favourable and adverse outcomes are named in text.', 'Keep labels and graphical cues alongside colour.'],
             ['Hundreds of fills', 'Fills group into counted clusters that expand on zoom.', 'Honest at twenty clips and at three hundred.'],
             ['A new order, no data yet', 'Empty, then loading, states in place of an empty chart.', 'The screen never looks broken while data arrives.'],
             ['Dark room or bright room', 'Full light and dark themes.', 'Traders run dark rooms and sales run bright ones.'],
@@ -189,5 +189,5 @@ import BeforeAfter from './dg/BeforeAfter.astro';
 </section>
 
 <style>
-.fx-source-layers{margin:0;min-width:0}.fx-layer-scroll{overflow-x:auto;background:#171b22;padding:24px;border-radius:var(--radius)}.fx-layer-scroll img{display:block;width:100%;min-width:900px;height:auto;max-width:none}.fx-layer-scroll:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
+.fx-source-layers{margin:0;min-width:0}.fx-layer-scroll{overflow-x:auto;background:var(--bg-2);padding:24px;border-radius:var(--radius)}.fx-layer-scroll img{display:block;width:100%;min-width:900px;height:auto;max-width:none}.fx-layer-scroll:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
 </style>
