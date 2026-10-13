@@ -1047,3 +1047,9 @@ Validation: production build passes and the full Playwright suite passes; the il
 The journey's "Another adult can pick up here" block repeated the "Two adults, one shared board" caregiver steps, which also carry the offline state. The journey block is gone; the caregiver steps stay.
 
 Validation: production build passes and the Playwright suite passes with the journey step count updated.
+
+### No white edges on screenshots · 13 October 2026
+
+Shannon spotted uneven white edges around the Deal Model screens on her phone. The Figma exports carried a thin stroke and a soft white gutter that differed by side: 4 to 22px on the left, 4 to 12px on the top, 4px right and bottom. Every Deal Model screen is now cropped to the app frame itself, measured from where the dark header and footer begin. The same pass found white borders on the uoaui.ai, Deal Model approval and Winking Star decision images (30 to 80px, uneven), so those are cropped to their content edge too. Originals stay beside the trimmed copies as the sync sources.
+
+Validation: production build passes and the full Playwright suite passes.

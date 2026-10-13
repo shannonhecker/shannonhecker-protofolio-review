@@ -192,12 +192,12 @@
       "description": "The portfolios behind a deal: default, additional, new."
     },
     {
-      "image": "source-242-540.png",
+      "image": "source-242-540-trim.png",
       "title": "03 · Load data",
       "description": "Bulk search, month end or a date range. Or the upload template."
     },
     {
-      "image": "source-242-545.png",
+      "image": "source-242-545-trim.png",
       "title": "04 · Portfolio summary",
       "description": "Holdings, primary and secondary transactions, physical securities, collateral."
     },
@@ -207,17 +207,17 @@
       "description": "Create an iteration on a benchmark rate card. Checks as you go."
     },
     {
-      "image": "source-242-555.png",
+      "image": "source-242-555-trim.png",
       "title": "06 · Validation states",
       "description": "One field, every state the deal owner can hit."
     },
     {
-      "image": "source-242-560.png",
+      "image": "source-242-560-trim.png",
       "title": "07 · Compare grid",
       "description": "Iterations side by side, one market per row."
     },
     {
-      "image": "source-242-565.png",
+      "image": "source-242-565-trim.png",
       "title": "08 · Column chooser",
       "description": "The grid is a view, not a rebuild. Saved per user."
     },
@@ -227,12 +227,12 @@
       "description": "AUC versus primary transactions, blended bps, tiers only, hide totals."
     },
     {
-      "image": "source-242-575.png",
+      "image": "source-242-575-trim.png",
       "title": "10 · Smart pricing (explored)",
       "description": "Model scope, pricing influence, a suggested iteration to edit or discard."
     },
     {
-      "image": "source-242-580.png",
+      "image": "source-242-580-trim.png",
       "title": "11 · Deal owner dashboard",
       "description": "Fees, costs, gross margin and the deal team, per deal."
     },
@@ -242,7 +242,7 @@
       "description": "Market comparison and approval for the custody ops lead."
     },
     {
-      "image": "source-242-590.png",
+      "image": "source-242-590-trim.png",
       "title": "13 · ADA specs · tabbing order",
       "description": "Landmarks, tabbing order, content hierarchy and alt text, specified per screen."
     }
