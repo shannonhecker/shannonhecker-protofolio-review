@@ -1105,3 +1105,9 @@ Validation: production build passes and the full Playwright suite passes. I chec
 In the light theme the decision loop showed its dark nodes on a white page. I duplicated the original Figma frame beside the deck, recoloured the copy with the same light palette the other light diagrams use, and exported it at the same size with a transparent background. Light mode now shows the light copy; dark mode keeps the original. The original frame is untouched.
 
 Validation: production build passes and the full Playwright suite passes. I checked both themes on phone and desktop.
+
+### A share card for link previews · 13 October 2026
+
+The link preview used a dense FX screenshot that turned to grey at thumbnail size. It is now a 1200 by 630 title card built from the site's own parts: my logo mark, the hero line, my name and role, and the pixel avatar in her arch.
+
+Validation: production build passes and the full Playwright suite passes. I checked the image address returns 200 on the live site.
