@@ -258,3 +258,7 @@ The source page and node map is recorded in FIGMA-AUDIT.md. Unused audit exports
 ## Edge trims · 13 October 2026
 
 All thirteen `source-242-*-trim.png` Deal Model screens are cropped to the app frame (dark header to dark footer, first to last dark header pixel). `ai-decision-*`, `deal-decision-4-*` and the listed `winking-decision-*` files have `-trim.png` copies cropped to their content edge. Untrimmed originals remain the Figma sync targets.
+
+## FX decision loop, light theme · 13 October 2026
+
+`public/art/fx-original-decision-loop-light.png` is a 3× export of Figma node `2116:272` in file `17Rsi3vWFtaYwlrRf5iO8E`, page "Revolut Portfolio 2026". It is a clone of the original frame `2068:1768` with fills, strokes and gradient stops remapped to the light diagram palette; no path was moved or redrawn. Transparency was derived from black and white renders of the same node. 3057 × 2667.
