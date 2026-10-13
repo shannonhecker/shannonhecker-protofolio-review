@@ -1129,3 +1129,9 @@ Sound did not play on an iPhone for three reasons, all fixed. The Sound button w
 My LinkedIn title for 2023 to 2025 is Digital Product Designer VP. The site said "VP of Product Design", which reads like head of a function. The hero, the page description, the Fusion role line and the game timeline now use the LinkedIn wording. The game timeline also says Lead Product Designer for Barclays, as LinkedIn does, and lists Deal Model with the 2019 to 2023 work.
 
 Validation: production build passes and the full Playwright suite passes.
+
+### Work titles stay readable while they scroll in · 13 October 2026
+
+On the home page each project title and its description faded up from 25 to 30% opacity as they scrolled in, and only reached full strength two fifths of the way up the screen. They now keep the small rise but hold full opacity the whole way, so a heading is never dim.
+
+Validation: production build passes and the full Playwright suite passes. I measured the title at eight positions down the screen on phone and desktop: opacity 1 at every one.
