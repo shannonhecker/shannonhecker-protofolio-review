@@ -2,7 +2,6 @@ import {setTheme} from './theme-helper';
 import {test,expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 const explanations=JSON.parse(readFileSync(new URL('../src/data/visual-explanations.json',import.meta.url),'utf8'));
-const summaries=JSON.parse(readFileSync(new URL('../src/data/workflow-summaries.json',import.meta.url),'utf8'));
 const content=JSON.parse(readFileSync(new URL('../src/data/user-flow-content.json',import.meta.url),'utf8')) as typeof import('../src/data/user-flow-content.json'); 
 
 for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],['winking','/winking-star'],['deal','/deal-model']] as const){
@@ -38,39 +37,8 @@ for(const [project,route] of [['fx','/fx'],['fusion','/fusion'],['ai','/uoaui'],
   await expect(flow.getByRole('heading',{name:'User flow in detail',exact:true})).toHaveCount(0);
   await expect(flow.getByRole('heading',{name:'Actions, branches and returns',exact:true})).toHaveCount(0);
   await expect(flow.locator('details')).toHaveCount(0);
-  await expect(flow.locator('.workflow-summary')).toBeVisible();
   await expect(page.locator('a[href*="figma.com"]')).toHaveCount(0);
   await expect(flow.locator('.flow-scope')).toContainText(content[project].scope);
- });
- test(`${project} illustrated summary stays readable and changes theme`,async({page})=>{
-  await page.emulateMedia({reducedMotion:'reduce'});
-  await page.goto(route);
-  const consent=page.getByRole('button',{name:'No thanks'});if(await consent.isVisible())await consent.click();
-  const summary=page.locator('.workflow-summary');
-  await expect(page.getByText('Original workflow summary',{exact:true})).toHaveCount(0);
-  for(const width of [320,390,820,1440]){
-   await page.setViewportSize({width,height:900});
-   for(const theme of ['light','dark']){
-    await setTheme(page,theme==='dark');
-    const images=summary.locator('[role=img]:visible');
-    await expect(images).toHaveCount(summaries[project].steps.length);
-    for(const [i,img] of (await images.all()).entries()){
-     await expect(img).toHaveClass(new RegExp(`summary-${theme}`));
-     await expect(img).toHaveAttribute('aria-label',new RegExp(summaries[project].steps[i].t));
-     const size=await img.evaluate(n=>({w:n.getBoundingClientRect().width,h:n.getBoundingClientRect().height}));
-     const clipped=await img.evaluate(async n=>{await document.fonts.ready;const r=n.getBoundingClientRect();return [...n.querySelectorAll('text')].filter(t=>{const b=t.getBoundingClientRect();return b.left<r.left-1||b.right>r.right+1||b.top<r.top-1||b.bottom>r.bottom+1;}).map(t=>t.textContent);});
-     expect(clipped).toEqual([]);
-     expect(size.w).toBeGreaterThan(250);
-     expect(size.w).toBeLessThanOrEqual(337);
-     expect(Math.abs(size.w/size.h-336/(project==='winking'?226:200))).toBeLessThan(.01);
-     {
-      await expect(summary.locator('.summary-copy h5').nth(i)).toHaveText(summaries[project].steps[i].t);
-      await expect(img.locator('text[font-size="20"]')).toHaveCount(0);
-     }
-    }
-    expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
-   }
-  }
  });
  test(`${project} explanation artwork fits, follows theme and retains scope`,async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});await page.goto(route);

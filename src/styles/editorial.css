@@ -119,6 +119,8 @@
 .product-capture figcaption .demo-description { flex-basis: 100%; }
 .product-capture a { text-underline-offset: 4px; }
 .principles { column-gap: 40px; }
+.how-note { margin: 48px 0 0; max-width: 60ch; font-size: 15px; line-height: 1.65; color: var(--fg-2); }
+.how-note a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .principle { padding-block: 48px; padding-right: 12px; gap: 20px; }
 .principle p { max-width: 38ch; line-height: 1.75; }
 

@@ -149,3 +149,10 @@ Shannon answered the review questions one at a time:
 - uoaui.ai: landing, comparison and UI Kit are public; the builder needs an invited sign-in. The status line says so.
 - Deal Model screens: trim empty canvas only, keep every control and the footer. Trimmed copies are `source-242-*-trim.png`; originals remain for sync.
 - Outcome tiles: statements, not tiles, for Fusion and FX; FX section labelled "Status and planned measures". Winking Star keeps its figures.
+
+## Spacing and content-strategy pass · 13 October 2026
+
+- Sub-heading labels sit 12px above their text everywhere; leads 52ch, summary note 70ch; captions 14px minimum.
+- "Workflow at a glance" cards removed from all cases (Shannon's choice: keep the Figma user flow and the journey). `workflow-summaries.json` and `WorkflowSummary.astro` remain in the repo but are unused.
+- FX "Explorations" folded into "Decisions and trade-offs"; FX sections now run 01 to 07.
+- "How I work" ends with a pointer line for Corporate Action Manager, Data Manager and MarketsOne. Verified against shannonhecker.com on 13 October: MarketsOne is there, the other two are not.
