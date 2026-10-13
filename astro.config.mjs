@@ -6,7 +6,9 @@ import { defineConfig } from 'astro/config';
 // HTML + CSS only. The brief named Astro 5; 7 is current stable and the
 // static-output model is identical.
 export default defineConfig({
-  site: 'https://shannonhecker.com',
+  // The share image and canonical address must resolve where the site is hosted.
+  // shannonhecker.com is the older public site and does not serve these files.
+  site: 'https://shannonhecker-work.vercel.app',
   output: 'static',
   trailingSlash: 'never',
   // Cache the shared stylesheet across cases instead of embedding the full
