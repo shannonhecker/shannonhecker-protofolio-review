@@ -36,8 +36,9 @@ export function initScrollEffects() {
       const title=row.querySelector('h3');
       if(title){
         const timeline=gsap.timeline({scrollTrigger:enter(title)});
-        timeline.fromTo(row.querySelectorAll(':scope > .n, :scope > h3'),{y:desktop?40:14,opacity:.25},{y:0,opacity:1,duration:.7,ease:'none'},0);
-        timeline.fromTo(row.querySelector(':scope > .meta'),{y:desktop?28:10,opacity:.3},{y:0,opacity:1,duration:.7,ease:'none'},.15);
+        // Titles rise into place but never fade: a heading stays readable throughout.
+        timeline.fromTo(row.querySelectorAll(':scope > .n, :scope > h3'),{y:desktop?40:14},{y:0,duration:.7,ease:'none'},0);
+        timeline.fromTo(row.querySelector(':scope > .meta'),{y:desktop?28:10},{y:0,duration:.7,ease:'none'},.15);
       }
     });
 
@@ -64,7 +65,7 @@ export function initScrollEffects() {
           .to('.companion-object.object-two',{y:72,rotation:18,ease:'none'},0);
       }
       document.querySelectorAll<HTMLElement>('.journey-route').forEach(route=>{
-        gsap.fromTo(route.children,{y:36,opacity:.3},{y:0,opacity:1,stagger:.12,ease:'none',immediateRender:false,scrollTrigger:{trigger:route,start:'top 94%',end:'top 45%',scrub:.6}});
+        gsap.fromTo(route.children,{y:36},{y:0,stagger:.12,ease:'none',immediateRender:false,scrollTrigger:{trigger:route,start:'top 94%',end:'top 45%',scrub:.6}});
       });
     }
     // Keyboard focus always exposes the complete linked tile immediately.
