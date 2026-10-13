@@ -1,7 +1,5 @@
 ---
 import AnalyticsConsent from '../components/AnalyticsConsent.astro';
-import { getImage } from 'astro:assets';
-import { img } from '../lib/img';
 import '../styles/fonts.css';
 import '../styles/prototype.css';
 import '../styles/production.css';
@@ -31,8 +29,8 @@ const {
 // works at Barclays, so no employer-visible URL names another company.
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
 const canonical = new URL(noindex ? '/' : path, Astro.site).href;
-const ogImage = await getImage({ src: img('live-fx.png'), width: 1200, format: 'jpg', quality: 85 });
-const og = new URL(ogImage.src, Astro.site).href;
+// A title card reads at link-preview size; a dense product screenshot does not.
+const og = new URL('/og-card.png', Astro.site).href;
 ---
 <!doctype html>
 <html lang="en" data-project={path.slice(1)} data-theme="dark">
@@ -73,8 +71,8 @@ const og = new URL(ogImage.src, Astro.site).href;
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={og} />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="750" />
-    <meta property="og:image:alt" content="FX execution analytics: a trading chart with progress and price on one canvas" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Shannon Hecker, product designer, London. I design tools where mistakes cost money." />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
