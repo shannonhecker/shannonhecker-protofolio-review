@@ -30,7 +30,8 @@ export function initScrollEffects() {
       const artwork=row.querySelector(':scope > picture, :scope > .project-preview');
       if(!artwork)return;
       row.dataset.scrollMotion='true';marked.push(row);
-      gsap.fromTo(artwork,{y:desktop?(index%2?88:56):20,scale:desktop?.97:1},{y:0,scale:1,ease:'none',scrollTrigger:{...enter(row),end:'top 30%'}});
+      // Drift only. Scaling a multi-megabyte vector image redraws it on every step and stalls scrolling.
+      gsap.fromTo(artwork,{y:desktop?(index%2?88:56):20},{y:0,ease:'none',scrollTrigger:{...enter(row),end:'top 30%'}});
       // Captions sit below a tall image. Their own trigger keeps their motion
       // visible instead of completing while they are still below the screen.
       const title=row.querySelector('h3');
