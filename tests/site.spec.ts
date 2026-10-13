@@ -96,7 +96,7 @@ test('/panel carries the panel line and stays out of the index', async ({ page }
   await page.goto('/panel');
   await expect(page.getByText('Portfolio for the Revolut design panel: product design, heading into AI')).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://shannonhecker.com/');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://shannonhecker-work.vercel.app/');
 });
 
 test('build log remains directly available', async ({ page }) => {

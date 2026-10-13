@@ -1093,3 +1093,9 @@ Validation: production build passes and the full Playwright suite passes.
 The decision loop and the user flow on the FX page looked like the same chart twice. Both stay, with headings that say what each one answers. The loop is "Decision loop · when to step in". The flow is "Reprice flow · one intervention, step by step", and its first line says it follows one branch of the loop above, the reprice, from the drag to the audit record.
 
 Validation: production build passes and the full Playwright suite passes.
+
+### Link preview image resolves · 13 October 2026
+
+The share image and canonical address were built against shannonhecker.com, my older public site, where those files return 404. Anyone pasting the portfolio link into email, Slack or LinkedIn got a card with no picture. The site address now points at the host that serves it.
+
+Validation: production build passes and the full Playwright suite passes. I checked the share image address returns 200 on the live site.
