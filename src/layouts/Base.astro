@@ -59,6 +59,9 @@ const og = new URL('/og-card.png', Astro.site).href;
           event.viewTransition.finished.finally(()=>d.classList.remove('page-departing'));
         });
         addEventListener('pageshow',()=>d.classList.remove('page-departing'));
+        // Arriving through a page transition already animates the title, copy and
+        // media in. Mark the page so their own entrance does not play a second time.
+        addEventListener('pagereveal',event=>{if(event.viewTransition)d.classList.add('arrived-by-transition');});
       })();
     </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

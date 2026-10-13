@@ -46,7 +46,10 @@ export function initScrollEffects() {
     // Move the heading as one unit so words keep their shared baseline.
     document.querySelectorAll<HTMLElement>('.split').forEach(heading=>{
       const words=heading.querySelectorAll('.wd');if(!words.length)return;
+      // A heading already on screen has had its entrance. Hiding it to animate again reads as a flash.
+      const seen=heading.classList.contains('in')||heading.getBoundingClientRect().top<innerHeight*.92;
       heading.dataset.scrollMotion='true';marked.push(heading);
+      if(seen)return;
       gsap.fromTo(heading,{y:12,opacity:0},
         {y:0,opacity:1,duration:.5,ease:'power2.out',scrollTrigger:{trigger:heading,start:'top 92%',once:true}});
     });
