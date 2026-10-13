@@ -158,3 +158,5 @@ Shannon answered the review questions one at a time:
 - "How I work" ends with a pointer line for Corporate Action Manager, Data Manager and MarketsOne. Verified against shannonhecker.com on 13 October: MarketsOne is there, the other two are not.
 
 - 13 October, later: Shannon removed the "How I work" pointer line for Corporate Action Manager, Data Manager and MarketsOne. Do not add it back.
+
+- 13 October: J.P. Morgan title is "Digital Product Designer VP" (2023 to 2025), "User Experience Designer" before that, matching LinkedIn. Use this wording on both sites. Internship ran June to September 2016.
