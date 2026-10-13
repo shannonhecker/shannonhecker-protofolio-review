@@ -119,6 +119,8 @@
 .product-capture figcaption .demo-description { flex-basis: 100%; }
 .product-capture a { text-underline-offset: 4px; }
 .principles { column-gap: 40px; }
+.how-note { margin: 48px 0 0; max-width: 60ch; font-size: 15px; line-height: 1.65; color: var(--fg-2); }
+.how-note a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .principle { padding-block: 48px; padding-right: 12px; gap: 20px; }
 .principle p { max-width: 38ch; line-height: 1.75; }
 
@@ -205,7 +207,7 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.012em;li
 .h-chapter{font-size:clamp(40px,5.6vw,76px);font-weight:600;line-height:1.12;letter-spacing:-.02em;max-width:18ch}
 .h-section{font-size:clamp(28px,3.25vw,44px);font-weight:600;line-height:1.3;letter-spacing:-.012em}
 .h-sub,.case-page .beat .body>.h-sub{font-size:clamp(26px,2.7vw,36px);font-weight:600;line-height:1.3;letter-spacing:-.01em;max-width:34ch}
-.lead,.case-page .beat .lead,.case-page .chapter-head .lead{font-size:clamp(18px,1.6vw,20px);line-height:1.75;max-width:60ch}
+.lead,.case-page .beat .lead,.case-page .chapter-head .lead{font-size:clamp(18px,1.6vw,20px);line-height:1.75;max-width:52ch}
 .eyebrow,.beat .label .k,.k.mono{font-family:var(--pixel);font-size:17px;font-weight:400;letter-spacing:0;line-height:1.5;color:var(--fg-2)}
 .band{padding-block:var(--space-section);overflow:visible}
 .nav{padding-block:16px;background:#fffaf2f5;border-bottom:1px solid var(--hair);gap:12px}
@@ -227,7 +229,7 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.012em;li
 .hero h1{margin:0}
 .hero h1 .ln,.hero h1 .ln span{display:inline;padding:0;margin:0;transform:none;animation:none}
 .hero h1 .ln:not(:last-child)::after{content:' '}
-.hero .status-row{font-size:13px;gap:8px 24px;line-height:1.6;margin-top:24px;max-width:62ch}
+.hero .status-row{font-size:14px;gap:8px 24px;line-height:1.6;margin-top:24px;max-width:62ch}
 .hero-art.hero-game{order:3;width:100%;max-width:none;margin-top:16px;clip-path:none;animation:none}
 .hero-game .game{border-radius:var(--radius);border:1px solid #c4dce5}
 .hero-game .game-poster img{aspect-ratio:auto;transform:none;object-fit:contain}
@@ -290,11 +292,11 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.012em;li
 .persona-roles article{border-top:3px solid var(--project-ink);padding:24px;background:var(--project-wash);border-radius:var(--radius)}
 .persona-roles h4,.process-journey h4,.decision-map h4{font-size:23px;font-weight:600;line-height:1.4;letter-spacing:0}
 .persona-roles dl{margin-top:24px}
-.persona-roles dt{font-size:13px;margin-top:20px}
+.persona-roles dt{font-size:14px;margin-top:20px}
 .persona-roles dd{font-size:16px;line-height:1.75;margin-top:8px}
 .product-capture{margin:0}
 .product-capture .shot{border:0;border-radius:var(--radius);background:none}
-.product-capture figcaption{font-size:13px;line-height:1.75;margin-top:12px;gap:8px 24px}
+.product-capture figcaption{font-size:14px;line-height:1.75;margin-top:12px;gap:8px 24px}
 .shot img,.evidence img{width:100%;height:auto;aspect-ratio:auto;object-fit:contain;transform:none;max-width:var(--source-width,100%)}
 .case-page .body>.evidence{padding:0;background:none}
 .demo video{display:block;height:auto;aspect-ratio:auto;object-fit:contain;border-radius:var(--radius)}
@@ -442,7 +444,7 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.012em;li
 .responsive-captures figure{margin:0;min-width:0}
 .responsive-capture-image{border-radius:var(--radius);overflow:hidden;box-shadow:none}
 .responsive-captures img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain;border:0;border-radius:var(--radius)}
-.responsive-captures figcaption,.capture-source{font-size:13px;line-height:1.7;color:var(--fg-2);margin-top:16px}
+.responsive-captures figcaption,.capture-source{font-size:14px;line-height:1.7;color:var(--fg-2);margin-top:16px}
 .encoding-legend{display:flex;flex-wrap:wrap;gap:24px;margin-bottom:40px;padding:24px;background:var(--project-wash);border-radius:var(--radius)}
 .encoding-legend span{display:flex;align-items:center;gap:12px;font-size:14px}
 .encoding-legend i{display:block;width:32px;height:16px}.encoding-line{border-top:2px solid #366885;transform:translateY(7px)}.encoding-dash{border-top:2px dashed #705d8d;transform:translateY(7px)}.encoding-dot::before{content:'';display:block;width:12px;height:12px;border-radius:50%;background:#9b4e65}.encoding-range{background:repeating-linear-gradient(45deg,transparent,transparent 3px,#75888b 3px,#75888b 4px);border:1px solid #75888b}
@@ -554,7 +556,7 @@ h1,h2,h3,h4,.h-giant,.hero .h-giant,.h-chapter,.h-section,.h-sub,
 .app-hero-screens { display:flex; align-items:start; justify-content:center; gap:clamp(12px,3vw,48px); }
 .app-hero-screens picture { display:block;flex:0 1 300px; min-width:0; }
 .app-hero-screens img { width:100%;height:auto;object-fit:contain;border:1px solid #dfe3e7;border-radius:var(--radius); }
-.app-hero figcaption { font-size:13px;line-height:1.6;color:var(--fg-2);margin-top:20px; }
+.app-hero figcaption { font-size:14px;line-height:1.6;color:var(--fg-2);margin-top:20px; }
 @media(max-width:760px){.project-hero{margin-top:40px}.app-hero-screens img{border-radius:var(--radius)}}
 
 /* The portfolio is an explorable set of chapters; gameplay remains optional. */
@@ -639,7 +641,7 @@ html.nav-away .case-contents { top:0; }
 .localised-screen-grid { display:flex;gap:40px;justify-content:center; }
 .localised-screen-grid figure { width:min(40%,320px); }
 .screen-sequence figure img { width:100%;height:auto;object-fit:contain; }
-.screen-sequence figcaption { margin-top:16px;font-size:13px;color:var(--fg-2); }
+.screen-sequence figcaption { margin-top:16px;font-size:14px;color:var(--fg-2); }
 @media(max-width:760px){.store-screen-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}.tablet-screen-grid{grid-template-columns:1fr;gap:32px}.localised-screen-grid{gap:16px}.localised-screen-grid figure{width:50%}.screen-sequence{margin-block:48px 64px}}
 @media(prefers-reduced-motion:reduce){.idle-half,.idle-blink,.idle-smile{animation:none!important;opacity:0!important}.avatar-rig{animation:none!important;transform:none!important}}
 /* Role artwork belongs with the role's actual needs, never as an anonymous banner. */
