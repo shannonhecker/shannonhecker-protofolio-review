@@ -1135,3 +1135,9 @@ Validation: production build passes and the full Playwright suite passes.
 On the home page each project title and its description faded up from 25 to 30% opacity as they scrolled in, and only reached full strength two fifths of the way up the screen. They now keep the small rise but hold full opacity the whole way, so a heading is never dim.
 
 Validation: production build passes and the full Playwright suite passes. I measured the title at eight positions down the screen on phone and desktop: opacity 1 at every one.
+
+### Home page no longer stalls on scroll and hover · 13 October 2026
+
+On desktop the home page froze for a moment while scrolling and when moving the mouse over the work list. Each work image is a vector file of 1 to 3 MB. It grew from 97 to 100% as it scrolled in and by 2.5% on hover, and every step of that growth redrew the whole file. It also shared a drawing surface with its title, so the title's motion redrew it too. The images now sit on their own layer and no longer scale. They keep their upward drift.
+
+Validation: production build passes and the full Playwright suite passes. Scrolling the work list and back went from three stalls per pass to none in my measurement, and hovering from four to none.
