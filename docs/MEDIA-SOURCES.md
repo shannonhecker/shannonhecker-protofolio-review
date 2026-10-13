@@ -254,3 +254,7 @@ The source page and node map is recorded in FIGMA-AUDIT.md. Unused audit exports
 ## Deal Model trimmed screens · 12 October 2026
 
 `source-242-530/535/550/570/585-trim.png` are the same captures with the empty canvas band between the last content row and the footer removed (48px margin kept, footer kept). Nothing is added, moved or restyled. The untrimmed files remain the Figma sync targets.
+
+## Edge trims · 13 October 2026
+
+All thirteen `source-242-*-trim.png` Deal Model screens are cropped to the app frame (dark header to dark footer, first to last dark header pixel). `ai-decision-*`, `deal-decision-4-*` and the listed `winking-decision-*` files have `-trim.png` copies cropped to their content edge. Untrimmed originals remain the Figma sync targets.

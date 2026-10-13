@@ -752,7 +752,7 @@
         "choices": [
           {
             "label": "Mapped components with explicit fallbacks",
-            "image": "ai-decision-0-0.png",
+            "image": "ai-decision-0-0-trim.png",
             "transcript": [
               "uoaui.ai · Screen builder",
               "Salt DS",
@@ -771,7 +771,7 @@
           },
           {
             "label": "Letting the model draw free-form UI",
-            "image": "ai-decision-0-1.png",
+            "image": "ai-decision-0-1-trim.png",
             "transcript": [
               "uoaui.ai · Screen builder",
               "Free-form",
@@ -793,7 +793,7 @@
         "choices": [
           {
             "label": "Five systems, one model underneath",
-            "image": "ai-decision-1-0.png",
+            "image": "ai-decision-1-0-trim.png",
             "transcript": [
               "uoaui.ai · Screen builder",
               "One model",
@@ -816,7 +816,7 @@
           },
           {
             "label": "A screen rebuilt by hand",
-            "image": "ai-decision-1-1.png",
+            "image": "ai-decision-1-1-trim.png",
             "transcript": [
               "uoaui.ai · Screen builder",
               "By hand",
@@ -865,7 +865,7 @@
           },
           {
             "label": "The model's first answer",
-            "image": "ai-decision-2-1.png",
+            "image": "ai-decision-2-1-trim.png",
             "transcript": [
               "uoaui.ai · Screen builder",
               "Draft",
@@ -1094,7 +1094,7 @@
         "choices": [
           {
             "label": "Stars and a pet",
-            "image": "winking-decision-0-0.png",
+            "image": "winking-decision-0-0-trim.png",
             "transcript": [
               "Leo · this week",
               "M",
@@ -1121,7 +1121,7 @@
           },
           {
             "label": "A plain tick list",
-            "image": "winking-decision-0-1.png",
+            "image": "winking-decision-0-1-trim.png",
             "transcript": [
               "Leo · today",
               "Brush teeth",
@@ -1148,7 +1148,7 @@
         "choices": [
           {
             "label": "Optional Sample Family before personal setup",
-            "image": "winking-decision-1-0.png",
+            "image": "winking-decision-1-0-trim.png",
             "transcript": [
               "The Sample Family",
               "Today",
@@ -1214,7 +1214,7 @@
           },
           {
             "label": "A small subscription",
-            "image": "winking-decision-2-1.png",
+            "image": "winking-decision-2-1-trim.png",
             "transcript": [
               "Choose a plan",
               "Monthly",
@@ -1241,7 +1241,7 @@
         "choices": [
           {
             "label": "A theme per child, drawn not templated",
-            "image": "winking-decision-3-0.png",
+            "image": "winking-decision-3-0-trim.png",
             "transcript": [
               "Our family",
               "Leo · Ocean",
@@ -1256,7 +1256,7 @@
           },
           {
             "label": "One look for all",
-            "image": "winking-decision-3-1.png",
+            "image": "winking-decision-3-1-trim.png",
             "transcript": [
               "Our family",
               "Child 1",
@@ -1279,7 +1279,7 @@
         "choices": [
           {
             "label": "A quick maths question gates the exits",
-            "image": "winking-decision-4-0.png",
+            "image": "winking-decision-4-0-trim.png",
             "transcript": [
               "Settings",
               "Grown-ups only",
@@ -1298,7 +1298,7 @@
           },
           {
             "label": "A PIN, or a locked app",
-            "image": "winking-decision-4-1.png",
+            "image": "winking-decision-4-1-trim.png",
             "transcript": [
               "Enter PIN",
               "1",
@@ -1353,7 +1353,7 @@
           },
           {
             "label": "A daily score",
-            "image": "winking-decision-5-1.png",
+            "image": "winking-decision-5-1-trim.png",
             "transcript": [
               "Leo · today",
               "Stars today",
@@ -1770,7 +1770,7 @@
         "choices": [
           {
             "label": "Owner: publish the proposal with a reason",
-            "image": "deal-decision-4-0.png",
+            "image": "deal-decision-4-0-trim.png",
             "transcript": [
               "Publish the deal",
               "Select the proposed pricing iteration",
@@ -1781,7 +1781,7 @@
           },
           {
             "label": "Approver: review the proposal and comments",
-            "image": "deal-decision-4-1.png",
+            "image": "deal-decision-4-1-trim.png",
             "transcript": [
               "Approve the deal",
               "Comments",
