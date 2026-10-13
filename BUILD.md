@@ -1065,3 +1065,9 @@ Validation: production build passes and all 246 Playwright tests pass.
 Shannon asked for the decision images to sit on the same white card in dark mode as in light mode, with no grey frame. The dark-theme frame from 12 October is removed; the white padded card is the only surface in both themes.
 
 Validation: production build passes and all 246 Playwright tests pass.
+
+### Next-case artwork keeps its surface · 13 October 2026
+
+The Winking Star and Deal Model compositions have their own cream and grey surfaces on the home page, but the next-case row at the end of each case drew the same artwork straight on the dark page. The surface rules now apply in both places.
+
+Validation: production build passes and all 246 Playwright tests pass.
