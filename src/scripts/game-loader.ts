@@ -76,6 +76,7 @@ async function boot(level: number, toMap: boolean) {
   try {
     const mod = await import('../game/main');
     musicControl=mod.setMusicPlaying;
+    setGameSound=mod.setSound;
     if (statusEl) statusEl.textContent = 'Preparing your adventure…';
     await mod.prepareArt();
     if (sequence !== bootSequence) return;
@@ -123,15 +124,21 @@ function changeNativeFullscreen(action:()=>Promise<void>){
   fullscreenChanges++;
   fullscreenQueue=fullscreenQueue.then(action).catch(()=>{}).finally(()=>{fullscreenChanges--;});
 }
-function setFull(on: boolean) {
-  if(!on&&cancelFlight){++bootSequence;cancelFlight();if(play)play.disabled=false;const current=game?.state();if(current?.finished)showEnd(current.level,current.collected>=current.total,current.mission);}
-  full = on;
+// The look of full screen, kept apart from its state so the look can outlast
+// the state while the browser animates out of native full screen.
+function showFull(on: boolean) {
   box?.classList.toggle('is-full', on);
   document.documentElement.classList.toggle('game-is-full', on);
-  window.dispatchEvent(new Event('portfolio-game-mode'));
   if (exitBtn) exitBtn.hidden = !on;
+  if (!on) box?.scrollIntoView({ block: 'center' });
+}
+function setFull(on: boolean, deferLook = false) {
+  if(!on&&cancelFlight){++bootSequence;cancelFlight();if(play)play.disabled=false;const current=game?.state();if(current?.finished)showEnd(current.level,current.collected>=current.total,current.mission);}
+  full = on;
+  if (!deferLook) showFull(on);
+  window.dispatchEvent(new Event('portfolio-game-mode'));
   if (on) { canvas?.focus({ preventScroll: true }); game?.resume(); musicControl?.(true); }
-  else { musicControl?.(false); if ((game?.state() as { mode?: string } | undefined)?.mode === 'level') game?.pause(); box?.scrollIntoView({ block: 'center' }); }
+  else { musicControl?.(false); if ((game?.state() as { mode?: string } | undefined)?.mode === 'level') game?.pause(); }
 }
 function enterFull() {
   if (!box || full) return;
@@ -141,10 +148,14 @@ function enterFull() {
 }
 function exitFull() {
   if (!full) return;
-  changeNativeFullscreen(async()=>{if(document.fullscreenElement) await document.exitFullscreen();});
   track('game_exit', { stage: game?.state().level ?? chosen });
-  setFull(false);
+  // Stop the game at once, but keep the full-screen look until the browser has
+  // finished leaving native full screen. Dropping the look first makes macOS
+  // animate a box that has already snapped back to its in-page style: a flash.
+  const native = !!document.fullscreenElement;
+  setFull(false, native);
   play?.focus({ preventScroll: true });
+  if (native) changeNativeFullscreen(async()=>{ try { if(document.fullscreenElement) await document.exitFullscreen(); } finally { if(!full) showFull(false); } });
 }
 // the browser's own Escape (or its exit gesture) leaves real full screen
 document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && full && fullscreenChanges===0) setFull(false); });
@@ -165,10 +176,14 @@ document.querySelectorAll<HTMLButtonElement>('.game-end [data-map]').forEach((b)
 
 // Sound: off by default, one toggle (brief).
 const soundBtn = document.getElementById('game-sound') as HTMLButtonElement | null;
-soundBtn?.addEventListener('click', async () => {
+let setGameSound: ((on: boolean) => void) | undefined;
+soundBtn?.addEventListener('click', () => {
   soundOn = !soundOn;
   soundBtn.setAttribute('aria-pressed', String(soundOn));
-  if (game) { (await import('../game/main')).setSound(soundOn); canvas?.focus(); }
+  // Called straight from the tap, with no await in between, so iPhone Safari
+  // lets the audio start.
+  if (game && setGameSound) { setGameSound(soundOn); canvas?.focus(); }
+  else if (game) void import('../game/main').then(m => { m.setSound(soundOn); canvas?.focus(); });
 });
 
 // The story journal pauses the action and soundtrack. It lives inside the
