@@ -38,7 +38,7 @@ const decisions = data.decisions.map((decision, index) => {
   </div>
 
   {Astro.slots.has('flow') && <div class="decision-context" aria-labelledby={`${project}-decision-context-title`}>
-    <h4 id={`${project}-decision-context-title`}>Original FX reference diagram</h4>
+    <h4 id={`${project}-decision-context-title`}>Decision loop · when to step in</h4>
     <p>The original decision loop shows when the trader watches, waits or intervenes. The design alternatives and evidence are set out below.</p>
     <div class="authored-flow-scroll"><slot name="flow" /></div>
   </div>}

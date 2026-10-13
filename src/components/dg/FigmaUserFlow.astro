@@ -6,7 +6,7 @@ const {project}=Astro.props;
 const graph=content[project];
 ---
 <figure class="figma-user-flow" aria-labelledby={`${project}-user-flow-title`}>
- <figcaption><h4 id={`${project}-user-flow-title`}>User flow</h4><p>{graph.subtitle}</p><p class="flow-scope">{graph.scope}</p></figcaption>
+ <figcaption><h4 id={`${project}-user-flow-title`}>{project==='fx'?'Reprice flow · one intervention, step by step':'User flow'}</h4><p>{project==='fx'&&'This follows one branch of the decision loop above, the reprice, from the drag to the audit record. '}{graph.subtitle}</p><p class="flow-scope">{graph.scope}</p></figcaption>
  <div class="flow-tools"><p>On smaller screens, enlarge the flow to read and explore the branches.</p></div>
  <MapViewport id={`${project}-user-flow-viewport`} regionClass="user-flow-scroll" title={`${graph.title}. Enlarge the map to explore details, or open the full-size image.`}>
   {(['light','dark'] as const).map(theme=><a class={`flow-image flow-${theme}`} href={`/art/user-flows/${project}-${theme}.svg`} target="_blank" rel="noopener" aria-label={`Open the full-size ${graph.title} user flow`}><img src={`/art/user-flows/${project}-${theme}.svg`} width={graph.width} height={graph.height} loading="lazy" decoding="async" alt={`${graph.title}. ${graph.subtitle}`}/></a>)}

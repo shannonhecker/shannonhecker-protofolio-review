@@ -1087,3 +1087,9 @@ In "While the order is working" the right column had a rule, a caption and a clo
 The two-line footnote in every explanation card sat 11px under its rule and 18px above the card edge, with a 19px line. It now has 16px above, a 20px line and 24px below, the same breathing room as the label at the top of the card. All seventeen cards change together because the spacing is applied where the artwork is placed, not in each file.
 
 Validation: production build passes and the full Playwright suite passes.
+
+### Two FX diagrams, two jobs · 13 October 2026
+
+The decision loop and the user flow on the FX page looked like the same chart twice. Both stay, with headings that say what each one answers. The loop is "Decision loop · when to step in". The flow is "Reprice flow · one intervention, step by step", and its first line says it follows one branch of the loop above, the reprice, from the drag to the audit record.
+
+Validation: production build passes and the full Playwright suite passes.
