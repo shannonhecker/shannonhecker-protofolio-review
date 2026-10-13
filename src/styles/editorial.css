@@ -628,6 +628,15 @@ html.nav-away .case-contents { top:0; }
 .landing-companion[data-greeting=true]:not([data-paused=true]) .idle-smile { opacity:1;animation:none; }
 @keyframes avatar-smile { 0%,70%,82%,100%{opacity:0}71%,81%{opacity:1} }
 .adventure-hero .play.is-full .game-bar{display:flex}.adventure-hero .play.is-full .game-caption{display:block}
+/* Phone held sideways: the game takes the full height, so the caption goes and
+   the bar shrinks to a Sound button in the top-left margin. Without this the
+   rule above re-showed both and pushed the game and its controls off screen. */
+@media (hover:none) and (orientation:landscape){
+ .adventure-hero .play.is-full .game-caption{display:none}
+ .adventure-hero .play.is-full .game-bar{position:absolute;top:8px;left:max(8px,env(safe-area-inset-left));width:auto;margin:0;z-index:2}
+ .adventure-hero .play.is-full .game-bar :is(#game-world,#game-timeline-open){display:none}
+ .adventure-hero .play.is-full #game-sound{min-height:44px;padding:8px 10px;font-size:12px}
+}
 #work .row>.appstore-preview { display:flex;gap:10px;align-items:start;justify-content:center; }
 .appstore-preview picture { display:block;flex:1;min-width:0; }
 #work .row .appstore-preview img { display:block;width:100%;height:auto;max-height:none;object-fit:contain;aspect-ratio:auto; }

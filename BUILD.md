@@ -1111,3 +1111,15 @@ Validation: production build passes and the full Playwright suite passes. I chec
 The link preview used a dense FX screenshot that turned to grey at thumbnail size. It is now a 1200 by 630 title card built from the site's own parts: my logo mark, the hero line, my name and role, and the pixel avatar in her arch.
 
 Validation: production build passes and the full Playwright suite passes. I checked the image address returns 200 on the live site.
+
+### No flash when the game leaves full screen · 13 October 2026
+
+Leaving the game on a Mac flashed. The game dropped its dark full-screen styling the moment I pressed Escape, while the browser was still animating out of full screen, so for half a second it animated a box that had already snapped back to its in-page look. The styling now stays until the browser has finished leaving full screen.
+
+Validation: production build passes and the Playwright suite passes, including the game and controls specs.
+
+### Game on a phone: sideways layout and sound · 13 October 2026
+
+Held sideways, the full-screen game was cut off at the top and its controls fell off the bottom. A rule added on 11 October re-showed the World map, Timeline and Sound bar and the caption in full screen, which overrode the sideways rule that hides them. Sideways now hides the caption and keeps only a small Sound button in the top-left margin, so the game fits the height again.
+
+Sound did not play on an iPhone for three reasons, all fixed. The Sound button was unreachable sideways. The audio started after an awaited import instead of directly in the tap, which iPhone Safari refuses. And an iPhone with its ringer switch on silent mutes this kind of audio unless the page asks for playback. Any later tap also retries, so sound cannot stay stuck.

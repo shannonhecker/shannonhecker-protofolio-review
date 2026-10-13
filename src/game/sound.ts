@@ -7,9 +7,16 @@ export let soundOn = false;
 const effects=new Set<OscillatorNode>();
 let deaths=0;
 function stopEffects(){effects.forEach(voice=>{try{voice.stop();}catch{}});effects.clear();}
+// iPhone Safari only starts audio inside a tap, and the first setSound() often
+// runs just after one (the game module loads asynchronously). Any later tap or
+// key press finishes the job, so sound never stays silently suspended.
+function unlock() { if (soundOn && ac && ac.state !== 'running') void ac.resume(); }
+if (typeof window !== 'undefined') for (const type of ['pointerdown', 'touchend', 'keydown'] as const) window.addEventListener(type, unlock, { capture: true, passive: true });
 export function setSound(v: boolean) {
   soundOn = v;
   if (v && !ac) ac = new AudioContext();
+  // Without this, an iPhone with its ringer switch on silent mutes Web Audio.
+  if (v) { try { const session = (navigator as unknown as { audioSession?: { type: string } }).audioSession; if (session) session.type = 'playback'; } catch {} }
   if (v) void ac?.resume();
   if(!v)stopEffects();
   syncMusic();
