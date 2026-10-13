@@ -1041,3 +1041,9 @@ Validation: production build passes and all 256 Playwright tests pass.
 Each case told its flow three times: the user-flow diagram, the "Workflow at a glance" cards and the user journey. Shannon chose to keep the diagram and the journey, so the cards are gone from all five cases. FX section 04 "Explorations" was one paragraph under a heading that promised more; its words now open section 04 "Decisions and trade-offs" and the later FX sections renumber. "How I work" names Corporate Action Manager, Data Manager and MarketsOne, none of which has a case here, so a line under the principles says where they are. I checked shannonhecker.com before writing it: MarketsOne is there, the other two are not.
 
 Validation: production build passes and the full Playwright suite passes; the illustrated-summary test went with the cards it tested.
+
+### Winking Star: one place for the second adult · 13 October 2026
+
+The journey's "Another adult can pick up here" block repeated the "Two adults, one shared board" caregiver steps, which also carry the offline state. The journey block is gone; the caregiver steps stay.
+
+Validation: production build passes and the Playwright suite passes with the journey step count updated.
