@@ -1059,3 +1059,9 @@ Validation: production build passes and the full Playwright suite passes.
 The decision illustrations are transparent PNGs. My dark-theme frame from 12 October put them on the raised grey surface, which made dark-green text on the Winking Star and uoaui.ai cards hard to read, and the first edge trim had also flattened their transparency. The trims are redone with transparency kept, and the image itself now carries a white surface inside the frame in both themes.
 
 Validation: production build passes and all 246 Playwright tests pass.
+
+### No dark frame around decision images · 13 October 2026
+
+Shannon asked for the decision images to sit on the same white card in dark mode as in light mode, with no grey frame. The dark-theme frame from 12 October is removed; the white padded card is the only surface in both themes.
+
+Validation: production build passes and all 246 Playwright tests pass.
