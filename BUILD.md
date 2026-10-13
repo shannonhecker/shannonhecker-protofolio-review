@@ -1071,3 +1071,19 @@ Validation: production build passes and all 246 Playwright tests pass.
 The Winking Star and Deal Model compositions have their own cream and grey surfaces on the home page, but the next-case row at the end of each case drew the same artwork straight on the dark page. The surface rules now apply in both places.
 
 Validation: production build passes and all 246 Playwright tests pass.
+
+### Remove the pointer line under "How I work" · 13 October 2026
+
+Shannon decided the line about Corporate Action Manager, Data Manager and MarketsOne is not needed, so it is gone. The principles keep their references as written.
+
+Validation: production build passes and the Playwright suite passes.
+
+### Align the two FX monitoring columns · 13 October 2026
+
+In "While the order is working" the right column had a rule, a caption and a closing note, and the left column had none, so steps 03 and 04 started at different heights. Both columns now share the same structure. The left caption and note are my existing sentence split in two: "On schedule and inside the benchmarks" above the step and "Keep working and stay passive." below it.
+
+### Looser footnotes in the explanation diagrams · 13 October 2026
+
+The two-line footnote in every explanation card sat 11px under its rule and 18px above the card edge, with a 19px line. It now has 16px above, a 20px line and 24px below, the same breathing room as the label at the top of the card. All seventeen cards change together because the spacing is applied where the artwork is placed, not in each file.
+
+Validation: production build passes and the full Playwright suite passes.
