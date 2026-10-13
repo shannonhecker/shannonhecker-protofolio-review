@@ -97,7 +97,7 @@ const decisions = data.decisions.map((decision, index) => {
 .authored-choice-label{font-size:14px;color:var(--project-ink);margin:0 0 16px}
 /* Raster comparison labels are authored for a light surface in both themes. */
 .authored-choice-pair :global(.authored-image-link){background:#fff;padding:clamp(10px,1.4vw,20px);border:0;box-sizing:border-box;border-radius:var(--radius);overflow:hidden}
-.authored-choice-pair :global(.authored-image-link img){border-radius:0}
+.authored-choice-pair :global(.authored-image-link img){border-radius:0;background:#fff}
 :global(html[data-theme=dark]) .authored-choice-pair :global(.authored-image-link){background:var(--bg-2);border:1px solid var(--divider)}
 .authored-choice-pair figcaption{margin-top:18px}
 .choice-title{display:block;font-size:18px;line-height:1.45;font-weight:500}
