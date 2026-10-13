@@ -8,12 +8,16 @@ const separateCopy=true;
 function illustration(svg:string){
  if(!separateCopy)return svg;
  const height=Number(svg.match(/<svg[^>]*height="(\d+)"/)?.[1]);
- return svg.replace(`height="${height}"`,'height="344"').replace(`viewBox="0 0 336 ${height}"`,'viewBox="0 0 336 344"')
-  .replaceAll(`height="${height-1}"`,'height="343"')
+ // The authored footnotes sat 11px under their rule and 18px above the card edge.
+ // Give them 16px above, a 20px line and 24px below, matching the label at the top.
+ return svg.replace(`height="${height}"`,'height="356"').replace(`viewBox="0 0 336 ${height}"`,'viewBox="0 0 336 356"')
+  .replaceAll(`height="${height-1}"`,'height="355"')
   .replace(/<text\b[^>]*>[\s\S]*?<\/text>/g,text=>{
    const y=text.match(/<tspan\b[^>]*\by="([\d.]+)"/);
    return y&&Number(y[1])>344?'':text;
-  });
+  })
+  .replaceAll('<tspan x="17" y="306.864">','<tspan x="17" y="312.864">')
+  .replaceAll('<tspan x="17" y="325.864">','<tspan x="17" y="332.864">');
 }
 ---
 <section class="visual-explanation" aria-labelledby={`${project}-explanation-title`}>

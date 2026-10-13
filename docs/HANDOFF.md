@@ -156,3 +156,5 @@ Shannon answered the review questions one at a time:
 - "Workflow at a glance" cards removed from all cases (Shannon's choice: keep the Figma user flow and the journey). `workflow-summaries.json` and `WorkflowSummary.astro` remain in the repo but are unused.
 - FX "Explorations" folded into "Decisions and trade-offs"; FX sections now run 01 to 07.
 - "How I work" ends with a pointer line for Corporate Action Manager, Data Manager and MarketsOne. Verified against shannonhecker.com on 13 October: MarketsOne is there, the other two are not.
+
+- 13 October, later: Shannon removed the "How I work" pointer line for Corporate Action Manager, Data Manager and MarketsOne. Do not add it back.
