@@ -1147,3 +1147,9 @@ Validation: production build passes and the full Playwright suite passes. Scroll
 Arriving on a case page from a link played the title and hero image in twice. The page transition brought them in, and when it finished their own load animation started again from invisible. The load animation now stays off for any page reached through a transition. Section headings had the same problem when the scroll effects loaded while a heading was already on screen, for example after a refresh part-way down a page: it was hidden and faded in a second time. Headings already on screen are now left alone.
 
 Validation: production build passes and the full Playwright suite passes. I recorded title and image opacity frame by frame: no drop back to invisible after arriving by a link, and none after a refresh part-way down the page.
+
+### Header glass restored · 13 October 2026
+
+On 12 October I raised the scrolled header to 92% opaque on desktop and made it solid on phones, to stop large headings reading through it. That removed the frosted glass, which was a deliberate choice. It is back at 78% with the original blur on every size. On phones the blur is stronger, so a heading passing behind the bar is a soft shape, not legible text.
+
+Validation: production build passes and the full Playwright suite passes. Checked on phone and desktop in both themes.
