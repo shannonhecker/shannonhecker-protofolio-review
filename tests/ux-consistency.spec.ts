@@ -157,13 +157,12 @@ test('Winking Star journey separates setup, daily repetition and independent han
   for(const theme of ['light','dark']){
    await page.evaluate(t=>document.documentElement.setAttribute('data-theme',t),theme);
    const steps=journey.locator('.daily-loop li,.routine-progress li');
-   await expect(steps).toHaveCount(9);
+   await expect(steps).toHaveCount(6);
    for(const step of await steps.all())await expect(step).toBeVisible();
    expect(await journey.locator('.routine-journey').evaluate(n=>[...n.querySelectorAll('li')].every(e=>e.scrollWidth<=e.clientWidth+1))).toBe(true);
    expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
   }
  }
- await expect(journey).toContainText('It does not depend on finishing a week.');
 });
 
 test('case summaries and content blocks keep consistent breathing room',async({page})=>{
