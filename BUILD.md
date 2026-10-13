@@ -1123,3 +1123,9 @@ Validation: production build passes and the Playwright suite passes, including t
 Held sideways, the full-screen game was cut off at the top and its controls fell off the bottom. A rule added on 11 October re-showed the World map, Timeline and Sound bar and the caption in full screen, which overrode the sideways rule that hides them. Sideways now hides the caption and keeps only a small Sound button in the top-left margin, so the game fits the height again.
 
 Sound did not play on an iPhone for three reasons, all fixed. The Sound button was unreachable sideways. The audio started after an awaited import instead of directly in the tap, which iPhone Safari refuses. And an iPhone with its ringer switch on silent mutes this kind of audio unless the page asks for playback. Any later tap also retries, so sound cannot stay stuck.
+
+### J.P. Morgan title matches LinkedIn · 13 October 2026
+
+My LinkedIn title for 2023 to 2025 is Digital Product Designer VP. The site said "VP of Product Design", which reads like head of a function. The hero, the page description, the Fusion role line and the game timeline now use the LinkedIn wording. The game timeline also says Lead Product Designer for Barclays, as LinkedIn does, and lists Deal Model with the 2019 to 2023 work.
+
+Validation: production build passes and the full Playwright suite passes.
