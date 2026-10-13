@@ -1141,3 +1141,9 @@ Validation: production build passes and the full Playwright suite passes. I meas
 On desktop the home page froze for a moment while scrolling and when moving the mouse over the work list. Each work image is a vector file of 1 to 3 MB. It grew from 97 to 100% as it scrolled in and by 2.5% on hover, and every step of that growth redrew the whole file. It also shared a drawing surface with its title, so the title's motion redrew it too. The images now sit on their own layer and no longer scale. They keep their upward drift.
 
 Validation: production build passes and the full Playwright suite passes. Scrolling the work list and back went from three stalls per pass to none in my measurement, and hovering from four to none.
+
+### One entrance, not two · 13 October 2026
+
+Arriving on a case page from a link played the title and hero image in twice. The page transition brought them in, and when it finished their own load animation started again from invisible. The load animation now stays off for any page reached through a transition. Section headings had the same problem when the scroll effects loaded while a heading was already on screen, for example after a refresh part-way down a page: it was hidden and faded in a second time. Headings already on screen are now left alone.
+
+Validation: production build passes and the full Playwright suite passes. I recorded title and image opacity frame by frame: no drop back to invisible after arriving by a link, and none after a refresh part-way down the page.
