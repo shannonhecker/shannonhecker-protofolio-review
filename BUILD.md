@@ -1099,3 +1099,9 @@ Validation: production build passes and the full Playwright suite passes.
 The share image and canonical address were built against shannonhecker.com, my older public site, where those files return 404. Anyone pasting the portfolio link into email, Slack or LinkedIn got a card with no picture. The site address now points at the host that serves it.
 
 Validation: production build passes and the full Playwright suite passes. I checked the share image address returns 200 on the live site.
+
+### Light version of the FX decision loop · 13 October 2026
+
+In the light theme the decision loop showed its dark nodes on a white page. I duplicated the original Figma frame beside the deck, recoloured the copy with the same light palette the other light diagrams use, and exported it at the same size with a transparent background. Light mode now shows the light copy; dark mode keeps the original. The original frame is untouched.
+
+Validation: production build passes and the full Playwright suite passes. I checked both themes on phone and desktop.
