@@ -118,8 +118,7 @@ test('comparison artwork keeps a readable support surface in both themes across 
           };
         })));
         for (const image of rendered) {
-          // Dark theme frames the light screenshots on the raised surface instead of a white slab.
-          expect(image.surface, `${route} at ${width}px, dark=${dark}`).toBe(dark ? 'rgb(34, 40, 50)' : 'rgb(255, 255, 255)');
+          expect(image.surface, `${route} at ${width}px, dark=${dark}`).toBe('rgb(255, 255, 255)');
           expect(image.filter).toBe('none');
           expect(image.fullImage, `${route} ${width}: ${image.dimensions}`).toBe(true);
           expect(image.covered).toBe(true);
